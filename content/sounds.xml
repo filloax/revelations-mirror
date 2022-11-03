@@ -1,0 +1,899 @@
+<sounds root="sfx/">
+	<!-- Dead Sea Scrolls Menu -->
+	<sound name="deadseascrolls_pop">
+		<sample weight="1" path="deadseascrolls/pop.wav"/>
+	</sound>
+	<sound name="deadseascrolls_whoosh">
+		<sample weight="1" path="deadseascrolls/whoosh.wav"/>
+	</sound>
+
+
+	<!-- CHAPTER 1 -->
+	<sound name="REV Secret Bell">
+		<sample weight="1" path="revel1/bell_secret_room.wav"/>
+	</sound>
+	<sound name="REV Machine Bell">
+		<sample weight="1" path="revel1/bell_break_machine.wav"/>
+	</sound>
+	<sound name="REV Penny Bell">
+		<sample weight="1" path="revel1/bell_pennies.wav"/>
+	</sound>
+	<sound name="REV Boss Bell">
+		<sample weight="1" path="revel1/bell_boss.wav"/>
+	</sound>
+	<sound name="REV Keeper Bell">
+		<sample weight="1" path="revel1/bell_shopkeeper.wav"/>
+	</sound>
+	<sound name="REV Blue Baby Bell">
+		<sample weight="1" path="revel1/bell_blue_baby.wav"/>
+	</sound>
+	<sound name="REV Glacier Door Opens">
+		<sample weight="1" path="revel1/Glacier_Door_Opens_Stinger.wav"/>
+	</sound>
+	<sound name="REV Mint Gum Break">
+		<sample weight="1" path="revel1/FreezeBreak1.wav"/>
+		<sample weight="1" path="revel1/FreezeBreak2.wav"/>
+	</sound>
+	<sound name="REV Mint Gum Freeze">
+		<sample weight="1" path="revel1/Freeze.wav"/>
+	</sound>
+	<sound name="REV Fire End">
+		<sample weight="1" path="revel1/Fire_End.wav"/>
+	</sound>
+	<sound name="REV Fire Start">
+		<sample weight="1" path="revel1/Fire_Start.wav"/>
+	</sound>
+	<sound name="REV Fire Loop">
+		<sample weight="1" path="revel1/Fire_Loop.wav"/>
+	</sound>
+	<sound name="REV Mouth Pull">
+		<sample weight="1" path="revel1/mouth_pull.wav"/>
+	</sound>
+	<sound name="REV Glass Break">
+		<sample weight="1" path="revel1/glass_sheet_break1.wav"/>
+		<sample weight="1" path="revel1/glass_sheet_break2.wav"/>
+		<sample weight="1" path="revel1/glass_sheet_break3.wav"/>
+	</sound>
+	<sound name="REV Electrical Explosion">
+		<sample weight="1" path="revel1/Electrical_Explosion.wav"/>
+	</sound>
+	<sound name="REV Monolith Tear Convert">
+		<sample weight="1" path="revel1/Monolith_Tear_Convert.wav"/>
+	</sound>
+	<sound name="REV Sponge Suck">
+		<sample weight="1" path="revel1/Sponge_Suck.wav"/>
+	</sound>
+	<sound name="REV Inhale">
+		<sample weight="1" path="revel1/boss_lite_inhale.wav"/>
+	</sound>
+	<sound name="REV Sponge Water Explosion">
+		<sample weight="1" path="revel1/Sponge_Water_Explosion.wav"/>
+	</sound>
+	<sound name="REV Fecal Freak Fart">
+		<sample weight="1" path="revel1/FF_Fart1.wav"/>
+		<sample weight="1" path="revel1/FF_Fart2.wav"/>
+		<sample weight="1" path="revel1/FF_Fart3.wav"/>
+		<sample weight="1" path="revel1/FF_Fart4.wav"/>
+	</sound>
+	<sound name="REV Tummy Bug Vomit">
+		<sample weight="1" path="revel1/Tummy_Bug_Vomit.wav"/>
+	</sound>
+	<sound name="REV Hyper Dice">
+		<sample weight="1" path="revel1/Hyper_dice.wav"/>
+	</sound>
+	<sound name="REV Spirit of Patience Open Eye">
+		<sample weight="1" path="revel1/Spirit_Of_Patience_Open_Eye.wav"/>
+	</sound>
+	<sound name="REV Lil Belial Kill">
+		<sample weight="1" path="revel1/Lil_Belial_Kill.wav"/>
+	</sound>
+	<sound name="REV Lil Belial Reward">
+		<sample weight="1" path="revel1/Lil_Belial_Reward.wav"/>
+	</sound>
+	<sound name="REV Snowball Roll">
+		<sample weight="1" path="revel1/SnowRoll.wav"/>
+	</sound>
+	<sound name="REV Snowball Break">
+		<sample weight="1" path="revel1/SnowBallBreak.wav"/>
+	</sound>
+	<sound name="REV Snowstorm">
+		<sample weight="1" path="revel1/Snowstorm.wav"/>
+	</sound>
+	<sound name="REV Ice Crack">
+		<sample weight="1" path="revel1/ice_crack1.wav"/>
+		<sample weight="1" path="revel1/ice_crack2.wav"/>
+		<sample weight="1" path="revel1/ice_crack3.wav"/>
+	</sound>
+
+
+	<sound name="REV Custom Splatter">
+		<sample weight="1" path="revel1/splatter 0 workaround.wav" />
+		<sample weight="1" path="revel1/splatter 1 workaround.wav" />
+		<sample weight="1" path="revel1/splatter 2 workaround.wav" />
+	</sound>
+
+	<sound name="REV Custom Tearimpacts">
+		<sample weight="1" path="revel1/tear block workaround.wav" />
+	</sound>
+
+	<sound name="REV Narc Break">
+		<sample weight="1" path="revel1/Narc/BreakGlass.wav"/>
+	</sound>
+	<sound name="REV Narc Crack">
+		<sample weight="1" path="revel1/Narc/CrackGlass1.wav"/>
+		<sample weight="1" path="revel1/Narc/CrackGlass2.wav"/>
+	</sound>
+	<sound name="REV Narc Gather">
+		<sample weight="1" path="revel1/Narc/GatherGlass.wav"/>
+	</sound>
+	<sound name="REV Narc Roar">
+		<sample weight="1" path="revel1/Narc/MirrorMonsterRoar2.wav"/>
+	</sound>
+	<sound name="REV Narc Roar Short">
+		<sample weight="1" path="revel1/Narc/MirrorMonsterRoar.wav"/>
+	</sound>
+	<sound name="REV Narc Stomp">
+		<sample weight="1" path="revel1/Narc/StompGlassNoCrack.wav"/>
+	</sound>
+	<sound name="REV Narc Holy">
+		<sample weight="1" path="revel1/Narc/WickedHoly.wav"/>
+	</sound>
+	<sound name="REV Narc Powerup">
+		<sample weight="1" path="revel1/Narc/power up twisted.wav"/>
+	</sound>
+
+	<sound name="REV Angelic Sarah">
+		<sample weight="1" path="revel1/Angelic_Sarah.wav"/>
+	</sound>
+	<sound name="REV Angelic Sarah off">
+		<sample weight="1" path="revel1/Angelic_Sarah_off.wav"/>
+	</sound>
+
+	<sound name="REV Yellow Snow Crawl">
+		<sample weight="1" path="revel1/Crawl trail 1.wav"/>
+		<sample weight="1" path="revel1/Crawl trail 2.wav"/>
+		<sample weight="1" path="revel1/Crawl trail 3.wav"/>
+	</sound>
+	<sound name="REV Yellow Snow Relief">
+		<sample weight="1" path="revel1/Relief.wav"/>
+	</sound>
+
+	<sound name = "REV Ice Worm Bounce">
+		<sample weight="1" path="revel1/Iceworm_bounce.wav"/>
+	</sound>
+
+	<sound name = "REV Brainfreeze Attack">
+		<sample weight="1" path="revel1/brainfreeze_attack.wav"/>
+	</sound>
+	<sound name = "REV Brainfreeze Aura Loop">
+		<sample weight="1" path="revel1/brainfreeze_auraloop.wav"/>
+	</sound>
+	<sound name = "REV Brainfreeze Bulletstop">
+		<sample weight="1" path="revel1/brainfreeze_bulletstop.wav"/>
+	</sound>
+	<sound name = "REV Brainfreeze Charge">
+		<sample weight="1" path="revel1/brainfreeze_charge.wav"/>
+	</sound>
+	<sound name = "REV Brainfreeze Dead">
+		<sample weight="1" path="revel1/brainfreeze_dead.wav"/>
+	</sound>
+	<sound name = "REV Stalagmight Stalagmite">
+		<sample weight="1" path="revel1/stalagmight_stalagmite.wav"/>
+	</sound>
+	<sound name = "REV Stalagmight Spikes">
+		<sample weight="1" path="revel1/stalagmight_spikes.wav"/>
+	</sound>
+
+	<sound name = "REV Hockey Hit">
+		<sample weight="1" path="revel1/hockey_hit1.wav"/>
+		<sample weight="1" path="revel1/hockey_hit2.wav"/>
+		<sample weight="1" path="revel1/hockey_hit3.wav"/>
+	</sound>
+
+	<sound name="REV Breaking Snowflake">
+		<sample weight="1" path="revel1/Breaking Snowflake.wav"/>
+	</sound>
+
+	<sound name="REV Williwaw Blow End">
+		<sample weight="1" path="revel1/williwaw/Blow End.wav"/>
+	</sound>
+	<sound name="REV Williwaw Blow Loop">
+		<sample weight="1" path="revel1/williwaw/Blow Loop.wav"/>
+	</sound>
+	<sound name="REV Williwaw Blow Start">
+		<sample weight="1" path="revel1/williwaw/Blow Start.wav"/>
+	</sound>
+	<sound name="REV Williwaw Clone Created">
+		<sample weight="1" path="revel1/williwaw/Clone Created.wav"/>
+	</sound>
+	<sound name="REV Williwaw Cracking">
+		<sample weight="1" path="revel1/williwaw/Cracking.wav"/>
+	</sound>
+	<sound name="REV Williwaw Create Clone">
+		<sample weight="1" path="revel1/williwaw/Create Clone.wav"/>
+	</sound>
+	<sound name="REV Williwaw Dash">
+		<sample weight="1" path="revel1/williwaw/Dash.wav"/>
+	</sound>
+	<sound name="REV Williwaw Death Clone">
+		<sample weight="1" path="revel1/williwaw/Death Clone.wav"/>
+	</sound>
+	<sound name="REV Williwaw Death">
+		<sample weight="1" path="revel1/williwaw/Death.wav"/>
+	</sound>
+	<sound name="REV Williwaw Intro">
+		<sample weight="1" path="revel1/williwaw/Intro 3.wav"/>
+	</sound>
+	<sound name="REV Williwaw Intro Shaking">
+		<sample weight="1" path="revel1/williwaw/Intro Shaking 2.wav"/>
+	</sound>
+	<sound name="REV Williwaw Receive Icicle">
+		<sample weight="1" path="revel1/williwaw/Receive Icicle.wav"/>
+	</sound>
+	<sound name="REV Williwaw Reform">
+		<sample weight="1" path="revel1/williwaw/Reform.wav"/>
+	</sound>
+	<sound name="REV Williwaw Shoot Icicle">
+		<sample weight="1" path="revel1/williwaw/Shoot Icicle.wav"/>
+	</sound>
+	<sound name="REV Williwaw Shoot">
+		<sample weight="1" path="revel1/williwaw/Shoot.wav"/>
+	</sound>
+	<sound name="REV Williwaw Slow Drizzle Shoot">
+		<sample weight="1" path="revel1/williwaw/Slow Drizzle Shoot 2.wav"/>
+	</sound>
+	<sound name="REV Williwaw Snowflake Snipe">
+		<sample weight="1" path="revel1/williwaw/Snowflake Snipe.wav"/>
+	</sound>
+
+	<sound name="REV Wendy Dash End">
+		<sample weight="1" path="revel1/wendy/Dash End.wav"/>
+	</sound>
+	<sound name="REV Wendy Dash Start">
+		<sample weight="1" path="revel1/wendy/Dash Start.wav"/>
+	</sound>
+	<sound name="REV Wendy Death">
+		<sample weight="1" path="revel1/wendy/Death.wav"/>
+	</sound>
+	<sound name="REV Wendy Intro">
+		<sample weight="1" path="revel1/wendy/Intro.wav"/>
+	</sound>
+	<sound name="REV Wendy Stun Start">
+		<sample weight="1" path="revel1/wendy/Stun Start Subtle.wav"/>
+	</sound>
+
+	<!-- CHAPTER 2 -->
+	<sound name="REV Flash Monster Yell">
+		<sample weight="1" path="revel2/monster yell vanilla1.wav"/>
+		<sample weight="1" path="revel2/monster yell vanilla2.wav"/>
+	</sound>
+	<sound name="REV Flash Boss Gurgle">
+		<sample weight="1" path="revel2/boss gurgle vanilla1.wav"/>
+		<sample weight="1" path="revel2/boss gurgle vanilla2.wav"/>
+	</sound>
+
+	<sound name="REV Waka Waka Theme">
+		<sample weight="1" path="revel2/Wakawaka.wav"/>
+	</sound>
+	<sound name="REV Waka Waka Pickup">
+		<sample weight="1" path="revel2/Fruit pickup wakawaka.wav"/>
+		<sample weight="1" path="revel2/Fruit pickup 2 wakawaka.wav"/>
+		<sample weight="1" path="revel2/Fruit pickup 3 wakawaka.wav"/>
+	</sound>
+
+	<sound name="REV Activate Trap">
+		<sample weight="1" path="revel2/Stone Button Press 1.wav"/>
+		<sample weight="1" path="revel2/Stone Button Press 2.wav"/>
+	</sound>
+
+	<sound name="REV Coffin Open">
+		<sample weight="1" path="revel2/Stone_Coffin_Open.wav"/>
+		<sample weight="1" path="revel2/Stone_Coffin_Open_2.wav"/>
+		<sample weight="1" path="revel2/Stone_Coffin_Open_3.wav"/>
+	</sound>
+	<sound name="REV Coffin Close">
+		<sample weight="1" path="revel2/Stone_Coffin_Close.wav"/>
+	</sound>
+
+	<sound name="REV Boulder Thump">
+		<sample weight="1" path="revel2/Boulder Thump on Floor.wav"/>
+	</sound>
+	<sound name="REV Boulder Roll">
+		<sample weight="1" path="revel2/Boulder Roll Loop.wav"/>
+	</sound>
+	<sound name="REV Boulder Break">
+		<sample weight="1" path="revel2/Boulder Break.wav"/>
+	</sound>
+
+	<sound name="REV Buff Lightning">
+		<sample weight="1" path="revel2/Lightning_buff.wav"/>
+	</sound>
+
+	<sound name="REV Locust Bite">
+		<sample weight="1" path="revel2/Start_bite.wav"/>
+	</sound>
+	<sound name="REV Locust Eat Loop">
+		<sample weight="1" path="revel2/Eaten_alive_loop.wav"/>
+	</sound>
+	<sound name="REV Locust Swarm">
+		<sample weight="1" path="revel2/insect swarm.wav"/>
+	</sound>
+
+	<sound name="REV Tomb Door Open">
+		<sample weight="1" path="revel2/Tomb Door Open.wav"/>
+	</sound>
+	<sound name="REV Tomb Door Close">
+		<sample weight="1" path="revel2/Tomb Door Close.wav"/>
+	</sound>
+
+	<sound name="REV Elevator Ding">
+		<sample weight="1" path="revel2/Ding_Elevator_Tomb.wav"/>
+	</sound>
+	<sound name="REV Spring Shoot">
+		<sample weight="1" path="revel2/SpringShoot.wav"/>
+	</sound>
+	<sound name="REV Maxwell Laugh">
+		<sample weight="1" path="revel2/maxwell/attack_laugh1.wav"/>
+		<sample weight="1" path="revel2/maxwell/attack_laugh2.wav"/>
+		<sample weight="1" path="revel2/maxwell/attack_laugh3.wav"/>
+	</sound>
+	<sound name="REV Maxwell Cough">
+		<sample weight="1" path="revel2/maxwell/attack_cough1.wav"/>
+		<sample weight="1" path="revel2/maxwell/attack_cough2.wav"/>
+		<sample weight="1" path="revel2/maxwell/attack_cough3.wav"/>
+	</sound>
+	<sound name="REV Maxwell Attack">
+		<sample weight="1" path="revel2/maxwell/attack1.wav"/>
+		<sample weight="1" path="revel2/maxwell/attack2.wav"/>
+		<sample weight="1" path="revel2/maxwell/attack3.wav"/>
+	</sound>
+	<sound name="REV Maxwell Portal 1">
+		<sample weight="1" path="revel2/maxwell/teleport1.wav"/>
+	</sound>
+	<sound name="REV Maxwell Portal 2">
+		<sample weight="1" path="revel2/maxwell/teleport2.wav"/>
+	</sound>
+	<sound name="REV Maxwell Blender Death">
+		<sample weight="1" path="revel2/maxwell/death_blender.wav"/>
+	</sound>
+	<sound name="REV Maxwell Squish">
+		<sample weight="1" path="revel2/maxwell/squish1.wav"/>
+		<sample weight="1" path="revel2/maxwell/squish2.wav"/>
+	</sound>
+	<sound name="REV Maxwell Slam Dunk">
+		<sample weight="1" path="revel2/maxwell/superslam_throw.wav"/>
+	</sound>
+	<sound name="REV Maxwell Slam Dunk Impact">
+		<sample weight="1" path="revel2/maxwell/superslam.wav"/>
+	</sound>
+	<sound name="REV Maxwell Bubble Shoot">
+		<sample weight="1" path="revel2/maxwell/door_bigbubble_shoot.wav"/>
+	</sound>
+	<sound name="REV Maxwell Bubble Pop">
+		<sample weight="1" path="revel2/maxwell/door_bigbubble_pop.wav"/>
+	</sound>
+	<sound name="REV Maxwell Brimstone Tell">
+		<sample weight="1" path="revel2/maxwell/door_brimshot_tell.wav"/>
+	</sound>
+
+	<sound name="REV Maxwell Inhale">
+		<sample weight="1" path="revel2/maxwell/inhale.wav"/>
+	</sound>
+
+	<sound name="REV Music Box Place">
+		<sample weight="1" path="revel2/Music Box Place.wav"/>
+	</sound>
+	<sound name="REV Music Box Break">
+		<sample weight="1" path="revel2/Music Box Break.wav"/>
+	</sound>
+	<sound name="REV Music Box Tune Lullaby">
+		<sample weight="1" path="revel2/Music Box Tune Lullaby.wav"/>
+	</sound>
+	<sound name="REV Music Box Tune Hymn">
+		<sample weight="1" path="revel2/Music Box Tune Hymn.wav"/>
+	</sound>
+	<sound name="REV Music Box Tune Samba">
+		<sample weight="1" path="revel2/Music Box Tune Samba.wav"/>
+	</sound>
+	<sound name="REV Music Box Tune Metal">
+		<sample weight="1" path="revel2/Music Box Tune Metal.wav"/>
+	</sound>
+
+	<sound name="REV Airy Whoosh">
+		<sample weight="1" path="revel2/Airy Whoosh.wav"/>
+	</sound>
+	<sound name="REV Whoosh">
+		<sample weight="1" path="revel2/Whoosh.wav"/>
+	</sound>
+	<sound name="REV Swing">
+		<sample weight="1" path="revel2/Swing.wav"/>
+	</sound>
+
+	<sound name="REV Aragnid Swing">
+		<sample weight="1" path="revel2/aragnid/swing_1.wav"/>
+		<sample weight="1" path="revel2/aragnid/swing_2.wav"/>
+		<sample weight="1" path="revel2/aragnid/swing_3.wav"/>
+		<sample weight="1" path="revel2/aragnid/swing_4.wav"/>
+	</sound>
+
+	<sound name="REV Aragnid Wakeup">
+		<sample weight="1" path="revel2/aragnid/wakeup.wav"/>
+	</sound>
+
+	<sound name="REV Aragnid Innard Launch">
+		<sample weight="1" path="revel2/aragnid/innard_launch.wav"/>
+		<sample weight="1" path="revel2/aragnid/innard_launch_alt.wav"/>
+	</sound>
+
+	<sound name="REV Aragnid Rupturing Scream">
+		<sample weight="1" path="revel2/aragnid/rupturing_scream.wav"/>
+	</sound>
+
+	<sound name="REV Aragnid Magic Splash">
+		<sample weight="1" path="revel2/aragnid/magic_splash.wav"/>
+		<sample weight="1" path="revel2/aragnid/magic_splash_alt.wav"/>
+	</sound>
+
+	<sound name="REV Aragnid Magic Blood Rain">
+		<sample weight="1" path="revel2/aragnid/magic_blood_rain.wav"/>
+	</sound>
+
+	<sound name="REV Aragnid Magic Blood Rain Loop">
+		<sample weight="1" path="revel2/aragnid/magic_blood_rain_loop.wav"/>
+	</sound>
+
+	<sound name="REV Aragnid Death Yell">
+		<sample weight="1" path="revel2/aragnid/death_yell.wav"/>
+	</sound>
+
+	<sound name="REV Catastrophe Strain Then Rip Wrappings">
+		<sample weight="1" path="revel2/catastrophe/Catastrophe strain then rip wrappings.wav"/>
+	</sound>
+	<sound name="REV Cat Readying Claws">
+		<sample weight="1" path="revel2/catastrophe/Cat Readying Claws.wav"/>
+	</sound>
+	<sound name="REV Cat Knocking Ball">
+		<sample weight="1" path="revel2/catastrophe/ball_knock1.wav"/>
+		<sample weight="1" path="revel2/catastrophe/ball_knock2.wav"/>
+		<sample weight="1" path="revel2/catastrophe/ball_knock3.wav"/>
+	</sound>
+
+	<sound name="REV Catastrophe Attack">
+		<sample weight="1" path="revel2/catastrophe/attack1.wav"/>
+		<sample weight="1" path="revel2/catastrophe/attack2.wav"/>
+		<sample weight="1" path="revel2/catastrophe/attack3.wav"/>
+	</sound>
+
+	<sound name="REV Catastrophe Cough">
+		<sample weight="1" path="revel2/catastrophe/cough1.wav"/>
+		<sample weight="1" path="revel2/catastrophe/cough2.wav"/>
+		<sample weight="1" path="revel2/catastrophe/cough3.wav"/>
+	</sound>
+
+	<sound name="REV Catastrophe Defeat">
+		<sample weight="1" path="revel2/catastrophe/death1.wav"/>
+		<sample weight="1" path="revel2/catastrophe/death2.wav"/>
+	</sound>
+
+	<sound name="REV Catastrophe Spawn">
+		<sample weight="1" path="revel2/catastrophe/spawn1.wav"/>
+		<sample weight="1" path="revel2/catastrophe/spawn2.wav"/>
+	</sound>
+
+	<sound name="REV Catastrophe Defeat Final">
+		<sample weight="1" path="revel2/catastrophe/death_final.wav"/>
+	</sound>
+
+	<sound name="REV Narc Glass Break Light">
+		<sample weight="1" path="revel2/Narc Glass Break Light 1.wav"/>
+		<sample weight="1" path="revel2/Narc Glass Break Light 2.wav"/>
+	</sound>
+	<sound name="REV Narc Launcher">
+		<sample weight="1" path="revel2/Narc Launcher.wav"/>
+	</sound>
+	<sound name="REV Narc Wall Stick Shard Instant">
+		<sample weight="1" path="revel2/Narc wall Stick shard instant 1.wav"/>
+		<sample weight="1" path="revel2/Narc wall Stick shard instant 2.wav"/>
+	</sound>
+	<sound name="REV Narc2 Death">
+		<sample weight="1" path="revel2/Narc2_Death.wav"/>
+	</sound>
+	<sound name="REV Narc Mirror Warp">
+		<sample weight="1" path="revel2/Narc_Pass_through_mirror.wav"/>
+	</sound>
+	<sound name="REV Narc Ground Pound">
+		<sample weight="1" path="revel2/Narc_Ground_Pound.wav"/>
+	</sound>
+	<sound name="REV Narc Fist Pound">
+		<sample weight="1" path="revel2/Narc_Pound_Fist.wav"/>
+	</sound>
+	<sound name="REV Narc Chest Smash">
+		<sample weight="1" path="revel2/Narc_Smash_Actual_Chest.wav"/>
+	</sound>
+	<sound name="REV Narc Chest Pound">
+		<sample weight="1" path="revel2/Narc_Smash_Chest.wav"/>
+	</sound>
+	<sound name="REV Narc Pose">
+		<sample weight="1" path="revel2/Narc Pose.wav"/>
+	</sound>
+
+	<!-- Charon -->
+	<sound name="REV Charon Splash Little">
+		<sample weight="1" path="revel2/Charon_Splash_Little.wav"/>
+	</sound>
+	<sound name="REV Charon Splash Medium">
+		<sample weight="1" path="revel2/Charon_Splash_Medium.wav"/>
+	</sound>
+	<sound name="REV Charon Splash Large">
+		<sample weight="1" path="revel2/Charon_Splash_Large.wav"/>
+	</sound>
+	<sound name="REV Charon Lantern Switch">
+		<sample weight="1" path="revel2/Charon_Lantern_Switch.wav"/>
+	</sound>
+	<sound name="REV Charon Lantern Power Down">
+		<sample weight="1" path="revel2/Charon_Lantern_Power_Down.wav"/>
+	</sound>
+	<sound name="REV Charon Book Slam">
+		<sample weight="1" path="revel2/Charon_Book_Slam.wav"/>
+	</sound>
+	<sound name="REV Charon Book Ready">
+		<sample weight="1" path="revel2/Charon_Book_Ready.wav"/>
+	</sound>
+	<sound name="REV Charon High Five">
+		<sample weight="1" path="revel2/Charon_High_Five.wav"/>
+	</sound>
+
+	<!-- Bips -->
+	<sound name="REV Bip Burrow">
+		<sample weight="1" path="revel2/Bip Burrow.wav"/>
+	</sound>
+	<sound name="REV Bip Charge">
+		<sample weight="1" path="revel2/Bip Charge.wav"/>
+		<sample weight="1" path="revel2/Bip Charge2.wav"/>
+	</sound>
+	<sound name="REV Bip Cry">
+		<sample weight="1" path="revel2/Bip Cry1.wav"/>
+		<sample weight="1" path="revel2/Bip Cry2.wav"/>
+		<sample weight="1" path="revel2/Bip Cry3.wav"/>
+		<sample weight="1" path="revel2/Bip Cry4.wav"/>
+		<sample weight="1" path="revel2/Bip Cry5.wav"/>
+		<sample weight="1" path="revel2/Bip Cry6.wav"/>
+	</sound>
+	<sound name="REV Bip Emerge">
+		<sample weight="1" path="revel2/Bip Emerge.wav"/>
+	</sound>
+	<sound name="REV Bob Cry">
+		<sample weight="1" path="revel2/Sandbob_Cry1.wav"/>
+		<sample weight="1" path="revel2/Sandbob_Cry2.wav"/>
+	</sound>
+	<sound name="REV Snipebip Charge">
+		<sample weight="1" path="revel2/Snipebip_Charge.wav"/>
+	</sound>
+	<sound name="REV Snipebip Scope">
+		<sample weight="1" path="revel2/Snipebip_Scope.wav"/>
+	</sound>
+	<sound name="REV Snipebip Shoot">
+		<sample weight="1" path="revel2/Snipebip_Shoot.wav"/>
+	</sound>
+	<sound name="REV Cannon Blast">
+		<sample weight="1" path="revel2/Cannon_Blast.wav"/>
+	</sound>
+	<sound name="REV Sand Proj Impact Large">
+		<sample weight="1" path="revel2/Sand_Proj_Impact_Large.wav"/>
+	</sound>
+	<sound name="REV Sand Proj Impact">
+		<sample weight="1" path="revel2/Sand_Proj_Impact1.wav"/>
+		<sample weight="1" path="revel2/Sand_Proj_Impact2.wav"/>
+		<sample weight="1" path="revel2/Sand_Proj_Impact3.wav"/>
+	</sound>
+
+	<sound name="REV Blood Laser Loop">
+		<sample weight="1" path="revel2/Blood Laser Loop.wav" />
+	</sound>
+	<sound name="REV Blood Laser Start">
+		<sample weight="1" path="revel2/Blood Laser Start.wav" />
+	</sound>
+	<sound name="REV Blood Laser Stop Short">
+		<sample weight="1" path="revel2/Blood Laser Stop Short.wav" />
+	</sound>
+	<sound name="REV Blood Laser Stop">
+		<sample weight="1" path="revel2/Blood Laser Stop.wav" />
+	</sound>
+
+	<sound name="REV Raging Long Legs Rage">
+		<sample weight="1" path="revel2/Raging_Long_Legs_Gets_Mad.wav"/>
+	</sound>
+	<sound name="REV Raging Long Legs Dash End">
+		<sample weight="1" path="revel2/Raging_Long_Legs_Sprint_end.wav"/>
+	</sound>
+	<sound name="REV Raging Long Legs Dash Loop">
+		<sample weight="1" path="revel2/Raging_Long_Legs_Sprint_loop.wav"/>
+	</sound>
+	<sound name="REV Raging Long Legs Dash Start">
+		<sample weight="1" path="revel2/Raging_Long_Legs_Sprint_Start.wav"/>
+	</sound>
+
+	<sound name="REV Dungo Cryout">
+		<sample weight="1" path="revel2/Dungo Cryout.wav"/>
+	</sound>
+	<sound name="REV Dungo Land on Poop">
+		<sample weight="1" path="revel2/Dungo Land on Poop.wav"/>
+	</sound>
+	<sound name="REV Dungo Phase 2">
+		<sample weight="1" path="revel2/Dungo Phase 2.wav"/>
+	</sound>
+	<sound name="REV Dungo Plunger Attack">
+		<sample weight="1" path="revel2/Dungo Plunger Attack.wav"/>
+	</sound>
+	<sound name="REV Dungo Poop Ball Rolling Loop">
+		<sample weight="1" path="revel2/Dungo Poop Ball Rolling Loop.wav"/>
+	</sound>
+	<sound name="REV Dungo Shoot Poop Ball">
+		<sample weight="1" path="revel2/Dungo Shoot Poop Ball.wav"/>
+	</sound>
+
+	<sound name="REV Dante Crit">
+		<sample weight="1" path="revel2/Dante Crit.wav"/>
+	</sound>
+	<sound name="REV Lovers Libido Kiss">
+		<sample weight="1" path="revel2/lovers_libido_kiss_extended.wav"/>
+	</sound>
+	<sound name="REV Stone Roll">
+		<sample weight="1" path="revel2/stone_roll.wav"/>
+	</sound>
+
+	<sound name="REV Custom Tears Fire">
+		<sample weight="1" path="revel2/tear fire 4 workaround.wav" />
+		<sample weight="1" path="revel2/tear fire 5 workaround.wav" />
+	</sound>
+
+	<sound name="REV Custom Fire Burning">
+		<sample weight="1" path="revel2/fire burning.wav" />
+	</sound>
+
+	<sound name="REV Meatblade Loop Base">
+		<sample weight="1" path="revelcommon/meatblade_loop_base.wav"/>
+	</sound>
+	<sound name="REV Meatblade Loop Lv1">
+		<sample weight="1" path="revelcommon/meatblade_loop_lv1.wav"/>
+	</sound>
+	<sound name="REV Meatblade Loop Lv2">
+		<sample weight="1" path="revelcommon/meatblade_loop_lv2.wav"/>
+	</sound>
+	<sound name="REV Meatblade Loop Lv3">
+		<sample weight="1" path="revelcommon/meatblade_loop_lv3.wav"/>
+	</sound>
+
+	<sound name="REV Emperor Angry">
+		<sample weight="5" path="revel1/emperor_angry2.wav"/>
+		<sample weight="5" path="revel1/emperor_angry3.wav"/>
+		<sample weight="5" path="revel1/emperor_angry4.wav"/>
+	</sound>
+
+	<sound name="REV Bird Stun">
+		<sample weight="1" path="revel1/bird_stun.wav"/>
+	</sound>
+
+	<sound name="REV Chuck Jump">
+		<sample weight="1" path="revel1/chuck/jump.wav"/>
+	</sound>
+	<sound name="REV Chuck Lift">
+		<sample weight="1" path="revel1/chuck/huop1.wav"/>
+		<sample weight="1" path="revel1/chuck/huop2.wav"/>
+	</sound>
+	<sound name="REV Chuck Laugh">
+		<sample weight="1" path="revel1/chuck/laugh.wav"/>
+	</sound>
+	<sound name="REV Chuck Bonk">
+		<sample weight="1" path="revel1/chuck/catch.wav"/>
+	</sound>
+	<sound name="REV Chuck Ow">
+		<sample weight="1" path="revel1/chuck/ow.wav"/>
+	</sound>
+	<sound name="REV Chuck Dead">
+		<sample weight="1" path="revel1/chuck/ded.wav"/>
+	</sound>
+	<sound name="REV Chuck Angry">
+		<sample weight="1" path="revel1/chuck/angry.wav"/>
+	</sound>
+
+	<sound name="REV Ice Bump">
+		<sample weight="1" path="revel1/ice_bump.wav"/>
+	</sound>
+
+	<sound name="REV Snowstorm Loop">
+		<sample weight="1" path="revel1/AmbientSnowStorm.wav"/>
+	</sound>
+	<sound name="REV Wind Loop">
+		<sample weight="1" path="revel1/windLoop.wav"/>
+	</sound>
+	<sound name="REV Strong Wind Loop">
+		<sample weight="1" path="revel1/windLoop2.wav"/>
+	</sound>
+
+	<sound name="REV Flame Burst">
+		<sample weight="1" path="revel1/g_flameburst2.wav"/>
+	</sound>
+
+	<sound name="REV Water Splash">
+		<sample weight="1" path="revel1/water_splash1.wav"/>
+		<sample weight="1" path="revel1/water_splash2.wav"/>
+		<sample weight="1" path="revel1/water_splash3.wav"/>
+	</sound>
+
+	<sound name="REV Water Splash Heavy">
+		<sample weight="1" path="revel1/water_splash_heavy.wav"/>
+	</sound>
+
+	<sound name="REV Ice Break Large">
+		<sample weight="1" path="revel1/ice_break_large1.wav"/>
+		<sample weight="1" path="revel1/ice_break_large2.wav"/>
+		<sample weight="1" path="revel1/ice_break_large3.wav"/>
+	</sound>
+
+	<sound name="REV Snow Step">
+		<sample weight="1" path="revel1/snow_step1.wav"/>
+		<sample weight="1" path="revel1/snow_step2.wav"/>
+		<sample weight="1" path="revel1/snow_step3.wav"/>
+	</sound>
+
+	<sound name="REV Low Freeze">
+		<sample weight="1" path="revel1/low_freeze.wav"/>
+	</sound>
+
+	<sound name="REV Prong Smile">
+		<sample weight="1" path="revel1/prong/prong_smile1.wav"/>
+		<sample weight="1" path="revel1/prong/prong_smile2.wav"/>
+		<sample weight="1" path="revel1/prong/prong_smile3.wav"/>
+	</sound>
+	<sound name="REV Prong Throw">
+		<sample weight="1" path="revel1/prong/prong_hup1.wav"/>
+		<!-- <sample weight="1" path="revel1/prong/prong_hup2.wav"/> -->
+		<!-- <sample weight="1" path="revel1/prong/prong_hup3.wav"/> -->
+	</sound>
+	<sound name="REV Prong Refreeze 1">
+		<sample weight="1" path="revel1/prong/prong_refreeze_1.wav"/>
+	</sound>
+	<sound name="REV Prong Refreeze 2">
+		<sample weight="1" path="revel1/prong/prong_refreeze_2.wav"/>
+	</sound>
+	<sound name="REV Prong Tired">
+		<sample weight="1" path="revel1/prong/prong_tired.wav"/>
+	</sound>
+	<sound name="REV Prong Telekinesis">
+		<sample weight="1" path="revel1/prong/prong_telekinesis.wav"/>
+	</sound>
+	<sound name="REV Prong Death 1">
+		<sample weight="1" path="revel1/prong/prong_death_1.wav"/>
+	</sound>
+	<sound name="REV Prong Death 2">
+		<sample weight="1" path="revel1/prong/prong_death_2.wav"/>
+	</sound>
+	<sound name="REV Prong Death 3">
+		<sample weight="1" path="revel1/prong/prong_death_3.wav"/>
+	</sound>
+	<sound name="REV Burp Long">
+		<sample weight="1" path="revel1/burp_long.wav"/>
+	</sound>
+
+	<sound name="REV Draugr Idle">
+		<sample weight="1" path="revel1/draugr1.wav"/>
+		<sample weight="1" path="revel1/draugr2.wav"/>
+		<sample weight="1" path="revel1/draugr3.wav"/>
+		<sample weight="1" path="revel1/draugr4.wav"/>
+		<sample weight="1" path="revel1/draugr5.wav"/>
+	</sound>
+	<sound name="REV Jaugr Hit">
+		<sample weight="1" path="revel1/jaugr_hit1.wav"/>
+		<sample weight="1" path="revel1/jaugr_hit2.wav"/>
+		<sample weight="1" path="revel1/jaugr_hit3.wav"/>
+	</sound>
+	<sound name="REV Jaugr Laugh">
+		<sample weight="1" path="revel1/jaugr_laugh1.wav"/>
+		<sample weight="1" path="revel1/jaugr_laugh2.wav"/>
+		<sample weight="1" path="revel1/jaugr_laugh3.wav"/>
+	</sound>
+	<sound name="REV Jaugr Dash">
+		<sample weight="1" path="revel1/jaugr_dash1.wav"/>
+		<sample weight="1" path="revel1/jaugr_dash2.wav"/>
+		<sample weight="1" path="revel1/jaugr_dash3.wav"/>
+	</sound>
+
+	<sound name="REV Fire Burn Fast">
+		<sample weight="1" path="revel1/fire burning_fast.wav"/>
+	</sound>
+	<sound name="REV Dust Scatter">
+		<sample weight="1" path="revel1/dust_scatter.wav"/>
+	</sound>
+
+	<sound name="REV Spike Shot">
+		<sample weight="1" path="revel2/spike_shot.wav"/>
+	</sound>
+	<sound name="REV Cronch">
+		<sample weight="1" path="revel2/cronch.wav"/>
+	</sound>
+
+	<sound name="REV Hatch Open">
+		<sample weight="1" path="revel2/hatch_open.wav"/>
+	</sound>
+	<sound name="REV Hatch Close">
+		<sample weight="1" path="revel2/hatch_close.wav"/>
+	</sound>
+	<sound name="REV Sarcophaguts Flash 1">
+		<sample weight="1" path="revel2/sarcophaguts/flash1.wav"/>
+	</sound>
+	<sound name="REV Sarcophaguts Flash 2">
+		<sample weight="1" path="revel2/sarcophaguts/flash2.wav"/>
+	</sound>
+	<sound name="REV Sarcophaguts Head Launch">
+		<sample weight="1" path="revel2/sarcophaguts/fly_off.wav"/>
+	</sound>
+
+	<sound name="REV Slide Whistle">
+		<sample weight="1" path="revel2/ragtime/slide_whistle.wav"/>
+	</sound>
+	<sound name="REV Clapping Loop">
+		<sample weight="1" path="revel2/clap_loop.wav"/>
+	</sound>
+	<sound name="REV Clapping Fade">
+		<sample weight="1" path="revel2/clap_fade.wav"/>
+	</sound>
+	<sound name="REV Spotlight">
+		<sample weight="1" path="revel2/spotlight.wav"/>
+	</sound>
+	<sound name="REV Call Whistle">
+		<sample weight="1" path="revelcommon/call_whistle.wav"/>
+	</sound>
+	<sound name="REV Blood Sap">
+		<sample weight="1" path="revelcommon/blood_sap.wav"/>
+	</sound>
+	<sound name="REV Arrowhead Alert">
+		<sample weight="1" path="revel2/Arrowhead Alert.wav"/>
+	</sound>
+
+	<sound name="REV Pyramidhead Cry">
+		<sample weight="1" path="revel2/Pyramid Cry1.wav"/>
+		<sample weight="1" path="revel2/Pyramid Cry2.wav"/>
+	</sound>
+
+	<sound name="REV Morshu 1">
+		<sample weight="1" path="revelcommon/morshu/pennis.wav"/>
+	</sound>
+	<sound name="REV Morshu 2">
+		<sample weight="1" path="revelcommon/morshu/sorry_isaac.wav"/>
+	</sound>
+
+	<sound name="REV Hog Scratch">
+		<sample weight="1" path="revel1/hog_scratch.wav"/>
+	</sound>
+	<sound name="REV Hog Slam">
+		<sample weight="1" path="revel1/hog_slam.wav"/>
+	</sound>
+	<sound name="REV Hog Oink">
+		<sample weight="1" path="revel1/hog_oink.wav"/>
+	</sound>
+	<sound name="REV Hog Ignition">
+		<sample weight="1" path="revel1/hog_ignition.wav"/>
+	</sound>
+
+	<sound name="REV Ice Munch">
+		<sample weight="1" path="revel1/ice_nom.wav"/>
+	</sound>
+	<sound name="REV Ice Throw">
+		<sample weight="1" path="revel1/ice_throw.wav"/>
+	</sound>
+	<sound name="REV Ice Beam">
+		<sample weight="1" path="revel1/ice_beam.wav"/>
+	</sound>
+
+	<sound name="REV Owl Up">
+		<sample weight="1" path="revel1/owl_up.wav"/>
+	</sound>
+	<sound name="REV Owl Out">
+		<sample weight="1" path="revel1/owl_out.wav"/>
+	</sound>
+
+	<sound name="REV Special Narc Reward">
+		<sample weight="1" path="revelcommon/afterlife_item_room_4.wav"/>
+	</sound>
+</sounds>

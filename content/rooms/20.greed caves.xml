@@ -1,0 +1,1374 @@
+<?xml version="1.0" ?>
+<rooms>
+	<room variant="0" name="Drifty Wave" type="1" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="9" y="1">
+			<entity type="61" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="1">
+			<entity type="61" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="1" y="2">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="8">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="2" y="9">
+			<entity type="61" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="3" y="9">
+			<entity type="61" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="1" name="Drifty Wave" type="1" subtype="0" shape="4" width="13" height="14" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="2" y="5">
+			<entity type="226" variant="1" subtype="0" weight="1.0"/>
+			<entity type="227" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="7" y="5">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="5">
+			<entity type="226" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="4" y="8">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="9">
+			<entity type="226" variant="1" subtype="0" weight="1.0"/>
+			<entity type="227" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="2" name="Drifty Wave" type="1" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="1" y="1">
+			<entity type="210" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="8" y="3">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="3" y="7">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="9">
+			<entity type="210" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="3" name="Drifty wave" type="1" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="6" y="7">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="3" y="8">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="8" y="8">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="4" name="Drifty Wave (copy)" type="1" subtype="0" shape="4" width="13" height="14" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="2" y="5">
+			<entity type="257" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="7" y="5">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="3" y="9">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="9">
+			<entity type="257" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="5" name="Drifty wave (copy)" type="1" subtype="0" shape="4" width="13" height="14" difficulty="10" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="3" y="7">
+			<entity type="476" variant="541" subtype="0" weight="1.0"/>
+			<entity type="476" variant="542" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="6" y="7">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="7">
+			<entity type="476" variant="541" subtype="0" weight="1.0"/>
+			<entity type="476" variant="542" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="6" name="Drifty wave " type="1" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="2" y="0">
+			<entity type="476" variant="541" subtype="0" weight="1.0"/>
+			<entity type="476" variant="542" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="1" y="2">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="10">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="12">
+			<entity type="476" variant="541" subtype="0" weight="1.0"/>
+			<entity type="476" variant="542" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="7" name="drifty wave" type="1" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="0" y="0">
+			<entity type="24" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="2" y="7">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="7">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="12" y="13">
+			<entity type="24" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="8" name="drifty wave (copy)" type="1" subtype="0" shape="4" width="13" height="14" difficulty="10" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="0" y="5">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="5">
+			<entity type="229" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="9">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="2" y="11">
+			<entity type="229" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="9" name="drifty wave" type="1" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="3" y="3">
+			<entity type="220" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="4">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="0" y="7">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="9">
+			<entity type="220" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="10" name="drifty wave (copy)" type="1" subtype="0" shape="4" width="13" height="14" difficulty="10" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="7" y="1">
+			<entity type="61" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="3" y="2">
+			<entity type="61" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="2">
+			<entity type="61" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="2" y="4">
+			<entity type="61" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="4">
+			<entity type="61" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="3" y="9">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="9">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="11" name="drifty wave" type="1" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="0" y="0">
+			<entity type="26" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="12" y="0">
+			<entity type="26" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="0" y="4">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="9">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="0" y="13">
+			<entity type="26" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="12" y="13">
+			<entity type="26" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="12" name="drifty wave" type="1" subtype="0" shape="4" width="13" height="14" difficulty="10" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="2" y="2">
+			<entity type="234" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="2">
+			<entity type="234" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="4">
+			<entity type="258" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="2" y="9">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="9">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="13" name="drifty wave" type="1" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="6" y="1">
+			<entity type="243" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="8" y="2">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="4" y="8">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="10">
+			<entity type="243" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="14" name="drifty wave (copy)" type="1" subtype="0" shape="4" width="13" height="14" difficulty="10" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="10" y="1">
+			<entity type="23" variant="1" subtype="0" weight="1.0"/>
+			<entity type="23" variant="0" subtype="0" weight="2.0"/>
+		</spawn>
+		<spawn x="3" y="3">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="1" y="7">
+			<entity type="23" variant="1" subtype="0" weight="1.0"/>
+			<entity type="23" variant="0" subtype="0" weight="2.0"/>
+		</spawn>
+		<spawn x="6" y="9">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="12">
+			<entity type="23" variant="1" subtype="0" weight="1.0"/>
+			<entity type="23" variant="0" subtype="0" weight="2.0"/>
+		</spawn>
+	</room>
+	<room variant="15" name="drifty wave " type="1" subtype="0" shape="4" width="13" height="14" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="2" y="4">
+			<entity type="87" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="4">
+			<entity type="87" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="4" y="10">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="7" y="10">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="16" name="drifty wave  (copy)" type="1" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="9" y="3">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="1" y="5">
+			<entity type="289" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="3" y="11">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="12">
+			<entity type="289" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="17" name="drifty wave" type="1" subtype="0" shape="4" width="13" height="14" difficulty="10" weight="1.0">
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="2" y="2">
+			<entity type="86" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="4" y="2">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="8" y="11">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="12">
+			<entity type="86" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="18" name="drifty" type="1" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="2" y="0">
+			<entity type="240" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="0">
+			<entity type="240" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="4" y="7">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="7" y="7">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="19" name="drifty" type="1" subtype="0" shape="4" width="13" height="14" difficulty="10" weight="1.0">
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="3" y="4">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="7" y="5">
+			<entity type="238" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="4" y="8">
+			<entity type="238" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="8" y="8">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="20" name="Brother Bloody Wave" type="1" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="1" y="2">
+			<entity type="30" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="2" y="2">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="2">
+			<entity type="30" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="9">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="1" y="10">
+			<entity type="30" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="10">
+			<entity type="30" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="21" name="Brother Bloody Wave" type="1" subtype="0" shape="4" width="13" height="14" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="3" y="4">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="2" y="5">
+			<entity type="208" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="11">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="12">
+			<entity type="208" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="22" name="Brother Bloody Wave" type="1" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="11" y="1">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="2">
+			<entity type="211" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="2" y="5">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="1" y="6">
+			<entity type="211" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="10">
+			<entity type="211" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="23" name="brother bloody wave" type="1" subtype="0" shape="4" width="13" height="14" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="1" y="4">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="1" y="5">
+			<entity type="227" variant="0" subtype="0" weight="0.0"/>
+			<entity type="226" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="12" y="7">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="8">
+			<entity type="227" variant="0" subtype="0" weight="0.0"/>
+			<entity type="226" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="24" name="brother bloody wave (copy)" type="1" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="4" y="1">
+			<entity type="88" variant="2" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="5" y="1">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="8" y="11">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="8" y="12">
+			<entity type="88" variant="2" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="25" name="brother bloody wave " type="1" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="2" y="5">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="8" y="7">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="4" y="9">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="26" name="brother bloody wave " type="1" subtype="0" shape="4" width="13" height="14" difficulty="10" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="11" y="0">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="0" y="6">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="12">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="27" name="brother bloody wave" type="1" subtype="0" shape="4" width="13" height="14" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="3" y="1">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="3" y="2">
+			<entity type="288" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="10">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="11">
+			<entity type="288" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="28" name="brother bloody wave (copy)" type="1" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="6" y="1">
+			<entity type="26" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="4">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="5">
+			<entity type="26" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="3" y="9">
+			<entity type="26" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="29" name="brother bloody wave" type="1" subtype="0" shape="4" width="13" height="14" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="3" y="2">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="3" y="3">
+			<entity type="26" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="1" y="7">
+			<entity type="27" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="7">
+			<entity type="27" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="11">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="12">
+			<entity type="26" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="30" name="brother bloody wave" type="1" subtype="0" shape="4" width="13" height="14" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="1" y="4">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="1" y="5">
+			<entity type="27" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="9">
+			<entity type="27" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="9">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="31" name="brother bloody wave (copy)" type="1" subtype="0" shape="4" width="13" height="14" difficulty="10" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="9" y="1">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="2">
+			<entity type="220" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="1" y="11">
+			<entity type="220" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="2" y="11">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="32" name="brother bloody wave" type="1" subtype="0" shape="4" width="13" height="14" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="10" y="0">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="1">
+			<entity type="217" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="2" y="5">
+			<entity type="217" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="9">
+			<entity type="217" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="1" y="11">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="1" y="12">
+			<entity type="217" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="33" name="bloody" type="1" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="3" y="2">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="2" y="3">
+			<entity type="207" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="11">
+			<entity type="207" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="11">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="34" name="Drifty n bloody wave " type="1" subtype="0" shape="4" width="13" height="14" difficulty="10" weight="1.0">
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="2" y="2">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="2" y="3">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="10">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="11">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="35" name="Drifty n bloody wave  (copy)" type="1" subtype="0" shape="4" width="13" height="14" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="12" y="0">
+			<entity type="24" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="4" y="3">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="3" y="4">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="7">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="8">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="1" y="13">
+			<entity type="24" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="36" name="Drifty n bloody wave" type="1" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="8" y="2">
+			<entity type="25" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="4" y="4">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="3" y="7">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="12" y="7">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="2" y="8">
+			<entity type="25" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="8">
+			<entity type="25" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="8" y="9">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="37" name="smolycephalus wave" type="1" subtype="0" shape="4" width="13" height="14" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="0" y="0">
+			<entity type="25" variant="2" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="1" y="7">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="12" y="13">
+			<entity type="25" variant="2" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="38" name="microphallus wave" type="1" subtype="0" shape="4" width="13" height="14" difficulty="10" weight="1.0">
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="2" y="3">
+			<entity type="244" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="5">
+			<entity type="244" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="10">
+			<entity type="244" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="2" y="11">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="39" name="microcephalus wave" type="1" subtype="0" shape="4" width="13" height="14" difficulty="10" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="6" y="1">
+			<entity type="234" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="6">
+			<entity type="234" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="1" y="7">
+			<entity type="234" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="3" y="12">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="40" name="microphallus wave (copy)" type="1" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="6" y="1">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="3">
+			<entity type="255" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="1" y="7">
+			<entity type="255" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="8" y="10">
+			<entity type="255" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="41" name="microphallus wave" type="1" subtype="0" shape="4" width="13" height="14" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="2" y="2">
+			<entity type="22" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="2">
+			<entity type="22" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="12">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="42" name="smolycephalus wave" type="1" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="10" y="1">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="1" y="5">
+			<entity type="229" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="10">
+			<entity type="229" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="43" name="micro" type="1" subtype="0" shape="4" width="13" height="14" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="1" y="6">
+			<entity type="239" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="2" y="6">
+			<entity type="239" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="3" y="6">
+			<entity type="239" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="12">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="44" name="Smolycephalus and bloody wave" type="1" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="2" y="2">
+			<entity type="88" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="3" y="2">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="1" y="7">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="10">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="11">
+			<entity type="88" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="45" name="drifties n microcephalus wave" type="1" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="0" y="0">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="0">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="6">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="2" y="11">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="12">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="46" name="BOSS" type="5" subtype="0" shape="4" width="13" height="14" difficulty="10" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="2" y="2">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="8" y="3">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="5" y="7">
+			<entity type="261" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="4" y="10">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="10">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="47" name="Boss" type="5" subtype="0" shape="4" width="13" height="14" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="3" y="0">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="0" y="5">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="10">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="11">
+			<entity type="479" variant="2678" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="48" name="Boss (copy)" type="5" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="12" y="0">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="1" y="4">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="3" y="8">
+			<entity type="67" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="9">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="0" y="13">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="49" name="Boss  (copy)" type="5" subtype="0" shape="4" width="13" height="14" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="6" y="0">
+			<entity type="26" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="1" y="6">
+			<entity type="26" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="7">
+			<entity type="26" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="5" y="8">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="10">
+			<entity type="262" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="50" name="Boss  " type="5" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="2" y="3">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="3" y="5">
+			<entity type="262" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="1" y="6">
+			<entity type="26" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="7">
+			<entity type="26" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="12">
+			<entity type="26" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="51" name="Boss   (copy)" type="5" subtype="0" shape="4" width="13" height="14" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="3" y="3">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="2" y="4">
+			<entity type="99" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="9">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="11">
+			<entity type="237" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="52" name="Boss " type="5" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="2" y="3">
+			<entity type="476" variant="542" subtype="0" weight="2.0"/>
+			<entity type="476" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="11" y="3">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="5">
+			<entity type="67" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="2" y="9">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="3" y="11">
+			<entity type="67" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="12">
+			<entity type="476" variant="542" subtype="0" weight="2.0"/>
+			<entity type="476" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="53" name="Boss  (copy)" type="5" subtype="0" shape="4" width="13" height="14" difficulty="10" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="6" y="1">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="3">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="3" y="10">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="11">
+			<entity type="62" variant="2" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="54" name="Boss " type="5" subtype="0" shape="4" width="13" height="14" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="0" y="0">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="0">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="3" y="6">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="8" y="6">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="11">
+			<entity type="68" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="55" name="Boss  (copy)" type="5" subtype="0" shape="4" width="13" height="14" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="2" y="2">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="12">
+			<entity type="269" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="56" name="Boss " type="5" subtype="0" shape="4" width="13" height="14" difficulty="10" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="10" y="2">
+			<entity type="401" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="2" y="11">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="57" name="Boss  (copy)" type="5" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="6" y="1">
+			<entity type="479" variant="2678" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="9">
+			<entity type="100" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="58" name="Boss" type="5" subtype="0" shape="4" width="13" height="14" difficulty="10" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="4" y="0">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="12" y="0">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="7" y="2">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="2">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="2" y="11">
+			<entity type="100" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="59" name="Boss (copy)" type="5" subtype="0" shape="4" width="13" height="14" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="2" y="5">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="3" y="7">
+			<entity type="28" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="4" y="7">
+			<entity type="28" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="5" y="7">
+			<entity type="28" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="7">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="60" name="Boss " type="5" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="7" y="6">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="8" y="7">
+			<entity type="28" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="8" y="8">
+			<entity type="28" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="8" y="9">
+			<entity type="28" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="9">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="61" name="Boss  (copy)" type="5" subtype="0" shape="4" width="13" height="14" difficulty="10" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="0" y="0">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="7" y="5">
+			<entity type="19" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="8" y="5">
+			<entity type="19" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="5">
+			<entity type="19" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="2" y="10">
+			<entity type="19" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="3" y="10">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="2" y="11">
+			<entity type="19" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="2" y="12">
+			<entity type="19" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="12" y="13">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="62" name="ch two 1" type="5" subtype="0" shape="4" width="13" height="14" difficulty="10" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="5" y="7">
+			<entity type="54" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="7" y="7">
+			<entity type="54" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="10">
+			<entity type="583" variant="2678" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="3" y="11">
+			<entity type="54" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="11">
+			<entity type="54" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="63" name="ch two 2" type="5" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="13" y="10"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="4" y="10">
+			<entity type="207" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="10">
+			<entity type="583" variant="2678" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="8" y="10">
+			<entity type="207" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+</rooms>

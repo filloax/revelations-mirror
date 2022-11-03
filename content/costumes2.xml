@@ -1,0 +1,71 @@
+<costumes anm2root="gfx/">
+	<!-- Sarah --><costume anm2path="characters/revelcommon/character_sarah.anm2" type="none" priority="99" />
+	<!-- Charon Dante --><!-- <costume anm2path="characters/revelcommon/character_dante.anm2" type="none"/> -->
+	<!-- Charon Hair --><costume anm2path="characters/revelcommon/character_charon_hair.anm2" type="none" priority="99" />
+	<!-- Dante Hair --><costume anm2path="characters/revelcommon/character_dante_hair.anm2" type="none" priority="99" />
+
+	<!-- Truecoop Sarah Ghost --><costume anm2path="truecoop/costumes/ghost/ghost_sarah.anm2" type="none" isFlying="true"/>
+	<!-- Truecoop Dante Ghost --><costume anm2path="truecoop/costumes/ghost/ghost_dante.anm2" type="none" isFlying="true"/>
+	<!-- Truecoop Charon Ghost --><costume anm2path="truecoop/costumes/ghost/ghost_charon.anm2" type="none" isFlying="true"/>
+
+	<!-- Heavenly Bell --><costume id="1" anm2path="characters/revelcommon/heavenly_bell.anm2" type="passive" />
+	<!-- Mint Gum --><costume id="2" anm2path="characters/revelcommon/mint_gum.anm2" type="passive" hasSkinAlt="true" />
+	<!-- Fecal Freak --><costume id="3" anm2path="characters/revelcommon/fecal_freak.anm2" type="passive" hasSkinAlt="true" />
+	<!-- Birthday Candle --><costume id="6" anm2path="characters/revelcommon/birthday_candle.anm2" type="passive" />
+	<!-- Dynamo --><costume anm2path="characters/revelcommon/dynamo.anm2" type="none" />
+	               <costume anm2path="characters/revelcommon/dynamo_alt.anm2" type="none" priority="24" />
+	<!-- Burning Bush --><costume anm2path="characters/revelcommon/bbush_nofire.anm2" type="none" priority="21" hasSkinAlt="true" />
+						 <costume anm2path="characters/revelcommon/bbush1.anm2" type="none" priority="22" hasSkinAlt="true" />
+						 <costume anm2path="characters/revelcommon/bbush2.anm2" type="none" priority="22" hasSkinAlt="true" />
+						 <costume anm2path="characters/revelcommon/bbush3.anm2" type="none" priority="22" hasSkinAlt="true" />
+						 <costume anm2path="characters/revelcommon/bbush4.anm2" type="none" priority="22" hasSkinAlt="true" />
+						 <costume anm2path="characters/revelcommon/bbush_fire_head.anm2" type="none" priority="22" hasSkinAlt="true"/>
+	<!-- Penance --><costume id="9" anm2path="characters/revelcommon/costume_penance.anm2" type="passive" hasSkinAlt="true" />
+	<!-- Fate --><costume anm2path="characters/Fate.anm2" isFlying="true" type="none" hasSkinAlt="true" />
+	<!-- Ice Tray --><costume id="10" anm2path="characters/revelcommon/icetray.anm2" type="passive"/>
+	<!-- Sponge Bombs --><costume id="12" anm2path="characters/revelcommon/spongebombs.anm2" type="passive"/>
+	<!-- Tampon --><costume id="14" anm2path="characters/revelcommon/tampon.anm2" type="passive"/>
+	<!-- Window Cleaner --><costume id="11" anm2path="characters/revelcommon/wcleaner.anm2" type="passive"/>
+	<!-- Birth Control --><costume id="15" anm2path="characters/revelcommon/birthcontrol.anm2" type="passive" hasSkinAlt="true" />
+	<!-- Tummy Bug --><costume id="16" anm2path="characters/revelcommon/tummybug.anm2" type="passive"/>
+	<!-- Friendly Fire --><costume id="17" anm2path="characters/revelcommon/friendlyfire.anm2" type="passive"/>
+	<!-- Spirit of Patience --><costume anm2path="characters/revelcommon/spiritofpatience.anm2" type="none"/>
+							   <costume anm2path="characters/revelcommon/spiritofpatience_opening.anm2" type="none" priority="24" />
+							   <costume anm2path="characters/revelcommon/spiritofpatience_active.anm2" type="none" priority="24" />
+
+	<!-- Ferryman's Toll --><costume id="25" anm2path="characters/revelcommon/ferrymanstoll.anm2" type="passive"/>
+	<!-- Death Mask --><costume id="26" anm2path="characters/revelcommon/deathmask.anm2" type="passive"/>
+	<!-- Broken Oar --><costume anm2path="characters/revelcommon/item_brokenoar.anm2" type="none" hasSkinAlt="true"/>
+	<!-- Glutton's gut --><costume anm2path="characters/revelcommon/item_gluttonsgut_normal.anm2" type="none" hasSkinAlt="true"/>
+	                      <costume anm2path="characters/revelcommon/item_gluttonsgut_suckstart.anm2" type="none" priority="50" hasSkinAlt="true"/>
+	                      <costume anm2path="characters/revelcommon/item_gluttonsgut_swallow.anm2" type="none" priority="50" hasSkinAlt="true"/>
+	                      <costume anm2path="characters/revelcommon/item_gluttonsgut_suckend.anm2" type="none" priority="50" hasSkinAlt="true"/>
+	                      <costume anm2path="characters/revelcommon/item_gluttonsgut_suck.anm2" type="none" priority="50" hasSkinAlt="true"/>
+	                      <costume anm2path="characters/revelcommon/item_gluttonsgut_spit.anm2" type="none" priority="50" hasSkinAlt="true"/>
+	                      <costume anm2path="characters/revelcommon/item_gluttonsgut_chew.anm2" type="none" priority="50" hasSkinAlt="true"/>
+
+	<!-- Cursed Grail --><costume anm2path="characters/revelcommon/item_cursedgrail.anm2" type="none" isFlying="true" hasSkinAlt="true" />
+
+	<!-- Half Chewed Pony --><costume anm2path="characters/revelcommon/item_half_chewed_pony.anm2" type="none" priority="23" isFlying="true" hasSkinAlt="true" />
+
+	<!-- Perseverence --><costume id="29" anm2path="characters/revelcommon/item_perseverence.anm2" type="passive" hasSkinAlt="true"/>
+
+	<!-- Addict --><costume id="30" anm2path="characters/revelcommon/item_addict.anm2" type="passive" hasSkinAlt="true"/>
+	<!-- Haphephobia --><costume id="24" anm2path="characters/revelcommon/item_haphephobia.anm2" type="passive"/>
+	<!-- Mirror Bombs --><costume id="27" anm2path="characters/revelcommon/item_mirrorbombs.anm2" type="passive"/>
+	<!-- Pilgrim's Ward --><costume id="32" anm2path="characters/revelcommon/item_pilgrimsward.anm2" type="passive"/>
+	<!-- Cabbage Patch --><costume id="23" anm2path="characters/revelcommon/item_cabbagepatch.anm2" type="passive"/>
+	<!-- Prides Posturing --><costume id="34" anm2path="characters/revelcommon/item_pridesposturing.anm2" type="passive"/>
+	<!-- Lover's Libido --><costume id="36" anm2path="characters/revelcommon/item_lovers_libido.anm2" hasSkinAlt="true" type="passive"/>
+	<!-- Wrath's Rage --><costume anm2path="characters/revelcommon/item_wrathsrage1.anm2" type="none" hasSkinAlt="true"/>
+						 <costume anm2path="characters/revelcommon/item_wrathsrage2.anm2" type="none" priority="23" hasSkinAlt="true"/>
+						 <costume anm2path="characters/revelcommon/item_wrathsrage3.anm2" type="none" priority="23" hasSkinAlt="true"/>
+						 <costume anm2path="characters/revelcommon/item_wrathsrage4.anm2" type="none" priority="23" hasSkinAlt="true"/>
+
+	<!-- Super Meat Blade --><costume anm2path="characters/revelcommon/costume_supermeatblade.anm2" type="none"/>
+							 <costume anm2path="characters/revelcommon/costume_supermeatblade_noblade.anm2" type="none"/>
+	<!-- Geode --><costume anm2path="characters/revelcommon/item_geode.anm2" id="66" type="passive"/>
+	<!-- Not a Bullet --><costume anm2path="characters/revelcommon/item_not_a_bullet.anm2" id="67" type="passive"/>
+
+	<!-- No Wings Azazel --><costume anm2path="characters/character_008_azazelbody_nowings.anm2" type="none" priority="50" skinColor="1" overwriteColor="true"/>
+</costumes>

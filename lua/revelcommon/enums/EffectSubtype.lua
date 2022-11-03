@@ -1,0 +1,6 @@
+return {
+    GIDEON_ATTRACT_RING = 0,
+    GIDEON_ATTRACT_TAIL = 1,
+    SHOCKWAVE_RING = 10,
+    SHOCKWAVE_TAIL = 11,
+}

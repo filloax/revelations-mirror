@@ -1,0 +1,1 @@
+return RegisterMod("Hubroom 2", 1)

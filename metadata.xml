@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+    <name>Revelations Ch. 2 [Rep]</name>
+    <directory>revelations</directory>
+    <id>2880387531</id>
+    <description>[img]https://i.imgur.com/ajLN6Vi.jpg[/img]
+[img]https://i.imgur.com/FqUZDzR.png[/img]
+
+
+[img]https://i.imgur.com/uxbhFSE.png[/img]
+
+This is the Repentance version of the mod, for the Afterbith+ version [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1536643474]see here[/url].
+
+This mod [i][b]REQUIRES[/b][/i] the [b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=1348031964]StageAPI[/url][/b] mod to function. Get it [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1348031964]here[/url].
+
+[b]IF YOU HAVE STRANGE ERRORS AFTER INSTALLING THE MOD, TRY DELETING THE MOD'S FOLDER AND RESTARTING THE GAME (see below)[/b]
+
+[url=CHANGELOG_LINK][i]Changelog[/i][/url]
+
+[img]https://i.imgur.com/oUM4ZSU.gif[/img]
+
+[i]Abandon all hope ye who enter here.[/i]
+
+The first two chapters of [i]Revelations[/i] bring two new dangerous floors to start your journey through the circles: beware of the freezing cold, the wandering draugr, and the conveniently placed hockey pucks of the icy [b]Glacier[/b], and try to survive the many deadly traps and the persistent resurrecting enemies of the heretical [b]Tomb[/b].
+
+[img]https://i.imgur.com/kwfx5Y5.png[/img]
+
+[list]
+    [*] 2 new floors, with many original and unique mechanics.
+    [*] [b]Glacier[/b], an alternative floor to Basement and Downpour, with a freezing cold, a few warm places, heaps of snow, and frosty winds that move you around.
+    [*] [b]Tomb[/b], an alternative floor to Caves and Mines, with tons of traps to spice up your path.
+    [*] The Hub: a improved transition room to choose between modded alternative paths, also spawning in the first room in case you want to skip ahead to the modded content. 
+    [*] [b]Sarah[/b]: a fallen angel trying to gain back her wings, keeping her evil at bay.
+    [*] [b]Dante and Charon[/b]: a traveler and his guide, trying to find their way through the circles.
+    [*] 17 new bosses and minibosses, like the friendly narwhal Prong, the manic demon Maxwell, the merrily dancing Ragtime.
+    [*] 80+ enemies, which you'll meet in the new floors, and a few in the vanilla path.
+    [*] 61 new items. Burn it down with Burning Bush, grow an army with Cabbage Patch.
+    [*] Shrines: optional challenges in each Revelations floor that give you Vanity, that you can spend at the end of the chapter for extra rewards at Prank's shop. With plenty of surprises waiting to be discovered!
+    [*] Reworked sin battles for each Revelations stage, each with their own music variation
+    [*] Unlocks: progress in the mod to unlock more items.
+    [*] Options: [b]press C[/b] to open a config menu, shared by other mods too, and also containing our achievements.
+    [*] Infinite fun
+    [*] Mirrors?
+[/list]
+
+[i]Reflect[/i] on your misdeeds.
+
+The Vanity Update marks the launch of the mod for Repentance, bringing with it much needed polish to many parts of the mod, some new enemies and bosses, and the rework to shrines that named the update.
+
+[img]https://i.imgur.com/x7NFWao.png[/img]
+
+As above, the mod requires [b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=1348031964]StageAPI[/url][/b].
+
+[h2]Recommended mods[/h2]
+
+The Chapter 3 character, [b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2297456697]Bertran[/url][/b], got released as a standalone mod by DeadInfinity and Melon!
+Find him [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2297456697]here[/url].
+
+As of the Vanity update the [b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=1978904635]MiniMAPI[/url][/b] mod by WofSauge and Taz is [b]included[/b] with Revelations, allowing for custom map icons and behavior (for example, the new Dante &amp; Charon functionality) by default. It can be configured via DSS or with Mod Config Menu if it is installed. The version included in Revelations can work alongside the standalone version linked above, and it is in fact recommended to install both so MinimapAPI can receive updates more frequently without having to rely on the Rev update cycle.
+
+Revelations is intended to be compatible with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2851063440]Fiend Folio[/url] and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2881008017]Retribution[/url], and they are recommended for an amazing gameplay experience. Do mind that Revelations and Fiend Folio are very large mods, which might cause performance issues in lower end machines, and some engine issues, see Mod Compatibility below.
+
+[h2]Mod compatibility[/h2]
+
+[h3]Big mods[/h3]
+
+Recently, a limit of the Isaac engine was discovered when [b]too many mods are enabled at once[/b] (especially big ones), leading to sprites eventually being replaced by black squares or becoming transparent after some gameplay in that case. The specific limit isn't known yet, and it doesn't depend on the machine's performance. 
+
+If you get this bug, try removing some mods and trying again. We and other modders are trying to find a solution at the moment. We still recommend playing with Fiend Folio and other mods if possible, but this limit is hard to work around.
+
+[h3]Minimap mods[/h3]
+
+As Revelations includes MinimapAPI, it is not compatible with most minimap-affecting mods. You can try to use a mod that changes the minimap, but it won't be supported.
+
+Good Trip also won't work, but MinimapAPI includes a similar functionality that can be enabled either via the C-menu (DSS) or via Mod Config Menu if you have it installed.
+
+[h3]Music mods[/h3]
+
+Music Mod Callback (and depentend mods) aren't fully compatible with StageAPI at the moment, leading to a lot of missing music triggers.
+
+
+[img]https://i.imgur.com/TsSrika.png[/img]
+
+SUBBING TO THIS ENTRY WILL PROMPT A DOWNLOAD OF STAGE API. MAKE SURE YOU ACCEPT IT!
+
+TO AVOID ISSUES, RESTART ISAAC AFTER DOWNLOADING AND ENABLING THE MOD FOR THE FIRST TIME.
+
+[h2]Download Failures[/h2]
+
+Due to issues in the way Isaac downloads Steam Workshop mods with a large download size, a lot of users report strange errors the first time they install the mod or download a major update, which are caused by missing files.
+To fix this, try redownloading the mod by:
+-Closing the game
+-Deleting the mod's folder (found in [i]Documents/My Games/The Binding of Isaac Afterbirth+ Mods/revelations_somenumber[/i])
+-Restarting the game
+If you had download issues, it should be fixed by doing this. Might need a second try, but this should fix 99% of the major bugs found after first installing the mod.
+If it doesn't work, try our download mirror instead, found [url=MIRROR_URL]here[/url].
+
+[h2]Black Screen[/h2]
+
+If you get a black screen after launching the game (can happen on Linux usually), go into the mod's folder (found in [i]&lt;isaac folder&gt;/mods/revelations_2880387531[/i]) and launch:
+-If on windows: [b]hard_disable_shaders.bat[/b]
+-If on Linux (might need changing perms): [b]hard_disable_shaders.sh[/b]
+More info on SHADERS_and_BLACK_SCREEN_README.txt in the mod folder.
+
+[img]https://i.imgur.com/6XOFsfy.png[/img]
+
+Subscribe on YouTube for trailers!
+[b][url=https://www.youtube.com/c/TeamRevelations]Team Revelations[/url][/b]
+
+Follow us on twitter for updates!
+[b][url=https://twitter.com/revelationsmod]@revelationsmod[/url][/b]
+
+Talk to us on discord!
+[b][url=https://discord.gg/isaac]discord.gg/isaac[/url][/b]
+
+[img]https://i.imgur.com/Qjxcqyy.png[/img]
+
+[i]Spriters[/i] - Gummy, Ashkal, Baicherra, BlorengeRhymes, JonTheRealJon, NotYourSagittarius, Origami, Peas, Poyo, Quartz, Snakeblock, Thx, TitaniumGrunt7 (Vermin)
+[i]Coders[/i] - Filloax [i](Videographer~)[/i], Sentinel, Budjmt, DeadInfinity, Ferrium, Gavitro, Hippocrunchy, Piber
+[i]Sound and Music[/i] - Wertandrew, HappyHead (also 3d!)
+[i]Testers, Room makers and Designers[/i] - Al, AnonymousKoala, Boogs, Bullet, Bustin, Creeps, Electoon, Grynn, Jerb, KindaLoveable, Melon, Minichibis, Pasta, Pixelo, PkPseudo, Robby Shenanigans, Sunil B
+
+[i]Special Thanks[/i] - Kilburn, The Isaac Community
+
+Ingame list is probably more up to date.</description>
+    <version>0.2</version>
+    <visibility>Private</visibility>
+    <tag id="Lua"/>
+    <tag id="Items"/>
+    <tag id="Active Items"/>
+    <tag id="Trinkets"/>
+    <tag id="Cards"/>
+    <tag id="Player Characters"/>
+    <tag id="Familiars"/>
+    <tag id="Rooms"/>
+    <tag id="Floors"/>
+    <tag id="Enemies"/>
+    <tag id="Bosses"/>
+    <tag id="Hazards"/>
+    <tag id="Tweaks"/>
+    <tag id="Shaders"/>
+    <tag id="Sound Effects"/>
+    <tag id="Music"/>
+</metadata>

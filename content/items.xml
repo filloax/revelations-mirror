@@ -1,0 +1,85 @@
+<items gfxroot="gfx/items/" deathanm2="gfx/death items.anm2" version="1">
+	<!--                      Passive                      -->
+	<!--Heavenly Bell--><passive name="Heavenly Bell" description="Heaven rings in mysterious ways" id="1" gfx="revelcommon/heavenly_bell.png" tags="offensive angel" quality="2"/>
+	<!--Mint Gum--><passive name="Mint Gum" description="Minty fresh breath" gfx="revelcommon/mint_gum.png" id="2" cache="tearcolor weapon" tags="offensive" quality="3"/>
+	<!--Fecal Freak--><passive name="Fecal Freak" description="Ass backwards" gfx="revelcommon/fecal_freak.png" id="3" cache="damage range shotspeed" tags="offensive poop" quality="3"/>
+	<!--Dynamo--><passive name="Dynamo" description="Powered by sweat and tears" gfx="revelcommon/dynamo.png" id="7" tags="offensive" quality="2"/>
+	<!--Aegis--><passive name="Aegis" description="It's got your back" gfx="revelcommon/aegis.png" id="5" quality="2"/>
+	<!--Birthday Candle--><passive name="Birthday Candle" description="Make a wish" gfx="revelcommon/birthday_candle.png" id="6" cache="damage range shotspeed speed firedelay luck" quality="1"/>
+	<!--Burning Bush--><passive name="Burning Bush" description="Burning faith" gfx="revelcommon/burning_bush.png" id="8" cache="tearcolor range" tags="offensive" quality="4"/>
+	<!--Penance--><passive name="Penance" description="Do not covet thy health" gfx="revelcommon/penance.png" id="9" cache="damage shotspeed luck" tags="angel" quality="3"/>
+	<!--Ice tray--><passive name="Ice Tray" description="Ice to meet you" gfx="revelcommon/ice_tray.png" id="10" cache="range" tags="offensive" quality="1"/>
+	<!--Window Cleaner--><passive name="Window Cleaner" description="Creep on, creep off" gfx="revelcommon/window_cleaner.png" id="11" cache="tearcolor firedelay" tags="offensive" quality="2"/>
+	<!--Cotton Bud--><passive name="Cotton Bud" description="Super absorbant" gfx="revelcommon/cotton_bud.png" id="14" tags="offensive" quality="1"/>
+	<!--Sponge Bombs--><passive name="Sponge Bombs" description="Super absorbant" gfx="revelcommon/sponge_bombs.png" id="12" tags="offensive" quality="1"/>
+	<!--Spirit of Patience--><passive name="Spirit of Patience" description="Take a moment.." gfx="revelcommon/spirit_of_patience.png" id="13" tags="offensive" quality="3"/>
+	<!--Birth Control--><passive name="Birth Control" description="Only child" gfx="revelcommon/birth_control.png" id="15" tags="offensive" quality="3"/>
+	<!--Friendly Fire--><passive name="Friendly Fire" description="Heart burn?" gfx="revelcommon/friendly_fire.png" id="17" tags="offensive" quality="2"/>
+	<!--Tummy Bug--><passive name="Tummy Bug" description="It's moving!" gfx="revelcommon/tummy_bug.png" id="16" tags="offensive spider" quality="1"/>
+	<!--Wandering Soul--><passive name="Wandering Soul" description="A familiar face" gfx="revelcommon/wandering_soul.png" id="22" tags="offensive" quality="3"/>
+	<!--Cabbage Patch--><passive name="Cabbage Patch" description="Eat your greens" gfx="revelcommon/cabbage_patch.png" id="23" tags="offensive" quality="3"/>
+	<!--Haphephobia--><passive name="Haphephobia" description="Stay away!" gfx="revelcommon/haphephobia.png" id="24" tags="offensive" quality="1"/>
+	<!--Ferryman's Toll--><passive name="Ferryman's Toll" description="Even the afterlife has a price" gfx="revelcommon/ferrymans_toll.png" id="25" tags="offensive" quality="2"/>
+	<!--Death Mask--><passive name="Death Mask" description="Death comes naturally" gfx="revelcommon/death_mask.png" id="26" tags="offensive" quality="1"/>
+	<!--Mirror Bombs--><passive name="Mirror Bombs" description="Reflects its surroundings" gfx="revelcommon/mirror_bombs.png" id="27" tags="offensive" quality="2"/>
+	<!--Broken Oar--><passive name="Broken Oar" description="Make a splash" gfx="revelcommon/broken_oar.png" id="28" tags="offensive" quality="3"/>
+	<!--Perseverance--><passive name="Perseverance" description="Hard work pays off" gfx="revelcommon/perseverance.png" id="29" tags="offensive" quality="4"/>
+	<!--Addict--><passive name="Addict" description="1 a day, keeps the shadows away" gfx="revelcommon/addict.png" id="30" tags="offensive syringe" quality="1"/>
+	<!--Ophanim--><passive name="Ophanim" description="Eyes of judgment" gfx="revelcommon/ophanim.png" id="31" tags="offensive angel" quality="3" />
+	<!--Pilgrim's Ward--><passive name="Pilgrim's Ward" description="May the light shine your way" gfx="revelcommon/pilgrims_ward.png" id="32" tags="offensive angel" quality="4"/>
+	<!--Wrath's Rage--><passive name="Wrath's Rage" description="Temper temper" gfx="revelcommon/wraths_rage.png" id="33" cache="damage" tags="offensive" quality="3"/>
+	<!--Pride's Posturing--><passive name="Pride's Posturing" description="Shine before the fall" gfx="revelcommon/prides_posturing.png" id="34" quality="1"/>
+	<!--Sloth's Saddle --><passive name="Sloth's Saddle" description="One set of footsteps" gfx="revelcommon/slothsaddle.png" id="35" tags="offensive" quality="3"/>
+	<!--Lover's Libido --><passive name="Lover's Libido" description="Running only makes it harder..." gfx="revelcommon/loverslibido.png" id="36" tags="offensive" quality="1"/>
+	<!--Prescription--><passive name="Prescription" description="Lasting treatment" gfx="revelcommon/prescription.png" id="65" tags="offensive" quality="2"/>
+	<!--Geode--><passive name="Geode" description="Can't wait to break it open!" gfx="revelcommon/geode.png" id="66" tags="offensive" quality="2"/>
+	<!--Not a Bullet --><passive name="Not a Bullet" description="Velocity = Power" gfx="revelcommon/not_a_bullet.png" id="67" cache="damage shotspeed" tags="offensive" quality="2"/>
+
+
+	<!--                      Active                      -->
+	<!--The Monolith--><active name="The Monolith" description="Cry through to the other side" gfx="revelcommon/monolith.png" id="18" maxcharges="2" tags="offensive" quality="1"/>
+	<!--Hyper Dice--><active name="Hyper Dice" description="Special rerolls?" gfx="revelcommon/hyper_dice.png" id="19" maxcharges="12" tags="offensive" quality="2"/>
+	<!--Chum Bucket--><active name="Chum Bucket" description="Corpses never looked so good"  id="37" maxcharges="60" gfx="revelcommon/chum_bucket.png" chargetype="timed" tags="offensive" quality="2"/>
+	<!--Cardboard Robot--><active name="Cardboard Robot" description="Call in the heavy support" id="38" maxcharges="6" gfx="revelcommon/cardboard_robot.png" tags="offensive" quality="3"/>
+					  <active name="Cardboard Robot (flipped)" description="Call in the heavy support" id="39" maxcharges="0" gfx="revelcommon/cardboard_robot_on.png" hidden="true"/>
+	<!--Ghastly Flame--><active name="Ghastly Flame" description="It hungers" id="40" maxcharges="2" gfx="revelcommon/ghastly_flame.png" tags="offensive" quality="2"/>
+	                    <active name="Ghastly Flame (lit)" description="It hungers" id="41" maxcharges="2" gfx="revelcommon/ghastly_flame_2.png" hidden="true"/>
+	<!--Waka Waka--><active name="Waka Waka" description="Nom nom nom" id="46" gfx="revelcommon/waka_waka.png" maxcharges="1" tags="offensive" quality="3"/>
+	<!--Oops!--><active name="Oops!" description="Keep the receipt" id="47" gfx="revelcommon/oops.png" maxcharges="3" tags="offensive" quality="0"/>
+	<!--Glutton's Gut--><active name="Glutton's Gut" description="Don't talk with your mouth full" id="48" gfx="revelcommon/gluttons_gut.png" maxcharges="4" tags="offensive" quality="2"/>
+	<!--Moxie's Paw--><active name="Moxie's Paw" description="Swipe!" id="49" gfx="revelcommon/moxies_paw.png" maxcharges="40" chargetype="timed" tags="offensive" quality="1"/>
+	<!--Music Box--><active name="Music Box" description="Thank the Maestro" id="50" gfx="revelcommon/music_box.png" maxcharges="3" tags="offensive" quality="1"/>
+	<!--Half Chewed Pony--><active name="Half Chewed Pony" description="She's not done with that!" id="51" gfx="revelcommon/half_chewed_pony.png" maxcharges="2" tags="offensive" quality="2"/>
+	<!--Moxie's Yarn--><active name="Moxie's Yarn" description="Play Time!" id="52" gfx="revelcommon/moxies_yarn.png" maxcharges="6" tags="offensive" quality="1"/>
+	<!--Super Meat Blade--><active name="Super Meat Blade" description="Will it blend?" id="64" maxcharges="4" gfx="revelcommon/supermeatblade.png" tags="offensive" quality="3"/>
+	                       <active name="Super Meat Blade " description="Will it blend?" id="63" maxcharges="0" gfx="revelcommon/supermeatblade.png" hidden="true"/>
+	<!--Dramamine--><active name="Dramamine" description="Vomit stopper" id="62" maxcharges="200" gfx="revelcommon/dramamine.png" chargetype="timed" quality="1"/>
+
+	<!--                      Familiar                      -->
+	<!--Mirror Shard--><familiar name="Mirror Shard" description="Just a piece of the whole" id="20" gfx="revelcommon/mirror_shard.png" tags="uniquefamiliar lazarusshared noeden quest" quality="1"/>
+	<!--Lil Frost Rider--><familiar name="Lil Frost Rider" description="Frosty but feisty" id="21" gfx="revelcommon/lil_frost_rider.png" tags="offensive" quality="1"/>
+	<!--Lil Belial--><familiar name="Lil Belial" description="Follow his mark.." id="4" gfx="revelcommon/lil_belial.png" tags="offensive devil baby" quality="1"/>
+	<!--Virgil--><familiar name="Virgil" description="Fortune sides with him who dares." id="53" gfx="revelcommon/virgil.png" tags="offensive" quality="2"/>
+	<!--Phylactery <active cache="familiars" name="Phylactery Old" description="Passengers for the ferryman" gfx="revelcommon/phylactery.png" maxcharges="3" /> -->
+	<!--Phylactery--><active name="Phylactery" description="" id="42" gfx="revelcommon/phylactery_switch.png" maxcharges="1" hidden="true"/>
+	<!--Phylactery (Merged)--><active name="Phylactery " description="" id="43" gfx="revelcommon/phylactery_direction.png" maxcharges="0" hidden="true"/>
+	<!--Phylactery (Pickup Item)--><active name="Phylactery  " description="" id="44" gfx="revelcommon/phylactery_blank.png" maxcharges="0" hidden="true"/>
+	<!--Phylactery (Pickup Item Charge)--><active name="Phylactery   " description="" id="45" gfx="revelcommon/phylactery_blank.png" maxcharges="1" hidden="true"/>
+	<!--Mirror Fragment--><familiar name="Mirror Fragment" description="Just one piece missing" id="54" gfx="revelcommon/mirror_fragment.png" tags="uniquefamiliar lazarusshared noeden quest" quality="1"/>
+	<!--Cursed Grail--><familiar name="Cursed Grail" description="Sacrifice your blood to me..." id="55" gfx="revelcommon/cursed_grail.png" cache="damage" quality="1"/>
+	<!--Bandage Baby--><familiar name="Bandage Baby" description="Rag tag buddy!" id="56" gfx="revelcommon/bandage_baby.png" tags="offensive baby" quality="0"/>
+	<!--Lil Michael--><familiar name="Lil Michael" description="Grant me your strength" id="57" gfx="revelcommon/lil_michael.png" tags="offensive angel baby" quality="3"/>
+	<!--Hungry Grub--><familiar name="Hungry Grub" description="Feed him up, watch him go" id="58" gfx="revelcommon/hungry_grub.png" tags="offensive" quality="2"/>
+	<!--Envy's Enmity--><familiar name="Envy's Enmity" description="Heads up!" id="59" gfx="revelcommon/envys_enmity.png" tags="offensive" quality="2"/>
+	<!--Bargainer's Burden--><familiar name="Bargainer's Burden" description="Share the wealth" id="60" gfx="revelcommon/bargainers_burden.png" tags="offensive" quality="1"/>
+	<!--Willo--><familiar name="Willo" description="She's shy" id="61" gfx="revelcommon/cuddly_whisp.png" tags="offensive" quality="2"/>
+
+	<!--                      Trinkets                      -->
+	<!--Spare Change--><trinket name="Spare Change" description="Get yourself something nice!" gfx="revelcommon/spare_change.png" />
+	<!--Library Card--><trinket name="Library Card" description="No key required" gfx="revelcommon/library_card.png" />
+	<!--Archaeology--><trinket name="Archaeology" description="What's in there?" gfx="revelcommon/archaeology.png" />
+	<!--Gag Reflex--><trinket name="Gag Reflex" description="Something doesn't sit right..." gfx="revelcommon/gag_reflex.png" />
+	<!--Telescope--><trinket cache="all" name="Telescope" description="Constellations seem bigger" gfx="revelcommon/telescope.png" />
+	<!--Scratched Sack--><trinket name="Scratched Sack" description="Cat's Out!" gfx="revelcommon/scratched_sack.png" />
+	<!--Maxwell's Horn--><trinket name="Maxwell's Horn" description="You broke it!" gfx="revelcommon/maxs_horn.png" />
+</items>

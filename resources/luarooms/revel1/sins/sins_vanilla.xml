@@ -1,0 +1,170 @@
+<?xml version="1.0" ?>
+<rooms>
+	<room variant="2004" name="chill Wrath (copy)" type="6" subtype="0" shape="3" width="13" height="7" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="4" y="2">
+			<entity type="1300" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="6" y="3">
+			<entity type="48" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="8" y="4">
+			<entity type="1300" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="2005" name="chill Wrath (copy)" type="6" subtype="0" shape="2" width="13" height="7" difficulty="1" weight="1.0">
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<spawn x="6" y="3">
+			<entity type="48" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="2014" name="Gluttony (copy)" type="6" subtype="0" shape="2" width="13" height="7" difficulty="1" weight="1.0">
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<spawn x="6" y="3">
+			<entity type="49" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="2015" name="Gluttony (copy)" type="6" subtype="0" shape="3" width="13" height="7" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<spawn x="6" y="3">
+			<entity type="49" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="2024" name="Lust (copy)" type="6" subtype="0" shape="2" width="13" height="7" difficulty="1" weight="1.0">
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<spawn x="5" y="3">
+			<entity type="1490" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="6" y="3">
+			<entity type="47" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="7" y="3">
+			<entity type="1490" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="2025" name="Lust (copy)" type="6" subtype="0" shape="3" width="13" height="7" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<spawn x="7" y="1">
+			<entity type="1400" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="6" y="3">
+			<entity type="47" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="5" y="5">
+			<entity type="1400" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="2034" name="Sloth (copy)" type="6" subtype="0" shape="2" width="13" height="7" difficulty="1" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<spawn x="6" y="3">
+			<entity type="46" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="2035" name="Sloth (copy)" type="6" subtype="0" shape="3" width="13" height="7" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<spawn x="6" y="3">
+			<entity type="46" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="2044" name="Greed (copy)" type="6" subtype="0" shape="2" width="13" height="7" difficulty="1" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<spawn x="6" y="2">
+			<entity type="1300" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="5" y="3">
+			<entity type="1300" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="6" y="3">
+			<entity type="50" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="7" y="3">
+			<entity type="1300" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="2045" name="Greed (copy)" type="6" subtype="0" shape="3" width="13" height="7" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<spawn x="8" y="0">
+			<entity type="1000" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="6" y="3">
+			<entity type="50" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="4" y="6">
+			<entity type="1000" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="2054" name="Envy (copy)" type="6" subtype="0" shape="2" width="13" height="7" difficulty="1" weight="1.0">
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<spawn x="0" y="2">
+			<entity type="1400" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="12" y="2">
+			<entity type="1400" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="6" y="3">
+			<entity type="51" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="0" y="4">
+			<entity type="1400" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="12" y="4">
+			<entity type="1400" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="2055" name="Envy (copy)" type="6" subtype="0" shape="3" width="13" height="7" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<spawn x="4" y="0">
+			<entity type="1400" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="8" y="0">
+			<entity type="1400" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="6" y="3">
+			<entity type="51" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="4" y="6">
+			<entity type="1400" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="8" y="6">
+			<entity type="1400" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="2064" name="Pride (copy)" type="6" subtype="0" shape="3" width="13" height="7" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<spawn x="6" y="1">
+			<entity type="1000" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="6" y="3">
+			<entity type="52" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="6" y="5">
+			<entity type="1000" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="2065" name="Pride (copy)" type="6" subtype="0" shape="2" width="13" height="7" difficulty="1" weight="1.0">
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<spawn x="12" y="2">
+			<entity type="1300" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="6" y="3">
+			<entity type="52" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="0" y="4">
+			<entity type="1300" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+</rooms>

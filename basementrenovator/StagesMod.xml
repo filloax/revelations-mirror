@@ -1,0 +1,26 @@
+<data>
+    <stage Name="Glacier" Stage="3" StageType="1"  Pattern="glacier">
+        <Gfx BGPrefix="backdrops/glacier">
+            <Entity ID="1000" Image="../resources/gfx/grid/revel1/glacier_rocks.png" />
+            <Entity ID="1002" Image="revelations/1002.0.0 - Pot Glacier.png" />
+            <Entity ID="3000" Image="../resources/gfx/grid/revel1/glacier_pit.png" />
+			<Entity ID="1901" Image="revelations/1901.0.0 - Tall Block Glacier.png" />
+			<Entity ID="1500" Image="revelations/1500.0.0 - Poop Glacier.png" />
+			<Entity ID="1495" Image="revelations/1495.0.0 - Chunky Poop Glacier.png" />
+			<Entity ID="1001" Image="revelations/1001.0.0 - Bomb Rock Glacier.png" />
+			<Entity ID="1010" Image="revelations/1010.0.0 - Spike Rock Glacier.png" />
+			<Entity ID="1900" Image="revelations/1900.0.0 - Block Glacier.png" />
+        </Gfx>
+    </stage>
+    <stage Name="Tomb"    Stage="3" StageType="1"  Pattern="tomb">
+        <Gfx BGPrefix="backdrops/tomb">
+            <Entity ID="3000" Image="../resources/gfx/grid/revel2/sand_pit.png" />
+			<Entity ID="1002" Image="revelations/1002.0.0 - Pot Tomb.png" />
+			<Entity ID="1900" Image="revelations/1900.0.0 - Block Tomb.png" />
+			<Entity ID="1000" Image="../resources/gfx/grid/revel2/sand_rocks.png" />
+			<Entity ID="1901" Image="revelations/1901.0.0 - Tall Block Tomb.png" />
+			<Entity ID="1001" Image="revelations/1001.0.0 - Bomb Rock Tomb.png" />
+			<Entity ID="1010" Image="revelations/1010.0.0 - Spike Rock Tomb.png" />
+        </Gfx>
+    </stage>
+</data>

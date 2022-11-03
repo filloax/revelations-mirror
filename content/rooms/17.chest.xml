@@ -1,0 +1,1045 @@
+<?xml version="1.0" ?>
+<rooms>
+	<room variant="6200" name="Revelations Puckers" type="1" subtype="0" shape="1" width="13" height="7" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="13" y="3"/>
+		<spawn x="1" y="1">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="5" y="2">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="5" y="3">
+			<entity type="28" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="3">
+			<entity type="28" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="7" y="3">
+			<entity type="28" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="8" y="3">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="5">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6201" name="Revelations Puckers" type="1" subtype="0" shape="6" width="26" height="7" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="19" y="-1"/>
+		<door exists="True" x="19" y="7"/>
+		<door exists="True" x="26" y="3"/>
+		<spawn x="20" y="0">
+			<entity type="1900" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="25" y="1">
+			<entity type="44" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="12" y="2">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="13" y="2">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="25" y="2">
+			<entity type="1900" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="3">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="12" y="3">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="13" y="3">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="14" y="3">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="0" y="4">
+			<entity type="1900" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="12" y="4">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="13" y="4">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="0" y="5">
+			<entity type="44" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="5" y="6">
+			<entity type="1900" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6202" name="Revelations Puckers and Punker" type="1" subtype="0" shape="1" width="13" height="7" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="13" y="3"/>
+		<spawn x="5" y="2">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="7" y="2">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="4" y="3">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="3">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="8" y="3">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6203" name="Revelations Puckers" type="1" subtype="0" shape="1" width="13" height="7" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="13" y="3"/>
+		<spawn x="4" y="2">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="7" y="2">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="4" y="4">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="4">
+			<entity type="71" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="7" y="4">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6204" name="Revelations Puckers" type="1" subtype="0" shape="1" width="13" height="7" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="13" y="3"/>
+		<spawn x="2" y="1">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="5" y="3">
+			<entity type="257" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="7" y="3">
+			<entity type="257" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="5">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6205" name="Revelations Puckers" type="1" subtype="0" shape="1" width="13" height="7" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="13" y="3"/>
+		<spawn x="0" y="0">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="4" y="2">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="8" y="2">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="3">
+			<entity type="67" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="12" y="6">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6206" name="Revelations Puckers and Microcephalus" type="1" subtype="0" shape="1" width="13" height="7" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="False" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="13" y="3"/>
+		<spawn x="4" y="0">
+			<entity type="1900" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="0">
+			<entity type="5" variant="51" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="8" y="0">
+			<entity type="1900" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="3" y="1">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="4" y="1">
+			<entity type="1900" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="5" y="1">
+			<entity type="1900" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="1">
+			<entity type="4000" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="7" y="1">
+			<entity type="1900" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="8" y="1">
+			<entity type="1900" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="1">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="3">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="1" y="5">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="5">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6207" name="Revelations Microcephali and Polycephali" type="1" subtype="0" shape="10" width="26" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="19" y="6"/>
+		<door exists="True" x="19" y="14"/>
+		<door exists="True" x="26" y="10"/>
+		<spawn x="6" y="6">
+			<entity type="269" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="8" y="7">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="9">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="13" y="10">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="15" y="10">
+			<entity type="269" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6208" name="Revelations Microcephali and Polycephali (copy)" type="1" subtype="0" shape="11" width="26" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="12" y="10"/>
+		<door exists="True" x="19" y="-1"/>
+		<door exists="True" x="19" y="14"/>
+		<door exists="True" x="26" y="3"/>
+		<door exists="True" x="26" y="10"/>
+		<spawn x="14" y="4">
+			<entity type="269" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="15" y="5">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="17" y="7">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="19" y="8">
+			<entity type="269" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6209" name="Revelations Microcephali and Stains" type="1" subtype="0" shape="10" width="26" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="19" y="6"/>
+		<door exists="True" x="19" y="14"/>
+		<door exists="True" x="26" y="10"/>
+		<spawn x="2" y="5">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="7" y="7">
+			<entity type="401" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="16" y="10">
+			<entity type="401" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="21" y="11">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6210" name="Revelations Microcephalus" type="1" subtype="0" shape="1" width="13" height="7" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="False" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="13" y="3"/>
+		<spawn x="4" y="0">
+			<entity type="86" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="0">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="7" y="1">
+			<entity type="86" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="4" y="2">
+			<entity type="86" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6211" name="Revelations Microcephalus" type="1" subtype="0" shape="1" width="13" height="7" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="13" y="3"/>
+		<spawn x="11" y="1">
+			<entity type="40" variant="0" subtype="1" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="3">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="1" y="5">
+			<entity type="40" variant="0" subtype="3" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6212" name="Revelations Microcephalus" type="1" subtype="0" shape="1" width="13" height="7" difficulty="5" weight="1.0">
+		<door exists="False" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="13" y="3"/>
+		<spawn x="0" y="2">
+			<entity type="257" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="0" y="3">
+			<entity type="257" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="3">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="0" y="4">
+			<entity type="257" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6213" name="Revelations Punkers" type="1" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<spawn x="6" y="6">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="8">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6214" name="Revelations Puckers" type="1" subtype="0" shape="5" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="False" x="6" y="-1"/>
+		<door exists="True" x="6" y="14"/>
+		<spawn x="8" y="0">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="5" y="1">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="8" y="2">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="4" y="3">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="3">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6215" name="Revelations Brother Bloodies" type="1" subtype="0" shape="6" width="26" height="7" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="19" y="-1"/>
+		<door exists="True" x="19" y="7"/>
+		<door exists="True" x="26" y="3"/>
+		<spawn x="10" y="1">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="14" y="1">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="3">
+			<entity type="28" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="12" y="3">
+			<entity type="28" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="13" y="3">
+			<entity type="28" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="12" y="4">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6216" name="Revelations" type="1" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<spawn x="5" y="5">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="6">
+			<entity type="28" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="5" y="7">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="7">
+			<entity type="28" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="8">
+			<entity type="28" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="7" y="8">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6217" name="Revelations" type="1" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<spawn x="2" y="1">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="2">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="4">
+			<entity type="43" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="5">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="8">
+			<entity type="43" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="7" y="8">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="2" y="11">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="12">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6218" name="Revelations " type="1" subtype="0" shape="6" width="26" height="7" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="19" y="-1"/>
+		<door exists="True" x="19" y="7"/>
+		<door exists="True" x="26" y="3"/>
+		<spawn x="5" y="1">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="12" y="3">
+			<entity type="402" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="5">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="16" y="5">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6219" name="Revelations" type="1" subtype="0" shape="6" width="26" height="7" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="19" y="-1"/>
+		<door exists="True" x="19" y="7"/>
+		<door exists="True" x="26" y="3"/>
+		<spawn x="10" y="0">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="14" y="0">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="1">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="12" y="1">
+			<entity type="36" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="15" y="1">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6220" name="Revelations (copy)" type="1" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<spawn x="3" y="5">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="1" y="6">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="2" y="6">
+			<entity type="67" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="7">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="8" y="8">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="8">
+			<entity type="67" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6221" name="Revelations" type="1" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<spawn x="1" y="0">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="0">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="2" y="6">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="6">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="1" y="12">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="12">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6222" name="Revelations (copy)" type="1" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<spawn x="7" y="2">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="6">
+			<entity type="20" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="7">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="2" y="8">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6223" name="Revelations" type="1" subtype="0" shape="6" width="26" height="7" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="19" y="-1"/>
+		<door exists="True" x="19" y="7"/>
+		<door exists="True" x="26" y="3"/>
+		<spawn x="22" y="0">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="24" y="0">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="5" y="1">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="8" y="1">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="22" y="1">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="23" y="1">
+			<entity type="71" variant="1" subtype="0" weight="0.0"/>
+			<entity type="71" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="24" y="1">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="5" y="3">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="7" y="3">
+			<entity type="71" variant="1" subtype="0" weight="0.0"/>
+			<entity type="71" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="3">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6224" name="Revelations" type="1" subtype="0" shape="1" width="13" height="7" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="13" y="3"/>
+		<spawn x="1" y="0">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="3" y="0">
+			<entity type="30" variant="2" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="0">
+			<entity type="30" variant="2" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="0">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="1" y="1">
+			<entity type="30" variant="2" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="1">
+			<entity type="30" variant="2" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="3">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="1" y="4">
+			<entity type="30" variant="2" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="4">
+			<entity type="30" variant="2" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="3" y="5">
+			<entity type="30" variant="2" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="5">
+			<entity type="30" variant="2" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="1" y="6">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="6">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6225" name="Revelations (copy)" type="1" subtype="0" shape="1" width="13" height="7" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="13" y="3"/>
+		<spawn x="1" y="0">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="3" y="0">
+			<entity type="30" variant="2" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="0">
+			<entity type="30" variant="2" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="0">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="1" y="1">
+			<entity type="30" variant="2" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="1">
+			<entity type="30" variant="2" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="3">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="1" y="4">
+			<entity type="30" variant="2" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="4">
+			<entity type="30" variant="2" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="3" y="5">
+			<entity type="30" variant="2" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="5">
+			<entity type="30" variant="2" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="1" y="6">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="6">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6226" name="Revelations " type="1" subtype="0" shape="1" width="13" height="7" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="13" y="3"/>
+		<spawn x="3" y="3">
+			<entity type="209" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="5" y="3">
+			<entity type="480" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="8" y="3">
+			<entity type="209" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6227" name="Revelations  (copy)" type="1" subtype="0" shape="1" width="13" height="7" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="13" y="3"/>
+		<spawn x="0" y="0">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="0">
+			<entity type="212" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="8" y="2">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="3" y="3">
+			<entity type="212" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="3">
+			<entity type="212" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="1" y="6">
+			<entity type="212" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="12" y="6">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6228" name="Revelations" type="1" subtype="0" shape="6" width="26" height="7" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="19" y="-1"/>
+		<door exists="True" x="19" y="7"/>
+		<door exists="True" x="26" y="3"/>
+		<spawn x="15" y="1">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="2">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="8" y="3">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="3">
+			<entity type="74" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="3">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="14" y="3">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="15" y="3">
+			<entity type="74" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="16" y="3">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="4">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="15" y="4">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6229" name="Revelations  (copy)" type="1" subtype="0" shape="3" width="13" height="7" difficulty="5" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<spawn x="8" y="2">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="3">
+			<entity type="38" variant="1" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="4" y="4">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6230" name="Revelations" type="1" subtype="0" shape="1" width="13" height="7" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="13" y="3"/>
+		<spawn x="3" y="2">
+			<entity type="54" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="3">
+			<entity type="583" variant="2678" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="4">
+			<entity type="54" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6231" name="Revelations (copy)" type="1" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<spawn x="6" y="4">
+			<entity type="583" variant="2678" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="6">
+			<entity type="54" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="9">
+			<entity type="583" variant="2678" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6232" name="Revelations" type="1" subtype="0" shape="6" width="26" height="7" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="19" y="-1"/>
+		<door exists="True" x="19" y="7"/>
+		<door exists="True" x="26" y="3"/>
+		<spawn x="8" y="1">
+			<entity type="54" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="17" y="1">
+			<entity type="54" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="9" y="3">
+			<entity type="583" variant="2678" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="16" y="3">
+			<entity type="583" variant="2678" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="12" y="4">
+			<entity type="54" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6233" name="Revelations (copy)" type="1" subtype="0" shape="6" width="26" height="7" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="19" y="-1"/>
+		<door exists="True" x="19" y="7"/>
+		<door exists="True" x="26" y="3"/>
+		<spawn x="3" y="1">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="8" y="2">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="12" y="3">
+			<entity type="488" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="17" y="4">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="22" y="5">
+			<entity type="476" variant="542" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+	<room variant="6234" name="hippo - pucker saves the day" type="1" subtype="0" shape="1" width="13" height="7" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="13" y="3"/>
+		<spawn x="5" y="3">
+			<entity type="488" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="6" y="3">
+			<entity type="479" variant="2678" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="7" y="3">
+			<entity type="488" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="6235" name="hippo - pucker joins the circus" type="1" subtype="0" shape="1" width="13" height="7" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="13" y="3"/>
+		<spawn x="0" y="0">
+			<entity type="1500" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="1" y="0">
+			<entity type="1500" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="11" y="0">
+			<entity type="1500" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="12" y="0">
+			<entity type="1500" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="0" y="1">
+			<entity type="1500" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="12" y="1">
+			<entity type="1500" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="6" y="3">
+			<entity type="479" variant="2678" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="0" y="5">
+			<entity type="1500" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="12" y="5">
+			<entity type="1500" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="0" y="6">
+			<entity type="1500" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="1" y="6">
+			<entity type="1500" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="11" y="6">
+			<entity type="1500" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="12" y="6">
+			<entity type="1500" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="6236" name="hippo - pucker joins the parade" type="1" subtype="0" shape="1" width="13" height="7" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="13" y="3"/>
+		<spawn x="4" y="2">
+			<entity type="476" variant="542" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="8" y="2">
+			<entity type="476" variant="542" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="6" y="3">
+			<entity type="479" variant="2678" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="4" y="4">
+			<entity type="476" variant="542" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="8" y="4">
+			<entity type="476" variant="542" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="6237" name="hippo - pucker travels through time" type="1" subtype="0" shape="1" width="13" height="7" difficulty="5" weight="1.0" lastTestTime="2022-08-25T08:06+00:00">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="13" y="3"/>
+		<spawn x="10" y="1">
+			<entity type="479" variant="2678" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="2" y="5">
+			<entity type="479" variant="2678" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="6237" name="hippo - pucker enters the race" type="1" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0" lastTestTime="2022-08-25T08:05+00:00">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<spawn x="7" y="5">
+			<entity type="261" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="6" y="6">
+			<entity type="479" variant="2678" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="5" y="8">
+			<entity type="261" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="6238" name="hippo - pucker goes to the moon" type="1" subtype="0" shape="4" width="13" height="14" difficulty="5" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="-1" y="10"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="14"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="13" y="10"/>
+		<spawn x="8" y="3">
+			<entity type="476" variant="542" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="7" y="4">
+			<entity type="476" variant="542" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="9" y="4">
+			<entity type="476" variant="542" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="6" y="5">
+			<entity type="479" variant="2678" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="4" y="7">
+			<entity type="476" variant="542" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="3" y="8">
+			<entity type="476" variant="542" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="6" y="8">
+			<entity type="479" variant="2678" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="5" y="9">
+			<entity type="476" variant="542" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="6239" name="hippo - I live and die with the chickens" type="1" subtype="0" shape="6" width="26" height="7" difficulty="6" weight="1.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="19" y="-1"/>
+		<door exists="True" x="19" y="7"/>
+		<door exists="True" x="26" y="3"/>
+		<spawn x="11" y="1">
+			<entity type="764" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="15" y="1">
+			<entity type="764" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="9" y="2">
+			<entity type="764" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="13" y="2">
+			<entity type="764" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="10" y="3">
+			<entity type="764" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="15" y="3">
+			<entity type="764" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="12" y="4">
+			<entity type="764" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="16" y="4">
+			<entity type="764" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="10" y="5">
+			<entity type="764" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="14" y="5">
+			<entity type="764" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+</rooms>

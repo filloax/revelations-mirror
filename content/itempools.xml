@@ -1,0 +1,239 @@
+<?xml version="1.0"?>
+
+<ItemPools>
+
+	<!-- IMPORTANT NOTE REGARDING WEIGHTS 
+		all items have weight 5 due to the dynamic weight system, 
+		if you check lua/revelcommon/core/dynamic_item_weights.lua
+		you'll see why
+		They don't actually have weight 5 ingame as they get rerolled 80% 
+		of the time in normal conditions, making weight effectively 1
+		You simply have a higher chance to find them (so, lower reroll chance)
+		if you have never got them, and if you never won a run with them, but never as far as
+		weight 5
+
+		This has always been the case, we just forgot when we reverted weights back to 1 lol
+
+		If you want to play the mod with all items on a weight of 1 without the
+		dynamic weight system, we added an option for that in the in-game settings. 
+		Item weights: "vanilla"
+	-->
+
+	<Pool Name="angel">
+		<Item Name="Heavenly Bell" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Aegis" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Spirit of Patience" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Penance" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Perseverance" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Pilgrim's Ward" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Ophanim" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Lil Michael" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+
+	<Pool Name="greedAngel">
+		<Item Name="Heavenly Bell" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Aegis" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Spirit of Patience" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Penance" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Perseverance" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Pilgrim's Ward" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Ophanim" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Lil Michael" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+
+	<Pool Name="devil">
+		<Item Name="The Monolith" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Lil Belial" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Ghastly Flame" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Ferryman's Toll" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Death Mask" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Cursed Grail" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+
+	<Pool Name="greedDevil">
+		<Item Name="The Monolith" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Lil Belial" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Ghastly Flame" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Ferryman's Toll" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Death Mask" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+
+	<Pool Name="curse">
+		<Item Name="Cursed Grail" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+
+	<Pool Name="treasure">
+		<Item Name="Mint Gum" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Fecal Freak" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Dynamo" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Hyper Dice" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Burning Bush" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Sponge Bombs" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Spirit of Patience" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Ice Tray" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Tummy Bug" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Friendly Fire" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Wandering Soul" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Waka Waka" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Ghastly Flame" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Chum Bucket" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Cabbage Patch" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Virgil" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Haphephobia" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Oops!" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Glutton's Gut" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Moxie's Paw" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Bandage Baby" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Broken Oar" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Mirror Bombs" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Moxie's Yarn" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Hungry Grub" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Cardboard Robot" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Wrath's Rage" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Sloth's Saddle" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Lover's Libido" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Pride's Posturing" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Envy's Enmity" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Bargainer's Burden" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Willo" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Super Meat Blade" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Not a Bullet" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Window Cleaner" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+
+	<Pool Name="greedTreasure">
+		<Item Name="Mint Gum" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Fecal Freak" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Dynamo" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Hyper Dice" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Burning Bush" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Sponge Bombs" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Spirit of Patience" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Ice Tray" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Tummy Bug" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Friendly Fire" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Wandering Soul" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Waka Waka" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Ghastly Flame" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Chum Bucket" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Cabbage Patch" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Virgil" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Haphephobia" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Oops!" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Glutton's Gut" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Moxie's Paw" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Bandage Baby" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Broken Oar" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Mirror Bombs" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Moxie's Yarn" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Hungry Grub" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Cardboard Robot" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Wrath's Rage" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Sloth's Saddle" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Lover's Libido" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Pride's Posturing" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Envy's Enmity" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Bargainer's Burden" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Willo" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Super Meat Blade" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Not a Bullet" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+
+	<Pool Name="shop">
+		<Item Name="Cotton Bud" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Music Box" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Addict" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Prescription" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Dramamine" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+
+	<Pool Name="greedShop">
+		<Item Name="Cotton Bud" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Music Box" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Addict" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Prescription" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Dramamine" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+
+	<Pool Name="secret">
+		<Item Name="Wandering Soul" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Geode" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Birth Control" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+
+	<Pool Name="greedSecret">
+		<Item Name="Wandering Soul" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Geode" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Birth Control" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+
+	<Pool Name="boss">
+		<Item Name="Birthday Candle" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Not a Bullet" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+
+	<Pool Name="greedBoss">
+		<Item Name="Birthday Candle" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Not a Bullet" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+
+	<Pool Name="bombBum">
+		<Item Name="Sponge Bombs" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Mirror Bombs" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+
+	<Pool Name="goldenChest">
+		<Item Name="Birthday Candle" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Window Cleaner" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Cardboard Robot" Weight="0.5" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+
+	<Pool Name="craneGame">
+		<Item Name="Window Cleaner" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Music Box" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Prescription" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Dramamine" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Cardboard Robot" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Moxie's Yarn" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Waka Waka" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+
+	<Pool Name="ultraSecret">
+		<Item Name="Chum Bucket" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Super Meat Blade" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Cursed Grail" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Lover's Libido" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Wrath's Rage" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Friendly Fire" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Half Chewed Pony" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+
+	<Pool Name="momsChest">
+		<Item Name="Birth Control" Weight="0.5" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+
+	<Pool Name="oldChest">
+		<Item Name="Birth Control" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+
+	<Pool Name="babyShop">
+		<Item Name="Lil Belial" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Lil Michael" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Lil Frost Rider" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Bandage Baby" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Envy's Enmity" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Hungry Grub" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Willo" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Wandering Soul" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+
+	<Pool Name="woodenChest">
+		<Item Name="Music Box" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Broken Oar" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+
+	<Pool Name="rottenBeggar">
+		<Item Name="Sloth's Saddle" Weight="5" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+
+</ItemPools>

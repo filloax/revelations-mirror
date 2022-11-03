@@ -1,0 +1,189 @@
+<?xml version="1.0" ?>
+<rooms>
+	<room variant="0" name="Rag Bony" type="1" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="7"/>
+		<spawn x="2" y="3">
+			<entity type="744" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="10" y="3">
+			<entity type="744" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="1" name="Rag Gaper" type="1" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="7"/>
+		<spawn x="2" y="1">
+			<entity type="502" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="10" y="5">
+			<entity type="502" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="2" name="Swarmer" type="1" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="10" y="1">
+			<entity type="91" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="2" y="5">
+			<entity type="91" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="3" name="Arrowheads" type="1" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="3" y="1">
+			<entity type="501" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="10" y="3">
+			<entity type="501" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="2" y="5">
+			<entity type="501" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="4" name="Rag Drifty" type="1" subtype="1" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="2" y="1">
+			<entity type="768" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="10" y="5">
+			<entity type="768" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="5" name="Necragmancer" type="1" subtype="1" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="7"/>
+		<spawn x="10" y="1">
+			<entity type="749" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="2" y="5">
+			<entity type="749" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="6" name="Anima" type="1" subtype="1" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="7"/>
+		<spawn x="2" y="2">
+			<entity type="742" variant="163" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="10" y="5">
+			<entity type="742" variant="163" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="7" name="Rag Tag" type="1" subtype="1" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="7"/>
+		<spawn x="1" y="1">
+			<entity type="500" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="11" y="2">
+			<entity type="500" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="3" y="5">
+			<entity type="500" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="8" name="Rag Trite" type="1" subtype="1" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="2" y="2">
+			<entity type="747" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="10" y="2">
+			<entity type="747" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="3" y="5">
+			<entity type="747" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="9" name="Rag Fatty" type="1" subtype="1" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="7"/>
+		<spawn x="3" y="2">
+			<entity type="757" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="10" y="5">
+			<entity type="757" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="10" name="Wretcher + pals" type="1" subtype="1" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="7"/>
+		<spawn x="6" y="1">
+			<entity type="751" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="11" y="4">
+			<entity type="11" variant="543" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="2" y="5">
+			<entity type="11" variant="543" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="11" name="Locusts" type="1" subtype="3" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="1" y="1">
+			<entity type="743" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="11" y="5">
+			<entity type="743" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="12" name="Pseudo Rag Drifty" type="1" subtype="3" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="6" y="7"/>
+		<spawn x="1" y="1">
+			<entity type="768" variant="542" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="11" y="1">
+			<entity type="768" variant="542" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="3" y="5">
+			<entity type="768" variant="542" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="13" name="Peashy" type="1" subtype="3" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="2" y="1">
+			<entity type="763" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="11" y="2">
+			<entity type="763" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="2" y="5">
+			<entity type="763" variant="541" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+</rooms>

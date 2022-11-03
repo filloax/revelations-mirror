@@ -1,0 +1,196 @@
+<!-- Replace shaders.xml with this (and back it up before) if you need to draw masks. -->
+
+<shaders>
+    <shader name="LineMaskPreview">
+      <parameters>
+          <param name="Active" type="float"/>
+          <param name="x1" type="float"/>
+          <param name="y1" type="float"/>
+          <param name="x2" type="float"/>
+          <param name="y2" type="float"/>
+          <param name="Expansion" type="float"/>
+          <param name="Feather" type="float"/>
+      </parameters>
+      <vertex><![CDATA[
+        // Unused, saved separately for ease of storing. The one used is in the xml.
+
+        attribute vec3 Position;
+        attribute vec4 Color;
+        attribute vec2 TexCoord;
+        attribute vec4 RenderData;
+        attribute float Scale;
+
+        attribute float Active;
+        attribute float x1;
+        attribute float y1;
+        attribute float x2;
+        attribute float y2;
+        attribute float Expansion;
+        attribute float Feather;
+
+        varying vec4 Color0;
+        varying vec2 TexCoord0;
+        varying vec4 RenderDataOut;
+        varying float ScaleOut;
+
+        varying float ActiveOut;
+        varying vec2 P1;
+        varying vec2 P2;
+        varying float ExpansionOut;
+        varying float FeatherOut;
+
+        uniform mat4 Transform;
+        void main(void)
+        {
+          RenderDataOut = RenderData;
+          ScaleOut = Scale;
+          Color0 = Color;
+          TexCoord0 = TexCoord;
+          ActiveOut = Active;
+          P1 = vec2(x1,y1);
+          P2 = vec2(x2,y2);
+          ExpansionOut = Expansion;
+          FeatherOut = Feather;
+
+          gl_Position = Transform * vec4(Position.xyz, 1.0);
+        }
+      ]]></vertex>
+      <fragment><![CDATA[
+        // Unused, saved separately for ease of storing. The one used is in the xml.
+
+        varying float Time;
+        varying vec4 Color0;
+        varying vec2 TexCoord0;
+        varying vec4 RenderDataOut;
+        varying float ScaleOut;
+
+        varying float ActiveOut;
+        varying vec2 P1;
+        varying vec2 P2;
+        varying float ExpansionOut;
+        varying float FeatherOut;
+
+        uniform sampler2D Texture0;
+
+        float distToLine(vec2 p1, vec2 p2, vec2 p)
+        {
+          vec2 lineDir = p2 - p1;
+          vec2 perpDir = vec2(lineDir.y, -lineDir.x);
+          vec2 dirToPt1 = p1 - p;
+          return abs(dot(normalize(perpDir), dirToPt1));
+        }
+
+        float plot(vec2 st, vec2 p1, vec2 p2)
+        {
+            return pow( smoothstep( ExpansionOut + FeatherOut, ExpansionOut,  distToLine(p1, p2, st)), 2);
+        }
+
+        const vec3 W = vec3(1.0);
+
+        void main()
+        {
+          if (ActiveOut > 0.0) {
+            vec3 Color = texture2D(Texture0, TexCoord0.xy).rgb;
+
+            vec2 st = gl_FragCoord.xy/RenderDataOut.xy;
+
+            Color += W * plot(st, P1, P2);
+
+            gl_FragColor.rgb = Color;
+            gl_FragColor.a = 1.0;
+          } else {
+            gl_FragColor = texture2D(Texture0, TexCoord0.xy);
+          }
+        }
+      ]]></fragment>
+  </shader>
+
+  <shader name="CircleMaskPreview">
+    <parameters>
+        <param name="Active" type="float"/>
+        <param name="x" type="float"/>
+        <param name="y" type="float"/>
+        <param name="Radius" type="float"/>
+        <param name="Feather" type="float"/>
+    </parameters>
+    <vertex><![CDATA[
+      // Unused, saved separately for ease of storing. The one used is in the xml.
+
+      attribute vec3 Position;
+      attribute vec4 Color;
+      attribute vec2 TexCoord;
+      attribute vec4 RenderData;
+      attribute float Scale;
+
+      attribute float Active;
+      attribute float x;
+      attribute float y;
+      attribute float Radius;
+      attribute float Feather;
+
+      varying vec4 Color0;
+      varying vec2 TexCoord0;
+      varying vec4 RenderDataOut;
+      varying float ScaleOut;
+
+      varying float ActiveOut;
+      varying vec2 C;
+      varying float RadiusOut;
+      varying float FeatherOut;
+
+      uniform mat4 Transform;
+      void main(void)
+      {
+        RenderDataOut = RenderData;
+        ScaleOut = Scale;
+        Color0 = Color;
+        TexCoord0 = TexCoord;
+        ActiveOut = Active;
+        C = vec2(x,y);
+        RadiusOut = Radius;
+        FeatherOut = Feather;
+
+        gl_Position = Transform * vec4(Position.xyz, 1.0);
+      }
+    ]]></vertex>
+    <fragment><![CDATA[
+      // Unused, saved separately for ease of storing. The one used is in the xml.
+
+      varying float Time;
+      varying vec4 Color0;
+      varying vec2 TexCoord0;
+      varying vec4 RenderDataOut;
+      varying float ScaleOut;
+
+      varying float ActiveOut;
+      varying vec2 C;
+      varying float RadiusOut;
+      varying float FeatherOut;
+
+      uniform sampler2D Texture0;
+
+      float plot(vec2 stx, vec2 c)
+      {
+          return pow( smoothstep( RadiusOut + FeatherOut, RadiusOut,  distance(c, stx)), 2);
+      }
+
+      const vec3 W = vec3(1.0);
+
+      void main()
+      {
+        if (ActiveOut > 0.0) {
+          vec3 Color = texture2D(Texture0, TexCoord0.xy).rgb;
+
+          vec2 stx = gl_FragCoord.xy/vec2(RenderDataOut.x);
+
+          Color += W * plot(stx, C);
+
+          gl_FragColor.rgb = Color;
+          gl_FragColor.a = 1.0;
+        } else {
+          gl_FragColor = texture2D(Texture0, TexCoord0.xy);
+        }
+      }
+    ]]></fragment>
+  </shader>
+</shaders>

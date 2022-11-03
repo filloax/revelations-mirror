@@ -1,0 +1,758 @@
+<data>
+
+<!-- rev common -->
+<group Name="(Rev) Common Enemies">
+    <entity ID="488" Image="revelations/brother_bloody.png" Name="Brother Bloody" Subtype="0" Variant="541" />
+    <entity ID="476" Image="revelations/drifty.png" Name="Drifty" Subtype="0" Variant="541" />
+    <entity ID="476" Image="revelations/pucker.png" Name="Pucker" Subtype="0" Variant="542" />
+    <entity ID="745" Image="revelations/motherpucker.png" Name="Mother Pucker" Subtype="0" Variant="541" />
+    <entity ID="480" Image="revelations/smolycephalus.png" Name="Smolycephalus" Subtype="0" Variant="541" />
+    <entity ID="764" Image="revelations/chicken.png" Name="Chicken" Subtype="0" Variant="541" />
+    <entity ID="746" Image="revelations/aerotoma.png" Name="Aerotoma" Subtype="0" Variant="541" />
+    <entity ID="30" Image="revelations/bombsack.png" Name="Bomb Sack" Subtype="0" Variant="541" />
+    <entity ID="30" Image="revelations/bombsacknospawns.png" Name="Bomb Sack No Spawns" Subtype="1" Variant="541" />
+</group>
+
+<!-- rev bosses -->
+<group Name="(Rev) Boss Modifiers">
+    <entity Metadata="1" ID="789" Image="revelations/championizer.png" Name="Championizer" Subtype="0" Variant="91" />
+    <entity Metadata="1" ID="789" Image="revelations/nochampion.png" Name="No Champion" Subtype="0" Variant="92" />
+    <entity Metadata="1" ID="789" Image="revelations/reducedhp.png" Name="Reduced HP" Subtype="0" Variant="90" />
+</group>
+<group Name="(Rev) Common Bosses">
+    <entity ID="479" Image="revelations/punker.png" Name="Punker" Subtype="0" Variant="2678" />
+    <entity ID="583" Image="revelations/raginglonglegs.png" Name="Raging Long Legs" Subtype="0" Variant="2678" />
+    <group Name="(Rev) Raging Long Legs Entities">
+        <entity ID="999" Image="revelations/raging_fire.png" Name="Extinguishable Fire" Subtype="178" Variant="51" />
+        <entity ID="999" Image="revelations/raging_fire_spider.png" Name="Flaming Spider Spawner" Subtype="179" Variant="51" />
+        <entity ID="999" Image="revelations/raging_fire_big_spider.png" Name="Flaming Big Spider Spawner" Subtype="180" Variant="51" />
+        <entity ID="999" Image="revelations/raging_fire_ticking_spider.png" Name="Flaming Ticking Spider Spawner" Subtype="181" Variant="51" />
+        <entity ID="999" Image="revelations/raging_fire_lvl2_spider.png" Name="Flaming Lvl 2 Spider Spawner" Subtype="182" Variant="51" />
+        <entity ID="999" Image="revelations/raging_fire_bombsack.png" Name="Ignited Bomb Sack Spawner" Subtype="183" Variant="51" />
+    </group>
+</group>
+<group Name="(Rev) Glacier Bosses">
+    <entity ID="627" Image="revelations/frost_rider.png" Name="Frost Rider" Subtype="0" Variant="3133" />
+    <entity ID="628" Image="revelations/frost_rider_head.png" Name="Frost Rider Phase 2" Subtype="0" Variant="3133" />
+    <entity ID="765" Image="revelations/freezer_burn.png" Name="Freezer Burn" Subtype="0" Variant="2678" />
+    <entity ID="625" Image="revelations/stalagmight.png" Name="Stalagmight" Subtype="0" Variant="2678" />
+    <entity ID="625" Image="revelations/stalagmight_spike.png" Name="Stalagmight Spike" Subtype="0" Variant="2700" />
+    <entity Metadata="1" ID="789" Image="revelations/stalagmight_spike_nodestroy.png" Name="Always On Stalagmight Spike" Subtype="0" Variant="150" />
+    <entity ID="783" Image="revelations/prong.png" Name="Prong" Subtype="0" Variant="2678" />
+    <entity ID="659" Image="revelations/wendy.png" Name="Wendy" Subtype="0" Variant="2678" />
+    <entity ID="659" Image="revelations/wendysnow.png" Name="Wendy Snowpile" Subtype="0" Variant="2679" />
+    <entity ID="643" Image="revelations/williwaw.png" Name="Williwaw" Subtype="0" Variant="3133" />
+    <!--<entity ID="626" Image="revelations/narcissus.png" Name="Narcissus" Subtype="0" Variant="826" />-->
+    <group Name="(Rev) Glacier Bosses Unused" Label="Unused">
+        <entity ID="475" Image="revelations/flurry_jr.png" Name="Flurry Head" Subtype="0" Variant="3133" />
+        <entity ID="486" Image="revelations/flurry_ice_block.png" Name="Flurry Ice Block" Subtype="0" Variant="3133" />
+        <entity ID="486" Image="revelations/flurry_ice_block_yellow.png" Name="Flurry Ice Block Yellow" Subtype="0" Variant="3134" />
+        <entity ID="20" Image="revelations/monsnow.png" Name="Monsnow" Subtype="0" Variant="3133" />
+        <entity ID="657" Image="revelations/duke_of_flakes.png" Name="Duke of Flakes" Subtype="0" Variant="3133" />
+    </group>
+</group>
+<group Name="(Rev) Tomb Bosses">
+    <entity ID="790" Image="revelations/aragnid.png" Name="Aragnid" Subtype="0" Variant="2678" />
+    <entity ID="505" Image="revelations/catastrophe_yarn.png" Name="Catastrophe Yarn (Spawner)" Subtype="0" Variant="2678" />
+    <entity ID="758" Image="revelations/sarcophaguts.png" Name="Sarcophaguts" Subtype="0" Variant="2678" />
+    <entity ID="758" Image="revelations/sarcgut.png" Name="Sarcgut" Subtype="0" Variant="2680" />
+    <entity ID="676" Image="revelations/maxwell.png" Name="Maxwell" Subtype="0" Variant="2678" />
+    <entity ID="523" Image="revelations/sandy.png" Name="Sandy" Subtype="0" Variant="2678" />
+    <!--<entity ID="761" Image="revelations/narcissus2.png" Name="Narcissus II" Subtype="0" Variant="826" />-->
+</group>
+
+<!-- rev elites -->
+<group Name="(Rev) Glacier Elites">
+    <entity ID="770" Image="revelations/chuck.png" Name="Chuck" Subtype="0" Variant="1005" />
+</group>
+<group Name="(Rev) Tomb Elites">
+    <entity ID="771" Image="revelations/dungo.png" Name="Dungo" Subtype="0" Variant="1005" />
+    <entity ID="775" Image="revelations/ragtime.png" Name="Ragtime" Subtype="0" Variant="1005" />
+    <entity Metadata="1" ID="199" Image="revelations/ragtime_boxdance_main.png" Name="Ragtime Box Dance (Center)" Subtype="0" Variant="750">
+        <bitfield Key="Subtype">
+            <spinner Name="Dance ID" Length="8">
+                <tooltip>Placeholder until BR layers exist, associate with other dance metaentities with the same ID</tooltip>
+            </spinner>
+            <dial Name="Jump Rotation" Length="2" > <!-- Length 2 to force multiples of 90° -->
+                <tooltip>How much to rotate the formation when jumping here (will be overridable with StageAPI directions when BR layers exist)</tooltip>
+            </dial>
+        </bitfield>
+    </entity>
+    <entity Metadata="1" ID="199" Image="revelations/ragtime_boxdance.png" Name="Ragtime Box Dance (Jump Point)" Subtype="0" Variant="751">
+        <bitfield Key="Subtype">
+            <spinner Name="Dance ID" Length="8">
+                <tooltip>Placeholder until BR layers exist, associate with other dance metaentities with the same ID</tooltip>
+            </spinner>
+            <dial Name="Jump Rotation" Length="2" > <!-- Length 2 to force multiples of 90° -->
+                <tooltip>How much to rotate the formation when jumping here (will be overridable with StageAPI directions when BR layers exist)</tooltip>
+            </dial>
+        </bitfield>
+    </entity>
+    <entity Metadata="1" ID="199" Image="revelations/ragtime_conga_main.png" Name="Ragtime Conga (Start/End)" Subtype="0" Variant="752">
+        <bitfield Key="Subtype">
+            <spinner Name="Dance ID" Length="8">
+                <tooltip>Placeholder until BR layers exist, associate with other dance metaentities with the same ID</tooltip>
+            </spinner>
+            <dial Name="Direction" Length="3" > <!-- Length 3 to force multiples of 45° -->
+                <tooltip>Direction towards the next point of the line (will be overridable with StageAPI directions when BR layers exist)</tooltip>
+            </dial>
+        </bitfield>
+    </entity>
+    <entity Metadata="1" ID="199" Image="revelations/ragtime_conga.png" Name="Ragtime Conga (Point)" Subtype="0" Variant="753">
+        <bitfield Key="Subtype">
+            <spinner Name="Dance ID" Length="8">
+                <tooltip>Placeholder until BR layers exist, associate with other dance metaentities with the same ID</tooltip>
+            </spinner>
+            <dial Name="Direction" Length="3" > <!-- Length 3 to force multiples of 45° -->
+                <tooltip>Direction towards the next point of the line (will be overridable with StageAPI directions when BR layers exist)</tooltip>
+            </dial>
+            <checkbox Name="Is End Point" Length="1">
+                <tooltip>Treat this as the conga line's end point</tooltip>
+            </checkbox>
+        </bitfield>
+    </entity>
+    <entity Metadata="1" ID="199" Image="revelations/ragtime_playerspot.png" 
+        Name="Ragtime Player Safe Point (Chosen on each switch depending on which dances are selected, can overlap dances)" Subtype="0" Variant="754"/>
+</group>
+
+<!-- rev glacier enemies -->
+
+<group Name="(Rev) Glacier Enemies" Label="Enemies">
+    <group Name="(Rev) Glacier Ice" Label="Ice">
+        <entity ID="10" Image="revelations/frozen gaper.png" Name="Block Gaper" Subtype="0" Variant="542" />
+        <entity ID="10" Image="revelations/frozen gaper cardinal.png" Name="Cardinal Block Gaper" Subtype="0" Variant="543" />
+        <entity ID="10" Image="revelations/frozen gaper yellow.png" Name="Yellow Block Gaper" Subtype="0" Variant="544" />
+        <entity ID="10" Image="revelations/frozen gaper cardinal yellow.png" Name="Yellow Cardinal Block Gaper" Subtype="0" Variant="545" />
+        <entity ID="10" Image="revelations/frozen gaper tall.png" Name="Block Block Block Gaper" Subtype="0" Variant="546" >
+        <bitfield Key="Subtype"><spinner Name="Stack" Length="16" ValueOffset="2"><tooltip>Number of blocks</tooltip></spinner></bitfield></entity>
+        <entity ID="455" Image="revelations/frozen spider.png" Name="Iced Spider" Subtype="0" Variant="541" />
+        <entity ID="455" Image="revelations/frozen spider yellow.png" Name="Iced Spider" Subtype="0" Variant="542" />
+        <entity ID="489" Image="revelations/iced hive.png" Name="Iced Hive" Subtype="0" Variant="541" />
+        <entity ID="490" Image="revelations/stalactrite.png" Name="Stalactrite" Subtype="0" Variant="541" />
+        <entity ID="462" Image="revelations/geicer.png" Name="Geicer" Subtype="0" Variant="541" />
+        <entity ID="491" Image="revelations/ice_worm.png" Name="Ice Worm" Subtype="0" Variant="541" />
+        <entity ID="214" Image="revelations/cryo_fly.png" Name="Cryo Fly" Subtype="0" Variant="541" />
+    </group>
+    <group Name="(Rev) Glacier Snow" Label="Snow">
+        <entity ID="624" Image="revelations/snowflake.png" Name="Snowflake" Subtype="0" Variant="541" />
+        <entity ID="624" Image="revelations/snowflake big.png" Name="Big Snowflake" Subtype="0" Variant="542" />
+        <entity ID="22" Image="revelations/hice.png" Name="Hice" Subtype="0" Variant="541" />
+        <entity ID="460" Image="revelations/snowball.png" Name="Snowball" Subtype="0" Variant="541" />
+        <entity ID="591" Image="revelations/yellow_snowball.png" Name="Yellow Snowball" Variant="541" />
+        <entity ID="460" Image="revelations/strawberry_snowball.png" Name="Strawberry Snowball" Variant="542" />
+        <entity ID="478" Image="revelations/cloudy.png" Name="Cloudy" Subtype="0" Variant="541" />
+        <entity ID="484" Image="revelations/fatsnow.png" Name="FatSnow" Subtype="0" Variant="541" />
+        <entity ID="485" Image="revelations/rolling snowball.png" Name="Rolling Snowball" Subtype="0" Variant="541" />
+        <entity ID="482" Image="revelations/snowbob head bone.png" Name="Snowbob Head (Tears)" Subtype="0" Variant="541" />
+        <entity ID="482" Image="revelations/snowbob head.png" Name="Snowbob Head" Subtype="0" Variant="542" />
+        <entity ID="482" Image="revelations/snowbob.png" Name="Snowbob" Subtype="0" Variant="543" />
+        <entity ID="492" Image="revelations/yellow_snow.png" Name="Yellow Snow" Subtype="0" Variant="541" />
+        <entity ID="792" Image="revelations/avalanche.png" Name="Avalanche" Variant="541" Subtype="0"/>
+        <entity ID="658" Image="revelations/huffpuff.png" Name="Huffpuff" Variant="541" Subtype="0"/>
+        <entity ID="319" Image="revelations/snowst.png" Name="Snowst" Subtype="0" Variant="2678" />
+        <entity ID="25" Image="revelations/shy_fly.png" Name="Shy Fly" Subtype="0" Variant="541" />
+    </group>
+    <group Name="(Rev) Glacier Chill" Label="Chill">
+        <entity ID="487" Image="revelations/grill o wisp.png" Name="Grill O' Wisp" Subtype="0" Variant="333" />
+        <entity ID="487" Image="revelations/small grill o wisp.png" Name="Small Grill O' Wisp" Subtype="1" Variant="333" />
+        <entity ID="487" Image="revelations/chill o wisp.png" Name="Chill O' Wisp" Subtype="0" Variant="334" />
+        <entity ID="483" Image="revelations/brainfreeze.png" Name="Brainfreeze" Subtype="0" Variant="541" />
+        <group Name="(Rev) Glacier Draugr" />
+        <entity ID="462" Image="revelations/coal_heater.png" Name="Coal Heater" Subtype="0" Variant="542" />
+        <entity ID="760" Image="revelations/firecaller_glacier.png" Name="Firecaller (Glacier)" Subtype="0" Variant="542" />
+    </group>
+    <group Name="(Rev) Glacier Unique" Label="Unique">
+        <entity ID="590" Image="revelations/sickie.png" Name="Sickie" Variant="541" />
+		<entity ID="485" Image="revelations/rolling snotball.png" Name="Snot Rocket" Subtype="0" Variant="542" />
+        <entity ID="614" Image="revelations/sasquatch.png" Name="Sasquatch" Subtype="0" Variant="541" />
+        <entity ID="667" Image="revelations/tusky.png" Name="Tusky" Subtype="0" Variant="541" />
+        <entity Metadata="1" ID="199" Image="revelations/tusky_rider_random.png" Name="Tusky Random Rider (Or no rider)" Subtype="0" Variant="787" />
+        <entity Metadata="1" ID="199" Image="revelations/tusky_rider_random_force.png" Name="Tusky Random Rider (Force)" Subtype="0" Variant="788" />
+        <entity ID="659" Image="revelations/emperor.png" Name="Emperor" Subtype="0" Variant="541" />
+		<entity ID="703" Image="revelations/harfang.png" Name="Harfang" Subtype="0" Variant="541" />
+        <entity ID="705" Image="revelations/pine.png" Name="Pine" Subtype="0" Variant="541" >
+        <bitfield Key="Subtype">
+            <checkbox Name="Center Pinecone" Length="1">
+                <tooltip>Spawn an extra pinecone that will stay in the center during attack formation</tooltip>
+            </checkbox>
+            <checkbox Name="Counter Clockwise" Length="1">
+                <tooltip>The direction that pinecones will spin. Uncheck for clockwise</tooltip>
+            </checkbox>
+            <!--<spinner Name="Shot Speed" Length="16" ValueOffset="-1">
+                <tooltip>Speed that pinecones are shot out</tooltip>
+            </spinner>
+            <spinner Name="Orbit Speed" Length="12" ValueOffset="-1">
+                <tooltip>Speed that pinecones orbit around a pivot</tooltip>
+            </spinner>-->
+        </bitfield></entity>
+        <entity ID="705" Image="revelations/pinecone.png" Name="Pinecone" Subtype="0" Variant="542" />
+    </group>
+    <group Name="(Rev) Glacier Prank" Label="Prank">
+        <entity ID="753" Image="revelations/prank_glacier.png" Name="Prank (Glacier)" Subtype="0" Variant="1005" />
+    </group>
+	<group Name="(Rev) Glacier Main Path" Label="Main Path">
+        <entity Name="Gaper"/>
+		<entity Name="Frowning Gaper"/>
+		<entity Name="Pacer"/>
+		<entity Name="Gusher"/>
+		<entity Name="Fatty"/>
+		<entity Name="Hopper"/>
+		<entity Name="Horf"/>
+		<entity Name="Brother Bloody"/>
+		<entity Name="Drifty"/>
+		<entity Name="Round Worm"/>
+		<entity Name="Clotty"/>
+		<entity Name="I.Blob"/>
+		<entity Name="Dip"/>
+		<entity Name="Squirt"/>
+		<entity Name="Pooter"/>
+		<entity Name="Spider"/>
+		<entity Name="Wall Creep"/>
+		<entity Name="Trite"/>
+		<entity Name="Poky"/>
+		<entity Name="Slide"/>
+    </group>
+</group>
+
+<group Name="(Rev) Glacier Draugr">
+    <entity ID="735" Image="revelations/draugr.png" Name="Draugr" Variant="541" />
+    <entity ID="735" Image="revelations/haugr.png" Name="Haugr" Variant="542" />
+    <entity ID="735" Image="revelations/jaugr.png" Name="Jaugr" Variant="543" />
+</group>
+
+
+
+<group Name="(Rev) Glacier Grids" Label="Grids">
+    <entity ID="656" Image="revelations/brazier.png" Name="Brazier" Subtype="0" Variant="6" InEmptyRooms="1" IsGrid="1" />
+    <entity ID="625" Image="revelations/ice pit.png" Name="Ice Pit" Subtype="0" Variant="274" 
+        EditorImage="../resources/gfx/grid/revel1/glacier_ice_pit.png" UsePitTiling="1" IsGrid="1" NoBlockDoors="1" InEmptyRooms="1" />
+    <entity ID="199" Image="revelations/exploding_snowman.png" Name="Exploding Snowman" Subtype="0" Variant="740" IsGrid="1" />
+    <entity ID="625" Image="revelations/fragile ice pit.png" Name="Fragile Ice Pit" Variant="275" IsGrid="1" />
+    <entity ID="625" Image="revelations/no ice plz.png" Name="No Fragility Forced Ice" Variant="276" IsGrid="1" />
+    <entity ID="199" Image="revelations/frozen_bodies.png" Name="Inferno Frozen Body" Subtype="0" Variant="741" IsGrid="1" />
+    <entity ID="199" Image="revelations/dante_mega_satan.png" Name="Dante Mega Satan" Subtype="0" Variant="742" IsGrid="1" PlaceVisual="0,5"/>
+    <entity ID="656" Image="revelations/tough_ice.png" Name="Tough Ice" Subtype="0" Variant="7" IsGrid="1"/>
+</group>
+
+<group Name="(Rev) Glacier Obstacles" Label="Obstacles">
+    <group Name="(Rev) Glacier Grimace" Label="Grimaces">
+        <entity ID="203" Image="revelations/big_blowy_left.png" Name="Big Blowy (Left)" Subtype="0" Variant="541" />
+        <entity ID="203" Image="revelations/big_blowy_up.png" Name="Big Blowy (Up)" Subtype="1" Variant="541" />
+        <entity ID="203" Image="revelations/big_blowy_right.png" Name="Big Blowy (Right)" Subtype="2" Variant="541" />
+        <entity ID="203" Image="revelations/big_blowy_down.png" Name="Big Blowy (Down)" Subtype="3" Variant="541" />
+        <entity ID="203" Image="revelations/medium_blowy_left.png" Name="Medium Blowy (Left)" Subtype="0" Variant="543" />
+        <entity ID="203" Image="revelations/medium_blowy_up.png" Name="Medium Blowy (Up)" Subtype="1" Variant="543" />
+        <entity ID="203" Image="revelations/medium_blowy_right.png" Name="Medium Blowy (Right)" Subtype="2" Variant="543" />
+        <entity ID="203" Image="revelations/medium_blowy_down.png" Name="Medium Blowy (Down)" Subtype="3" Variant="543" />
+        <entity ID="203" Image="revelations/igloo.png" Name="Igloo" Subtype="0" Variant="542" />
+    </group>
+    <group Name="(Rev) Glacier Ice Hazards" Label="Ice Hazards">
+        <entity ID="481" Image="revelations/ice random.png" Name="Ice Hazard (Random)" Subtype="133" Variant="338" />
+        <entity ID="481" Image="revelations/ice random no brother.png" Name="Ice Hazard (Random, no brother bloody)" Subtype="134" Variant="338" />
+        <entity ID="481" Image="revelations/ice gaper.png" Name="Ice Hazard (Gaper)" Subtype="0" Variant="338" >
+        <bitfield Key="Subtype"><spinner Name="Chuck Order" Length="16" ValueOffset="0"><tooltip>The order that chuck smashes</tooltip></spinner></bitfield></entity>
+        <entity ID="481" Image="revelations/ice horf.png" Name="Ice Hazard (Horf)" Subtype="0" Variant="337" >
+        <bitfield Key="Subtype"><spinner Name="Chuck Order" Length="16" ValueOffset="0"><tooltip>The order that chuck smashes</tooltip></spinner></bitfield></entity>
+        <entity ID="481" Image="revelations/ice hopper.png" Name="Ice Hazard (Hopper)" Subtype="0" Variant="336" >
+        <bitfield Key="Subtype"><spinner Name="Chuck Order" Length="16" ValueOffset="0"><tooltip>The order that chuck smashes</tooltip></spinner></bitfield></entity>
+        <entity ID="481" Image="revelations/ice drifty.png" Name="Ice Hazard (Drifty)" Subtype="0" Variant="335" >
+        <bitfield Key="Subtype"><spinner Name="Chuck Order" Length="16" ValueOffset="0"><tooltip>The order that chuck smashes</tooltip></spinner></bitfield></entity>
+        <entity ID="481" Image="revelations/ice clotty.png" Name="Ice Hazard (Clotty)" Subtype="0" Variant="334" >
+        <bitfield Key="Subtype"><spinner Name="Chuck Order" Length="16" ValueOffset="0"><tooltip>The order that chuck smashes</tooltip></spinner></bitfield></entity>
+        <entity ID="481" Image="revelations/ice brother.png" Name="Ice Hazard (Brother Bloody)" Subtype="0" Variant="333" >
+        <bitfield Key="Subtype"><spinner Name="Chuck Order" Length="16" ValueOffset="0"><tooltip>The order that chuck smashes</tooltip></spinner></bitfield></entity>
+        <entity ID="481" Image="revelations/ice bomb.png" Name="Ice Hazard (Troll Bomb)" Subtype="0" Variant="332" >
+        <bitfield Key="Subtype"><spinner Name="Chuck Order" Length="16" ValueOffset="0"><tooltip>The order that chuck smashes</tooltip></spinner></bitfield></entity>
+        <entity ID="481" Image="revelations/ice iblob.png" Name="Ice Hazard (I. Blob)" Subtype="0" Variant="331" >
+        <bitfield Key="Subtype"><spinner Name="Chuck Order" Length="16" ValueOffset="0"><tooltip>The order that chuck smashes</tooltip></spinner></bitfield></entity>
+        <entity ID="481" Image="revelations/ice empty.png" Name="Ice Hazard (Empty)" Subtype="0" Variant="330" >
+        <bitfield Key="Subtype"><spinner Name="Chuck Order" Length="16" ValueOffset="0"><tooltip>The order that chuck smashes</tooltip></spinner></bitfield></entity>
+    </group>
+    <group Name="(Rev) Glacier Stage" Label="Other">
+        <entity ID="494" Image="revelations/lightable_fire.png" Name="Lightable Fire" Subtype="0" Variant="2167" />
+        <entity ID="656" Image="revelations/hockey_puck.png" Name="Hockey Puck" Subtype="0" Variant="8" />
+        <entity ID="450" Image="revelations/stalactite.png" Name="Stalactite" Subtype="0" Variant="333" />
+    </group>
+</group>
+
+
+
+<!-- rev tomb enemies -->
+<group Name="(Rev) Tomb Enemies" Label="Enemies">
+    <group name="(Rev) Tomb Ragfolk" Label="Ragfolk">
+        <entity ID="502" Image="revelations/rag_gaper.png" Name="Rag Gaper" Subtype="0" Variant="541" />
+        <entity ID="11" Image="revelations/homing_gusher.png" Name="Rag Gusher" Subtype="0" Variant="543" />
+        <entity ID="757" Image="revelations/rag_fatty.png" Name="Rag Fatty" Subtype="0" Variant="541" />
+        <entity ID="747" Image="revelations/rag_trite.png" Name="Rag Trite" Subtype="0" Variant="541" />
+        <entity ID="744" Image="revelations/ragbony.png" Name="Rag Bony" Subtype="0" Variant="541" />
+        <entity ID="500" Image="revelations/ragtag.png" Name="Rag Tag" Subtype="0" Variant="541" />
+        <entity ID="751" Image="revelations/wretcher.png" Name="Wretcher" Subtype="0" Variant="541" />
+        <entity Metadata="1" ID="789" Image="revelations/revivalrag.png" Name="Revival Rag" Subtype="0" Variant="76" />
+        <entity ID="768" Image="revelations/rag_drifty.png" Name="Rag Drifty" Subtype="0" Variant="541" />
+        <entity ID="704" Image="revelations/ragma.png" Name="Ragma" Subtype="0" Variant="541" >
+        <bitfield Key="Subtype">
+            <checkbox Name="Die when alone" Length="1">
+                <tooltip>Ragma will die when it's no longer connected to anything</tooltip>
+            </checkbox> 
+        </bitfield>
+        </entity>
+    </group>
+    <group name="(Rev) Tomb Revivers" Label="Revivers">
+        <entity ID="749" Image="revelations/necragmancer.png" Name="Necragmancer" Subtype="0" Variant="541" />
+        <entity ID="742" Image="revelations/anima.png" Name="Anima" Subtype="0" Variant="163" />
+        <entity Metadata="1" ID="199" Image="revelations/revival_tear.png" Name="Revival Tear" Subtype="0" Variant="781" />
+    </group>
+    <group name="(Rev) Tomb Bips" Label="Sandbips">
+        <entity ID="752" Image="revelations/sandshaper.png" Name="Sandshaper" Subtype="0" Variant="541" />
+        <entity ID="755" Image="revelations/snipebip.png" Name="Snipebip" Subtype="0" Variant="541" />
+        <entity ID="759" Image="revelations/cannonbip.png" Name="Cannonbip" Subtype="0" Variant="541" />
+        <entity ID="503" Image="revelations/demobip.png" Name="Demobip" Subtype="0" Variant="543" />
+        <entity ID="756" Image="revelations/trenchbip.png" Name="Trenchbip" Subtype="0" Variant="541" />
+        <entity ID="503" Image="revelations/bloatbip.png" Name="Bloatbip" Subtype="0" Variant="544" />
+        <entity ID="503" Image="revelations/sandbob.png" Name="Sandbob" Subtype="0" Variant="541" />
+        <entity ID="503" Image="revelations/sandbip.png" Name="Sandbip" Subtype="0" Variant="542" />
+        <entity ID="766" Image="revelations/slambip.png" Name="Slambip" Subtype="0" Variant="541" />
+    </group>
+    <group name="(Rev) Tomb Unique" Label="Unique">
+        <entity ID="506" Image="revelations/pyramidhead.png" Name="Pyramid Head" Subtype="0" Variant="541" />
+        <entity ID="760" Image="revelations/firecaller.png" Name="Firecaller" Subtype="0" Variant="541" />
+        <entity ID="501" Image="revelations/arrowhead.png" Name="Arrowhead" Subtype="0" Variant="541" />
+        <entity ID="504" Image="revelations/antlion.png" Name="Antlion" Subtype="0" Variant="541" />
+        <entity Metadata="1" ID="199" Image="revelations/antlion_autoemerge.png" Name="Antlion Auto Emerge" Subtype="0" Variant="782" />
+        <entity ID="762" Image="revelations/sand_worm.png" Name="Sand Worm" Subtype="0" Variant="541" />
+        <entity ID="763" Image="revelations/peashy.png" Name="Peashy" Subtype="0" Variant="541" />
+        <entity ID="743" Image="revelations/locust.png" Name="Locust" Subtype="5" Variant="541" >
+        <bitfield Key="Subtype"><spinner Name="Count" Length="16" ValueOffset="0"><tooltip>Number of locusts (Defaults to 5 if set to 0)</tooltip></spinner></bitfield></entity>
+        <entity ID="748" Image="revelations/innard.png" Name="Innard" Subtype="0" Variant="541" />
+        <entity ID="754" Image="revelations/urny.png" Name="Urny" Subtype="0" Variant="541" />
+        <entity ID="218" Image="revelations/button_masher.png" Name="Button Masher" Subtype="0" Variant="541" PlaceVisual="0,0.35" />
+        <entity ID="240" Image="revelations/stone_creep.png" Name="Stone Creep" Subtype="0" Variant="541" PlaceVisual="WallSnap" />
+        <entity ID="524" Image="revelations/antlion_baby.png" Name="Antlion Baby" Subtype="0" Variant="541" />
+        <entity ID="526" Image="revelations/antlion_egg.png" Name="Antlion Egg" Subtype="0" Variant="541" />
+        <entity ID="525" Image="revelations/jeffrey.png" Name="Jeffrey" Subtype="0" Variant="2678" />
+        <entity ID="768" Image="revelations/pseudo_rag_drifty.png" Name="Pseudo Rag Drifty" Subtype="0" Variant="542" />
+        <entity ID="767" Image="revelations/tile_monger.png" Name="Tile Monger" Subtype="0" Variant="541" />
+        <entity Metadata="1" ID="199" Image="revelations/tile_monger_tile.png" Name="Tile Monger Tile" Subtype="0" Variant="783" />
+        <entity ID="763" Image="revelations/peashy_nail.png" Name="Peashy Nail" Subtype="0" Variant="542" />
+        <entity ID="891" Image="revelations/jackal.png" Name="Jackal" Subtype="0" Variant="541" />
+        <entity ID="891" Image="revelations/gilded_jackal.png" Name="Gilded Jackal" Subtype="41" Variant="1" />
+        <entity ID="773" Image="revelations/stabstack.png" Name="Stabstack" Subtype="4" Variant="541">
+            <bitfield Key="Subtype">
+                <spinner Name="Segments" Length="16" ValueOffset="-1">
+                    <tooltip>Segment amount</tooltip>
+                </spinner>
+            </bitfield>    
+        </entity>
+        <entity ID="706" Image="revelations/dune.png" Name="Dune" Subtype="0" Variant="541" />
+    </group>
+    <group name="(Rev) Tomb Prank" Label="Prank">
+        <entity ID="753" Image="revelations/prank_tomb.png" Name="Prank (Tomb)" Subtype="0" Variant="1006" />
+    </group>
+	<group name="(Rev) Tomb Main Path" Label="Main Path">
+        <entity Name="Charger"/>
+		<entity Name="Maggot"/>
+		<entity Name="Spitty"/>
+		<entity Name="Grub"/>
+		<entity Name="Chubber"/>
+		<entity Name="Round Worm"/>
+		<entity Name="Night Crawler"/>
+		<entity Name="Bony"/>
+		<entity Name="One Tooth"/>
+		<entity Name="Fat Bat"/>
+		<entity Name="Spider"/>
+		<entity Name="Big Spider"/>
+		<entity Name="Wall Creep"/>
+		<entity Name="Blind Creep"/>
+		<entity Name="Crazy Long Legs"/>
+		<entity Name="Small Crazy Long Legs"/>
+		<entity Name="Sack"/>
+		<entity Name="Walking Sack"/>
+		<entity Name="Lil' Haunt"/>
+		<entity Name="Boom Fly"/>
+		<entity Name="Hopper"/>
+		<entity Name="Flaming Hopper"/>
+		<entity Name="Leaper"/>
+		<entity Name="Dip"/>
+		<entity Name="Squirt"/>
+		<entity Name="Clot"/>
+		<entity Name="Ink"/>
+		<entity Name="Stone Grimace"/>
+		<entity Name="Constant Stone Shooter (Down)"/>
+		<entity Name="Constant Stone Shooter (Up)"/>
+		<entity Name="Constant Stone Shooter (Left)"/>
+		<entity Name="Constant Stone Shooter (Right)"/>
+		<entity Name="Cross Stone Shooter"/>
+		<entity Name="Gaping Maw"/>
+		<entity Name="Broken Gaping Maw"/>
+		<entity Name="Poky"/>
+		<entity Name="Slide"/>
+    </group>
+</group>
+
+<group Name="(Rev) Tomb Grids" Label="Grids">
+    <entity ID="742" Image="revelations/sand_castle.png" Name="Sand Castle" Subtype="0" Variant="725" InEmptyRooms="1" />
+    <entity ID="199" Image="revelations/tile_dune.png" Name="Dune Tile" Subtype="0" Variant="755" 
+        EditorImage="../resources/gfx/grid/revel2/tile_dune.png" UsePitTiling="1" IsGrid="1" NoBlockDoors="1" InEmptyRooms="1" />
+    <entity Metadata="1" ID="199" Image="revelations/flaming_tomb.png" Name="Flaming Tomb" Subtype="0" Variant="756">
+        <bitfield Key="Subtype">
+            <dial Name="Rotation" Length="2">
+                <tooltip>Rotation for the tomb</tooltip>
+            </dial>
+            <checkbox Name="Decorative" Length="1" >
+                <tooltip>Decorative flaming tomb, won't open</tooltip>
+            </checkbox>
+        </bitfield>
+    </entity>    
+</group>
+
+<group Name="(Rev) Tomb Obstacles" Label="Obstacles">
+    <group Name="(Rev) Tomb Traps" Label="Traps" />
+    <group Name="(Rev) Tomb Trap Modifiers" Label="Trap Modifiers" />
+</group>
+
+<group Name="(Rev) Tomb Traps" Label="Traps">
+    <entity Metadata="1" ID="789" Image="revelations/spiketrapspike.png" Name="Spike Trap Spike" Subtype="0" Variant="53">
+        <Gfx RoomGfx="Trap Room" />
+    </entity>
+    <entity Metadata="1" ID="789" Image="revelations/spiketrapspikeoffset.png" Name="Spike Trap Spike Offset" Subtype="0" Variant="54">
+        <Gfx RoomGfx="Trap Room" />
+    </entity>
+    <entity Metadata="1" ID="789" Image="revelations/spiketrap.png" Name="Spike Trap" Subtype="0" Variant="12">
+        <Gfx RoomGfx="Trap Room" />
+    </entity>
+    <entity Metadata="1" ID="789" Image="revelations/spiketrapoffset.png" Name="Spike Trap Offset" Subtype="0" Variant="13">
+        <Gfx RoomGfx="Trap Room" />
+    </entity>
+    <entity Metadata="1" ID="789" Image="revelations/arrow.png" Name="Arrow Trap" Subtype="0" Variant="6">
+        <Gfx RoomGfx="Trap Room" />
+    </entity>
+    <entity Metadata="1" ID="789" Image="revelations/flametraptrap.png" Name="Flame Trap" Subtype="0" Variant="11">
+        <Gfx RoomGfx="Trap Room" />
+    </entity>
+    <entity Metadata="1" ID="789" Image="revelations/flametrapalwaysactive.png" Name="Flame Trap Always Active" Subtype="0" Variant="50">
+        <Gfx RoomGfx="Trap Room" />
+    </entity>
+    <entity Metadata="1" ID="789" Image="revelations/flametraptimed.png" Name="Flame Trap Timed" Subtype="0" Variant="51">
+        <Gfx RoomGfx="Trap Room" />
+    </entity>
+    <entity Metadata="1" ID="789" Image="revelations/flametraptimedoffset.png" Name="Flame Trap Timed Offset" Subtype="0" Variant="52">
+        <Gfx RoomGfx="Trap Room" />
+    </entity>
+    <entity Metadata="1" ID="789" Image="revelations/boulder.png" Name="Boulder Trap" Subtype="0" Variant="8">
+        <Gfx RoomGfx="Trap Room" />
+    </entity>
+    <entity Metadata="1" ID="789" Image="revelations/revivaltrap.png" Name="Revival Trap" Subtype="0" Variant="15">
+        <Gfx RoomGfx="Trap Room" />
+    </entity>
+    <entity Metadata="1" ID="789" Image="revelations/coffin.png" Name="Coffin Trap" Subtype="0" Variant="7">
+        <Gfx RoomGfx="Trap Room" />
+    </entity>
+    <entity Metadata="1" ID="789" Image="revelations/bomb_trap.png" Name="Bomb Trap" Subtype="0" Variant="16">
+        <Gfx RoomGfx="Trap Room" />
+    </entity>
+    <entity Metadata="1" ID="199" Image="revelations/bomb_trap_bomb.png" Name="Bomb Trap Bomb" Subtype="0" Variant="784">
+        <Gfx RoomGfx="Trap Room" />
+    </entity>
+    <entity Metadata="1" ID="789" Image="revelations/trap_brimstone_trap.png" Name="Brimstone Trap" Subtype="0" Variant="17">
+        <Gfx RoomGfx="Trap Room" />
+    </entity>
+    <entity Metadata="1" ID="789" Image="revelations/trap_brimstone_timed.png" Name="Brimstone Trap Timed" Subtype="0" Variant="55">
+        <Gfx RoomGfx="Trap Room" />
+    </entity>
+    <entity Metadata="1" ID="789" Image="revelations/trap_brimstone_timed2.png" Name="Brimstone Trap Timed Offset" Subtype="0" Variant="56">
+        <Gfx RoomGfx="Trap Room" />
+    </entity>
+</group>
+
+<group Name="(Rev) Tomb Trap Modifiers" Label="Trap Modifiers">
+    <entity Metadata="1" ID="789" Image="revelations/forced.png" Name="Forced Trap" Subtype="0" Variant="10" />
+    <entity Metadata="1" ID="789" Image="revelations/disableonclear.png" Name="Disable On Clear" Subtype="0" Variant="78" />
+    <entity Metadata="1" ID="789" Image="revelations/obvious.png" Name="Obvious Trap" Subtype="0" Variant="9" />
+    <entity Metadata="1" ID="789" Image="revelations/bad.png" Name="Bad Trap" Subtype="0" Variant="14" />
+    <entity Metadata="1" ID="789" Image="revelations/boulderoffset.png" Name="Offset Boulder Trap" Subtype="0" Variant="77" />
+    <entity Metadata="1" ID="789" Image="revelations/coffinblocker.png" Name="Coffin Blocker" Subtype="0" Variant="75" />
+    <entity Metadata="1" ID="789" Image="revelations/brazier_blocker.png" Name="Brazier Blocker" Subtype="0" Variant="79" />
+    <entity Metadata="1" ID="199" Image="revelations/unknown_trap.png" Name="Unknown Trap" Subtype="0" Variant="760" />
+    <entity Metadata="1" ID="199" Image="revelations/coffin_packer.png" Name="Coffin Packer" Subtype="0" Variant="780" />
+</group>
+
+<!-- rev other -->
+<entity Metadata="1" ID="199" Image="revelations/extra_item_spawn.png" Name="Extra Item Spawn Point" Subtype="0" Variant="785" InEmptyRooms="1" />
+<entity Metadata="1" ID="199" Image="revelations/disable_special_block_drops.png" Name="Disable Special Rock Spawns (Ice spawning encased spiders, etc.)(Rev only)" 
+    Subtype="0" Variant="745" InEmptyRooms="1" />
+<entity Metadata="1" ID="199" Image="revelations/vanity_shop.png" Name="Vanity Shop Item" Subtype="0" Variant="746" />
+
+<group Name="(Rev) Common Grids">
+    <entity ID="750" Image="revelations/cursed_shrine.png" Name="Cursed Shrine" Subtype="0" Variant="541" />
+    <entity ID="508" Image="revelations/prank_shop.png" Name="Prank Shop" Subtype="0" Variant="541" />
+    <entity ID="508" Image="revelations/narc_chest.png" Name="Mirror Fire Chest" Subtype="0" Variant="542" />
+</group>
+
+<group Name="(Rev) All Slot Machines">
+    <entity ID="6" Image="revelations/revending_machine.png" Name="Revending Machine" Subtype="0" Variant="541" />
+    <!-- Temporarily disabled as there is no POST_MACHINE_INIT, so it would look weird on entering rooms, using a workaround -->
+    <!-- <entity ID="6" Image="revelations/statwheel.png" Name="Vanity Statwheel" Subtype="0" Variant="543" /> -->
+    <entity Metadata="1" ID="199" Image="revelations/statwheel.png" Name="Vanity Statwheel" Subtype="0" Variant="747" />
+    <entity ID="6" Image="revelations/revelations_restock_machine.png" Name="Revelations Restock Machine" Subtype="0" Variant="542" />
+</group>
+
+
+<!-- GROUP DEFINITIONS -->
+
+<!-- Custom Tab -->
+<tab Name="Revelations"/>
+
+<group Name="Revelations">
+    <group Name="(Rev) Common Tab" Label="- Common -">
+        <group Name="Rev Tab Enemies" Label="Enemies">
+            <group Name="(Rev) Common Enemies" />
+        </group>
+        <group Name="Rev Tab Slot" Label="Slot Machines">
+            <group Name="(Rev) All Slot Machines" />
+        </group>
+        <group Name="Rev Tab Misc" Label="Misc">
+            <group Name="(Rev) Common Grids" />
+            <entity Name="Extra Item Spawn Point" />
+            <entity Name="Disable Special Rock Spawns (Ice spawning encased spiders, etc.)(Rev only)"/>
+            <entity Name="Vanity Shop Item" />
+        </group>
+        <group Name="Rev Tab Bosses" Label="Bosses">
+            <group Name="(Rev) Boss Modifiers"/>
+            <group Name="(Rev) Common Bosses" />
+        </group>
+    </group>
+    <group Name="(Rev) Glacier Tab" Label="- Glacier -">
+        <group Name="(Rev) Glacier Grids"/>
+        <group Name="(Rev) Glacier Obstacles"/>
+        <group Name="(Rev) Glacier Enemies"/>
+        <group Name="(Rev) Glacier Bosses Tab" Label="Bosses">
+            <group Name="(Rev) Glacier Bosses" />
+        </group>
+        <group Name="(Rev) Glacier Elites Tab" Label="Elites">
+            <group Name="(Rev) Glacier Elites" />
+        </group>
+    </group>
+    <group Name="(Rev) Tomb Tab" Label="- Tomb -">
+        <group Name="(Rev) Tomb Grids"/>
+        <group Name="(Rev) Tomb Obstacles"/>
+        <group Name="(Rev) Tomb Enemies"/>
+        <group Name="(Rev) Tomb Bosses Tab" Label="Bosses">
+            <group Name="(Rev) Tomb Bosses" />
+        </group>
+        <group Name="(Rev) Tomb Elites Tab" Label="Elites">
+            <group Name="(Rev) Tomb Elites" />
+        </group>
+    </group>
+</group>
+
+<!-- Base Tabs -->
+
+<!-- Global -->
+<group Name="Miscellaneous Global Grids">
+    <group Label="(Rev) Slot Machines">
+        <group Name="(Rev) All Slot Machines" />
+    </group>
+    <group Label="(Rev) Misc Grids and Utilities">
+        <group Name="(Rev) Common Grids" />
+        <entity Name="Extra Item Spawn Point" />
+        <entity Name="Disable Special Rock Spawns (Ice spawning encased spiders, etc.)(Rev only)"/>
+        <entity Name="Vanity Shop Item" />
+    </group>
+</group>
+
+<!-- Pickups -->
+<group Name="(Pickups) Random">
+    <group Label="(Rev) Random">
+        <entity Name="Extra Item Spawn Point" />
+    </group>
+</group>
+
+<!-- Enemies -->
+<group Name="Chapter 1">
+    <group Name="Chapter 1 (Rev)" Label="Chapter 1 (Rev)">
+        <group Name="(Rev) Glacier" Label="- Glacier -">
+            <group Name="(Rev) Glacier Grids"/>
+            <group Name="(Rev) Glacier Obstacles"/>
+            <group Name="(Rev) Glacier Enemies"/>
+        </group>
+    </group>
+</group>
+
+<group Name="Chapter 2">
+    <group Name="Chapter 2 (Rev)" Label="Chapter 2 (Rev)">
+        <group Name="(Rev) Tomb" Label="- Tomb -">
+            <group Name="(Rev) Tomb Grids"/>
+            <group Name="(Rev) Tomb Obstacles"/>
+            <group Name="(Rev) Tomb Enemies"/>
+        </group>
+    </group>
+</group>
+
+<group Name="Chapter 1 (Main Path) Enemies">
+    <entity Name="Brother Bloody"/>
+    <entity Name="Drifty"/>
+    <entity Name="Chicken" />
+</group>
+
+<group Name="Chapter 2 (Main Path) Enemies">
+    <entity Name="Brother Bloody"/>
+    <entity Name="Pucker" />
+    <entity Name="Smolycephalus" />
+    <entity Name="Brother Bloody" />
+</group>
+
+<group Name="Chapter 3 (Main Path) Enemies">
+    <entity Name="Brother Bloody" />
+    <entity Name="Aerotoma" />
+    <entity Name="Smolycephalus" />
+</group>
+
+<group Name="Chapter 4 (Main Path) Enemies">
+    <entity Name="Brother Bloody" />
+    <entity Name="Pucker" />
+    <entity Name="Mother Pucker" />
+    <entity Name="Smolycephalus" />
+</group>
+
+<group Name="Burning Basement Enemies">
+    <entity Name="Bomb Sack" />
+    <entity Name="Bomb Sack No Spawns" />
+    <group Name="(Rev) Raging Long Legs Entities" />
+</group>
+
+<!-- Bosses -->
+<group Name="Burning Basement Bosses">
+    <entity Name="Raging Long Legs" />
+    <group Name="(Rev) Raging Long Legs Entities" />
+</group>
+
+<group Name="Chapter 2 Bosses (Main Path) Shared">
+    <entity Name="Punker" />
+</group>
+
+<group Name="Chapter 1 Bosses">
+    <group Name="Chapter 1 Bosses (Rev)" Label="Chapter 1 (Rev)">
+        <group Name="(Rev) Glacier Bosses 1" Label="Glacier">
+            <group Name="(Rev) Glacier Bosses" />
+        </group>
+        <group Name="(Rev) Glacier Elites 1" Label="Glacier Elites">
+            <group Name="(Rev) Glacier Elites" />
+        </group>
+    </group>
+</group>
+<group Name="Chapter 2 Bosses">
+    <group Name="Chapter 2 Bosses (Rev)" Label="Chapter 2 (Rev)">
+        <group Name="(Rev) Tomb Bosses 2" Label="Tomb">
+            <group Name="(Rev) Tomb Bosses" />
+        </group>
+        <group Name="(Rev) Tomb Elites 2" Label="Tomb Elites">
+            <group Name="(Rev) Tomb Elites" />
+        </group>
+    </group>
+</group>
+
+<group Name="Bosses">
+    <group Name="(Rev) Boss Modifiers global" Label="(Rev) Modifiers">
+        <group Name="(Rev) Boss Modifiers" />
+    </group>
+</group>
+
+<!-- rev items -->
+<group Name="(Rev) Ch 1 Passives" Label="(Rev) Ch 1 Passives">
+    <entity Metadata="1" ID="709" Image="revelations/items/heavenly_bell.png" Name="Heavenly Bell" Subtype="1" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/mint_gum.png" Name="Mint Gum" Subtype="2" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/fecal_freak.png" Name="Fecal Freak" Subtype="3" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/birthday_candle.png" Name="Birthday Candle" Subtype="6" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/dynamo.png" Name="Dynamo" Subtype="7" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/burning_bush.png" Name="Burning Bush" Subtype="8" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/penance.png" Name="Penance" Subtype="9" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/ice_tray.png" Name="Ice Tray" Subtype="10" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/window_cleaner.png" Name="Window Cleaner" Subtype="11" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/sponge_bombs.png" Name="Sponge Bombs" Subtype="12" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/spirit_of_patience.png" Name="Spirit of Patience" Subtype="13" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/cotton_bud.png" Name="Cotton Bud" Subtype="14" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/birth_control.png" Name="Birth Control" Subtype="15" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/tummy_bug.png" Name="Tummy Bug" Subtype="16" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/friendly_fire.png" Name="Friendly Fire" Subtype="17" Variant="3992" />
+</group>
+<group Name="(Rev) Ch 1 Actives" Label="(Rev) Ch 1 Actives">
+    <entity Metadata="1" ID="709" Image="revelations/items/monolith.png" Name="The Monolith" Subtype="18" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/hyper_dice.png" Name="Hyper Dice" Subtype="19" Variant="3992" />
+</group>
+<group Name="(Rev) Ch 1 Familiars" Label="(Rev) Ch 1 Familiars">
+    <entity Metadata="1" ID="709" Image="revelations/items/lil_belial.png" Name="Lil Belial" Subtype="4" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/aegis.png" Name="Aegis" Subtype="5" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/mirror_shard.png" Name="Mirror Shard" Subtype="20" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/lil_frost_rider.png" Name="Lil Frost Rider" Subtype="21" Variant="3992" />
+</group>
+<group Name="(Rev) Ch 2 Passives" Label="(Rev) Ch 2 Passives">
+    <entity Metadata="1" ID="709" Image="revelations/items/haphephobia.png" Name="Haphephobia" Subtype="24" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/ferrymans_toll.png" Name="Ferryman's Toll" Subtype="25" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/death_mask.png" Name="Death Mask" Subtype="26" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/mirror_bombs.png" Name="Mirror Bombs" Subtype="27" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/broken_oar.png" Name="Broken Oar" Subtype="28" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/perseverance.png" Name="Perseverance" Subtype="29" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/addict.png" Name="Addict" Subtype="30" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/pilgrims_ward.png" Name="Pilgrim's Ward" Subtype="32" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/wraths_rage.png" Name="Wrath's Rage" Subtype="33" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/prides_posturing.png" Name="Pride's Posturing" Subtype="34" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/sloths_saddle.png" Name="Sloth's Saddle" Subtype="35" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/lovers_libido.png" Name="Lover's Libido" Subtype="36" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/prescription.png" Name="Prescription" Subtype="65" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/geode.png" Name="Geode" Subtype="66" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/not_a_bullet.png" Name="Not a Bullet" Subtype="67" Variant="3992" />
+</group>
+<group Name="(Rev) Ch 2 Actives" Label="(Rev) Ch 2 Actives">
+    <entity Metadata="1" ID="709" Image="revelations/items/chum_bucket.png" Name="Chum Bucket" Subtype="37" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/cardboard_robot.png" Name="Cardboard Robot" Subtype="38" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/ghastly_flame.png" Name="Ghastly Flame" Subtype="40" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/waka_waka.png" Name="Waka Waka" Subtype="46" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/oops.png" Name="Oops!" Subtype="47" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/gluttons_gut.png" Name="Glutton's Gut" Subtype="48" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/moxies_paw.png" Name="Moxie's Paw" Subtype="49" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/music_box.png" Name="Music Box" Subtype="50" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/half_chewed_pony.png" Name="Half Chewed Pony" Subtype="51" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/moxies_yarn.png" Name="Moxie's Yarn" Subtype="52" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/dramamine.png" Name="Dramamine" Subtype="62" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/supermeatblade.png" Name="Super Meat Blade" Subtype="64" Variant="3992" />
+</group>
+<group Name="(Rev) Ch 2 Familiars" Label="(Rev) Ch 2 Familiars">
+    <entity Metadata="1" ID="709" Image="revelations/items/wandering_soul.png" Name="Wandering Soul" Subtype="22" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/cabbage_patch.png" Name="Cabbage Patch" Subtype="23" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/ophanim.png" Name="Ophanim" Subtype="31" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/virgil.png" Name="Virgil" Subtype="53" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/mirror_fragment.png" Name="Mirror Fragment" Subtype="54" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/cursed_grail.png" Name="Cursed Grail" Subtype="55" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/bandage_baby.png" Name="Bandage Baby" Subtype="56" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/lil_michael.png" Name="Lil Michael" Subtype="57" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/hungry_grub.png" Name="Hungry Grub" Subtype="58" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/envys_enmity.png" Name="Envy's Enmity" Subtype="59" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/bargainers_burden.png" Name="Bargainer's Burden" Subtype="60" Variant="3992" />
+    <entity Metadata="1" ID="709" Image="revelations/items/willo.png" Name="Willo" Subtype="61" Variant="3992" />    
+</group>
+<group Name="(Rev) Ch 1 Trinkets" Label="(Rev) Ch 1 Trinkets">
+    <entity Metadata="1" ID="709" Image="revelations/trinkets/spare_change.png" Name="Spare Change" Subtype="1" Variant="3993" />
+    <entity Metadata="1" ID="709" Image="revelations/trinkets/library_card.png" Name="Library Card" Subtype="2" Variant="3993" />
+    <entity Metadata="1" ID="709" Image="revelations/trinkets/archaeology.png" Name="Archaeology" Subtype="3" Variant="3993" />
+    <entity Metadata="1" ID="709" Image="revelations/trinkets/gag_reflex.png" Name="Gag Reflex" Subtype="4" Variant="3993" />
+</group>
+<group Name="(Rev) Ch 2 Trinkets" Label="(Rev) Ch 2 Trinkets">
+    <entity Metadata="1" ID="709" Image="revelations/trinkets/telescope.png" Name="Telescope" Subtype="5" Variant="3993" />
+    <entity Metadata="1" ID="709" Image="revelations/trinkets/scratched_sack.png" Name="Scratched Sack" Subtype="6" Variant="3993" />
+    <entity Metadata="1" ID="709" Image="revelations/trinkets/maxwells_horn.png" Name="Maxwell's Horn" Subtype="7" Variant="3993" />
+</group>
+
+<group Name="Collect">
+    <group Name="Revelations Items" Label="Revelations Items">
+        <group Name="(Rev) Ch 1 Passives" />
+        <group Name="(Rev) Ch 1 Actives" />
+        <group Name="(Rev) Ch 1 Familiars" />
+        <group Name="(Rev) Ch 2 Familiars" />
+        <group Name="(Rev) Ch 2 Familiars" />
+        <group Name="(Rev) Ch 2 Familiars" />
+        <group Name="(Rev) Ch 1 Trinkets" />
+        <group Name="(Rev) Ch 2 Trinkets" />
+    </group>
+</group>
+
+</data>

@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<rooms>
+	<room variant="0" name="exit" type="23" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="13" y="3"/>
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<spawn x="1" y="1">
+			<entity type="1500" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="2" y="1">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="6" y="3">
+			<entity type="9000" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="10" y="5">
+			<entity type="476" variant="541" subtype="0" weight="0.0"/>
+		</spawn>
+		<spawn x="11" y="5">
+			<entity type="1500" variant="0" subtype="0" weight="0.0"/>
+		</spawn>
+	</room>
+</rooms>

@@ -1,0 +1,41 @@
+type="199" variant="1" subtype="0"--->type="199" variant="0" subtype="1"
+type="199" variant="2" subtype="0"--->type="199" variant="0" subtype="2"
+type="199" variant="3" subtype="0"--->type="199" variant="0" subtype="3"
+type="199" variant="4" subtype="0"--->type="199" variant="0" subtype="4"
+type="199" variant="5" subtype="0"--->type="199" variant="0" subtype="5"
+type="199" variant="6" subtype="0"--->type="199" variant="0" subtype="6"
+type="199" variant="7" subtype="0"--->type="199" variant="0" subtype="7"
+type="199" variant="8" subtype="0"--->type="199" variant="0" subtype="8"
+type="199" variant="9" subtype="0"--->type="199" variant="0" subtype="9"
+type="199" variant="10" subtype="0"--->type="199" variant="1" subtype="0"
+
+type="199" variant="11" subtype="0"--->type="199" variant="2" subtype="8"
+type="199" variant="12" subtype="0"--->type="199" variant="2" subtype="0"
+type="199" variant="13" subtype="0"--->type="199" variant="2" subtype="12"
+type="199" variant="14" subtype="0"--->type="199" variant="2" subtype="4"
+type="199" variant="15" subtype="0"--->type="199" variant="2" subtype="10"
+type="199" variant="16" subtype="0"--->type="199" variant="2" subtype="14"
+type="199" variant="17" subtype="0"--->type="199" variant="2" subtype="6"
+type="199" variant="18" subtype="0"--->type="199" variant="2" subtype="2"
+type="199" variant="19" subtype="0"--->type="199" variant="3" subtype="0"
+
+TYPE=199, VARIANT=1, SUBTYPE=0--->TYPE=199, VARIANT=0, SUBTYPE=1
+TYPE=199, VARIANT=2, SUBTYPE=0--->TYPE=199, VARIANT=0, SUBTYPE=2
+TYPE=199, VARIANT=3, SUBTYPE=0--->TYPE=199, VARIANT=0, SUBTYPE=3
+TYPE=199, VARIANT=4, SUBTYPE=0--->TYPE=199, VARIANT=0, SUBTYPE=4
+TYPE=199, VARIANT=5, SUBTYPE=0--->TYPE=199, VARIANT=0, SUBTYPE=5
+TYPE=199, VARIANT=6, SUBTYPE=0--->TYPE=199, VARIANT=0, SUBTYPE=6
+TYPE=199, VARIANT=7, SUBTYPE=0--->TYPE=199, VARIANT=0, SUBTYPE=7
+TYPE=199, VARIANT=8, SUBTYPE=0--->TYPE=199, VARIANT=0, SUBTYPE=8
+TYPE=199, VARIANT=9, SUBTYPE=0--->TYPE=199, VARIANT=0, SUBTYPE=9
+TYPE=199, VARIANT=10, SUBTYPE=0--->TYPE=199, VARIANT=1, SUBTYPE=0
+
+TYPE=199, VARIANT=11, SUBTYPE=0--->TYPE=199, VARIANT=2, SUBTYPE=8
+TYPE=199, VARIANT=12, SUBTYPE=0--->TYPE=199, VARIANT=2, SUBTYPE=0
+TYPE=199, VARIANT=13, SUBTYPE=0--->TYPE=199, VARIANT=2, SUBTYPE=12
+TYPE=199, VARIANT=14, SUBTYPE=0--->TYPE=199, VARIANT=2, SUBTYPE=4
+TYPE=199, VARIANT=15, SUBTYPE=0--->TYPE=199, VARIANT=2, SUBTYPE=10
+TYPE=199, VARIANT=16, SUBTYPE=0--->TYPE=199, VARIANT=2, SUBTYPE=14
+TYPE=199, VARIANT=17, SUBTYPE=0--->TYPE=199, VARIANT=2, SUBTYPE=6
+TYPE=199, VARIANT=18, SUBTYPE=0--->TYPE=199, VARIANT=2, SUBTYPE=2
+TYPE=199, VARIANT=19, SUBTYPE=0--->TYPE=199, VARIANT=3, SUBTYPE=0

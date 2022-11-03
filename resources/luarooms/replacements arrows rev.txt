@@ -1,0 +1,9 @@
+type="789" variant="1" subtype="0"--->type="199" variant="2" subtype="8"
+type="789" variant="2" subtype="0"--->type="199" variant="2" subtype="0"
+type="789" variant="3" subtype="0"--->type="199" variant="2" subtype="12"
+type="789" variant="4" subtype="0"--->type="199" variant="2" subtype="4"
+
+TYPE=789, VARIANT=1, SUBTYPE=0--->TYPE=199, VARIANT=2, SUBTYPE=8
+TYPE=789, VARIANT=2, SUBTYPE=0--->TYPE=199, VARIANT=2, SUBTYPE=0
+TYPE=789, VARIANT=3, SUBTYPE=0--->TYPE=199, VARIANT=2, SUBTYPE=12
+TYPE=789, VARIANT=4, SUBTYPE=0--->TYPE=199, VARIANT=2, SUBTYPE=4

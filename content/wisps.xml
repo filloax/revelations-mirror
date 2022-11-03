@@ -1,0 +1,110 @@
+<wisps gfxroot="gfx/familiar/wisps/">
+    <!--
+		Color presets
+	-->
+	<color name="default" />
+	
+	<color name="flame_blue" r="152" g="330" b="458"/>
+	<color name="core_blue" r="255" g="356" b="510"/>
+	<color name="tear_blue" or="64" og="89" ob="128"/>
+	
+	<color name="flame_bright_blue" r="380" g="420" b="458"/>
+	<color name="core_bright_blue" r="400" g="460" b="510"/>
+	<color name="tear_bright_blue" or="90" og="105" ob="128"/>
+	
+	<color name="flame_dark_blue" r="80" g="90" b="280"/>
+	<color name="core_dark_blue" r="80" g="90" b="280"/>
+	<color name="tear_dark_blue" r="90" g="90" b="255" or="10" og="30" ob="35"/>
+	
+	<color name="flame_cyan" r="152" g="430" b="430"/>
+	<color name="core_cyan" r="220" g="500" b="500"/>
+	<color name="tear_cyan" or="50" og="110" ob="110"/>
+	
+	<color name="flame_purple" r="330" g="152" b="458"/>
+	<color name="core_purple" r="356" g="255" b="510"/>
+	<color name="tear_purple" r="180" g="50" b="255" or="64" og="10" ob="128"/>
+	
+	<color name="flame_white" r="460" g="460" b="420"/>
+	<color name="core_white" r="510" g="510" b="510"/>
+	<color name="tear_white" r="383" g="510" b="510" or="40" og="50" ob="50"/>
+	
+	<color name="flame_black" r="20" g="20" b="20"/>
+	<color name="core_black" r="710" g="710" b="710" or="-512" og="-512" ob="-512"/>
+	<color name="tear_black" r="710" g="710" b="710" or="-512" og="-512" ob="-512"/>
+	
+	<color name="flame_red" r="500" g="220" b="220"/>
+	<color name="core_red" r="255" g="60" b="60"/>
+	<color name="tear_red" r="180" g="60" b="80" or="30"/>
+	
+	<color name="flame_dark_red" r="512" g="0" b="0"/>
+	<color name="core_dark_red" r="190" g="10" b="10"/>
+	<color name="tear_dark_red" r="130" g="10" b="10" or="30"/>
+	
+	<color name="flame_brown" r="200" g="120" b="120"/>
+	<color name="core_brown" r="208" g="158" b="158"/>
+	<color name="tear_brown" r="128" g="80" b="80"/>
+
+	<color name="flame_dark_brown" r="70" g="50" b="50"/>
+	<color name="core_dark_brown" r="70" g="50" b="50"/>
+	<color name="tear_dark_brown" r="70" g="50" b="50"/>
+	
+	<color name="flame_yellow" r="320" g="300" b="60"/>
+	<color name="core_yellow" r="300" g="290" b="10"/>
+	<color name="tear_yellow" r="260" g="250" b="40" or="40" og="40"/>
+	
+	<color name="flame_gold" r="320" g="250" b="60"/>
+	<color name="core_gold" r="300" g="220" b="20"/>
+	<color name="tear_gold" r="260" g="190" b="40" or="50" og="30"/>
+	
+	<color name="flame_orange" r="400" g="250" b="60"/>
+	<color name="core_orange" r="300" g="200" b="10"/>
+	<color name="tear_orange" r="260" g="180" b="90" or="70" og="35"/>
+	
+	<color name="flame_grey" r="120" g="120" b="120"/>
+	<color name="core_grey" r="200" g="200" b="200"/>
+	<color name="tear_grey" cr="180" cg="180" cb="180" ca="255"/>
+	
+	<color name="flame_beige" r="310" g="300" b="290"/>
+	<color name="core_beige" r="255" g="230" b="210"/>
+	<color name="tear_beige" r="350" g="320" b="310"/>
+	
+	<color name="flame_green" r="160" g="300" b="50"/>
+	<color name="core_green" r="80" g="300" b="80"/>
+	<color name="tear_green" r="180" g="320" b="30"/>
+	
+	<color name="flame_pink" r="350" g="192" b="228"/>
+	<color name="core_pink" r="342" g="216" b="244"/>
+	<color name="tear_pink" r="352" g="241" b="266"/>
+	
+	<color name="flame_bob" r="160" g="220" b="50"/>
+	<color name="core_bob" r="120" g="180" b="80"/>
+	<color name="tear_bob" r="130" g="150" b="100"/>
+	<color name="tear_bob2" r="80" g="160" b="30"/>
+	
+	<color name="core_isaac" r="340" g="230" b="230"/>
+	<color name="core_plum" r="460" g="384" b="384" or="0" og="-128" ob="-128"/>
+	<color name="core_vengeful" r="512" g="255" b="255" or="255"/>
+	<color name="tear_vengeful" r="380" g="380" b="380" or="200"/>
+
+	<color name="flame_magenta" r="400" g="100" b="240"/>
+	<color name="core_magenta" r="450" g="200" b="500"/>
+	<color name="tear_magenta" r="225" g="50" b="255" or="100" og="10" ob="128"/>
+
+    <!--The Monolith--><wisp id="18" hp="2" damage="3" layer="1" flameColor="flame_magenta" coreColor="core_black" tearColor="tear_black"/>
+    <!--Hyper Dice--><wisp id="19" count="0"/>
+    <!--Chum Bucket--><wisp id="37" count="0" hp="1" damage="2" layer="1" tearScale="1" flameColor="flame_red" coreColor="core_white" tearColor="tear_white"/>
+    <!--Cardboard Robot--><wisp id="38" count="0" hp="2" damage="3" layer="2" flameColor="flame_cyan" coreColor="core_cyan" tearColor="tear_blue" canShoot="false"/>
+                          <wisp id="39" count="0"/>
+    <!--Ghastly Flame--><wisp id="40" count="0" hp="2" damage="1.5" layer="1" flameColor="flame_purple" coreColor="core_purple" tearColor="tear_purple" tearFlags="2"/>
+                        <wisp id="41" count="0"/>
+    <!--Waka Waka--><wisp id="46" count="0" hp="1" layer="1" damage="1.5" tearScale="0.6" fireDelay="15" flameColor="flame_white" coreColor="core_white" tearColor="tear_white"/>
+    <!--Oops!--><wisp id="47" count="0" hp="2" damage="3" layer="1" flameColor="flame_blue" coreColor="core_blue" tearColor="tear_blue"/>
+    <!--Glutton's Gut--><wisp id="48" count="0" hp="1" layer="2" damage="1.5" tearScale="0.6" flameColor="flame_red" coreColor="core_red" tearColor="tear_red"/>
+    <!--Moxie's Paw--><wisp id="49" count="0" hp="0.5" damage="1" layer="1" flameColor="flame_beige" coreColor="core_black" tearColor="tear_black"/>
+    <!--Music Box--><wisp id="50" hp="2" damage="3" layer="1" flameColor="flame_blue" coreColor="core_blue" tearColor="tear_blue"/>
+    <!--Half Chewed Pony--><wisp id="51" hp="2" damage="3" layer="1" flameColor="flame_red" coreColor="core_beige" tearColor="tear_red" coreGfx="pony.png"/>
+    <!--Moxie's Yarn--><wisp id="52" hp="3" layer="0" damage="6" flameColor="flame_beige" coreColor="core_black" tearColor="tear_black"/>
+    <!--Super Meat Blade--><wisp id="64" count="0"/>
+                           <wisp id="63" count="0" hp="1" damage="2" layer="1" tearScale="1" flameColor="flame_white" coreColor="core_red" tearColor="tear_red"/>
+    <!--Dramamine--><wisp id="62" hp="2" damage="1" layer="2" flameColor="flame_bob" coreColor="core_bob" tearColor="tear_bob" canShoot="false"/>
+</wisps>

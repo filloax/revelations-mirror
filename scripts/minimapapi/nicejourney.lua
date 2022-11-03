@@ -1,0 +1,281 @@
+local MinimapAPI = require("scripts.minimapapi")
+
+-- match main.lua
+local largeRoomPixelSize = Vector(18, 16)
+
+-- ours
+local RoomSpriteOffset = Vector(4, 4)
+local Game = Game()
+local Sfx = SFXManager()
+
+local WasTriggered = false
+local currentlyHighlighted = nil
+local lastMousePos = Vector(-1,-1)
+
+local TeleportMarkerSprite = Sprite()
+TeleportMarkerSprite:Load("gfx/ui/minimapapi/teleport_marker.anm2", true)
+TeleportMarkerSprite:SetFrame("Marker", 0)
+
+local function niceJourney_ExecuteCmd(_, cmd, params)
+    if cmd == "mapitel" then
+        MinimapAPI.Config.MouseTeleport = not MinimapAPI.Config.MouseTeleport
+        if MinimapAPI.Config.MouseTeleport then
+            MinimapAPI.Config.MouseTeleportUncleared = params == "unclear"
+
+            local msg = "Enabled Nice Journey (MinimapAPI mouse teleport)"
+            if MinimapAPI.Config.MouseTeleportUncleared then
+                msg = msg .. " with allowed teleport to uncleared rooms"
+            else
+                msg = msg .. "; uncleared rooms disabled, enable with 'mapitel unclear' to be able to teleport there"
+            end
+
+            Isaac.ConsoleOutput(msg .. '\n')
+            Isaac.DebugString(msg)
+        else
+            Isaac.ConsoleOutput("Disabled Nice Journey (MinimapAPI mouse teleport)" .. '\n')
+            Isaac.DebugString("Disabled Nice Journey (MinimapAPI mouse teleport)")
+        end
+    end
+end
+
+---Used to handle teleport in custom rooms,
+---may be nil if the room is not custom.
+---Each function can be nil and overrides the default
+---behavior.
+---@class TeleportHandler
+local _telHandlerTemplate = {}
+---@param room MinimapAPI.Room
+---@return boolean success
+function _telHandlerTemplate:Teleport(room)
+end
+
+---@param room MinimapAPI.Room
+---@param cheatMode boolean # If cheat mode (unclear room teleport) is enabled
+---@return boolean
+function _telHandlerTemplate:CanTeleport(room, cheatMode)
+end
+
+---@param room MinimapAPI.Room # target room
+---@return boolean # should player be hurt from entering or exiting a curse room
+local function ShouldDamagePlayer(room)
+    local level = Game:GetLevel()
+    local curRoom = level:GetCurrentRoomDesc()
+    if not curRoom then
+        return false
+    end
+    local enteringCurseRoom = room.Descriptor.Data.Type == RoomType.ROOM_CURSE
+    local leavingCurseRoom = curRoom.Data.Type == RoomType.ROOM_CURSE
+
+    if not (enteringCurseRoom or leavingCurseRoom) or not MinimapAPI:GetConfig("MouseTeleportDamageOnCurseRoom") then
+        return false
+    end
+
+    for i = 0, Game:GetNumPlayers() - 1 do
+        if REPENTANCE and Isaac.GetPlayer(i):HasTrinket(TrinketType.TRINKET_FLAT_FILE)
+            or Isaac.GetPlayer(i):HasCollectible(CollectibleType.COLLECTIBLE_ISAACS_HEART) then
+            return false
+        end
+    end
+
+    if leavingCurseRoom then
+        local gameroom = Game:GetRoom()
+        for _, doorslot in ipairs(MinimapAPI.RoomShapeDoorSlots[curRoom.Data.Shape]) do
+            local doorent = gameroom:GetDoor(doorslot)
+            if doorent and doorent:IsOpen() then
+                if doorent.TargetRoomType == RoomType.ROOM_SECRET or doorent:GetSaveState().VarData == 1 then -- Safe exit by secret room or opened via flat file
+                    return false
+                end
+            end
+        end
+    elseif enteringCurseRoom then
+        for i = 0, Game:GetNumPlayers() - 1 do
+            if Isaac.GetPlayer(i).CanFly then
+                return false
+            end
+        end
+    end
+    return true -- damage player
+end
+
+---@param room MinimapAPI.Room # target room
+---@return boolean # is player allowed to teleport
+local function CanTeleportToRoom(room)
+    local level = Game:GetLevel()
+    local gameroom = Game:GetRoom()
+    local curRoom = level:GetCurrentRoomDesc()
+    local onMomFloor = (level:GetStage() == 6
+        or (level:GetStage() == 5 and (level:GetCurses() & LevelCurse.CURSE_OF_LABYRINTH > 0)))
+    if MinimapAPI:GetConfig("MouseTeleportUncleared") or not curRoom then
+        return true
+    elseif (curRoom.Data.Type == RoomType.ROOM_BOSS and gameroom:GetBossID() == 6)
+    or curRoom.GridIndex == GridRooms.ROOM_BOSSRUSH_IDX
+    or (onMomFloor and curRoom.GridIndex == GridRooms.ROOM_DEVIL_IDX and level:GetLastRoomDesc().Data.Type == RoomType.ROOM_BOSS) then -- Mom
+        return (REPENTANCE and level:IsAscent()) or false
+    elseif curRoom.Clear then
+        if curRoom.Data.Type == RoomType.ROOM_CHALLENGE and not curRoom.ChallengeDone then
+            for _, doorslot in ipairs(MinimapAPI.RoomShapeDoorSlots[curRoom.Data.Shape]) do
+                local doorent = gameroom:GetDoor(doorslot)
+                if doorent and doorent:IsOpen() then
+                    return true
+                end
+            end
+            return false
+        elseif room.Descriptor.Data.Type == RoomType.ROOM_CHALLENGE and not room.Descriptor.ChallengeDone then
+            local allPlayersFullHealth = true
+            local allPlayersOneHealth = true
+            for i = 0, Game:GetNumPlayers() - 1 do
+                local health = Isaac.GetPlayer(i):GetHearts() + Isaac.GetPlayer(i):GetSoulHearts()
+                if allPlayersFullHealth and Isaac.GetPlayer(i):GetMaxHearts() > health then
+                    allPlayersFullHealth = false
+                end
+                if health > 2 then
+                    allPlayersOneHealth = false
+                    break
+                end
+            end
+            if room.Descriptor.Data.Subtype == 1 then
+                return allPlayersOneHealth
+            else
+                return allPlayersFullHealth
+            end
+        elseif (REPENTANCE and level:GetStateFlag(LevelStateFlag.STATE_MINESHAFT_ESCAPE)) then
+            return MinimapAPI.CurrentDimension ~= 1
+        else
+            return true
+        end
+    else
+        return false
+    end
+end
+
+---@param room MinimapAPI.Room # target room
+local function TeleportToRoom(room)
+    if room.TeleportHandler and room.TeleportHandler.Teleport then
+        if not room.TeleportHandler:Teleport(room) then
+            Sfx:Play(SoundEffect.SOUND_BOSS2INTRO_ERRORBUZZ, 0.8)
+        end
+    elseif room.Descriptor and CanTeleportToRoom(room) then
+        if ShouldDamagePlayer(room) then
+            Isaac.GetPlayer(0):TakeDamage(1, DamageFlag.DAMAGE_CURSED_DOOR | DamageFlag.DAMAGE_NO_PENALTIES,
+                EntityRef(Isaac.GetPlayer(0)), 0)
+        end
+        Game:GetLevel().LeaveDoor = -1
+        Game:StartRoomTransition(room.Descriptor.SafeGridIndex, Direction.NO_DIRECTION,
+            REPENTANCE and RoomTransitionAnim.FADE or 1)
+    else
+        Sfx:Play(SoundEffect.SOUND_BOSS2INTRO_ERRORBUZZ, 0.8)
+    end
+end
+
+local tabPressTimeStart = 0
+local function HandleMoveCursorWithButtons()
+    local playerController = Isaac.GetPlayer(0).ControllerIndex
+    local TABpressed = Input.IsActionPressed(ButtonAction.ACTION_MAP, playerController)
+
+    if TABpressed and tabPressTimeStart == 0 then
+        tabPressTimeStart = Isaac.GetTime()
+    elseif not TABpressed then
+        tabPressTimeStart = 0
+    elseif not currentlyHighlighted and Isaac.GetTime()-tabPressTimeStart > 500 then
+        currentlyHighlighted = MinimapAPI:GetCurrentRoom():GetAdjacentRooms()[1]
+    end
+
+    if currentlyHighlighted then
+        local rooms = currentlyHighlighted:GetAdjacentRooms()
+        local teleportCheck = nil
+        if Input.IsActionTriggered(ButtonAction.ACTION_SHOOTLEFT, playerController) then
+            teleportCheck = function(diffPos) return diffPos.X > 0 end
+        elseif Input.IsActionTriggered(ButtonAction.ACTION_SHOOTRIGHT, playerController) then
+            teleportCheck = function(diffPos) return diffPos.X < 0 end
+        elseif Input.IsActionTriggered(ButtonAction.ACTION_SHOOTUP, playerController) then
+            teleportCheck = function(diffPos) return diffPos.Y > 0 end
+        elseif Input.IsActionTriggered(ButtonAction.ACTION_SHOOTDOWN, playerController) then
+            teleportCheck = function(diffPos) return diffPos.Y < 0 end
+        end
+        if teleportCheck then
+            for _, room in ipairs(rooms) do
+                local diffPos = currentlyHighlighted.Position - room.Position
+                if room:IsValidTeleportTarget() and teleportCheck(diffPos) then
+                    currentlyHighlighted = room
+                    break
+                end
+            end
+        end
+    end
+end
+
+local function niceJourney_PostRender()
+    if not MinimapAPI:IsLarge() or not MinimapAPI:GetConfig("MouseTeleport") or Game:IsPaused() then
+        currentlyHighlighted = nil
+        tabPressTimeStart = 0
+        return
+    end
+
+    -- gameCoords = false doesn't give proper render coords
+    local mouseCoords = Isaac.WorldToScreen(Input.GetMousePosition(true))
+    local mouseMoved = mouseCoords.X ~= lastMousePos.X or mouseCoords.Y ~= lastMousePos.Y
+    lastMousePos = mouseCoords
+
+    local playerController = Isaac.GetPlayer(0).ControllerIndex
+    local TABpressed = Input.IsActionPressed(ButtonAction.ACTION_MAP, playerController)
+    HandleMoveCursorWithButtons()
+
+    local teleportTarget = nil
+    for _, room in pairs(MinimapAPI:GetLevel()) do
+        if room:IsValidTeleportTarget()
+            and (room.Descriptor or room.TeleportHandler)
+        then
+            local rgp = MinimapAPI.RoomShapeGridPivots[room.Shape]
+            local rms = MinimapAPI:GetRoomShapeGridSize(room.Shape)
+            local size = Vector(largeRoomPixelSize.X * rms.X, largeRoomPixelSize.Y * rms.Y)
+            local gripPivotOffset = Vector(rgp.X * size.X / 2, rgp.Y * size.Y / 2)
+            if room.RenderOffset and MinimapAPI.GlobalScaleX then
+                local pos = room.RenderOffset + Vector(MinimapAPI.GlobalScaleX * RoomSpriteOffset.X, RoomSpriteOffset.Y)
+                    - gripPivotOffset
+                local center = pos + Vector(size.X / 2 * MinimapAPI.GlobalScaleX, size.Y / 2)
+                local boundsTl, boundsBr = pos, pos + size
+                if MinimapAPI.GlobalScaleX == -1 then -- Map is flipped
+                    boundsTl, boundsBr = pos - Vector(size.X, 0), pos + Vector(0, size.Y)
+                end
+                if (TABpressed and not mouseMoved and currentlyHighlighted == room)
+                    or (mouseCoords.X > boundsTl.X and mouseCoords.X < boundsBr.X
+                        and mouseCoords.Y > boundsTl.Y and mouseCoords.Y < boundsBr.Y) then
+                    TeleportMarkerSprite.Scale = Vector(MinimapAPI.GlobalScaleX, 1)
+                    if room == MinimapAPI:GetCurrentRoom() then
+                        TeleportMarkerSprite.Color = Color(1, 1, 1, 0.5, 0, 0, 0)
+                    else
+                        TeleportMarkerSprite.Color = Color(1, 1, 1, 1, 0, 0, 0)
+                        teleportTarget = room
+                    end
+                    currentlyHighlighted = room
+                    TeleportMarkerSprite:Render(center, Vector(0, 0), Vector(0, 0))
+                    break
+                end
+            end
+        end
+
+    end
+
+    local pressed = Input.IsMouseBtnPressed(Mouse.MOUSE_BUTTON_LEFT) or Input.IsActionPressed(ButtonAction.ACTION_MENUCONFIRM, 0)
+    if pressed and not WasTriggered and teleportTarget then
+        WasTriggered = true
+        TeleportToRoom(teleportTarget)
+    elseif not pressed and WasTriggered then
+        WasTriggered = false
+    end
+
+end
+
+local addRenderCall = true
+
+MinimapAPI:AddCallback(
+    ModCallbacks.MC_POST_GAME_STARTED,
+    function(self, is_save)
+        if addRenderCall then
+            MinimapAPI:AddCallback(ModCallbacks.MC_POST_RENDER, niceJourney_PostRender)
+            addRenderCall = false
+        end
+    end
+)
+
+MinimapAPI:AddCallback(ModCallbacks.MC_EXECUTE_CMD, niceJourney_ExecuteCmd)

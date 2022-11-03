@@ -1,0 +1,19 @@
+<data>
+    <room Name="Chill Room" NameRegex="^[cC]hill" StageName="Glacier">
+        <Gfx StageGfx="Glacier" BGPrefix="backdrops/glacierchill">
+			<Entity ID="1000" Image="../resources/gfx/grid/revel1/glacier_chill_rocks.png" />
+            <Entity ID="3000" Image="../resources/gfx/grid/revel1/glacier_chill_pit.png" />
+            <Entity ID="625" Variant="274" Image="../resources/gfx/grid/revel1/glacier_chill_ice_pit.png" />
+        </Gfx>
+    </room>
+    <room Name="Trap Room" NameRegex="^[tT]rap" StageName="Tomb">
+        <Gfx StageGfx="Tomb" BGPrefix="backdrops/tombtrap">
+            <Entity ID="3000" Image="../resources/gfx/grid/revel2/tile_pit.png" />
+			<Entity ID="1000" Image="../resources/gfx/grid/revel2/tile_rocks.png" />
+			<Entity ID="1002" Image="revelations/1002.0.0 - Pot Tomb Tile.png" />
+			<Entity ID="1900" Image="revelations/1900.0.0 - Block Tomb Tile.png" />
+			<Entity ID="1001" Image="revelations/1001.0.0 - Bomb Rock Tomb Tile.png" />
+			<Entity ID="1010" Image="revelations/1010.0.0 - Spike Rock Tomb Tile.png" />
+        </Gfx>
+    </room>
+</data>

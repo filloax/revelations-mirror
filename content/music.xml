@@ -1,0 +1,61 @@
+<music root="music/">
+	<!-- blank ogg file --><track name="blank" path="blank.ogg" loop="true" />
+	
+	<!-- SINS -->
+	<!-- Sloth --><track name="Sloth Sin" path="revel1/Sins/SevenSinsBase.ogg" layer="revel1/Sins/SevenSinsSlothLayer.ogg" loop="true" />
+	<!-- Envy --><track name="Envy Sin" path="revel1/Sins/SevenSinsBase.ogg" layer="revel1/Sins/SevenSinsEnvyLayer.ogg" loop="true" />
+	<!-- Gluttony --><track name="Gluttony Sin" path="revel1/Sins/SevenSinsBase.ogg" layer="revel1/Sins/SevenSinsGluttonyLayer.ogg" loop="true" />
+	<!-- Greed --><track name="Greed Sin" path="revel1/Sins/SevenSinsBase.ogg" layer="revel1/Sins/SevenSinsGreedLayer.ogg" loop="true" />
+	<!-- Lust --><track name="Lust Sin" path="revel1/Sins/SevenSinsBase.ogg" layer="revel1/Sins/SevenSinsLustLayer.ogg" loop="true" />
+	<!-- Pride --><track name="Pride Sin" path="revel1/Sins/SevenSinsBase.ogg" layer="revel1/Sins/SevenSinsPrideLayer.ogg" loop="true" />
+	<!-- Wrath --><track name="Wrath Sin" path="revel1/Sins/SevenSinsBase.ogg" layer="revel1/Sins/SevenSinsWrathLayer.ogg" loop="true" />
+	<!-- All --><track name="All Sins" path="revel1/Sins/SevenSinsBase.ogg" layer="revel1/Sins/SevenSinsAllLayer.ogg" loop="true" />
+
+	<!-- CHAPTER 1 -->
+	<!-- Glacier --><track name="Glacier" path="revel1/Glacier.ogg" layer="revel1/Glacier Layer.ogg" loop="true" />
+    <!-- Glacier Entrance --><track name="Glacier Entrance" path="revel1/Glacier Entrance.ogg" loop="true" />
+	<!-- Glacier Boss --><track name="Glacier Boss" path="revel1/Glacier Boss Battle.ogg" loop="true" />
+    <!-- Glacier Boss Intro --><track name="Glacier Boss Intro" path="revel1/Glacier Boss Battle Intro.ogg" loop="false" />
+    <!-- Glacier Boss Outro --><track name="Glacier Boss Outro" path="revel1/Glacier Boss Battle Outro.ogg" loop="false" />
+	<!-- Mirror Boss Jingle --><track name="Mirror Boss Jingle" path="revel1/Glacier Boss Battle Intro.ogg" loop="false" />
+	<!-- Mirror Boss --><track name="Mirror Boss" intro="revel1/Mirror Boss Intro.ogg" path="revel1/Mirror Boss.ogg" loop="true" />
+	<!-- Mirror Boss --><track name="Mirror Boss No Intro" path="revel1/Mirror Boss.ogg" loop="true" />
+	<!-- Mirror Door Opens --><track name="Mirror Door Opens" path="revel1/Mirror Door Opens Stinger.ogg" loop="false" />
+    <!-- Mirror Boss Outro --><track name="Mirror Boss Outro" path="revel1/Mirror Boss Outro.ogg" loop="false" />
+	<!-- Floor Transition --><track name="Transition Stinger" path="revel1/Floor_Transition_Stinger.ogg" loop="false" />
+	<!-- Ambient Wind --><track name="AmbientWind" path="revel1/AmbientWind.ogg" loop="true" />
+	<!-- Glacier Elite --><track name="Glacier Elite" path="revel1/Glacier Elite Boss.ogg" loop="true" />
+
+	<!-- CHAPTER 2 -->
+	<!-- Tomb --><track name="Tomb" path="revel2/Revelations Ancient Temple.ogg" layer="revel2/Revelations Ancient Temple Layer.ogg" loop="true" />
+    <!-- Tomb Entrance --><track name="Tomb Entrance" path="revel2/Revelations Tomb Entrance.ogg" loop="true" />
+	<!-- Tomb Boss --><track name="Tomb Boss" path="revel2/Revelations Ancient Temple Boss.ogg" loop="true" />
+    <!-- Tomb Boss Intro --><track name="Tomb Boss Intro" path="revel2/Tomb Boss Intro.ogg" loop="false" />
+    <!-- Tomb Boss Outro --><track name="Tomb Boss Outro" path="revel2/Tomb Boss Outro.ogg" loop="false" />
+    <!-- Mirror Boss 2 --><track name="Mirror Boss 2" intro="revel2/Mirror Boss Intro.ogg" path="revel2/Mirror Boss.ogg" loop="true" />
+    <!-- Mirror Boss 2 No Intro --><track name="Mirror Boss 2 No Intro" path="revel2/Mirror Boss.ogg" loop="true" />
+    <!-- Mirror Boss 2 Outro --><track name="Mirror Boss 2 Outro" path="revel2/Mirror Boss Outro.ogg" loop="false" />
+    <!-- Tomb Elite --><track name="Tomb Elite" path="revel2/Tomb Elite Boss.ogg" loop="true" />
+    <!-- Tomb Elite Ragtime --><track name="Tomb Elite Ragtime" path="revel2/Tomb Elite Boss Ragtime.ogg" loop="true" />
+
+    <!-- Hub Room --><track name="Revelations Hub Room" path="revel2/The_Hub.ogg" loop="true" />
+	<!-- Hub Room 2 --><track name="Hub Room 2.0" path="hub2/The_Hub.ogg" loop="true" />
+    <!-- Hub Room Stinger --><track name="Revelations Hub Room Stinger" path="revel2/Hub_Room_Found_Stinger.ogg" loop="false" />
+    <!-- Vanity Shop --><track name="Revelations Vanity Bazaar" path="revelcommon/Bazaar_Mischief.ogg" loop="true" />
+    <!-- Vanity Casino --><track name="Revelations Vanity Casino" path="revelcommon/Prank_Shop_Casino_Version.ogg" loop="true" />
+
+	<!-- AFTERLIFE OST -->
+	<!-- Used with permission for some vanilla track replacements in rev floors -->
+	<!-- Shop --><track name="Revelations Shop" path="afterlife/AfterLife Shop.ogg" loop="true" />
+	<!-- Secret Room --><track name="Revelations Secret Room" path="afterlife/AfterLife Secret Room.ogg" loop="true" />
+	<!-- Challenge Room --><track name="Revelations Challenge Room" path="afterlife/AfterLife Boss Battle.ogg" loop="true" />
+	<!-- Challenge Room End --><track name="Revelations Challenge Room End" path="afterlife/AfterLife Boss Battle Outro.ogg" />
+	<!-- Limbo (Rev Boss calm) --><track name="Revelations Boss Calm" path="afterlife/AfterLife_Limbo_draft.ogg" loop="true" />
+	<!-- Item Room Jingle 1 --><track name="Revelations Item Room Jingle 1" path="afterlife/Item Room 1.ogg" />
+	<!-- Item Room Jingle 2 --><track name="Revelations Item Room Jingle 2" path="afterlife/Item Room 2.ogg" />
+	<!-- Item Room Jingle 3 --><track name="Revelations Item Room Jingle 3" path="afterlife/Item Room 3.ogg" />
+	<!-- Item Room Jingle 4 --><track name="Revelations Item Room Jingle 4" path="afterlife/Item Room 4.ogg" />
+	<!-- Secret Room Jingle --><track name="Revelations Secret Room Jingle" path="afterlife/secret room find #2_07.ogg" />
+	<!-- Dante Satan Room Jingle --><track name="Revelations Dante Satan Room Spawn Jingle" path="afterlife/Item Room 4.ogg" />
+
+</music>

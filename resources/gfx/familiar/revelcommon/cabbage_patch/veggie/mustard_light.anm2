@@ -1,0 +1,45 @@
+<AnimatedActor>
+	<Info CreatedBy="Akio" CreatedOn="2018/12/3 13:30:32" Version="15" Fps="46"/>
+	<Content>
+		<Spritesheets>
+			<Spritesheet Path="..\Holy_Mustard.png" Id="0"/>
+			<Spritesheet Path="..\Lightbeam.png" Id="1"/>
+			<Spritesheet Path="..\effect_hallowedground.png" Id="2"/>
+		</Spritesheets>
+		<Layers>
+			<Layer Name="LightCircle" Id="0" SpritesheetId="2"/>
+		</Layers>
+		<Nulls/>
+		<Events/>
+	</Content>
+	<Animations DefaultAnimation="Idle">
+		<Animation Name="Idle" FrameNum="30" Loop="false">
+			<RootAnimation>
+				<Frame XPosition="0" YPosition="0" XScale="100" YScale="100" Delay="1" Visible="true" RedTint="255" GreenTint="255" BlueTint="255" AlphaTint="255" RedOffset="0" GreenOffset="0" BlueOffset="0" Rotation="0" Interpolated="false"/>
+			</RootAnimation>
+			<LayerAnimations>
+				<LayerAnimation LayerId="0" Visible="true">
+					<Frame XPosition="0" YPosition="-12" XPivot="72" YPivot="72" XCrop="0" YCrop="0" Width="143" Height="143" XScale="75" YScale="75" Delay="15" Visible="true" RedTint="255" GreenTint="255" BlueTint="255" AlphaTint="100" RedOffset="0" GreenOffset="0" BlueOffset="0" Rotation="0" Interpolated="true"/>
+					<Frame XPosition="0" YPosition="-12" XPivot="72" YPivot="72" XCrop="0" YCrop="0" Width="143" Height="143" XScale="76" YScale="76" Delay="15" Visible="true" RedTint="255" GreenTint="255" BlueTint="255" AlphaTint="90" RedOffset="0" GreenOffset="0" BlueOffset="0" Rotation="0" Interpolated="true"/>
+					<Frame XPosition="0" YPosition="-12" XPivot="72" YPivot="72" XCrop="0" YCrop="0" Width="143" Height="143" XScale="75" YScale="75" Delay="5" Visible="true" RedTint="255" GreenTint="255" BlueTint="255" AlphaTint="100" RedOffset="0" GreenOffset="0" BlueOffset="0" Rotation="0" Interpolated="true"/>
+				</LayerAnimation>
+			</LayerAnimations>
+			<NullAnimations/>
+			<Triggers/>
+		</Animation>
+		<Animation Name="Vanish" FrameNum="14" Loop="false">
+			<RootAnimation>
+				<Frame XPosition="0" YPosition="0" XScale="100" YScale="100" Delay="1" Visible="true" RedTint="255" GreenTint="255" BlueTint="255" AlphaTint="255" RedOffset="0" GreenOffset="0" BlueOffset="0" Rotation="0" Interpolated="false"/>
+			</RootAnimation>
+			<LayerAnimations>
+				<LayerAnimation LayerId="0" Visible="true">
+					<Frame XPosition="0" YPosition="-12" XPivot="72" YPivot="72" XCrop="0" YCrop="0" Width="143" Height="143" XScale="75" YScale="75" Delay="4" Visible="true" RedTint="255" GreenTint="255" BlueTint="255" AlphaTint="100" RedOffset="0" GreenOffset="0" BlueOffset="0" Rotation="0" Interpolated="true"/>
+					<Frame XPosition="0" YPosition="-12" XPivot="72" YPivot="72" XCrop="0" YCrop="0" Width="143" Height="143" XScale="78" YScale="78" Delay="7" Visible="true" RedTint="255" GreenTint="255" BlueTint="255" AlphaTint="90" RedOffset="200" GreenOffset="200" BlueOffset="200" Rotation="0" Interpolated="true"/>
+					<Frame XPosition="0" YPosition="-12" XPivot="72" YPivot="72" XCrop="0" YCrop="0" Width="143" Height="143" XScale="25" YScale="25" Delay="7" Visible="true" RedTint="255" GreenTint="255" BlueTint="255" AlphaTint="0" RedOffset="200" GreenOffset="200" BlueOffset="200" Rotation="0" Interpolated="true"/>
+				</LayerAnimation>
+			</LayerAnimations>
+			<NullAnimations/>
+			<Triggers/>
+		</Animation>
+	</Animations>
+</AnimatedActor>

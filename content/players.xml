@@ -1,0 +1,33 @@
+<players root="gfx/characters/"
+         portraitroot="gfx/ui/stage/"
+         nameimageroot="gfx/ui/boss/">
+	<player name="Sarah" skin="revelcommon/costumes/character_sarah.png" costumeSuffix="sarah" hp="4"
+          cache="shotspeed"
+          nameimage="revelcommon/sarah_name.png"
+          portrait="revelcommon/sarah_portrait.png"
+          birthright="Forgiving sin"
+		  skinColor="-1" />
+	<player name="Dante" skin="revelcommon/costumes/character_dante.png" hp="2"
+          nameimage="revelcommon/dante_charon_name.png"
+          portrait="revelcommon/dante_portrait.png"
+          birthright="Share the spoils"
+		  skinColor="-1" />
+	<player name="Charon" skin="revelcommon/costumes/character_charon.png" hp="2"
+          nameimage="revelcommon/dante_charon_name.png"
+          portrait="revelcommon/dante_portrait.png"
+          birthright="Share the spoils"
+		  skinColor="-1" 
+          hidden="true" />
+          
+    <!-- Don't get excited, these are just used for the placeholders in the tainted section -->
+    <player name="Sarah" skin="revelcommon/costumes/character_sarah.png" costumeSuffix="sarah" hp="4"
+          nameimage="revelcommon/sarah_name.png"
+          portrait="revelcommon/sarah_portrait.png"
+          bSkinParent="Sarah"
+		  skinColor="-1" />
+    <player name="Dante" skin="revelcommon/costumes/character_dante.png" hp="2"
+          nameimage="revelcommon/dante_charon_name.png"
+          portrait="revelcommon/dante_portrait.png"
+          bSkinParent="Dante"
+		  skinColor="-1" />
+</players>
