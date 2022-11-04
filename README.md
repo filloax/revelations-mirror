@@ -4,7 +4,7 @@
 
 This is not the main repository for the mod, but only a mirror for downloads in case of Steam download failures or easier perusing of source code.
 
-**LATEST VERSION: [DOWNLOAD HERE](#todo)**
+**LATEST VERSION: [DOWNLOAD HERE](#https://github.com/filloax/revelations-mirror/releases/latest)**
 
 Check releases for all version downloads.
 
