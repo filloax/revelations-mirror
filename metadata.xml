@@ -15,7 +15,7 @@ This mod [i][b]REQUIRES[/b][/i] the [b][url=https://steamcommunity.com/sharedfil
 
 [b]IF YOU HAVE STRANGE ERRORS AFTER INSTALLING THE MOD, TRY DELETING THE MOD'S FOLDER AND RESTARTING THE GAME (see below)[/b]
 
-[url=CHANGELOG_LINK][i]Changelog[/i][/url]
+[url=https://github.com/filloax/revelations-mirror/blob/main/changelog.md][i]Changelog[/i][/url]
 
 [img]https://i.imgur.com/oUM4ZSU.gif[/img]
 
@@ -66,7 +66,7 @@ Revelations is intended to be compatible with [url=https://steamcommunity.com/sh
 
 Recently, a limit of the Isaac engine was discovered when [b]too many mods are enabled at once[/b] (especially big ones), leading to sprites eventually being replaced by black squares or becoming transparent after some gameplay in that case. The specific limit isn't known yet, and it doesn't depend on the machine's performance. 
 
-If you get this bug, try removing some mods and trying again. We and other modders are trying to find a solution at the moment. We still recommend playing with Fiend Folio and other mods if possible, but this limit is hard to work around.
+If you get this bug, first try changing the setting "Clear cache every" to "every room" instead of "every level" in the Rev settings. If it doesn't help, try removing some mods and trying again. We and other modders are trying to find a solution at the moment. We still recommend playing with Fiend Folio and other mods if possible, but this limit is hard to work around.
 
 [h3]Minimap mods[/h3]
 
@@ -81,8 +81,6 @@ Music Mod Callback (and depentend mods) aren't fully compatible with StageAPI at
 
 [img]https://i.imgur.com/TsSrika.png[/img]
 
-SUBBING TO THIS ENTRY WILL PROMPT A DOWNLOAD OF STAGE API. MAKE SURE YOU ACCEPT IT!
-
 TO AVOID ISSUES, RESTART ISAAC AFTER DOWNLOADING AND ENABLING THE MOD FOR THE FIRST TIME.
 
 [h2]Download Failures[/h2]
@@ -93,14 +91,7 @@ To fix this, try redownloading the mod by:
 -Deleting the mod's folder (found in [i]Documents/My Games/The Binding of Isaac Afterbirth+ Mods/revelations_somenumber[/i])
 -Restarting the game
 If you had download issues, it should be fixed by doing this. Might need a second try, but this should fix 99% of the major bugs found after first installing the mod.
-If it doesn't work, try our download mirror instead, found [url=MIRROR_URL]here[/url].
-
-[h2]Black Screen[/h2]
-
-If you get a black screen after launching the game (can happen on Linux usually), go into the mod's folder (found in [i]&lt;isaac folder&gt;/mods/revelations_2880387531[/i]) and launch:
--If on windows: [b]hard_disable_shaders.bat[/b]
--If on Linux (might need changing perms): [b]hard_disable_shaders.sh[/b]
-More info on SHADERS_and_BLACK_SCREEN_README.txt in the mod folder.
+If it doesn't work, try our download mirror instead, found [url=https://github.com/filloax/revelations-mirror]here[/url].
 
 [img]https://i.imgur.com/6XOFsfy.png[/img]
 
@@ -109,6 +100,9 @@ Subscribe on YouTube for trailers!
 
 Follow us on twitter for updates!
 [b][url=https://twitter.com/revelationsmod]@revelationsmod[/url][/b]
+
+We have a wiki!
+[b][url=https://tboirevelations.wiki.gg/wiki/The_Binding_of_Isaac:_Revelations_Wiki]Right here![/url][/b]
 
 Talk to us on discord!
 [b][url=https://discord.gg/isaac]discord.gg/isaac[/url][/b]
@@ -124,7 +118,7 @@ Talk to us on discord!
 
 Ingame list is probably more up to date.</description>
     <version>1.0</version>
-    <visibility>Private</visibility>
+    <visibility>Public</visibility>
     <tag id="Lua"/>
     <tag id="Items"/>
     <tag id="Active Items"/>
