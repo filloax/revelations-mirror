@@ -382,7 +382,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
         end
 
         if sprite:IsEventTriggered("Shoot") then
-            REVEL.sfx:NpcPlay(npc, REVEL.SFX.BIP_CRY, 0.6, 0, false, 1)
+            REVEL.sfx:NpcPlay(npc, REVEL.SFX.BIP_CRY, 0.6)
             for i = 1, math.random(8, 12) do
                 local newProjectile = npc:FireBossProjectiles(1, npc:GetPlayerTarget().Position, 4, ProjectileParams())
                 newProjectile.Velocity = newProjectile.Velocity * 0.9

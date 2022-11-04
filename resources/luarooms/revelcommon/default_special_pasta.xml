@@ -410,11 +410,11 @@
 		<spawn x="3" y="0">
 			<entity type="6" variant="8" subtype="0" weight="1.0"/>
 		</spawn>
-		<spawn x="6" y="1">
+		<spawn x="8" y="1">
 			<entity type="17" variant="3" subtype="0" weight="1.0"/>
 		</spawn>
 		<spawn x="6" y="2">
-			<entity type="5" variant="150" subtype="0" weight="1.0"/>
+			<entity type="6" variant="541" subtype="0" weight="1.0"/>
 		</spawn>
 		<spawn x="3" y="3">
 			<entity type="5" variant="150" subtype="0" weight="1.0"/>
@@ -423,7 +423,7 @@
 			<entity type="5" variant="150" subtype="0" weight="1.0"/>
 		</spawn>
 		<spawn x="6" y="4">
-			<entity type="6" variant="541" subtype="0" weight="1.0"/>
+			<entity type="5" variant="150" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
 	<room variant="7" name="New Room" type="2" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0" lastTestTime="2022-09-27T23:24+00:00">

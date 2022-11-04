@@ -158,23 +158,36 @@ function REVEL.InitializeRevendingMachine(machine, data)
     end
     SetRunData(machine, "Type", data.Type)
 
+    REVEL.ChooseRevelShopItem(machine, data)
+
     if not data.Price then
         data.Price = GetRunData(machine, "Price")
         data.Discount = GetRunData(machine, "Discount")
         if not data.Price then
+            data.Price = Prices[data.Type]
+
+            local itemConfig = Isaac:GetItemConfig():GetCollectible(machine.SubType)
+            if itemConfig then
+                if itemConfig.Quality >= 4 then
+                    data.Price = data.Price + 10
+                elseif itemConfig.Quality == 3 then
+                    data.Price = data.Price + 5
+                elseif itemConfig.Quality <= 1 then
+                    data.Price = data.Price - 5
+                end
+            end
+
             local isGlacierOne = REVEL.STAGE.Glacier:IsStage() and (REVEL.STAGE.Glacier:IsStage(true) or HasBit(REVEL.level:GetCurses(), LevelCurse.CURSE_OF_LABYRINTH))
             if isGlacierOne or REVEL.OnePlayerHasCollectible(CollectibleType.COLLECTIBLE_STEAM_SALE) then
-                data.Price = math.floor(Prices[data.Type] / 2)
+                data.Price = math.floor(data.Price / 2)
                 data.Discount = true
-            else
-                data.Price = Prices[data.Type]
             end
         end
     end
     SetRunData(machine, "Price", data.Price)
     SetRunData(machine, "Discount", data.Discount)
 
-    REVEL.ChooseRevelShopItem(machine, data)
+    REVEL.ResetMachineSprite(machine,data)
 end
 
 function REVEL.ResetMachineSprite(machine, data)

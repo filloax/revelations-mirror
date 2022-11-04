@@ -99,7 +99,7 @@ local function iceWorm_NpcUpdate(_, npc)
             end
 
             if playSound then
-                REVEL.sfx:Play(REVEL.SFX.ICE_WORM_BOUNCE, 1.2, 0, false, 1.1)
+                REVEL.sfx:Play(REVEL.SFX.ICE_WORM_BOUNCE, 1.8, 0, false, 1.1)
             end
         else
             data.TimesShot = data.TimesShot + 1
@@ -124,7 +124,7 @@ local function iceWorm_NpcUpdate(_, npc)
                 end
             end
             if playSound then
-                REVEL.sfx:Play(REVEL.SFX.ICE_WORM_BOUNCE, 1.2, 0, false, 1.1)
+                REVEL.sfx:Play(REVEL.SFX.ICE_WORM_BOUNCE, 1.8, 0, false, 1.1)
             end
         end
     end

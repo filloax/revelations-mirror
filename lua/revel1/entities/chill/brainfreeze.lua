@@ -47,7 +47,7 @@ local function brainfreeze_NpcUpdate(_, npc)
         elseif npc.State == NpcState.STATE_ATTACK then
             if not npc:GetSprite():IsPlaying("Freeze Start") then
                 npc:GetSprite():Play("Freeze Start", true)
-                REVEL.sfx:NpcPlay(npc, REVEL.SFX.BRAINFREEZE.CHARGE, 1, 0, false, 1)
+                REVEL.sfx:NpcPlay(npc, REVEL.SFX.BRAINFREEZE.CHARGE, 1.4, 0, false, 1)
             end
             npc.Velocity = npc.Velocity * 0.7
 
@@ -76,10 +76,13 @@ local function brainfreeze_NpcUpdate(_, npc)
             local aura = REVEL.SpawnFreezeAura(114, npc.Position, npc)
             data.Aura = aura
         elseif npc:GetSprite():IsEventTriggered("Shoot") then
-            REVEL.sfx:NpcPlay(npc, REVEL.SFX.BRAINFREEZE.ATTACK, 1, 0, false, 1)
+            REVEL.sfx:NpcPlay(npc, REVEL.SFX.BRAINFREEZE.ATTACK, 1.4, 0, false, 1)
+
             REVEL.ShootAura(data.Aura, player, npc)
             -- data.Aura:Remove()
             data.Aura = nil
+
+            npc.HitPoints = npc.HitPoints - (npc.HitPoints*0.2)
         end
     end
 end

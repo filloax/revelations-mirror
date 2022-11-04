@@ -14,7 +14,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
         data.CryTimer = data.CryTimer+1
     end
     if data.CryTimer == 150 then
-        REVEL.sfx:NpcPlay(npc, REVEL.SFX.BIP_CRY, 0.6, 0, false, 1)
+        REVEL.sfx:NpcPlay(npc, REVEL.SFX.BIP_CRY, 0.6)
         data.CryTimer = math.random(0,50)
     end
 

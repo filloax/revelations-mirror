@@ -656,6 +656,7 @@ local function stalagmight_NpcUpdate(_, npc)
 
         elseif data.State == "TripleShot" then
             if sprite:IsEventTriggered("Triple Shot") then
+                REVEL.sfx:Play(SoundEffect.SOUND_BLOODSHOOT, 1, 0, false, 1)
                 REVEL.sfx:NpcPlay(npc, SoundEffect.SOUND_GHOST_SHOOT, 1, 0, false, 1)
                 local angle = data.bal.TripleShot.Spread
                 local angleStep = data.bal.TripleShot.Spread / (data.bal.TripleShot.Num - 1)

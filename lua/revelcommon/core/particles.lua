@@ -1205,26 +1205,29 @@ end)
 revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, effect)
     local data = effect:GetData()
     local pdata = data.PartData
-    local system = pdata.System
 
-    if not pdata.StopUpdating then
-        local alive = system:UpdateParticle(effect)
-        if not alive then
-            local renderer = pdata.RenderedByEnt and pdata.RenderedByEnt.Ref
-            if renderer and renderer:GetData().ParticlesToRender then
-                renderer:GetData().ParticlesToRender[GetPtrHash(effect)] = nil
+    if pdata then
+        local system = pdata.System
+
+        if not pdata.StopUpdating then
+            local alive = system:UpdateParticle(effect)
+            if not alive then
+                local renderer = pdata.RenderedByEnt and pdata.RenderedByEnt.Ref
+                if renderer and renderer:GetData().ParticlesToRender then
+                    renderer:GetData().ParticlesToRender[GetPtrHash(effect)] = nil
+                end
+                particlesToRenderOnFloor[GetPtrHash(effect)] = nil
+
+                local shouldRemove = pdata.Type.RemoveOnDeath
+                if shouldRemove == 1 then
+                    effect:Remove()
+                elseif shouldRemove == 2 then
+                    effect.Visible = true
+                    effect:AddEntityFlags(EntityFlag.FLAG_RENDER_FLOOR)
+                end
+
+                pdata.StopUpdating = true
             end
-            particlesToRenderOnFloor[GetPtrHash(effect)] = nil
-
-            local shouldRemove = pdata.Type.RemoveOnDeath
-            if shouldRemove == 1 then
-                effect:Remove()
-            elseif shouldRemove == 2 then
-                effect.Visible = true
-                effect:AddEntityFlags(EntityFlag.FLAG_RENDER_FLOOR)
-            end
-
-            pdata.StopUpdating = true
         end
     end
 end, REVEL.ENT.PARTICLE.variant)
@@ -1233,10 +1236,13 @@ revel:AddCallback(ModCallbacks.MC_POST_EFFECT_RENDER, function(_, effect)
     if not REVEL.game:IsPaused() and REVEL.IsRenderPassNormal() then
         local data = effect:GetData()
         local pdata = data.PartData
-        local system = pdata.System
-    
-        if not pdata.StopUpdating then
-            system:InterpolateParticle(effect)
+
+        if pdata then
+            local system = pdata.System
+        
+            if not pdata.StopUpdating then
+                system:InterpolateParticle(effect)
+            end
         end
     end
 end, REVEL.ENT.PARTICLE.variant)

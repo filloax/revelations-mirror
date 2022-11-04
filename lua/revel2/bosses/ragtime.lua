@@ -1964,6 +1964,10 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
             firstPlayerExtraSpotlight:GetData().ForceWhenEntInvisible = players[1].Position
         end
 
+        for _, player in ipairs(players) do
+            REVEL.LockPlayerControls(player, "RagtimeLightsout")
+        end
+
         data.FirstPlayerPos = players[1].Position
         REVEL.PlayerCameraMode(players[1])
 
@@ -2008,6 +2012,13 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
         end
     end
 
+    local function LightsOutFreePlayers(cameraPlayer)
+        REVEL.StopPlayerCameraMode(cameraPlayer, true)
+        for _, player in ipairs(REVEL.players) do
+            REVEL.UnlockPlayerControls(player, "RagtimeLightsout")
+        end
+    end
+
     -- postDeath: only spotlight/player/dark stuff
     local function HandleLightsOut(npc, sprite, data, postDeath)
         local lbal = data.bal.LightsOut
@@ -2044,6 +2055,11 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
         elseif data.LightsOutTimer == spawnTime then
             LightsOutSpawn(npc, sprite, data, postDeath)
+
+            if REVEL.ENT.RAGTIME:isEnt(npc) then
+                npc:AddEntityFlags(EntityFlag.FLAG_NO_TARGET)
+                npc:AddEntityFlags(EntityFlag.FLAG_NO_STATUS_EFFECTS)
+            end
         else
             data.DarkScreenAlpha = 1 - REVEL.SmoothStep(data.LightsOutTimer, spawnTime, fullDarkOffTime)
 
@@ -2081,7 +2097,12 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
                 )
 
                 if data.LightsOutTimer == phaseStartTime then
-                    REVEL.StopPlayerCameraMode(REVEL.player, true)
+                    if REVEL.ENT.RAGTIME:isEnt(npc) then
+                        npc:ClearEntityFlags(EntityFlag.FLAG_NO_TARGET)
+                        npc:ClearEntityFlags(EntityFlag.FLAG_NO_STATUS_EFFECTS)
+                    end
+
+                    LightsOutFreePlayers(REVEL.player)
                     
                     local firstPlayerExtraSpotlight = REVEL.player:GetData().RagtimeExtraSpotlight and REVEL.player:GetData().RagtimeExtraSpotlight.Ref
 
@@ -2097,13 +2118,18 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
             end
 
             if data.LightsOutTimer >= lbal.Duration then
+                if REVEL.ENT.RAGTIME:isEnt(npc) then
+                    npc:ClearEntityFlags(EntityFlag.FLAG_NO_TARGET)
+                    npc:ClearEntityFlags(EntityFlag.FLAG_NO_STATUS_EFFECTS)
+                end
+
                 local spotlight = data.Spotlight.Ref
                 if spotlight then
                     REVEL.FadeoutSpotlight(spotlight)
                 end
 
                 -- just in case it somehow errored earlier
-                REVEL.StopPlayerCameraMode(REVEL.player, true)
+                LightsOutFreePlayers(REVEL.player)
 
                 data.Spotlight = nil
                 data.LightsOutTimer = nil
@@ -2550,8 +2576,13 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
         local sprite, data = npc:GetSprite(), npc:GetData()
 
+        local lbal = data.bal.LightsOut
+        local lightsOutPhaseStartTime = math.floor(lbal.Duration * lbal.PhaseStartTime)
+
         if data.State == States.HIDDEN
-        or sprite:IsPlaying("PhaseTransition") and sprite:WasEventTriggered("Lightning") then
+        or sprite:IsPlaying("PhaseTransition") and sprite:WasEventTriggered("Lightning")
+        or data.LightsOutTimer and data.LightsOutTimer < lightsOutPhaseStartTime
+        then
             return false
         end
 
@@ -2573,7 +2604,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
             if not data.OrigData.LightsOutTimer then
                 entity:Remove()
-                REVEL.StopPlayerCameraMode(REVEL.player, true)
+                LightsOutFreePlayers(REVEL.player)
             end
         end,
         Sprite = "gfx/blank.anm2",
@@ -2594,7 +2625,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
             hdata.OrigData = REVEL.CopyTable(data)
         else 
             -- Just in case
-            REVEL.StopPlayerCameraMode(REVEL.player, true)
+            LightsOutFreePlayers(REVEL.player)
         end
     end, REVEL.ENT.RAGTIME.id)
 

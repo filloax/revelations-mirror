@@ -371,18 +371,29 @@ local hubRoomDoorSlots = {
 }
 
 for slot, slotData in pairs(hubRoomDoorSlots) do
+    -- revrt to this system once I figure out why
+    -- it bugs out the door backgrounds and sprites
+--     if not slotData.DoorSprite then
+--         slotData.DoorSprite = REVEL.LazyLoadRoomSprite{
+--             ID = "hubslot" .. slot .. "DoorSprite",
+--             Anm2 = "gfx/backdrop/revelcommon/hubroom/hubdoor.anm2",
+--         }
+--     end
+
+--     if not slotData.BackgroundSprite then
+--         slotData.BackgroundSprite = REVEL.LazyLoadRoomSprite{
+--             ID = "hubslot" .. slot .. "BackgroundSprite",
+--             Anm2 = "gfx/backdrop/revelcommon/hubroom/hubdoor_background.anm2",
+--         }
+--     end
     if not slotData.DoorSprite then
-        slotData.DoorSprite = REVEL.LazyLoadRoomSprite{
-            ID = "hubslot" .. slot .. "DoorSprite",
-            Anm2 = "gfx/backdrop/revelcommon/hubroom/hubdoor.anm2",
-        }
+        slotData.DoorSprite = Sprite()
+        slotData.DoorSprite:Load("gfx/backdrop/revelcommon/hubroom/hubdoor.anm2", true)
     end
 
     if not slotData.BackgroundSprite then
-        slotData.BackgroundSprite = REVEL.LazyLoadRoomSprite{
-            ID = "hubslot" .. slot .. "BackgroundSprite",
-            Anm2 = "gfx/backdrop/revelcommon/hubroom/hubdoor_background.anm2",
-        }
+        slotData.BackgroundSprite = Sprite()
+        slotData.BackgroundSprite:Load("gfx/backdrop/revelcommon/hubroom/hubdoor_background.anm2", true)
     end
 
     if not slotData.BackgroundPosition then

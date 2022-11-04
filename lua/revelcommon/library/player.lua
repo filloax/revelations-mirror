@@ -137,8 +137,15 @@ end
 
 local RegisteredDisableDrop = false
 
----@param player EntityPlayer
+---@param player? EntityPlayer use fake player if nil
 function REVEL.PlayerCameraMode(player)
+    local fakePlayer = false
+
+    if not player then
+        player = REVEL.NewPlayer(PlayerType.PLAYER_ISAAC, 0, REVEL.player)
+        fakePlayer = true
+    end
+
     local data = player:GetData()
 
     if not data.CameraMode then
@@ -147,6 +154,7 @@ function REVEL.PlayerCameraMode(player)
         ---@class Rev.CameraModeData
         data.Camera = {
             StartingPos = player.Position,
+            FakePlayer = fakePlayer,
         }
 
         data.Camera.WasVisible = player.Visible
@@ -158,13 +166,17 @@ function REVEL.PlayerCameraMode(player)
         data.Camera.OldCollisionClass = player.EntityCollisionClass
         player.EntityCollisionClass = EntityCollisionClass.ENTCOLL_NONE
 
-        data.Camera.StandinEffect = REVEL.ENT.PLAYER_CAMERA_STANDIN:spawn(player.Position, Vector.Zero, player)
-        data.Camera.StandinEffect:GetData().Player = player
+        if not data.Camera.FakePlayer then
+            data.Camera.StandinEffect = REVEL.ENT.PLAYER_CAMERA_STANDIN:spawn(player.Position, Vector.Zero, player)
+            data.Camera.StandinEffect:GetData().Player = player
+        end
 
         data.Camera.WasForgottenSoul = player:GetPlayerType() == PlayerType.PLAYER_THESOUL 
             and not player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
         if data.Camera.WasForgottenSoul then
-            REVEL.ForceInput(player, ButtonAction.ACTION_DROP, InputHook.IS_ACTION_TRIGGERED, true)
+            if not data.Camera.FakePlayer then
+                REVEL.ForceInput(player, ButtonAction.ACTION_DROP, InputHook.IS_ACTION_TRIGGERED, true)
+            end
             local playerID = REVEL.GetPlayerID(player)
             local mainPlayer = REVEL.players[playerID]
             if mainPlayer:GetData().Bone then
@@ -195,6 +207,8 @@ function REVEL.PlayerCameraMode(player)
         if data.Bone then
             data.Bone.Visible = false
         end
+        
+        return player
     end
 end
 
@@ -229,7 +243,9 @@ function REVEL.StopPlayerCameraMode(player, restorePos)
         if not data.Camera.HadNoTarget then
             player:ClearEntityFlags(EntityFlag.FLAG_NO_TARGET)
         end
-        if data.Camera.StandinEffect:Exists() then
+        if data.Camera.StandinEffect 
+        and data.Camera.StandinEffect:Exists() 
+        then
             data.Camera.StandinEffect:Remove()
         end
         player.EntityCollisionClass = data.Camera.OldCollisionClass
@@ -242,8 +258,12 @@ function REVEL.StopPlayerCameraMode(player, restorePos)
             data.Bone.Visible = true
         end
 
-        if data.Camera.WasForgottenSoul then
+        if data.Camera.WasForgottenSoul and not data.Camera.FakePlayer then
             REVEL.ForceInput(player, ButtonAction.ACTION_DROP, InputHook.IS_ACTION_TRIGGERED, true)
+        end
+
+        if data.Camera.FakePlayer then
+            REVEL.RemoveExtraPlayer(player)
         end
 
         data.Camera = nil
@@ -351,13 +371,15 @@ function REVEL.RemoveExtraPlayer(player)
         player:GetSprite():SetLastFrame()
         player:Update()
         REVEL.sfx:Stop(SoundEffect.SOUND_DEATH)
-    
+        REVEL.sfx:Stop(SoundEffect.SOUND_DEATH_BURST_SMALL)
+
         REVEL.DelayFunction(1, function()
             PlayerDying = false
             if AddedCallback then
                 revel:RemoveCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, removePlayer_Gibs_PreEntitySpawn)
                 AddedCallback = false
             end
+            REVEL.sfx:Stop(SoundEffect.SOUND_DEATH)
             REVEL.sfx:Stop(SoundEffect.SOUND_DEATH_BURST_SMALL)
         end)
     end)

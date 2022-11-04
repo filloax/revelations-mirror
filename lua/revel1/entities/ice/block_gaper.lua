@@ -87,7 +87,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
             local enemy = npc:ToNPC()
             if enemy then
                 enemy:Morph(EntityType.ENTITY_HORF, 0, 0, -1)
-                enemy.HitPoints = enemy.MaxHitPoints
+                enemy.HitPoints = enemy.MaxHitPoints*0.66
                 REVEL.ForceReplacement(enemy, "Glacier")
                 enemy.EntityCollisionClass = EntityCollisionClass.ENTCOLL_ALL
                 enemy:GetData().FromBlockGaper = true

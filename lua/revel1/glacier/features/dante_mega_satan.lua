@@ -206,17 +206,21 @@ local function frozenBody_PostCustomGridDestroy(customGrid)
         for i=1, 6 do
             REVEL.SpawnIceRockGib(eff.Position, Vector.FromAngle(1*math.random(0, 360)):Resized(math.random(1, 5)), eff)
         end
+
+        local rng = eff:GetDropRNG()
+        local chance = rng:RandomFloat()
+        print(chance)
+        if chance < FROZEN_BODY_SOUL_DROP_CHANCE then
+            local dir = RandomVector()
+            Isaac.Spawn(
+                EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_SOUL,
+                customGrid.Position + dir * 3, dir * 3,
+                nil
+            )
+        end
+
         eff:Remove()
         BodyEffects[customGrid.PersistentIndex] = nil
-    end
-
-    if math.random() < FROZEN_BODY_SOUL_DROP_CHANCE then
-        local dir = RandomVector()
-        Isaac.Spawn(
-            EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_SOUL,
-            customGrid.Position + dir * 3, dir * 3,
-            nil
-        )
     end
 end
 

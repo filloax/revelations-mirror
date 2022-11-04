@@ -679,6 +679,7 @@ local function WendyUpdate(npc)
 						proj:GetSprite():ReplaceSpritesheet(0, data.bal.SnowballSpritesheet)
 						proj:GetSprite():LoadGraphics()
 						proj:GetSprite():Play("RegularTear"..tostring(math.random(5,7)), true)
+						REVEL.sfx:Play(SoundEffect.SOUND_BLOODSHOOT, 0.8, 0, false, 1)
 					end
 					if spawn_dip and not active_snowballs then
 						local vec_to_target = npc:GetPlayerTarget().Position - npc.Position
@@ -762,6 +763,7 @@ local function WendyUpdate(npc)
 						proj:GetSprite():LoadGraphics()
 						proj:GetSprite():Play("RegularTear"..tostring(math.random(5,7)), true)
 						data.LastPissShotPos = target_pos
+						REVEL.sfx:Play(SoundEffect.SOUND_BLOODSHOOT, 0.8, 0, false, 1)
 					end
 					if spawn_dip and not active_yellow_snowballs then
 						local vec_to_target = npc:GetPlayerTarget().Position - npc.Position

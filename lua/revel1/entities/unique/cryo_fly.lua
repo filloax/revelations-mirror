@@ -109,6 +109,7 @@ revel:AddCallback(ModCallbacks.MC_POST_NPC_RENDER, function(_, npc)
             -- boom.Color = Color(0.7, 0.9, 1, 1,conv255ToFloat( 0, 40, 50))
             -- boom.SpriteOffset = Vector(0, -15)
             REVEL.sfx:Play(REVEL.SFX.LOW_FREEZE, 1, 0, false, 1)
+            REVEL.sfx:Play(SoundEffect.SOUND_DEATH_BURST_SMALL, 1, 0, false, 1)
 
             local closeEnemies = Isaac.FindInRadius(npc.Position, radius, EntityPartition.ENEMY)
             for _, enemy in ipairs(closeEnemies) do

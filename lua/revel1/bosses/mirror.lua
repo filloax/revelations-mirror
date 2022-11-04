@@ -667,6 +667,8 @@ Narc.Attacks = {
             t:GetData().NarcBobsHead = true
             t:GetSprite():Load("gfx/002.004_bobs head tear.anm2", true)
             t:GetSprite():Play("Idle", true)
+            
+            REVEL.sfx:Play(SoundEffect.SOUND_SHELLGAME, 0.7, 0, false, 1)
         end
     },
     ButterBean = {

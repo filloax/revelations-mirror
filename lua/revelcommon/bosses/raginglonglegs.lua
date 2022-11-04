@@ -1259,6 +1259,19 @@ revel:AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, function(_, type, variant, s
 	end
 end)
 
+revel:AddCallback(ModCallbacks.MC_POST_NPC_INIT, function(_, npc)
+	if REVEL.room:GetType() == RoomType.ROOM_BOSSRUSH then
+        local rng = npc:GetDropRNG()
+        if rng:RandomFloat() > 0.5 then
+            local champion = npc.SubType > 0
+            npc:Morph(REVEL.ENT.RAGING_LONG_LEGS.id, REVEL.ENT.RAGING_LONG_LEGS.variant, 0, -1)
+            if champion then
+                npc:GetData().IsChampion = true
+            end
+        end
+	end
+end, EntityType.ENTITY_WIDOW)
+
 end
 
 REVEL.PcallWorkaroundBreakFunction()

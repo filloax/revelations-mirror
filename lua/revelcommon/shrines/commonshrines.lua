@@ -93,6 +93,11 @@ local PunishmentCharCollectibleBlacklist = {
     [PlayerType.PLAYER_BETHANY] = {
         CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES,
     },
+    [REVEL.CHAR.DANTE] = {
+        CollectibleType.COLLECTIBLE_SCHOOLBAG,
+        CollectibleType.COLLECTIBLE_MOMS_PURSE,
+        CollectibleType.COLLECTIBLE_POLYDACTYLY,
+    },
 }
 for k, v in pairs(PunishmentCharCollectibleBlacklist) do
     PunishmentCharCollectibleBlacklist[k] = REVEL.toSet(v)

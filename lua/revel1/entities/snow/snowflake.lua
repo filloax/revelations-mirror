@@ -207,7 +207,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
             for _, flake in ipairs(flakes) do
                 if not flake:GetData().CannotMerge and flake:GetData().MoveState ~= "Orbit" and GetPtrHash(flake) ~= GetPtrHash(npc) and flake.Variant == variant then
                     if flake.Position:Distance(npc.Position) <= npc.Size + flake.Size + 10 then
-                        REVEL.sfx:NpcPlay(npc, SoundEffect.SOUND_SKIN_PULL, 1, 0, false, 1)
+                        REVEL.sfx:NpcPlay(npc, SoundEffect.SOUND_BLACK_POOF, 1, 0, false, 1.8)
                         local eff = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, flake.Position+Vector(0,3), Vector.Zero, nil)
                         eff:SetColor(Color(0.73,0.81,0.99,1,conv255ToFloat(0,0,0)), -1, 1, false, false)
 
@@ -246,21 +246,21 @@ end, REVEL.ENT.SNOW_FLAKE.id)
 revel:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, function(_, npc)
     if npc.Variant ~= REVEL.ENT.SNOW_FLAKE.variant and npc.Variant ~= REVEL.ENT.SNOW_FLAKE_BIG.variant then return end
 
-    local num = npc.Variant == REVEL.ENT.SNOW_FLAKE.variant and math.random(1, 3) or math.random(2, 4)
-    for i = 1, num do
-        local e = Isaac.Spawn(
-            1000, 
-            EffectVariant.DUST_CLOUD, 
-            0, 
-            npc.Position + RandomVector() * math.random(1, 10) + Vector(0, -20), 
-            Vector.Zero, 
-            npc
-        ):ToEffect()
-        e.Timeout = math.random(15, 30)
-        e.LifeSpan = e.Timeout
-        e.Color = Color(1.25, 1.4, 1.4)
-        e.SpriteScale = Vector.One * 0.25
-    end
+    local size = npc.Variant == REVEL.ENT.SNOW_FLAKE.variant and 0.25 or 0.75
+    local e = Isaac.Spawn(
+        1000, 
+        EffectVariant.DUST_CLOUD, 
+        0, 
+        npc.Position + RandomVector() * math.random(1, 10) + Vector(0, -20), 
+        Vector.Zero, 
+        npc
+    ):ToEffect()
+    e.Timeout = math.random(15, 30)
+    e.LifeSpan = e.Timeout
+    local color = Color(1,1,1,0.5)
+    color:SetColorize(3,3,3,1)
+    e.Color = color
+    e.SpriteScale = Vector.One * size
 
     REVEL.sfx:Stop(SoundEffect.SOUND_DEATH_BURST_SMALL)
     REVEL.sfx:Play(REVEL.SFX.BREAKING_SNOWFLAKE, 1, 0, false, 1)

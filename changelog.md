@@ -1,4 +1,4 @@
-## Vanity Update (v4.0.0)
+## Vanity Update (4.0.0)
 
 Major Features
 
@@ -30,7 +30,7 @@ New shrines
 + Pact of Scarcity
 + Pact of Masochism
 + Pact of Punishment
-+ Pact of Bleeding
++ Pact of Hemorrhage
 + Pact of the Ice Wraith
 + Pact of Paranoia
 

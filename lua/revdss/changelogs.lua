@@ -39,7 +39,7 @@ have it always up to date
 - Pact of Scarcity 
 - Pact of Masochism 
 - Pact of Punishment 
-- Pact of Bleeding 
+- Pact of Hemorrhage 
 - Pact of the Ice Wraith 
 - Pact of Paranoia 
 

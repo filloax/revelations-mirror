@@ -619,6 +619,20 @@ local function rewardShop_Init(_, effect)
         data.Discounted = true
     end
 
+    if data.Reward.Item then
+        local itemConfig = Isaac:GetItemConfig():GetCollectible(data.Reward.Item)
+        if itemConfig.Quality >= 4 then
+            data.Price = data.Price + RewardRNG:RandomInt(2)+1
+        elseif itemConfig.Quality == 3 then
+            data.Price = data.Price + RewardRNG:RandomInt(2)
+        elseif itemConfig.Quality == 2 then
+            data.Price = data.Price - RewardRNG:RandomInt(2)
+        elseif itemConfig.Quality <= 1 then
+            data.Price = data.Price - RewardRNG:RandomInt(2)+1
+        end
+        data.Price = math.max(1,data.Price)
+    end
+
     for i, player in ipairs(REVEL.players) do
         -- REVEL.DebugStringMinor(effect.Index, player.Position:Distance(effect.Position), 40 + player.Size)
         if player.Position:DistanceSquared(effect.Position) < (40 + player.Size) ^ 2 then

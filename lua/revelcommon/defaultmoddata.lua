@@ -254,8 +254,6 @@ REVEL.DEFAULT_MODDATA = {
     pickedUpItems = {},
     wonWithItems = {},  
 
-    seenChangeLogs = {},
-
     stalactiteTargetsOn = 1,
     auroraOn = 1,
     shadersOn = 1,
