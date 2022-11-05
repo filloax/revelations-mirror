@@ -314,7 +314,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
     REVEL.STAGE.Glacier:SetLevelgenStage(LevelStage.STAGE1_2)
     REVEL.STAGE.GlacierTwo:SetLevelgenStage(LevelStage.STAGE2_1)
-    REVEL.StageAddLabyrinthChance(REVEL.STAGE.Glacier)
+    -- REVEL.StageAddLabyrinthChance(REVEL.STAGE.Glacier)
     REVEL.StageDisableLabyrinth(REVEL.STAGE.GlacierTwo)
 
         

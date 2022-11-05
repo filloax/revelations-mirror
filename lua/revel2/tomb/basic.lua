@@ -253,6 +253,7 @@ REVEL.STAGE.Tomb:SetReplace(StageAPI.StageOverride.CatacombsOne)
 
 REVEL.STAGE.Tomb:SetIsSecondStage(false)
 REVEL.STAGE.Tomb:SetStageNumber(4)
+REVEL.StageDisableLabyrinth(REVEL.STAGE.Tomb)
 
 local tombXL = REVEL.STAGE.Tomb("Tomb XL")
 tombXL:SetDisplayName("Tomb XL")

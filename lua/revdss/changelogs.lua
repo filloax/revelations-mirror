@@ -1,4 +1,12 @@
-REVEL.AddChangelog("Vanity (4.0.0)", "Nov 4 2022", [[** Major Features
+REVEL.AddChangelog("Vanity (v4.0.1)", "Nov 4 2022", [[Hotfix
+- Disable XL Rev floors until we find
+a way to properly fix them
+- Minor room tweaks
+
+This is just an hotfix, full patch notes
+for the update are in the previous
+changelog]])
+REVEL.AddChangelog("Vanity (v4.0.0)", "Nov 4 2022", [[** Major Features
 - Replace the Hub room with Hub 2, 
 inside of the Repentance transition 
 room, and usable by other mods. Old Hub 

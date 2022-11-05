@@ -88,7 +88,7 @@ TO AVOID ISSUES, RESTART ISAAC AFTER DOWNLOADING AND ENABLING THE MOD FOR THE FI
 Due to issues in the way Isaac downloads Steam Workshop mods with a large download size, a lot of users report strange errors the first time they install the mod or download a major update, which are caused by missing files.
 To fix this, try redownloading the mod by:
 -Closing the game
--Deleting the mod's folder (found in [i]Documents/My Games/The Binding of Isaac Afterbirth+ Mods/revelations_somenumber[/i])
+-Deleting the mod's folder (found in [i]&lt;steamapps Isaac game folder&gt;/mods/revelations_2880387531[/i])
 -Restarting the game
 If you had download issues, it should be fixed by doing this. Might need a second try, but this should fix 99% of the major bugs found after first installing the mod.
 If it doesn't work, try our download mirror instead, found [url=https://github.com/filloax/revelations-mirror]here[/url].
@@ -117,7 +117,7 @@ Talk to us on discord!
 [i]Special Thanks[/i] - Kilburn, The Isaac Community
 
 Ingame list is probably more up to date.</description>
-    <version>1.0</version>
+    <version>1.1</version>
     <visibility>Public</visibility>
     <tag id="Lua"/>
     <tag id="Items"/>

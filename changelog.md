@@ -1,4 +1,10 @@
-## Vanity Update (4.0.0)
+## 4.0.1
+
+- Temporarily disable XL Rev floors until we find
+a way to fix those properly
+- Minor room tweaks
+
+## Vanity Update - 4.0.0
 
 Major Features
 
