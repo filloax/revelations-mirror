@@ -16,6 +16,7 @@ the vanity price of the more expensive items
 - Cracked key can be used in a certain room too
 other than the red key
 - Glass shards can no longer be abused to respawn by rerolling etc.
+- `revunlock` command is no longer tied to DEBUG mode
 
 ## 4.0.1
 
