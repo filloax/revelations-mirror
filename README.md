@@ -6,6 +6,8 @@ This is not the main repository for the mod, but only a mirror for downloads in 
 
 **LATEST VERSION: [DOWNLOAD HERE](https://github.com/filloax/revelations-mirror/releases/latest)**
 
+**[Changelog](changelog.md)**
+
 Check releases for all version downloads.
 
 For the description of the mod refer to the [Steam Workshop page](https://steamcommunity.com/sharedfiles/filedetails/?id=2880387531).
