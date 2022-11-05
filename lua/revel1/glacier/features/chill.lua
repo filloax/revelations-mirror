@@ -517,10 +517,9 @@ function REVEL.SetWarmAura(entity, radius, noAura)
     if type(radius) ~= "table" then
         radius = radius or REVEL.GetChillWarmRadius()
         if not data.WarmAuraData then
-            data.WarmAuraData = {
-                Parent = entity,
-            }
+            data.WarmAuraData = {}
         end
+        data.WarmAuraData.Parent = entity
         data.WarmAuraData.Radius = radius
 
         local aura = data.WarmAuraData.Aura and data.WarmAuraData.Aura.Ref
@@ -543,6 +542,13 @@ function REVEL.SetWarmAura(entity, radius, noAura)
         end
     else
         data.WarmAuraData = REVEL.CopyTable(radius)
+        data.WarmAuraData.Parent = entity
+        if data.WarmAuraData.Aura and data.WarmAuraData.Aura.Ref then
+            local aura = data.WarmAuraData.Aura.Ref:ToEffect()
+            aura.Parent = entity
+            aura.SpawnerEntity = entity
+            aura:FollowParent(entity)
+        end
     end
 
     WarmAuraTypes[entity.Type] = WarmAuraTypes[entity.Type] or {}

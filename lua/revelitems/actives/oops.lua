@@ -42,7 +42,7 @@ if REVEL.FiendFolioCompatLoaded then
     REVEL.mixin(bombEnemies.forceExplode, {
         eString(FiendFolio.FF.Commission.ID, FiendFolio.FF.Commission.Var),
         eString(FiendFolio.FF.Blasted.ID, FiendFolio.FF.Blasted.Var),
-    })
+    }, true)
     REVEL.mixin(bombEnemies.kill, {
         eString(FiendFolio.FF.Powderkeg.ID, FiendFolio.FF.Powderkeg.Var),
         eString(FiendFolio.FF.Mullikaboom.ID, FiendFolio.FF.Mullikaboom.Var),
@@ -51,7 +51,7 @@ if REVEL.FiendFolioCompatLoaded then
         eString(FiendFolio.FF.Splodum.ID, FiendFolio.FF.Splodum.Var),
         eString(FiendFolio.FF.Boiler.ID, FiendFolio.FF.Boiler.Var),
         eString(FiendFolio.FF.ReheatedTickingFly.ID, FiendFolio.FF.ReheatedTickingFly.Var),
-    })
+    }, true)
 end
 
 revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, ent)

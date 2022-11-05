@@ -1093,7 +1093,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
                 return
             end
         elseif data.Substate == "BlockSmash" then
-            if not block or not block:Exists() then data.Substate = nil end
+            if (not block) or (block and not block:Exists()) then data.Substate = nil end
 
             local faceDir = -1
             if npc.FlipX then faceDir = 1 end
@@ -1534,6 +1534,10 @@ revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, entity, amount)
                 block.GridCollisionClass = EntityGridCollisionClass.GRIDCOLL_NOPITS
                 data.HazardTarget = nil
                 block.Visible = true
+                data.Airborne = false
+                if data.LockPosition then
+                    block.Position = data.LockPosition
+                end
                 data.State = "Idle"
             end
 

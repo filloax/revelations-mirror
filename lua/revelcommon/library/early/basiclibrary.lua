@@ -69,6 +69,11 @@ if REVEL.DEBUG then
     assert(res.b == 3, "value is " .. tostring(res.b))
     assert(res.c == 5, "value is " .. tostring(res.c))
     assert(res.d == 6, "value is " .. tostring(res.d))
+
+    local resSingle = REVEL.CopyTable({b = 2, c = 3})
+    assert(resSingle.a == nil, "value is " .. tostring(resSingle.a))
+    assert(resSingle.b == 2, "value is " .. tostring(resSingle.b))
+    assert(resSingle.c == 3, "value is " .. tostring(resSingle.c))
 end
 
 -- Returns a new table with fields from both tables. 

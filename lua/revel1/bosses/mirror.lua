@@ -1238,8 +1238,11 @@ revel:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, function(_, npc)
 
     REVEL.SpawnDecoration(npc.Position, Vector.Zero, "DeathGibs", "gfx/bosses/revel1/narcissus/narcissus.anm2")
 
-    revel.data.run.NarcissusGlacierDefeated = true
-    REVEL.SpawnNextMirror(npc)
+    if not revel.data.run.NarcissusGlacierDefeated then
+        revel.data.run.NarcissusGlacierDefeated = true
+        REVEL.SpawnNextMirror(npc)
+    end
+    
     if not revel.IsAchievementUnlocked("MIRROR_BOMBS") then
         revel.UnlockAchievement("MIRROR_BOMBS")
     end

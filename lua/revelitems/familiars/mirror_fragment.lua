@@ -74,7 +74,8 @@ local function StartSpin(fam, spr, data)
     data.State = "Spin"
     spr:Play("Spin", true)
     fam:RemoveFromFollowers()
-    UpdateFrags()
+    UpdateFrags() 
+    if not data.spinId then return end
     local next = spinFrags[data.spinId % #spinFrags + 1]
     if next then
         -- skip so that the new fragment is opposite to the old one

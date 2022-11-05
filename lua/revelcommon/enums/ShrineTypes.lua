@@ -1,3 +1,4 @@
+--shrinetypes
 return {
     -- General base
     CHAMPIONS = "champions",

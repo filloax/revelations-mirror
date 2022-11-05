@@ -112,7 +112,7 @@ do
     end
 
     revel:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, function(_, e)
-        if not REVEL.loadedData or REVEL.game:IsPaused() or e.Type == 1000 then
+        if not REVEL.IsSaveDataLoaded() or REVEL.game:IsPaused() or e.Type == 1000 then
             return
         end
 

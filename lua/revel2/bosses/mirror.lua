@@ -2610,8 +2610,11 @@ do -- Narcissus 2
 
     revel:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, function(_, npc)
         if npc.Variant == REVEL.ENT.NARCISSUS_2.variant and REVEL.room:GetFrameCount() > 5 and not REVEL.game:IsPaused() then
-            revel.data.run.NarcissusTombDefeated = true
-            REVEL.SpawnNextMirror(npc)
+            if not revel.data.run.NarcissusTombDefeated then
+                revel.data.run.NarcissusTombDefeated = true
+                REVEL.SpawnNextMirror(npc)
+            end
+
   			if not revel.IsAchievementUnlocked("MIRROR_BOMBS") then
   				revel.UnlockAchievement("MIRROR_BOMBS")
   			end

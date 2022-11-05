@@ -240,9 +240,9 @@ revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, eff)
             local r = math.random(55,125)
             local ent = REVEL.SpawnEntCoffin(data.SpawnEnemies[1][1], data.SpawnEnemies[1][2], 0, eff.Position, Vector.FromAngle(sprite.Rotation + r) * 5, eff)
 
-            if data.SpawnEnemies[1][3] then
-                if data.SpawnEnemies[1][1] == REVEL.ENT.LOCUST.id and data.SpawnEnemies[1][2] == REVEL.ENT.LOCUST.variant
-                and data.SpawnEnemies[1][3] > 1 then
+                if data.SpawnEnemies[1][3] then
+                    if data.SpawnEnemies[1][1] == REVEL.ENT.LOCUST.id and data.SpawnEnemies[1][2] == REVEL.ENT.LOCUST.variant
+                    and data.SpawnEnemies[1][3] > 1 then
                         for i=1, data.SpawnEnemies[1][3]-1 do
                             data.SpawnEnemies[#data.SpawnEnemies + 1] = {
                                 REVEL.ENT.LOCUST.id,
@@ -251,13 +251,14 @@ revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, eff)
                         end
                     end
                 end
-            end
-            if data.SpawnEnemies[1][4] then
-                ent:GetData().Buffed = true
-            end
 
-            if data.AllFriendly then
-                ent:AddCharmed(EntityRef(REVEL.player), -1)
+                if data.SpawnEnemies[1][4] then
+                    ent:GetData().Buffed = true
+                end
+
+                if data.AllFriendly then
+                    ent:AddCharmed(EntityRef(REVEL.player), -1)
+                end
             end
 
             table.remove(data.SpawnEnemies, 1)

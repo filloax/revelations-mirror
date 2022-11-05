@@ -9,7 +9,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 --[[
     1:All secret rooms have items
     2:Always spawn items when destroying machines
-    3:Pennies switched with nickels
+    3:Always spawn dimes when destroying machines
     4:3 pedestals on bosses, you have to choose 1. only activates with no damage taken
     5:On death, respawn as blue baby
     6:Crawlspace always under shopkeeper
@@ -67,10 +67,12 @@ function revel.bell.PlayClue(player)
 
     if REVEL.game.Difficulty == Difficulty.DIFFICULTY_NORMAL or
         REVEL.game.Difficulty == Difficulty.DIFFICULTY_GREED then
-        REVEL.SpawnCustomGlow(player, revel.bell.clueAnims[revel.data.run
-                                    .bellEffect[pID]],
-                                "gfx/itemeffects/revelcommon/bell_clues.anm2",
-                                60, 10)
+        REVEL.SpawnCustomGlow(
+            player, revel.bell.clueAnims[revel.data.run.bellEffect[pID]],
+            "gfx/itemeffects/revelcommon/bell_clues.anm2",
+            60, 
+            10
+        )
     end
 end
 
@@ -83,24 +85,19 @@ function revel.bell.InitEffect(player) -- if the arg is true, don't change anyth
     REVEL.SetBellEffect(player)
 
     if revel.data.run.bellEffect[pID] == 5 and prevEffect ~= 5 then
-        local hadAnkh = REVEL.player:HasCollectible(
-                            CollectibleType.COLLECTIBLE_ANKH)
-        REVEL.player:AddCollectible(CollectibleType.COLLECTIBLE_ANKH, 0,
-                                    false)
+        local hadAnkh = player:HasCollectible(CollectibleType.COLLECTIBLE_ANKH)
+        player:AddCollectible(CollectibleType.COLLECTIBLE_ANKH, 0, false)
         if not hadAnkh then
-            REVEL.player:RemoveCostume(
-                Isaac.GetItemConfig():GetCollectible(
-                    CollectibleType.COLLECTIBLE_ANKH))
+            player:RemoveCostume(Isaac.GetItemConfig():GetCollectible(CollectibleType.COLLECTIBLE_ANKH))
         end
     elseif revel.data.run.bellEffect[pID] ~= 5 and prevEffect == 5 then
-        REVEL.player:RemoveCollectible(CollectibleType.COLLECTIBLE_ANKH)
+        player:RemoveCollectible(CollectibleType.COLLECTIBLE_ANKH)
     end
 
     revel.bell.PlayClue(player)
 
     if REVEL.DEBUG then
-        REVEL.DebugToString("Played bell effect " ..
-                                revel.data.run.bellEffect[pID])
+        REVEL.DebugToString("Played bell effect " .. revel.data.run.bellEffect[pID])
     end
 end
 
@@ -142,11 +139,12 @@ StageAPI.AddCallback("Revelations", RevCallbacks.EARLY_POST_NEW_ROOM, 1, functio
             end
             if not hasItem then
                 -- Spawn item with 0 subtype closest to room center (0 subtype makes it a random item from the room's pool)
-                local e = Isaac.Spawn(EntityType.ENTITY_PICKUP,
-                                        PickupVariant.PICKUP_COLLECTIBLE, 0,
-                                        room:FindFreePickupSpawnPosition(
-                                            room:GetCenterPos(), 0, true),
-                                        Vector.Zero, REVEL.player)
+                local e = Isaac.Spawn(
+                    EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, 0,
+                    room:FindFreePickupSpawnPosition(room:GetCenterPos(), 0, true),
+                    Vector.Zero, 
+                    nil
+                )
                 e:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
             end
         end
@@ -170,17 +168,17 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_ROOM_CLEAR, 2, function(ro
     end
 
     if canSpawn then
-        for i, e in ipairs(REVEL.roomPickups) do
-            if e.Variant == PickupVariant.PICKUP_COLLECTIBLE then
-                e.OptionsPickupIndex = 1;
-            end
+        local collectibles = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE)
+        for i, e in ipairs(collectibles) do
+            e.OptionsPickupIndex = 1;
         end
         for i = 1, 2 do
-            local item = Isaac.Spawn(EntityType.ENTITY_PICKUP,
-                                        PickupVariant.PICKUP_COLLECTIBLE, 0,
-                                        room:FindFreePickupSpawnPosition(
-                                            room:GetCenterPos(), 0, false),
-                                        Vector.Zero, REVEL.player):ToPickup()
+            local item = Isaac.Spawn(
+                EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, 0,
+                room:FindFreePickupSpawnPosition(room:GetCenterPos(), 0, false),
+                Vector.Zero, 
+                nil
+            ):ToPickup()
             item.OptionsPickupIndex = 1;
         end
     end
@@ -198,25 +196,26 @@ revel:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
 
     for i, e in ipairs(slots) do
         -- IsDead doesn't work with slots
-        if e:GetSprite():IsPlaying("Broken") and
-            revel.bell.SlotItems[e.Variant] then
+        if e:GetSprite():IsPlaying("Broken") 
+        and revel.bell.SlotItems[e.Variant] then
             -- Effect 2, always spawn items on slot break
             if list2 then
                 e:Remove()
-                local item = Isaac.Spawn(5, 100,
-                                            revel.bell.SlotItems[e.Variant][math.random(
-                                                1,
-                                                #revel.bell.SlotItems[e.Variant])],
-                                            e.Position, Vector.Zero,
-                                            REVEL.player)
-                item:GetSprite()
-                    :SetOverlayFrame("Alternates", 4 - e.Variant) -- it just happens that the frame for the slots in that animation corresponds to 4-e.Variant
-                -- Effect 3, always spawn dimes on slot break
+                local item = Isaac.Spawn(
+                    5, 100, revel.bell.SlotItems[e.Variant][math.random(1, #revel.bell.SlotItems[e.Variant])],
+                    e.Position, Vector.Zero,
+                    nil
+                )
+                -- it just happens that the frame for the slots in that animation corresponds to 4-e.Variant
+                item:GetSprite() :SetOverlayFrame("Alternates", 4 - e.Variant)
             end
+            -- Effect 3, always spawn dimes on slot break
             if list3 and not e:GetData().spawnedCoin then
-                Isaac.Spawn(5, PickupVariant.PICKUP_COIN,
-                            CoinSubType.COIN_DIME, e.Position,
-                            RandomVector() * 3, REVEL.player)
+                Isaac.Spawn(
+                    5, PickupVariant.PICKUP_COIN, CoinSubType.COIN_DIME, 
+                    e.Position, RandomVector() * 3, 
+                    nil
+                )
                 e:GetData().spawnedCoin = true
             end
         end

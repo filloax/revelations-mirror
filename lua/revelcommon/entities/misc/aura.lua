@@ -10,7 +10,10 @@ local spriteSize = 256;
 local auraScale = Vector(3 * 56 / (114 * spriteSize), 3 * 56 / (114 * spriteSize))
 
 function REVEL.SpawnAura(radius, position, color, spawner, follow, isFireAura, fire, instantRemove, chillFade, time)
-    local aura = Isaac.Spawn(REVEL.ENT.DECORATION.id, REVEL.ENT.DECORATION.variant, 0, position, Vector.Zero, spawner):ToEffect()
+    local aura = Isaac.Spawn(
+        REVEL.ENT.DECORATION.id, REVEL.ENT.DECORATION.variant, 0, 
+        position, Vector.Zero, spawner
+    ):ToEffect()
     local sprite, data = aura:GetSprite(), aura:GetData()
     data.Radius = radius or 114
     data.Spawner = spawner

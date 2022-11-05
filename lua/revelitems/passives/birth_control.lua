@@ -15,7 +15,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
 -- replace familiars with 0.2 dmg up
 local BirthControl = {
-    Whitelist = {
+    Blacklist = {
         [CollectibleType.COLLECTIBLE_ONE_UP] = true,
         [CollectibleType.COLLECTIBLE_ISAACS_HEART] = true,
         [CollectibleType.COLLECTIBLE_DEAD_CAT] = true,
@@ -374,12 +374,12 @@ if REVEL.FiendFolioCompatLoaded then
         [FiendFolio.ITEM.COLLECTIBLE.BABY_CRATER] = true,
         [FiendFolio.ITEM.COLLECTIBLE.LIL_LAMB] = true,
         [FiendFolio.ITEM.COLLECTIBLE.DEIMOS] = true,
-    })
+    }, true)
 
     REVEL.mixin(BirthControl.SpiderFams, {
         [FiendFolio.ITEM.COLLECTIBLE.MAMA_SPOOTER] = true,
         [FiendFolio.ITEM.COLLECTIBLE.PEACH_CREEP] = true,
-    })
+    }, true)
 
     REVEL.mixin(FamiliarSynergyes, {
         [FiendFolio.ITEM.COLLECTIBLE.LIL_FIEND] = function(id, num, player)
@@ -438,7 +438,7 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_ITEM_PICKUP, 1,
                 local runStats = revel.data.run.stats[REVEL.GetPlayerID(player)]
 
                 if item.Type == ItemType.ITEM_FAMILIAR and
-                    not BirthControl.Whitelist[id] and num >= 1 and
+                    not BirthControl.Blacklist[id] and num >= 1 and
                     not (player:GetPlayerType() == PlayerType.PLAYER_LILITH and id == CollectibleType.COLLECTIBLE_INCUBUS) and
                     player:HasCollectible(id) then -- the HasCollectible is in case the inventoyr got scrambled without the amount changing by something other than D4/100 (eg dice rooms) since that cannot be detected
 

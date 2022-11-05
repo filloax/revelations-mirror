@@ -378,6 +378,8 @@ local function loadSkin(npc, headSkin, glowSkin)
     end
 end
 
+---@param npc EntityNPC
+---@param entity Entity
 local function eat(npc, entity)
     local sprite, data = npc:GetSprite(), npc:GetData()
 
@@ -405,10 +407,6 @@ local function eat(npc, entity)
         end
         if useAura then
             local auraData = REVEL.SetWarmAura(npc, radius, not not data.Aura)
-            if data.Aura and auraData.Aura.Ref then
-                data.Aura:Remove()
-            end
-            data.Aura = auraData.Aura.Ref
         end
 
         if entity:GetData().aura then

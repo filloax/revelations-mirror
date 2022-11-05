@@ -121,6 +121,14 @@ function hub2.IsRepStage()
 	return stageType == StageType.STAGETYPE_REPENTANCE or stageType == StageType.STAGETYPE_REPENTANCE_B
 end
 
+local function PlayerIsLost(player)
+    return player:GetPlayerType() == PlayerType.PLAYER_THELOST
+        or player:GetPlayerType() == PlayerType.PLAYER_THELOST_B
+        or player:GetPlayerType() == PlayerType.PLAYER_JACOB2_B
+        or player:GetPlayerType() == PlayerType.PLAYER_THESOUL_B
+        or player:GetEffects():HasNullEffect(NullItemID.ID_LOST_CURSE)
+end
+
 local tombMausoleumDoorPayments = 0
 
 local function mausoleumDoorUpdate(door, isInit)
@@ -149,13 +157,22 @@ local function mausoleumDoorUpdate(door, isInit)
 		door.CollisionClass = GridCollisionClass.COLLISION_WALL
 		
 		local sprite = door:GetSprite()
+
+		if sprite:IsEventTriggered("Sound") then
+			sfx:Play(SoundEffect.SOUND_UNLOCK00)
+		end
 		
 		if not sprite:IsPlaying("Feed") then
 			for i=0, game:GetNumPlayers() - 1 do
 				local player = Isaac.GetPlayer(i)
 				
 				if player.Position:Distance(door.Position) <= 30 + player.Size then
-					if player:TakeDamage(2, DamageFlag.DAMAGE_RED_HEARTS, EntityRef(player), 0) then
+					if PlayerIsLost(player) then
+						tombMausoleumDoorPayments = 2
+						sprite:Play("KeyOpen", true)
+						door.CollisionClass = GridCollisionClass.COLLISION_WALL_EXCEPT_PLAYER
+
+					elseif player:TakeDamage(2, DamageFlag.DAMAGE_NO_PENALTIES, EntityRef(player), 0) then
 						tombMausoleumDoorPayments = tombMausoleumDoorPayments + 1
 						
 						if tombMausoleumDoorPayments == 2 then
@@ -210,7 +227,7 @@ function hub2.UpdateHub2Doors()
 		local levelStage = hub2.GetCorrectedLevelStage()
 		
 		-- mausoleum door (instead of mines door)
-		if StageAPI.InNewStage() and levelStage == LevelStage.STAGE3_1 then
+		if levelStage == LevelStage.STAGE3_1 then
 			for slot=DoorSlot.LEFT0, DoorSlot.DOWN1 do
 				local door = room:GetDoor(slot)
 				
@@ -636,7 +653,7 @@ hub2:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
 	if hub2.IsTransitionRoom() then
 		local slot
 		for slot2 = 0, DoorSlot.NUM_DOOR_SLOTS - 1 do
-			if REVEL.room:GetDoor(slot2) then
+			if room:GetDoor(slot2) then
 				slot = slot2
 				break
 			end

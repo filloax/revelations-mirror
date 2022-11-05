@@ -1,5 +1,5 @@
 <AnimatedActor>
-	<Info CreatedBy="Unknown" CreatedOn="27/06/2017 23:17:15" Version="5" Fps="30"/>
+	<Info CreatedBy="Unknown" CreatedOn="05/11/2022 02:44:27" Version="6" Fps="30"/>
 	<Content>
 		<Spritesheets>
 			<Spritesheet Path="bell_clues.png" Id="0"/>

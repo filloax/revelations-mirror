@@ -1,3 +1,22 @@
+## 4.0.2
+
+- Fix data not resetting between runs, leading to
+persisting shrine pacts, charon items and mirror
+door not spawning again
+- Fix Chuck softlock
+- Ice Wraith doesn't block Dead Sea Scrolls menu
+update (might need an update in other mods that
+use DSS)
+- Williwaw loses the dmg reduction if he stays in 
+his intro for too long
+- Increased the aura radius of coal shards
+- Increase vanity price of q4 items by 1, reduced
+the vanity price of the more expensive items
+- Fix haugrs not working
+- Cracked key can be used in a certain room too
+other than the red key
+- Glass shards can no longer be abused to respawn by rerolling etc.
+
 ## 4.0.1
 
 - Temporarily disable XL Rev floors until we find

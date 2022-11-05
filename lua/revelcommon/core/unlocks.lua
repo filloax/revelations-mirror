@@ -8,77 +8,75 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 ------------------------------
 
 revel:AddCallback(ModCallbacks.MC_EXECUTE_CMD, function(_, cmd, params)
-    if REVEL.DEBUG then
-        if cmd == "revunlock" then
-            params = tostring(params)
-            if params == "list" or params == "print" then
-                print("Listing all unlockables...")
-                for name, unlockable in pairs(REVEL.UNLOCKABLES) do
-                    if name then
-                        if revel.IsAchievementUnlocked(name) then
-                            print(" \"" .. name ..  "\" (unlocked)")
-                        else
-                            print(" \"" .. name ..  "\" (locked)")
-                        end
+    if cmd == "revunlock" then
+        params = tostring(params)
+        if params == "list" or params == "print" then
+            print("Listing all unlockables...")
+            for name, unlockable in pairs(REVEL.UNLOCKABLES) do
+                if name then
+                    if revel.IsAchievementUnlocked(name) then
+                        print(" \"" .. name ..  "\" (unlocked)")
+                    else
+                        print(" \"" .. name ..  "\" (locked)")
                     end
                 end
-            elseif params == "*" or params == "all" then
-                print("Unlocking all unlockables...")
-                for name, unlockable in pairs(REVEL.UNLOCKABLES) do
-                    if name then
-                        if not revel.IsAchievementUnlocked(name) then
-                            revel.UnlockAchievement(name, true)
-                            print(" Unlocked \"" .. name ..  "\"")
-                        else
-                            print(" \"" .. name ..  "\" is already unlocked")
-                        end
-                    end
-                end
-            elseif REVEL.UNLOCKABLES[params] then
-                if not revel.IsAchievementUnlocked(params) then
-                    revel.UnlockAchievement(params, true)
-                    print("Unlocked \"" .. params ..  "\"")
-                else
-                    print("\"" .. params ..  "\" is already unlocked")
-                end
-            else
-                print("Couldnt find valid unlockable matching \"" .. params ..  "\"")
             end
-        elseif cmd == "revlock" then
-            params = tostring(params)
-            if params == "list" or params == "print" then
-                print("Listing all unlockables...")
-                for name, unlockable in pairs(REVEL.UNLOCKABLES) do
-                    if name then
-                        if revel.IsAchievementUnlocked(name) then
-                            print(" \"" .. name ..  "\" (unlocked)")
-                        else
-                            print(" \"" .. name ..  "\" (locked)")
-                        end
+        elseif params == "*" or params == "all" then
+            print("Unlocking all unlockables...")
+            for name, unlockable in pairs(REVEL.UNLOCKABLES) do
+                if name then
+                    if not revel.IsAchievementUnlocked(name) then
+                        revel.UnlockAchievement(name, true)
+                        print(" Unlocked \"" .. name ..  "\"")
+                    else
+                        print(" \"" .. name ..  "\" is already unlocked")
                     end
                 end
-            elseif params == "*" or params == "all" then
-                print("Locking all unlockables...")
-                for name, unlockable in pairs(REVEL.UNLOCKABLES) do
-                    if name then
-                        if revel.IsAchievementUnlocked(name) then
-                            revel.LockAchievement(name)
-                            print(" Locked \"" .. name ..  "\"")
-                        else
-                            print(" \"" .. name ..  "\" is already locked")
-                        end
-                    end
-                end
-            elseif REVEL.UNLOCKABLES[params] then
-                if revel.IsAchievementUnlocked(params) then
-                    revel.LockAchievement(params)
-                    print("Locked \"" .. params ..  "\"")
-                else
-                    print("\"" .. params ..  "\" is already locked")
-                end
-            else
-                print("Couldnt find valid unlockable matching \"" .. params ..  "\"")
             end
+        elseif REVEL.UNLOCKABLES[params] then
+            if not revel.IsAchievementUnlocked(params) then
+                revel.UnlockAchievement(params, true)
+                print("Unlocked \"" .. params ..  "\"")
+            else
+                print("\"" .. params ..  "\" is already unlocked")
+            end
+        else
+            print("Couldnt find valid unlockable matching \"" .. params ..  "\"")
+        end
+    elseif cmd == "revlock" then
+        params = tostring(params)
+        if params == "list" or params == "print" then
+            print("Listing all unlockables...")
+            for name, unlockable in pairs(REVEL.UNLOCKABLES) do
+                if name then
+                    if revel.IsAchievementUnlocked(name) then
+                        print(" \"" .. name ..  "\" (unlocked)")
+                    else
+                        print(" \"" .. name ..  "\" (locked)")
+                    end
+                end
+            end
+        elseif params == "*" or params == "all" then
+            print("Locking all unlockables...")
+            for name, unlockable in pairs(REVEL.UNLOCKABLES) do
+                if name then
+                    if revel.IsAchievementUnlocked(name) then
+                        revel.LockAchievement(name)
+                        print(" Locked \"" .. name ..  "\"")
+                    else
+                        print(" \"" .. name ..  "\" is already locked")
+                    end
+                end
+            end
+        elseif REVEL.UNLOCKABLES[params] then
+            if revel.IsAchievementUnlocked(params) then
+                revel.LockAchievement(params)
+                print("Locked \"" .. params ..  "\"")
+            else
+                print("\"" .. params ..  "\" is already locked")
+            end
+        else
+            print("Couldnt find valid unlockable matching \"" .. params ..  "\"")
         end
     end
 end)

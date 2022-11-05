@@ -315,6 +315,7 @@ function REVEL.NewPlayer(playerType, controllerIndex, strawmanParent)
     
     local player = Isaac.GetPlayer(REVEL.game:GetNumPlayers() - 1)
     player.Parent = strawmanParent
+    player:GetData().RevFakePlayer = true
     
     return player
 end

@@ -1541,5 +1541,35 @@ do
     end)
 end
 
+
+------------------------
+-- DICE ROOM OVERRIDE --
+------------------------
+
+do
+    local SUBTYPE_5_PIP = 4
+
+    revel:AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, function(_, etype, variant, subtype, pos, vel, spawner, seed)
+        if variant == EffectVariant.DICE_FLOOR and etype == 1000
+        and StageAPI.InNewStage() 
+        and subtype == SUBTYPE_5_PIP
+        then
+            local rng = REVEL.RNG()
+            rng:SetSeed(seed, 38)
+            local newSubtype = rng:RandomInt(5)
+            if newSubtype == SUBTYPE_5_PIP then
+                newSubtype = 5
+            end
+            REVEL.DebugToString("[REVEL] Replacing 5-pip dice room with", newSubtype + 1, "pip dice room")
+            return {
+                etype,
+                variant,
+                newSubtype,
+                seed
+            }
+        end
+    end)
+end
+
 end
 REVEL.PcallWorkaroundBreakFunction()

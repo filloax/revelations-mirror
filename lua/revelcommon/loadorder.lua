@@ -68,5 +68,4 @@ return {
   -- Must be last so that it renders after everything else.
   "lua.revel_menu",
   "lua.postload",
---   "lua.dynamicnoteitems"
 }

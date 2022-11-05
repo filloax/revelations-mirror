@@ -622,7 +622,7 @@ local function rewardShop_Init(_, effect)
     if data.Reward.Item then
         local itemConfig = Isaac:GetItemConfig():GetCollectible(data.Reward.Item)
         if itemConfig.Quality >= 4 then
-            data.Price = data.Price + RewardRNG:RandomInt(2)+1
+            data.Price = data.Price + RewardRNG:RandomInt(2)+2
         elseif itemConfig.Quality == 3 then
             data.Price = data.Price + RewardRNG:RandomInt(2)
         elseif itemConfig.Quality == 2 then
@@ -1866,8 +1866,10 @@ local function casinoNight_PostUpdate()
 
         if not REVEL.room:GetDoor(slot) then
             for _, player in ipairs(REVEL.players) do
-                if player:HasCollectible(CollectibleType.COLLECTIBLE_RED_KEY)
-                and player.Position:DistanceSquared(pos) < 160 ^ 2
+                if (
+                    player:HasCollectible(CollectibleType.COLLECTIBLE_RED_KEY)
+                    or player:GetCard(0) == Card.CARD_CRACKED_KEY
+                ) and player.Position:DistanceSquared(pos) < 160 ^ 2
                 then
                     SpawnedDoorOutline = true
                     Isaac.Spawn(
@@ -1999,16 +2001,29 @@ end
 ---@param player EntityPlayer
 local function casinoNight_PostPlayerRender(_, player)
     -- Workaround for use item callbacks not working with red key
-    if player:HasCollectible(CollectibleType.COLLECTIBLE_RED_KEY)
-    and player:GetActiveCharge() >= REVEL.config:GetCollectible(CollectibleType.COLLECTIBLE_RED_KEY).MaxCharges
-    and not REVEL.game:IsPaused()
+    if not REVEL.game:IsPaused()
     and StageAPI.GetCurrentRoomType() == RevRoomType.VANITY
-    and Input.IsActionTriggered(ButtonAction.ACTION_ITEM, player.ControllerIndex)
     then
-        -- Nil ununused stuff, no need to fake it
-        casinoNight_RedKey_UseItem(_, CollectibleType.COLLECTIBLE_RED_KEY, nil, player, nil, nil)
-        player:AnimateCollectible(CollectibleType.COLLECTIBLE_RED_KEY)
-        player:DischargeActiveItem()
+        local usedRedKey = false
+        if player:HasCollectible(CollectibleType.COLLECTIBLE_RED_KEY)
+        and player:GetActiveCharge() >= REVEL.config:GetCollectible(CollectibleType.COLLECTIBLE_RED_KEY).MaxCharges
+        and Input.IsActionTriggered(ButtonAction.ACTION_ITEM, player.ControllerIndex)
+        then
+            usedRedKey = true
+            player:AnimateCollectible(CollectibleType.COLLECTIBLE_RED_KEY)
+            player:DischargeActiveItem()
+        elseif player:GetCard(0) == Card.CARD_CRACKED_KEY
+        and Input.IsActionTriggered(ButtonAction.ACTION_PILLCARD, player.ControllerIndex)
+        then
+            usedRedKey = true
+            player:AnimateCard(Card.CARD_CRACKED_KEY)
+            player:SetCard(0, Card.CARD_NULL)
+        end
+    
+        if usedRedKey then
+            -- Nil ununused stuff, no need to fake it
+            casinoNight_RedKey_UseItem(_, CollectibleType.COLLECTIBLE_RED_KEY, nil, player, nil, nil)
+        end
     end
 end
 

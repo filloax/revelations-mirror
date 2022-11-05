@@ -179,7 +179,7 @@ local function commands_ExecuteCmd(_, cmd, params)
         REVEL.DebugToString(_G[params])
     elseif cmd == 'test' then
         Isaac.ExecuteCommand('debug 3')
-        Isaac.ExecuteCommand('chapi nodmg') -- custom health api makes debug 3 not work
+        -- Isaac.ExecuteCommand('chapi nodmg') -- custom health api makes debug 3 not work
         Isaac.ExecuteCommand('debug 4')
         local items = {
             CollectibleType.COLLECTIBLE_COMPASS,

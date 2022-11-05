@@ -227,7 +227,7 @@ local function stalactite_NpcUpdate(_, npc)
 
             REVEL.sfx:NpcPlay(npc, SoundEffect.SOUND_MEATY_DEATHS, 1, 0, false, 1)
             REVEL.sfx:NpcPlay(npc, SoundEffect.SOUND_FLAMETHROWER_END, 1, 0, false, 1)
-            local radius = REVEL.GetChillWarmRadius() * 0.6
+            local radius = REVEL.GetChillWarmRadius() * 0.8
             npc.EntityCollisionClass = EntityCollisionClass.ENTCOLL_ALL
             npc.CollisionDamage = 1
 

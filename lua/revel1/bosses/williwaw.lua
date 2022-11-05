@@ -1922,15 +1922,22 @@ end, REVEL.ENT.WILLIWAW.id)
 revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, ent, dmg, flags, src, invuln)
 	if ent.Variant ~= REVEL.ENT.WILLIWAW.variant then return end
 	local data = ent:GetData()
+
+	if not data.FullyEnteredPhase and ent.FrameCount > 200 then
+		data.FullyEnteredPhase = 3
+	end
 	
 	if data.IsDying then
 		return false
 		
-	elseif not data.FullyEnteredPhase
+	elseif (not data.FullyEnteredPhase)
 	or (ent.HitPoints/ent.MaxHitPoints <= data.bal.HpPctPhase1 and data.FullyEnteredPhase < 1)
 	or (ent.HitPoints/ent.MaxHitPoints <= data.bal.HpPctPhase2 and data.FullyEnteredPhase < 2) then
 		local dmgReduction = dmg*0.6
 		ent.HitPoints = math.min(ent.HitPoints + dmgReduction, ent.MaxHitPoints)
+	
+	elseif data.FullyEnteredPhase == 3 then
+		dmg = dmg*3
 	end
 	
 	if ent.HitPoints - dmg - REVEL.GetDamageBuffer(ent) <= 0 then

@@ -2,7 +2,10 @@ local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
-REVEL.loadedData = false --to prevent running the tlen function more than necessary
+
+local LoadedData = false
+
+local LastRunResetDataFrame = -1
 
 local json = require("json")
 local hub2 = require("scripts.hubroom2.init") --hub2 savedata table is seperately stored
@@ -11,10 +14,14 @@ REVEL.PRINT_MODDATA_ON_LOAD = false
 
 local DoResetSaveData = false
 
+function REVEL.IsSaveDataLoaded()
+    return LoadedData
+end
+
 ---@param force? boolean
 ---@param continuedRun? boolean
 function revel:loadModdata(force, continuedRun)
-    if not REVEL.loadedData or force then --if moddata wasn't properly loaded yet
+    if not LoadedData or force then --if moddata wasn't properly loaded yet
         local readTime, decodeTime
         local t1 = Isaac.GetTime()
         local data
@@ -47,10 +54,6 @@ function revel:loadModdata(force, continuedRun)
         local prevKeys = REVEL.keys(data)
 
         data = REVEL.CopyTable(data, REVEL.DEFAULT_MODDATA) --fill missing variables in case there are some
-
-        if REVEL.game:GetFrameCount() < 2 then --reset run data on new run. ik post_game_started has the loaded arg, but it runs after many callbacks
-            data.run = REVEL.CopyTable(REVEL.DEFAULT_MODDATA.run)
-        end
 
         local newKeys = REVEL.keys(data)
 
@@ -105,7 +108,7 @@ function revel:loadModdata(force, continuedRun)
 
         StageAPI.CallCallbacks(RevCallbacks.POST_SAVEDATA_LOAD)
 
-        REVEL.loadedData = true
+        LoadedData = true
     end
 end
 
@@ -178,6 +181,11 @@ end)
 
 revel:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, function()
     revel:loadModdata(false)
+
+    if REVEL.game:GetFrameCount() == 0 then 
+        REVEL.DebugToString("[REVEL] Resetting run save data")
+        revel.data.run = REVEL.CopyTable(REVEL.DEFAULT_MODDATA.run)
+    end
 end)
 revel:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function()
     revel:loadModdata(false)
@@ -187,17 +195,18 @@ StageAPI.AddCallback("Revelations", StageAPICallbacks.PRE_STAGEAPI_LOAD_SAVE, 1,
 end)
 
 revel:AddCallback(ModCallbacks.MC_PRE_GAME_EXIT, function(_, menuExit)
-    if REVEL.loadedData then
+    if LoadedData then
         revel:saveData(menuExit)
         --reset data so it will be loaded correctly in case the save is switched
         revel.data = {}
-        REVEL.loadedData = false
+        LoadedData = false
+        REVEL.DebugToString("[REVEL] Run exit, unloaded data")
     end
 end)
 
 StageAPI.AddCallback("Revelations", RevCallbacks.EARLY_POST_NEW_ROOM, -100, function()
     if REVEL.room:IsFirstVisit() and REVEL.level:GetCurrentRoomIndex() == REVEL.level:GetStartingRoomIndex() then
-        REVEL.DebugStringMinor("[REVEL] Resetting level save data")
+        REVEL.DebugToString("[REVEL] Resetting level save data")
         revel.data.run.level = REVEL.CopyTable(REVEL.DEFAULT_MODDATA.run.level)
     end
 

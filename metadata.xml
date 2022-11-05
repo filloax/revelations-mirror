@@ -11,9 +11,11 @@
 
 This is the Repentance version of the mod, for the Afterbith+ version [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1536643474]see here[/url].
 
-This mod [i][b]REQUIRES[/b][/i] the [b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=1348031964]StageAPI[/url][/b] mod to function. Get it [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1348031964]here[/url].
+This mod [i][b]REQUIRES[/b][/i] the [b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=1348031964]StageAPI[/url][/b] mod to function.
 
 [b]IF YOU HAVE STRANGE ERRORS AFTER INSTALLING THE MOD, TRY DELETING THE MOD'S FOLDER AND RESTARTING THE GAME (see below)[/b]
+
+[url=https://github.com/filloax/revelations-mirror/releases/latest][b]DOWNLOAD MIRROR[/b][/url], USE THIS IF YOU GET MAJOR BUGS
 
 [url=https://github.com/filloax/revelations-mirror/blob/main/changelog.md][i]Changelog[/i][/url]
 
@@ -54,30 +56,34 @@ As above, the mod requires [b][url=https://steamcommunity.com/sharedfiles/filede
 [h2]Recommended mods[/h2]
 
 The Chapter 3 character, [b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2297456697]Bertran[/url][/b], got released as a standalone mod by DeadInfinity and Melon!
-Find him [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2297456697]here[/url].
 
-As of the Vanity update the [b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=1978904635]MiniMAPI[/url][/b] mod by WofSauge and Taz is [b]included[/b] with Revelations, allowing for custom map icons and behavior (for example, the new Dante &amp; Charon functionality) by default. It can be configured via DSS or with Mod Config Menu if it is installed. The version included in Revelations can work alongside the standalone version linked above, and it is in fact recommended to install both so MinimapAPI can receive updates more frequently without having to rely on the Rev update cycle.
+As of the Vanity update the [b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=1978904635]MiniMAPI[/url][/b] mod by WofSauge and Taz is [b]included[/b] with Revelations, allowing for custom map icons and behavior (for example, the new Dante & Charon functionality) by default. It can be configured via the C settings or with Mod Config Menu if it is installed. The version included in Revelations can work alongside the standalone version linked above, and it is in fact recommended to install both so MinimapAPI can receive updates more frequently without having to rely on the Rev update cycle.
 
 Revelations is intended to be compatible with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2851063440]Fiend Folio[/url] and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2881008017]Retribution[/url], and they are recommended for an amazing gameplay experience. Do mind that Revelations and Fiend Folio are very large mods, which might cause performance issues in lower end machines, and some engine issues, see Mod Compatibility below.
 
 [h2]Mod compatibility[/h2]
 
-[h3]Big mods[/h3]
+[h3]Big mods (Transparent/black sprites)[/h3]
 
-Recently, a limit of the Isaac engine was discovered when [b]too many mods are enabled at once[/b] (especially big ones), leading to sprites eventually being replaced by black squares or becoming transparent after some gameplay in that case. The specific limit isn't known yet, and it doesn't depend on the machine's performance. 
+Recently, a limit of the Isaac engine was discovered when [b]too many mods are enabled at once[/b] (especially big ones), leading to sprites being replaced by black squares or becoming transparent after some gameplay. The specific limit isn't known yet, and it doesn't depend on the machine's performance. 
 
 If you get this bug, first try changing the setting "Clear cache every" to "every room" instead of "every level" in the Rev settings. If it doesn't help, try removing some mods and trying again. We and other modders are trying to find a solution at the moment. We still recommend playing with Fiend Folio and other mods if possible, but this limit is hard to work around.
 
-[h3]Minimap mods[/h3]
+[h3]Incompatibilities[/h3]
 
-As Revelations includes MinimapAPI, it is not compatible with most minimap-affecting mods. You can try to use a mod that changes the minimap, but it won't be supported.
+The mod is incompatible with:
 
-Good Trip also won't work, but MinimapAPI includes a similar functionality that can be enabled either via the C-menu (DSS) or via Mod Config Menu if you have it installed.
+[list]
+    [*] Music Mod Callback
+    [*] Minimap mods
+    [*] Good Trip (MinimapAPI has an option for similar functionality in the settings)
+    [*] Tainted Treasure Rooms (for now)
+    [*] Heaven's Call
+    [*] Enhanced Boss Bars
+[/list]
 
-[h3]Music mods[/h3]
-
-Music Mod Callback (and depentend mods) aren't fully compatible with StageAPI at the moment, leading to a lot of missing music triggers.
-
+Details in [url=https://steamcommunity.com/workshop/filedetails/discussion/2880387531/3488628040296710233/]related discussion[/url].
+Some will make rev floors not work, others may have only minor issues but running them is not supported.
 
 [img]https://i.imgur.com/TsSrika.png[/img]
 
@@ -88,10 +94,10 @@ TO AVOID ISSUES, RESTART ISAAC AFTER DOWNLOADING AND ENABLING THE MOD FOR THE FI
 Due to issues in the way Isaac downloads Steam Workshop mods with a large download size, a lot of users report strange errors the first time they install the mod or download a major update, which are caused by missing files.
 To fix this, try redownloading the mod by:
 -Closing the game
--Deleting the mod's folder (found in [i]&lt;steamapps Isaac game folder&gt;/mods/revelations_2880387531[/i])
+-Deleting the mod's folder (found in [i]<steamapps Isaac game folder>/mods/revelations_2880387531[/i])
 -Restarting the game
-If you had download issues, it should be fixed by doing this. Might need a second try, but this should fix 99% of the major bugs found after first installing the mod.
-If it doesn't work, try our download mirror instead, found [url=https://github.com/filloax/revelations-mirror]here[/url].
+If you had download issues, it should be fixed by doing this. This should fix 99% of the major bugs found after first installing the mod.
+If it doesn't work, try our download mirror instead, found [url=https://github.com/filloax/revelations-mirror/releases/latest]here[/url].
 
 [img]https://i.imgur.com/6XOFsfy.png[/img]
 
@@ -114,10 +120,8 @@ Talk to us on discord!
 [i]Sound and Music[/i] - Wertandrew, HappyHead (also 3d!)
 [i]Testers, Room makers and Designers[/i] - Al, AnonymousKoala, Boogs, Bullet, Bustin, Creeps, Electoon, Grynn, Jerb, KindaLoveable, Melon, Minichibis, Pasta, Pixelo, PkPseudo, Robby Shenanigans, Sunil B
 
-[i]Special Thanks[/i] - Kilburn, The Isaac Community
-
-Ingame list is probably more up to date.</description>
-    <version>1.1</version>
+[i]Special Thanks[/i] - Kilburn, The Isaac Community</description>
+    <version>1.2</version>
     <visibility>Public</visibility>
     <tag id="Lua"/>
     <tag id="Items"/>

@@ -1,4 +1,24 @@
-REVEL.AddChangelog("Vanity (v4.0.1)", "Nov 4 2022", [[Hotfix
+-- Keep lines at max 40 characters, can use for that https://www.gillmeister-software.com/online-tools/text/add-line-breaks_change-line-length.aspx
+REVEL.AddChangelog("Vanity (4.0.2)", "Nov 4 2022", [[- Fix data not resetting between runs,
+leading to persisting shrine pacts,
+charon items and mirror door not
+spawning again
+- Fix Chuck softlock
+- Ice Wraith doesn't block Dead Sea
+Scrolls menu update (might need an
+update in other mods that use DSS)
+- Williwaw loses the dmg reduction if
+he stays in  his intro for too long
+- Increase aura radius of coal shards
+- Increase vanity price of q4 items by
+1, reduced the vanity price of the more
+expensive items
+- Fix haugrs not working
+- Cracked key can be used in a certain
+room too other than the red key
+- Glass shards can no longer be abused
+to respawn by rerolling etc.]])
+REVEL.AddChangelog("Vanity (4.0.1)", "Nov 4 2022", [[Hotfix
 - Disable XL Rev floors until we find
 a way to properly fix them
 - Minor room tweaks
@@ -6,7 +26,7 @@ a way to properly fix them
 This is just an hotfix, full patch notes
 for the update are in the previous
 changelog]])
-REVEL.AddChangelog("Vanity (v4.0.0)", "Nov 4 2022", [[** Major Features
+REVEL.AddChangelog("Vanity (4.0.0)", "Nov 4 2022", [[** Major Features
 - Replace the Hub room with Hub 2, 
 inside of the Repentance transition 
 room, and usable by other mods. Old Hub 

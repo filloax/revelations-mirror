@@ -195,6 +195,9 @@ local function chilloWisp_NpcUpdate(_, npc)
 
                     WraithLastRoomIdx = REVEL.level:GetCurrentRoomIndex()
                     npc.GridCollisionClass = EntityGridCollisionClass.GRIDCOLL_NONE
+                    data.DSSMenuSafe = true
+                    body:GetData().DSSMenuSafe = true
+                    tail:GetData().DSSMenuSafe = true
                 end
                 
                 npc:AddEntityFlags(EntityFlag.FLAG_NO_STATUS_EFFECTS)
@@ -291,7 +294,9 @@ local function chilloWisp_NpcUpdate(_, npc)
                     IceWraithUpdate(npc, data)
                 end
 
-                if not data.StayStill and not data.ChillCooldown then
+                local stayStill = data.StayStill or DeadSeaScrollsMenu.IsOpen()
+
+                if not stayStill and not data.ChillCooldown then
                     if not REVEL.IsUsingPathMap(REVEL.GenericFlyingChaserPathMap, npc) then
                         REVEL.UsePathMap(REVEL.GenericFlyingChaserPathMap, npc)
                     end

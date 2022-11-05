@@ -283,7 +283,7 @@ do -- Penance and Sarah shared
     end
 
     StageAPI.AddCallback("Revelations", RevCallbacks.POST_STAGEAPI_NEW_ROOM_WRAPPER, 1, function()
-        if REVEL.loadedData then
+        if REVEL.IsSaveDataLoaded() then
             local hasPenanceEffect
             for _, player in ipairs(REVEL.players) do
                 ReaddOutBlackHearts(player)
@@ -888,7 +888,7 @@ do -- Penance and Sarah shared
     end)
 
     revel:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, function(_, e)
-        if not REVEL.loadedData then
+        if not REVEL.IsSaveDataLoaded() then
             return
         end
 
