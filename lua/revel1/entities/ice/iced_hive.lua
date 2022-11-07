@@ -14,10 +14,10 @@ local function icedHive_NpcUpdate(_, npc)
         if sprite:IsFinished("Appear") or sprite:IsFinished("Attack1") or sprite:IsFinished("Attack2") then
             data.Angle = RandomVector()
             data.AngleRecalculateFrame = 0
-            data.MaxRecalculateFrames = math.random(20, 60)
+            data.MaxRecalculateFrames = 0
             data.State = "Moving"
             npc.StateFrame = 0
-            data.MaxStateFrames = math.random(120, 150)
+            data.MaxStateFrames = math.random(60, 120)
         end
 
         if data.State == "Moving" then
@@ -25,12 +25,17 @@ local function icedHive_NpcUpdate(_, npc)
             npc.Velocity = npc.Velocity * 0.6 + data.Angle * 0.5
             data.AngleRecalculateFrame = data.AngleRecalculateFrame + 1
             if data.AngleRecalculateFrame >= data.MaxRecalculateFrames or npc:CollidesWithGrid() then
-                data.Angle = Vector.FromAngle(1*math.random(0, 360)):Resized(2)
+                if player.Position:Distance(npc.Position) <= 100 then
+                    data.Angle = (npc.Position - player.Position):Resized(2.5)
+                else
+                    data.Angle = Vector.FromAngle(1*math.random(0, 360)):Resized(2.5)
+                end
                 data.MaxRecalculateFrames = math.random(20, 60)
                 data.AngleRecalculateFrame = 0
             end
             npc.StateFrame = npc.StateFrame + 1
             if npc.StateFrame >= data.MaxStateFrames then
+                data.MaxStateFrames = math.random(60, 120)
                 if ( (Isaac.CountEntities(nil, REVEL.ENT.FROZEN_SPIDER.id, REVEL.ENT.FROZEN_SPIDER.variant, -1) or 0) + (Isaac.CountEntities(nil, EntityType.ENTITY_SPIDER, -1, -1) or 0) + (Isaac.CountEntities(nil, REVEL.ENT.ICE_POOTER.id, REVEL.ENT.ICE_POOTER.variant, -1) or 0) + (Isaac.CountEntities(nil, EntityType.ENTITY_POOTER, -1, -1) or 0) ) >= 4 then
                     data.NoSpawns = true
                     data.State = "Attack1"
@@ -62,6 +67,7 @@ local function icedHive_NpcUpdate(_, npc)
 
         if sprite:IsEventTriggered("Sound") then
             REVEL.sfx:NpcPlay(npc, SoundEffect.SOUND_MEAT_JUMPS, 1, 0, false, 1)
+            data.PooterInMouth = true
         elseif sprite:IsEventTriggered("Shoot") then
             if data.State == "Attack1" then
                 for i=1, 6 do
@@ -84,12 +90,34 @@ local function icedHive_NpcUpdate(_, npc)
                 local f = Isaac.Spawn(REVEL.ENT.ICE_POOTER.id, REVEL.ENT.ICE_POOTER.variant, 0, npc.Position + dir * 8, dir * 6, npc)
                 f:GetData().HitCooldown = 5
                 f:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
+                data.PooterInMouth = false
                 --npc.Velocity = (player.Position - npc.Position):Resized(8) doesn't work because velocity is constantly set
             end
         end
     end
 end
 revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, icedHive_NpcUpdate, REVEL.ENT.ICED_HIVE.id)
+
+revel:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, function(_, npc)
+    if not REVEL.ENT.ICED_HIVE:isEnt(npc) then return end
+
+    for i = 1, 2 do
+        if i == 2 and (math.random(1,2) <= 1 or data.PooterInMouth) then
+            local f = Isaac.Spawn(REVEL.ENT.ICE_POOTER.id, REVEL.ENT.ICE_POOTER.variant, 0, npc.Position, RandomVector() * math.random(3,5), npc)
+            f:GetData().HitCooldown = 5
+            f:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
+        else
+            Isaac.Spawn(REVEL.ENT.FROZEN_SPIDER.id, REVEL.ENT.FROZEN_SPIDER.variant, 0, npc.Position, RandomVector() * math.random(3,5), npc)
+        end
+    end
+    for i = 1, 6 do
+        local p = Isaac.Spawn(9, REVEL.ENT.TRAY_PROJECTILE.variant, REVEL.ENT.TRAY_PROJECTILE.subtype, npc.Position, RandomVector() * math.random(1,5), npc):ToProjectile()
+        p.FallingSpeed = math.random(10, 30) * -1
+        p.FallingAccel = 2
+        p.Scale = ( 1 + ( math.random(0, 5) / 10 ) )
+        p.Parent = npc
+    end
+end, REVEL.ENT.ICED_HIVE.id)
 
 --REPLACE PROJ POOFS
 StageAPI.AddCallback("Revelations", RevCallbacks.POST_PROJ_POOF_INIT, 1, function(p, data, spr, spawner, grandpa)

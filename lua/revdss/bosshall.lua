@@ -336,7 +336,7 @@ local function AddBossMenus(revdirectory, item, bosses, bestiaryprefix, champion
                 for _, variant in ipairs(boss.Variants) do
                     local pass = true
                     if variant == "Champion" then
-                        pass = not championachieve or revel.IsAchievementUnlocked(boss.ChampionAchievement or championachieve) or REVEL.Testmode
+                        pass = not championachieve or REVEL.IsAchievementUnlocked(boss.ChampionAchievement or championachieve) or REVEL.Testmode
                     elseif variant == "Ruthless" then
                         pass = revel.data.RuthlessMenuUnlocked or REVEL.Testmode
                     end

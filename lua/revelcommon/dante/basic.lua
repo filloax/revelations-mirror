@@ -51,12 +51,13 @@ function REVEL.Dante.IsMerged(player)
     return REVEL.IsDanteCharon(player) and revel.data.run.dante.IsCombined
 end
 
--- -1: run REVEL.IsDanteCharon check for all players to cover both player types
-REVEL.AddCharacterUnlock(-1, "BROKEN_OAR", LevelStage.STAGE3_2, LevelStage.STAGE3_1, nil, nil, REVEL.IsDanteCharon)
-REVEL.AddCharacterUnlock(-1, "FERRYMANS_TOLL", LevelStage.STAGE6, nil, StageType.STAGETYPE_WOTL, nil, REVEL.IsDanteCharon)
-REVEL.AddCharacterUnlock(-1, "GHASTLY_FLAME", LevelStage.STAGE6, nil, StageType.STAGETYPE_ORIGINAL, nil, REVEL.IsDanteCharon)
-REVEL.AddCharacterUnlock(-1, "DEATH_MASK", LevelStage.STAGE4_2, LevelStage.STAGE4_1, nil, nil, REVEL.IsDanteCharon)
-REVEL.AddCharacterUnlock(-1, "WANDERING_SOUL", LevelStage.STAGE4_3, nil, nil, nil, REVEL.IsDanteCharon)
+for _, playerType in ipairs({REVEL.CHAR.DANTE.Type, REVEL.CHAR.CHARON.Type}) do
+    REVEL.AddCharacterUnlock(playerType, "BROKEN_OAR", LevelStage.STAGE3_2, LevelStage.STAGE3_1)
+    REVEL.AddCharacterUnlock(playerType, "FERRYMANS_TOLL", LevelStage.STAGE6, nil, StageType.STAGETYPE_WOTL)
+    REVEL.AddCharacterUnlock(playerType, "GHASTLY_FLAME", LevelStage.STAGE6, nil, StageType.STAGETYPE_ORIGINAL)
+    REVEL.AddCharacterUnlock(playerType, "DEATH_MASK", LevelStage.STAGE4_2, LevelStage.STAGE4_1)
+    REVEL.AddCharacterUnlock(playerType, "WANDERING_SOUL", LevelStage.STAGE4_3)
+end
 
 REVEL.PHYLACTERY_POCKET = true
 

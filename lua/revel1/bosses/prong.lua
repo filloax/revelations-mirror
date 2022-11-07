@@ -1169,6 +1169,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
             data.bal = REVEL.GetBossBalance(prongBalance, "Default")
         end
 
+        npc:AddEntityFlags(EntityFlag.FLAG_NO_STATUS_EFFECTS)
         REVEL.SetScaledBossHP(npc)
 
         if not data.IsChampion then

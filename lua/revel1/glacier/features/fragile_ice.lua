@@ -9,8 +9,10 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
 local ReformingIcePits = {}
 
-function REVEL.TriggerPitfall(player,position)
+function REVEL.TriggerPitfall(player, position)
     local data = player:GetData()
+
+    REVEL.DebugLog("Triggered pit fall")
 
     if not data.Pitfalling then
         data.Pitfalling = true
@@ -290,51 +292,6 @@ local function fragileicePostUpdate()
     end
 end
 
-local function fragileicePostPeffectUpdate(_, player)
-    local data = player:GetData()
-    if data.Pitfalling then
-        player.Velocity = Vector.Zero
-
-        if data.FrozenPitfalling then
-            if not data.TFPFellFrame and data.TotalFrozenSprite and data.TotalFrozenSprite:IsFinished("Fall" .. REVEL.dirToString[data.TotalFreezeDir]) then
-                data.FrozenDamage = true
-                player:TakeDamage(1, DamageFlag.DAMAGE_PITFALL, EntityRef(player), 15)
-                data.FrozenDamage = nil
-                player.Velocity = Vector.Zero
-                data.TFPFellFrame = player.FrameCount
-            end
-
-            if data.TFPFellFrame and player.FrameCount - data.TFPFellFrame > 25
-            and not (data.TFWaitFrameForResurface and player.FrameCount < data.TFWaitFrameForResurface) then
-                REVEL.Glacier.TotalFrozenBreak(player, true)
-                player:AnimatePitfallOut()
-                data.FrozenPitfalling = nil
-                data.TFPFellFrame = nil
-            end
-        else
-            local sprite = player:GetSprite()
-
-            if sprite:IsPlaying("JumpOut") and sprite:GetFrame() == 10 then
-                if data.LastIndexSafeFromPitfall then
-                    local targPos = Isaac.GetFreeNearPosition(REVEL.room:GetGridPosition(data.LastIndexSafeFromPitfall), 0)
-
-                    if data.PitfallForceResurfacePosition then
-                        targPos = data.PitfallForceResurfacePosition
-                    end
-
-                    -- player.Velocity = (targPos - player.Position) * 0.1
-                    player.Position = targPos
-                end
-                data.PitfallForceResurfacePosition = nil
-            end
-
-            if player:IsExtraAnimationFinished() then
-                data.Pitfalling = nil
-            end
-        end
-    end
-end
-
 local function fragileicePostPlayerUpdate(_, player)
     if player.CanFly then return end
     if not REVEL.STAGE.Glacier:IsStage() then return end
@@ -361,6 +318,57 @@ local function fragileicePostPlayerUpdate(_, player)
     if not data.Pitfalling and not fragileIce and not REVEL.IsBigBlowyTrack(index) then
         data.LastIndexSafeFromPitfall = index
     end
+
+    if data.Pitfalling then
+        player.Velocity = Vector.Zero
+
+        if data.FrozenPitfalling then
+            if not data.TFPFellFrame and data.TotalFrozenSprite and data.TotalFrozenSprite:IsFinished("Fall" .. REVEL.dirToString[data.TotalFreezeDir]) then
+                data.FrozenDamage = true
+                player:TakeDamage(1, DamageFlag.DAMAGE_PITFALL, EntityRef(player), 15)
+                data.FrozenDamage = nil
+                player.Velocity = Vector.Zero
+                data.TFPFellFrame = player.FrameCount
+            end
+
+            if data.TFPFellFrame and player.FrameCount - data.TFPFellFrame > 25
+            and not (data.TFWaitFrameForResurface and player.FrameCount < data.TFWaitFrameForResurface) then
+                REVEL.Glacier.TotalFrozenBreak(player, true)
+                player:AnimatePitfallOut()
+                data.FrozenPitfalling = nil
+                data.TFPFellFrame = nil
+            end
+        else
+            local sprite = player:GetSprite()
+
+            -- REVEL.DebugLog(player, sprite, data.LastIndexSafeFromPitfall, sprite:IsPlaying("JumpOut"), sprite:GetFrame() >= 10 , data.PitfallingJumpedOut)
+
+            -- A note on JumpOut: when pitfall is triggered above a pit, 
+            -- it immediately skips over to frame 14 without playing the rest of the animation
+
+            if sprite:GetAnimation() == "JumpOut" and sprite:GetFrame() >= 10 
+            and not data.PitfallingJumpedOut then
+                if data.LastIndexSafeFromPitfall then
+                    local targPos = REVEL.room:GetGridPosition(data.LastIndexSafeFromPitfall)
+
+                    if data.PitfallForceResurfacePosition then
+                        targPos = data.PitfallForceResurfacePosition
+                    end
+
+                    -- player.Velocity = (targPos - player.Position) * 0.1
+                    player.Position = targPos
+                end
+                data.PitfallForceResurfacePosition = nil
+                data.PitfallingJumpedOut = true
+            end
+
+            if player:IsExtraAnimationFinished() then
+                data.Pitfalling = nil
+                data.PitfallingJumpedOut = nil
+            end
+        end
+    end
+
 end
 
 StageAPI.AddCallback("Revelations", StageAPICallbacks.POST_SPAWN_CUSTOM_GRID, 1, fragileicePostSpawnCustomGrid, REVEL.GRIDENT.FRAGILE_ICE.Name)
@@ -369,7 +377,6 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_ROOM_CLEAR, 1, fragileiceP
 
 StageAPI.AddCallback("Revelations", RevCallbacks.EARLY_POST_NEW_ROOM, 1, fragileicePostNewRoom)
 revel:AddCallback(ModCallbacks.MC_POST_UPDATE, fragileicePostUpdate)
-revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, fragileicePostPeffectUpdate)
 revel:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, fragileicePostPlayerUpdate)
 
 end

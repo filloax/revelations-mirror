@@ -138,7 +138,7 @@ revel:AddCallback(ModCallbacks.MC_POST_RENDER, function()
 	local goodForStage = (REVEL.STAGE.Tomb:IsStage() and (REVEL.DEBUG or not revel.data.run.sinamiBeat.tomb)) 
         or (REVEL.STAGE.Glacier:IsStage() and (REVEL.DEBUG or not revel.data.run.sinamiBeat.glacier))
 
-    if goodForStage and revel.IsAchievementUnlocked("TOMB_CHAMPIONS") and revel.IsAchievementUnlocked("GLACIER_CHAMPIONS") 
+    if goodForStage and REVEL.IsAchievementUnlocked("TOMB_CHAMPIONS") and REVEL.IsAchievementUnlocked("GLACIER_CHAMPIONS") 
     and REVEL.level:GetCurrentRoomIndex() == REVEL.level:GetStartingRoomIndex() and not REVEL.game:IsPaused() then
         for i, player in ipairs(REVEL.players) do
             local data = player:GetData()

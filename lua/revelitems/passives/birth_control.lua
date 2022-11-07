@@ -413,8 +413,8 @@ if REVEL.FiendFolioCompatLoaded then
     })
 end
 
-StageAPI.AddCallback("Revelations", RevCallbacks.POST_ITEM_PICKUP, 1,
-                        function(player, pind)
+---@param player EntityPlayer
+StageAPI.AddCallback("Revelations", RevCallbacks.POST_ITEM_PICKUP, 1, function(player, pind)
     if REVEL.ITEM.BCONTROL:PlayerHasCollectible(player) then
         if REVEL.DEBUG then
             REVEL.DebugToString("Ran pickup callback for bcontrol!")
@@ -427,8 +427,8 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_ITEM_PICKUP, 1,
             if id then
                 local item = REVEL.config:GetCollectible(id)
 
-                if id == CollectibleType.COLLECTIBLE_BFFS and num >= 1 and
-                    player:HasCollectible(id) then
+                if id == CollectibleType.COLLECTIBLE_BFFS and num >= 1 
+                and player:HasCollectible(id, true) then
                     for i = 1, num do
                         player:RemoveCollectible(id)
                         player:AddCollectible(CollectibleType.COLLECTIBLE_MAGIC_MUSHROOM, 0, false)
@@ -437,10 +437,17 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_ITEM_PICKUP, 1,
 
                 local runStats = revel.data.run.stats[REVEL.GetPlayerID(player)]
 
-                if item.Type == ItemType.ITEM_FAMILIAR and
-                    not BirthControl.Blacklist[id] and num >= 1 and
-                    not (player:GetPlayerType() == PlayerType.PLAYER_LILITH and id == CollectibleType.COLLECTIBLE_INCUBUS) and
-                    player:HasCollectible(id) then -- the HasCollectible is in case the inventoyr got scrambled without the amount changing by something other than D4/100 (eg dice rooms) since that cannot be detected
+                if item.Type == ItemType.ITEM_FAMILIAR 
+                and not BirthControl.Blacklist[id] 
+                and num >= 1 
+                and not (
+                    player:GetPlayerType() == PlayerType.PLAYER_LILITH 
+                    and id == CollectibleType.COLLECTIBLE_INCUBUS
+                ) 
+                 -- the HasCollectible is in case the inventoyr got scrambled without the amount 
+                 -- changing by something other than D4/100 (eg dice rooms) since that cannot be detected
+                and player:HasCollectible(id, true) 
+                then
 
                     REVEL.sfx:Play(SoundEffect.SOUND_VAMP_GULP)
                     if not BirthControl.NoDamageOrRemove[id] then

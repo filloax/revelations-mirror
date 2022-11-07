@@ -24,7 +24,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
     
         ExplodingSnowmanRadius = 40 * 2.5,
     
-        DarkIceChillDuration = 70,
+        DarkIceChillDuration = 50,
         DarkIceInChill = false,
     
         FragilityIceEntityBlacklist = {

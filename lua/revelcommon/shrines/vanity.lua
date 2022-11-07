@@ -3,6 +3,8 @@ local RevCallbacks      = require "lua.revelcommon.enums.RevCallbacks"
 local RevRoomType       = require "lua.revelcommon.enums.RevRoomType"
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
+REVEL.Vanity = {}
+
 -- There is another
 local InputSequence = {
     {Action = ButtonAction.ACTION_DOWN},
@@ -24,6 +26,16 @@ local RewardKinds = {
     COLLECTIBLE = 1,
     DEVIL_ROOM_TELEPORT = 2,
 }
+
+---@class RevVanity.Reward
+---@field Kind 0 | 1 | 2
+---@field Price integer
+---@field IsRandom boolean If the reward uses a random pickup entity
+---@field BaseEntity {Type: integer, Variant: integer, SubType: integer} used for random pickups
+---@field Amount integer
+---@field Weight number
+---@field Item CollectibleType Used for collectibles
+---@field Pool ItemPoolType Used for collectibles
 
 -- Config prices in shrines.lua
 -- Weight is also affected by how close to the player's amount
@@ -74,6 +86,9 @@ local PactRewardItems = {
         Weight = 2,
     },
 }
+
+REVEL.Vanity.RewardKinds = RewardKinds
+REVEL.Vanity.PactRewardItems = PactRewardItems
 
 --[[
 <group Name="Random Collectibles">
@@ -378,13 +393,31 @@ end
 local function CreateNewRewardSubtype(getReward, ...)
     local reward
     if type(getReward) == "table" then
-        reward = REVEL.CopyTable(reward)
+        reward = REVEL.CopyTable(getReward)
     else
         reward = getReward(...)
     end
     local idx = #revel.data.run.level.shrineRewards + 1
     revel.data.run.level.shrineRewards[idx] = REVEL.CopyTable(reward)
-    return idx
+    return idx, revel.data.run.level.shrineRewards[idx]
+end
+
+---@param pos Vector
+---@param reward? RevVanity.Reward
+---@param replacePrice? integer
+---@return Entity
+function REVEL.Vanity.SpawnVanityShopItem(pos, reward, replacePrice)
+    local subtype, rewardTable = CreateNewRewardSubtype(reward or ChooseRewardRandom)
+    if replacePrice then
+        rewardTable.Price = replacePrice
+    end
+
+    local entity = Isaac.Spawn(
+        REVEL.ENT.PACT_SHOP.id, REVEL.ENT.PACT_SHOP.variant, subtype,
+        pos, Vector.Zero, nil
+    )
+
+    return entity
 end
 
 -- Taken from capsule anm2 example anim
@@ -1128,8 +1161,9 @@ local function prankShop_Update(_, npc)
             end
         end
 
-        if exploded then
+        if exploded or npc:GetData().PrankForceExploded then
             npc.SubType = PRANK_SHOP_EMPTY_SUBTYPE
+            npc:GetData().PrankForceExploded = nil
             sprite:Play("Death", true)
             StageAPI.GetCurrentRoom():SavePersistentEntities()
         end
@@ -1969,6 +2003,7 @@ local function casinoNight_RedKey_UseItem(_, itemType, rng, player, useFlags, ac
 end
 
 local SuperFunSpriteParams = {
+    ID = "SuperFun",
     Anm2 = "gfx/effects/revelcommon/pranshu/even_better/super_fun.anm2",
     Animation = "base",
 }

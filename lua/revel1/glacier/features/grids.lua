@@ -115,7 +115,7 @@ StageAPI.AddCallback("Revelations", StageAPICallbacks.POST_OVERRIDDEN_GRID_BREAK
 
         if not disableRockSpawn then
             if spawnedItem and not noItemGrids[grindex] then
-                if revel.IsAchievementUnlocked("ICETRAY") and math.random(1,2) == 1 then
+                if REVEL.IsAchievementUnlocked("ICETRAY") and math.random(1,2) == 1 then
                     Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, REVEL.ITEM.ICETRAY.id, REVEL.room:GetGridPosition(grindex), Vector.Zero, nil)
                 else
                     Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, CollectibleType.COLLECTIBLE_SHARD_OF_GLASS, REVEL.room:GetGridPosition(grindex), Vector.Zero, nil)

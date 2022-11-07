@@ -1,3 +1,4 @@
+--loadorder
 return {
   -- Load MinimapAPI (if not already installed as a mod) before everything
   "lua.minimapapi",

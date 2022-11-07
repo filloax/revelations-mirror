@@ -411,6 +411,9 @@ function REVEL.UpdateEntityAirMovement(entity, airMovementData)
 				if airMovementData.DoRotation then
 					entity.SpriteRotation = 0
 				end
+				if airMovementData.FloatOnPits then
+					entity.GridCollisionClass = EntityGridCollisionClass.GRIDCOLL_GROUND
+				end
 
 				--reenable ai
 				airMovementData.DisableAI = false

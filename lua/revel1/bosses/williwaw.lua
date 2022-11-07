@@ -163,7 +163,8 @@ REVEL.WilliwawBalance = {
 	CloneSpritesheet = "gfx/bosses/revel1/williwaw/williwaw_clone.png",
 	CloneSoundPitch = 1.3,
 	SnowflakeDeathPctDmg = 0.01,
-	
+	SnowflakeHitPoints = 1,
+
 	HpPctPhase1 = 0.60,
 	HpPctPhase2 = 0.25,
 
@@ -690,8 +691,12 @@ GoSnowflakeSniping = function(n, s, d)
 
             data.Snowflakes = {}
             for i = 1, data.bal.SnowflakeSnipingFlakeCount do
-                table.insert(data.Snowflakes,
-                    REVEL.SpawnOrbitingFlake(npc, false, 1, npc.Position, 20, false, data.bal.SnowflakeSnipingOrbitRadius, true))
+				-- no hp set option, so do manually
+				local snowflake = REVEL.SpawnOrbitingFlake(npc, false, 1, npc.Position, 20, false, data.bal.SnowflakeSnipingOrbitRadius, true)
+				snowflake.MaxHitPoints = data.bal.SnowflakeHitPoints
+				snowflake.HitPoints = snowflake.MaxHitPoints
+
+                table.insert(data.Snowflakes, snowflake)
             end
         end
 
@@ -870,6 +875,8 @@ GoBeastWinds = function(n, s, d)
 								data.BeastWindsFlipped and Vector(snowflakeSpeed, 0) or Vector(-snowflakeSpeed, 0), 
 								npc
 				)
+				snowflake.MaxHitPoints = data.bal.SnowflakeHitPoints
+				snowflake.HitPoints = snowflake.MaxHitPoints
 				snowflake:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
 				snowflake:AddEntityFlags(EntityFlag.FLAG_NO_KNOCKBACK | EntityFlag.FLAG_NO_PHYSICS_KNOCKBACK)
 				snowflake:GetData().MoveState = "Projectile"
@@ -1283,8 +1290,11 @@ GoGatewaySniping = function(n, s, d)
 
             data.Snowflakes = {}
             for i = 1, data.bal.GatewaySnipingFlakeCount do
-                table.insert(data.Snowflakes,
-                    REVEL.SpawnOrbitingFlake(npc, false, 1, npc.Position, 20, false, 50, true, 10))
+				local snowflake = REVEL.SpawnOrbitingFlake(npc, false, 1, npc.Position, 20, false, 50, true, 10)
+				snowflake.MaxHitPoints = data.bal.SnowflakeHitPoints
+				snowflake.HitPoints = snowflake.MaxHitPoints
+
+                table.insert(data.Snowflakes, snowflake)
             end
 			
 			--[[for _,clone in ipairs(data.Clones) do
@@ -1840,6 +1850,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 		if not d.IsWilliwawClone then
 			REVEL.SetScaledBossHP(npc)
 			npc.HitPoints = npc.MaxHitPoints*0.5
+			npc:AddEntityFlags(EntityFlag.FLAG_NO_STATUS_EFFECTS)
 			d.bal.GoIntro(npc, sprite, d)
 			d.BeastWindsTimeBetweenPatterns = d.bal.BeastWindsTimeBetweenPatterns
 		else
@@ -1908,14 +1919,6 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 				break
 			end
 		end
-	end
-end, REVEL.ENT.WILLIWAW.id)
-
-revel:AddCallback(ModCallbacks.MC_POST_NPC_RENDER, function(_, npc)
-	if npc.Variant ~= REVEL.ENT.WILLIWAW.variant then return end
-	
-	if npc:HasEntityFlags(EntityFlag.FLAG_FREEZE) then
-		npc:ClearEntityFlags(EntityFlag.FLAG_FREEZE)
 	end
 end, REVEL.ENT.WILLIWAW.id)
 

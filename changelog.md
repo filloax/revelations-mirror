@@ -1,3 +1,24 @@
+## 4.0.3
+
+- Vanity has functions for other mods to spawn their own vanity shop items
+- Hice and Iced Hive have new effects when killed
+- Rebalanced HP of several Glacier enemies
+- Nerf Sarah demon speed
+- Faster snowst attack
+- Various reskins for FF enemies
+- Increase sandbip hitbox
+- Change ragtag behavior
+- Room updates
+- Fix Dante+Charon unlocks
+- Fix Dante Satan room appearing for sarah in her angel room
+- Fixed a certain fun easter egg
+- Fix birth control + legemeton
+- Fix FF rooms not appearing
+- Fix EID mod name
+- Fix maxwell softlock with charmed enemies
+- Remove old glacier bosses from champion achievement
+- Fix stalagmight + dark arts
+- Fix fragile ice pit respawning
 ## 4.0.2
 
 - Fix data not resetting between runs, leading to
@@ -16,6 +37,7 @@ the vanity price of the more expensive items
 - Cracked key can be used in a certain room too
 other than the red key
 - Glass shards can no longer be abused to respawn by rerolling etc.
+- `revunlock` command is no longer tied to DEBUG mode
 
 ## 4.0.1
 

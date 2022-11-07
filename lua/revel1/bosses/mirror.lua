@@ -1225,14 +1225,6 @@ revel:AddCallback(ModCallbacks.MC_POST_NPC_RENDER , function(_, npc, offset)
     end
 end, REVEL.ENT.NARCISSUS.id)
 
-function REVEL.SpawnNextMirror(npc)
-    if REVEL.OnePlayerHasCollectible(REVEL.ITEM.MIRROR.id) then
-        Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, REVEL.ITEM.MIRROR2.id, REVEL.room:GetCenterPos(), Vector.Zero, nil)
-    else
-        Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, REVEL.ITEM.MIRROR.id,  REVEL.room:GetCenterPos(), Vector.Zero, nil)
-    end
-end
-
 revel:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, function(_, npc)
     if not (npc.Variant == REVEL.ENT.NARCISSUS.variant and REVEL.room:GetFrameCount() > 5 and not REVEL.game:IsPaused()) then return end
 
@@ -1240,11 +1232,11 @@ revel:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, function(_, npc)
 
     if not revel.data.run.NarcissusGlacierDefeated then
         revel.data.run.NarcissusGlacierDefeated = true
-        REVEL.SpawnNextMirror(npc)
+        REVEL.MirrorRoom.SpawnNextMirror(npc)
     end
     
-    if not revel.IsAchievementUnlocked("MIRROR_BOMBS") then
-        revel.UnlockAchievement("MIRROR_BOMBS")
+    if not REVEL.IsAchievementUnlocked("MIRROR_BOMBS") then
+        REVEL.UnlockAchievement("MIRROR_BOMBS")
     end
 
     REVEL.MirrorRoomDead = true

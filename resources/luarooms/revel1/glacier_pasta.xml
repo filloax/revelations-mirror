@@ -15285,7 +15285,7 @@
 			<entity type="1000" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="80" name="Fire and Ice" type="1" subtype="0" shape="4" width="13" height="14" difficulty="4" weight="1.0" lastTestTime="2022-10-28T18:39+00:00">
+	<room variant="80" name="Fire and Ice" type="1" subtype="0" shape="4" width="13" height="14" difficulty="4" weight="1.0" lastTestTime="2022-11-06T00:36+00:00">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="-1" y="10"/>
 		<door exists="True" x="6" y="-1"/>
@@ -17062,7 +17062,7 @@
 			<entity type="3000" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="93" name="Lil bug room: the sequel" type="1" subtype="0" shape="2" width="13" height="7" difficulty="2" weight="1.0">
+	<room variant="93" name="Lil bug room: the sequel" type="1" subtype="0" shape="2" width="13" height="7" difficulty="2" weight="1.0" lastTestTime="2022-11-06T00:32+00:00">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="13" y="3"/>
 		<spawn x="6" y="2">

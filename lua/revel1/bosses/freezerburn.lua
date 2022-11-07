@@ -477,6 +477,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
             npc:AddEntityFlags(EntityFlag.FLAG_NO_KNOCKBACK)
             npc:AddEntityFlags(EntityFlag.FLAG_NO_PHYSICS_KNOCKBACK)
+            npc:AddEntityFlags(EntityFlag.FLAG_NO_STATUS_EFFECTS)
             npc:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
 
             REVEL.SetScaledBossHP(npc)

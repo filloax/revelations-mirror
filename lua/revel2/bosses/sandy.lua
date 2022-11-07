@@ -419,7 +419,7 @@ local function sandy_Sandy_NpcUpdate(_, npc)
 		local data, sprite, target, healthPercentage = npc:GetData(), npc:GetSprite(), npc:GetPlayerTarget(), math.ceil((npc.HitPoints / npc.MaxHitPoints)*100)
 
 		if not data.Init then
-			npc:AddEntityFlags(EntityFlag.FLAG_NO_KNOCKBACK | EntityFlag.FLAG_NO_PHYSICS_KNOCKBACK)
+			npc:AddEntityFlags(EntityFlag.FLAG_NO_KNOCKBACK | EntityFlag.FLAG_NO_PHYSICS_KNOCKBACK | EntityFlag.FLAG_NO_STATUS_EFFECTS)
 			npc:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
 			npc.GridCollisionClass = EntityGridCollisionClass.GRIDCOLL_WALLS
 
@@ -1161,7 +1161,6 @@ local function sandy_Sandy_NpcUpdate(_, npc)
 
 						data.IdleTimer = 20
 						data.State = "Idle"
-						npc:ClearEntityFlags(EntityFlag.FLAG_NO_STATUS_EFFECTS)
 					end
 				end
 			end
@@ -1274,7 +1273,6 @@ local function sandy_Sandy_EntityTakeDmg(_, ent, amount, flags, source, cooldown
 			end
 
 			ent:RemoveStatusEffects()
-			ent:AddEntityFlags(EntityFlag.FLAG_NO_STATUS_EFFECTS)
 
 			-- REVEL.DebugStringMinor(("Deadly damage: %f minus %f + %f"):format(ent.HitPoints, amount, REVEL.GetDamageBuffer(ent)))
 			ent:SetColor(flashRed, flashDuration, 1, false, false)

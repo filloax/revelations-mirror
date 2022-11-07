@@ -89,7 +89,7 @@ local function ragTag_NpcUpdate(_, npc)
                 if REVEL.room:GetFrameCount() < 5 then
                     data.AttackCooldown = REVEL.GetFromMinMax(SLAP_NEW_ROOM_COOLDOWN)
                 end
-
+                data.SlapTimer = 0
                 sprite:LoadGraphics()
                 data.Init = true
             end
@@ -104,7 +104,11 @@ local function ragTag_NpcUpdate(_, npc)
             else
                 data.State = "Moving"
                 if not data.AttackCooldown then
-                    data.AttackCooldown = REVEL.GetFromMinMax(SLAP_COOLDOWN)
+                    if not data.NoDash then
+                        data.AttackCooldown = REVEL.GetFromMinMax(SLAP_COOLDOWN)
+                    end
+                elseif data.NoDash then
+                    data.AttackCooldown = data.AttackCooldown - 15
                 end
             end
         end
@@ -134,7 +138,7 @@ local function ragTag_NpcUpdate(_, npc)
             end
 
             if not data.AttackCooldown then
-                if targetDist < 90 ^ 2 then
+                if targetDist < 150 ^ 2 then
                     shouldAttack = true
                 elseif targetDist > 250 ^ 2 then
                     shouldAttack = true
@@ -156,7 +160,9 @@ local function ragTag_NpcUpdate(_, npc)
                 end
 
                 if tearWillHit > 0 then
-                    data.NoDash = true
+                    if data.AttackCooldown then
+                        data.NoDash = true
+                    end
                     if (tearWillHit > 1 or math.random(1, 3) == 1) and data.Buffed then
                         data.State = "Flurry"
                         sprite:Play("Flurry", true)
@@ -193,7 +199,15 @@ local function ragTag_NpcUpdate(_, npc)
             REVEL.sfx:NpcPlay(npc, SoundEffect.SOUND_SHELLGAME, 1, 0, false, 1)
         end
 
-        if (sprite:WasEventTriggered("Dash") and not sprite:WasEventTriggered("Slap")) or sprite:IsEventTriggered("Slap") then
+        if sprite:IsEventTriggered("Slap") then
+            if data.NoDash then
+                data.SlapTimer = 3
+            else
+                data.SlapTimer = 6
+            end
+        end
+
+        if data.SlapTimer > 0 then
             local didImpact
             for _, p in ipairs(REVEL.players) do
                 if not data.Slapped[GetPtrHash(p)]
@@ -225,19 +239,24 @@ local function ragTag_NpcUpdate(_, npc)
                     data.TargetStabstackCooldown = math.random(30, 90)
                 end
             end
+            for i, v in ipairs(REVEL.roomTears) do
+                if v.Position:DistanceSquared(npc.Position) <= (20 + v.Size + npc.Size) ^ 2 then
+                REVEL.AuraReflectTear(v, target, npc)
+                end
+            end
+            data.SlapTimer = data.SlapTimer - 1
 
             if didImpact then
                 npc.Velocity = Vector.Zero
             end
         end
 
-        if sprite:IsPlaying("Flurry") and sprite:WasEventTriggered("Slap") and sprite:GetFrame() < 22 then
+        --[[if sprite:IsPlaying("Flurry") and sprite:WasEventTriggered("Slap") and sprite:GetFrame() < 22 then
             for i, v in ipairs(REVEL.roomTears) do
-                if v.Position:DistanceSquared(npc.Position) <= (20 + v.Size + npc.Size) ^ 2 then
-                REVEL.AuraReflectTear(v, target, npc)
-                end
+            if v.Position:DistanceSquared(npc.Position) <= (20 + v.Size + npc.Size) ^ 2 then
+            REVEL.AuraReflectTear(v, target, npc)
             end
-        end
+        end]]
 
         if data.Buffed then
             REVEL.EmitBuffedParticles(npc, Anm2GlowNullVariants0[data.Skin])

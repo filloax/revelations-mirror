@@ -88,6 +88,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 
 		npc:AddEntityFlags(EntityFlag.FLAG_NO_KNOCKBACK)
 		npc:AddEntityFlags(EntityFlag.FLAG_NO_PHYSICS_KNOCKBACK)
+		npc:AddEntityFlags(EntityFlag.FLAG_NO_STATUS_EFFECTS)
 		npc.MaxHitPoints = data.TotalHealth / 2
 		npc.HitPoints = npc.MaxHitPoints
 		for _,player in ipairs(REVEL.players) do

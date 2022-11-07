@@ -235,6 +235,8 @@ REVEL.DEFAULT_MODDATA = {
         globalRestockPayout = 5,    
 
         pactGrounding = {},
+
+        spawnedMirrorShard = {},
     },
 
     minimapapi = {},

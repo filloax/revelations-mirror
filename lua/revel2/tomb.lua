@@ -78,8 +78,8 @@ revel:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
         revel.data.run.isTomb = true
     elseif revel.data.run.isTomb then
         revel.data.run.isTomb = nil
-        if not revel.IsAchievementUnlocked("BANDAGE_BABY") then
-            revel.UnlockAchievement("BANDAGE_BABY")
+        if not REVEL.IsAchievementUnlocked("BANDAGE_BABY") then
+            REVEL.UnlockAchievement("BANDAGE_BABY")
         end
     end
 end)

@@ -409,7 +409,8 @@ local MaxwellBalance = {
         if curCycleSegment.WaitEnemies then
             local enemyCount = 0
             for _, enemy in ipairs(REVEL.roomEnemies) do
-                if enemy:IsVulnerableEnemy() and not enemy:IsBoss() and not REVEL.ENT.MAXWELL_DOOR:isEnt(enemy) and enemy:IsActiveEnemy(false) then
+                if enemy:IsVulnerableEnemy() and not enemy:IsBoss() and not REVEL.ENT.MAXWELL_DOOR:isEnt(enemy) 
+                and enemy:IsActiveEnemy(false) and not enemy:HasEntityFlags(EntityFlag.FLAG_CHARM) then
                     enemyCount = enemyCount + 1
                 end
             end
@@ -3401,8 +3402,8 @@ revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, npc, amount, flag
     end
 
     if npc.HitPoints - amount - REVEL.GetDamageBuffer(npc) <= 0 and npc:GetData().bal and npc:GetData().bal.BlenderDeath then
-        if not revel.IsAchievementUnlocked("MAX_HORN") and npc:GetData().bal.IsCraxwell then
-            revel.UnlockAchievement("MAX_HORN")
+        if not REVEL.IsAchievementUnlocked("MAX_HORN") and npc:GetData().bal.IsCraxwell then
+            REVEL.UnlockAchievement("MAX_HORN")
         end
 
         local deathframe = npc:GetData().Death

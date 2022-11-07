@@ -1,5 +1,30 @@
 -- Keep lines at max 40 characters, can use for that https://www.gillmeister-software.com/online-tools/text/add-line-breaks_change-line-length.aspx
-REVEL.AddChangelog("Vanity (4.0.2)", "Nov 4 2022", [[- Fix data not resetting between runs,
+REVEL.AddChangelog("Vanity (4.0.3)", "Nov 6 2022", [[- Vanity has functions for other mods
+to spawn their own vanity shop items
+- Hice and Iced Hive have new effects
+when killed
+- Rebalanced HP of several Glacier 
+enemies
+- Nerf Sarah demon speed
+- Faster snowst attack
+- Various reskins for FF enemies
+- Increase sandbip hitbox
+- Change ragtag behavior
+- Room updates
+- Fix Dante+Charon unlocks
+- Fix Dante Satan room appearing for
+sarah in her angel room
+- Fixed a certain fun easter egg
+- Fix birth control + legemeton
+- Fix FF rooms not appearing
+- Fix EID mod name
+- Fix maxwell softlock with 
+charmed enemies
+- Remove old glacier bosses from
+champion achievement
+- Fix stalagmight + dark arts
+- Fix fragile ice pit respawning]])
+REVEL.AddChangelog("Vanity (4.0.2)", "Nov 5 2022", [[- Fix data not resetting between runs,
 leading to persisting shrine pacts,
 charon items and mirror door not
 spawning again
@@ -17,7 +42,9 @@ expensive items
 - Cracked key can be used in a certain
 room too other than the red key
 - Glass shards can no longer be abused
-to respawn by rerolling etc.]])
+to respawn by rerolling etc.
+- revunlock command is no longer 
+tied to DEBUG mode]])
 REVEL.AddChangelog("Vanity (4.0.1)", "Nov 4 2022", [[Hotfix
 - Disable XL Rev floors until we find
 a way to properly fix them

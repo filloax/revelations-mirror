@@ -592,9 +592,9 @@ do -- Penance and Sarah shared
     }
 
     for i = 0, 23 do
-        penanceSin.DashSpeed[i+1] = REVEL.Lerp(20, 40, math.min(10, i) / 23)
+        penanceSin.DashSpeed[i+1] = REVEL.Lerp(16, 28, math.min(10, i) / 23)
         penanceSin.FollowSpeed[i+1] = REVEL.Lerp(.55, 2.8, i / 23)
-        penanceSin.ChargeSpeed[i+1] = REVEL.Lerp(2, 8, math.min(6, i) / 23)
+        penanceSin.ChargeSpeed[i+1] = REVEL.Lerp(1.5, 4, math.min(6, i) / 23)
         penanceSin.SizeScale[i+1] = REVEL.Lerp(1, 1.8, i / 23)
     end
 
@@ -1050,7 +1050,8 @@ do -- Penance and Sarah shared
 	REVEL.AddLowPriorityCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, player, amount, flags, source, iframes)
 		player = player:ToPlayer()
 		if REVEL.HasPenanceEffect(player) then
-			if not HasBit(flags, DamageFlag.DAMAGE_FAKE) and not movedToRedHealth and not REVEL.room:IsClear() then
+			if not HasBit(flags, DamageFlag.DAMAGE_FAKE) and not movedToRedHealth and not REVEL.room:IsClear() 
+            and not REVEL.PlayerIsLost(player) then
 				local removedBlackHearts = REVEL.RemoveAllBlackHearts(player)
 				if removedBlackHearts > 0 then
 					movedToRedHealth = true

@@ -18885,7 +18885,7 @@
 		<spawn x="3" y="1">
 			<entity type="3000" variant="0" subtype="0" weight="0.0"/>
 		</spawn>
-		<spawn x="5" y="1">
+		<spawn x="4" y="1">
 			<entity type="1930" variant="0" subtype="0" weight="0.0"/>
 		</spawn>
 		<spawn x="10" y="1">
@@ -18918,7 +18918,7 @@
 		<spawn x="3" y="5">
 			<entity type="3000" variant="0" subtype="0" weight="0.0"/>
 		</spawn>
-		<spawn x="5" y="5">
+		<spawn x="4" y="5">
 			<entity type="1930" variant="0" subtype="0" weight="0.0"/>
 		</spawn>
 		<spawn x="10" y="5">

@@ -152,8 +152,10 @@ local function necragmancer_NpcUpdate(_, npc)
         local proj = Isaac.Spawn(EntityType.ENTITY_PROJECTILE, ProjectileVariant.PROJECTILE_NORMAL, 0, npc.Position, normal * math.min(5, dist / 8), nil):ToProjectile()
         proj:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
         proj.Size = proj.Size * 4
-        proj:GetSprite():Load("gfx/bosses/revel2/aragnid/aragnid_magicball.anm2", true)
-        proj:GetSprite():Play("Idle", true)
+        --proj:GetSprite():Load("gfx/bosses/revel2/aragnid/aragnid_magicball.anm2", true)
+        --proj:GetSprite():Play("Idle", true)
+        proj.Color = Color(1,1,1,1,0.5,0,0.3)
+        proj.Scale = 2.5
         proj.Height = -20
         proj.FallingSpeed = 0
         proj.FallingAccel = -0.1
@@ -163,7 +165,7 @@ local function necragmancer_NpcUpdate(_, npc)
         proj:Update()
         proj.ProjectileFlags = 0
         proj:GetData().PurpleColor = proj.Color
-        proj.Color = Color(1, 1, 1, 1,conv255ToFloat( 0, 0, 0))
+        --proj.Color = Color(1, 1, 1, 1,conv255ToFloat( 0, 0, 0))
         data.RevivalBall = proj
 
         REVEL.sfx:NpcPlay(npc, SoundEffect.SOUND_SKIN_PULL, 0.8, 0, false, 1)

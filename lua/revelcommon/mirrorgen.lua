@@ -53,6 +53,28 @@ function REVEL.MirrorRoom.CheckSpawnDoor()
     end
 end
 
+function REVEL.MirrorRoom.SpawnNextMirror(npc)
+    if not REVEL.IsRevelStage() then
+        REVEL.DebugToString("[REVEL] SpawnNextMirror | not in revel stage!")
+        return
+    end
+
+    ---@type CustomStage
+    local currentStage = StageAPI.GetCurrentStage()
+    local alreadySpawned = revel.data.run.spawnedMirrorShard[currentStage.Name]
+    if not alreadySpawned then
+        REVEL.DebugToString("[REVEL] SpawnNextMirror | spawning item...")
+        if REVEL.OnePlayerHasCollectible(REVEL.ITEM.MIRROR.id) then
+            Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, REVEL.ITEM.MIRROR2.id, REVEL.room:GetCenterPos(), Vector.Zero, nil)
+        else
+            Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, REVEL.ITEM.MIRROR.id,  REVEL.room:GetCenterPos(), Vector.Zero, nil)
+        end
+        revel.data.run.spawnedMirrorShard[currentStage.Name] = true
+    else
+        REVEL.DebugToString("[REVEL] SpawnNextMirror | already spawned shard!")
+    end
+end
+
 -- This assumes the callback runs after NEW_ROOM for stageapi -> after CheckSpawnDoor
 local function shrineMinimapPostMapPosUpdate(room, pos)
     local room = REVEL.room

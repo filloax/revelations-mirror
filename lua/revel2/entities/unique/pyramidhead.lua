@@ -6,6 +6,8 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
 local pyramidParams = ProjectileParams()
 pyramidParams.Variant = ProjectileVariant.PROJECTILE_TEAR
+pyramidParams.BulletFlags = ProjectileFlags.NO_WALL_COLLIDE
+
 local function pyramidHead_NpcUpdate(_, npc)
     if npc.Variant == REVEL.ENT.PYRAMID_HEAD.variant then
         local data, sprite, player, pf = npc:GetData(), npc:GetSprite(), npc:GetPlayerTarget(), npc.Pathfinder
@@ -105,6 +107,12 @@ local function pyramidHead_NpcUpdate(_, npc)
                     npc.Velocity = Vector(0, 0)
                     data.Shielded = false
                     data.State = "ShieldGone"
+                    for k, v in pairs(REVEL.roomEnemies) do
+                        if v:GetData().Mark ~= nil then
+                            v:GetData().Mark:Remove()
+                            v:GetData().Mark = nil
+                        end
+                    end
                 end
             end
         end

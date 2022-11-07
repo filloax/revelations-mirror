@@ -137,8 +137,9 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
                             end
                         elseif data.substate == "Formation" then
                             entData.pineFormPos = entData.pineFormPos or (ent.Position - npc.Position)
-                            ent.Position = REVEL.Lerp(ent.Position,npc.Position + entData.pineFormPos, 0.2)
-                            ent.Velocity = Vector.Zero
+                            local pos = REVEL.Lerp(ent.Position,npc.Position + entData.pineFormPos, 0.2)
+                            ent.Velocity = pos - ent.Position
+                            --ent.Velocity = Vector.Zero
                             entData.angle = nil
 
                             if sprite:IsEventTriggered("Shoot") then
@@ -202,12 +203,15 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
             if data.substate == "Orbit" then
                 if not data.hoverTimer then
                     data.HoverPos = data.StartPos + Vector(30,0):Rotated(math.random(360))
-                    if REVEL.room:GetGridCollisionAtPos(data.HoverPos) > 1 then
+                    if #data.pineGang <= 0 then
+                        data.HoverPos = npc.Position + (target.Position - npc.Position):Resized(60)
+                    elseif REVEL.room:GetGridCollisionAtPos(data.HoverPos) > 1 then
                         data.HoverPos = npc.Position
                     end
                     data.hoverTimer = math.random(20,50)
                 elseif data.hoverTimer > 0 then
-                    npc.Position = REVEL.Lerp(npc.Position,data.HoverPos,0.05)
+                    local pos = REVEL.Lerp(npc.Position,data.HoverPos,0.05)
+                    npc.Velocity = pos - npc.Position
                     data.hoverTimer = data.hoverTimer - 1
                 else
                     data.hoverTimer = nil
@@ -234,8 +238,6 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
             end
         end
 
-        npc.Velocity = Vector.Zero
-
     -- PINECONE
     elseif npc.Variant == REVEL.ENT.PINECONE.variant then
 
@@ -246,7 +248,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
         if not data.init then
             data.state = "Idle"
             npc.EntityCollisionClass = EntityCollisionClass.ENTCOLL_PLAYEROBJECTS
-            npc.GridCollisionClass = EntityGridCollisionClass.GRIDCOLL_WALLS
+            npc.GridCollisionClass = EntityGridCollisionClass.GRIDCOLL_NONE
 
             npc:AddEntityFlags(EntityFlag.FLAG_NO_KNOCKBACK)
             data.init = true
@@ -289,10 +291,9 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
             end
 
             if data.PanicPos then
-                npc.Position = REVEL.Lerp(npc.Position,data.PanicPos,0.4)
+                local pos = REVEL.Lerp(npc.Position,data.PanicPos,0.3)
+                npc.Velocity = pos - npc.Position
             end
-
-            npc.Velocity = Vector.Zero
         end
         
     end

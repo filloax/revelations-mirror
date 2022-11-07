@@ -2612,11 +2612,11 @@ do -- Narcissus 2
         if npc.Variant == REVEL.ENT.NARCISSUS_2.variant and REVEL.room:GetFrameCount() > 5 and not REVEL.game:IsPaused() then
             if not revel.data.run.NarcissusTombDefeated then
                 revel.data.run.NarcissusTombDefeated = true
-                REVEL.SpawnNextMirror(npc)
+                REVEL.MirrorRoom.SpawnNextMirror(npc)
             end
 
-  			if not revel.IsAchievementUnlocked("MIRROR_BOMBS") then
-  				revel.UnlockAchievement("MIRROR_BOMBS")
+  			if not REVEL.IsAchievementUnlocked("MIRROR_BOMBS") then
+  				REVEL.UnlockAchievement("MIRROR_BOMBS")
   			end
 
             for i, megashard in ipairs(Isaac.FindByType(REVEL.ENT.MEGASHARD.id, REVEL.ENT.MEGASHARD.variant, -1, false, false)) do

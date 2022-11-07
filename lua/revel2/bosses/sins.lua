@@ -356,8 +356,10 @@ revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, e, dmg, flag, src
                 local proj = Isaac.Spawn(EntityType.ENTITY_PROJECTILE, ProjectileVariant.PROJECTILE_NORMAL, 0, REVEL.room:GetCenterPos() + RandomVector() * (REVEL.room:GetGridWidth() * 40), Vector.Zero, nil):ToProjectile()
                 proj:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
                 proj.Size = proj.Size * 4
-                proj:GetSprite():Load("gfx/bosses/revel2/aragnid/aragnid_magicball.anm2", true)
-                proj:GetSprite():Play("Idle", true)
+                --proj:GetSprite():Load("gfx/bosses/revel2/aragnid/aragnid_magicball.anm2", true)
+                --proj:GetSprite():Play("Idle", true)
+                proj.Color = Color(1,1,1,1,0.5,0,0.3)
+                proj.Scale = 2.5
                 proj.Height = -20
                 proj.FallingSpeed = 0
                 proj.FallingAccel = -0.1
@@ -367,7 +369,7 @@ revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, e, dmg, flag, src
                 proj:Update()
                 proj.ProjectileFlags = 0
                 proj:GetData().PurpleColor = proj.Color
-                proj.Color = Color(1, 1, 1, 1,conv255ToFloat( 0, 0, 0))
+                --proj.Color = Color(1, 1, 1, 1,conv255ToFloat( 0, 0, 0))
                 proj.EntityCollisionClass = EntityCollisionClass.ENTCOLL_NONE
 
                 return false

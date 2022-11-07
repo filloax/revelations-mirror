@@ -57,7 +57,7 @@ local function GenerateUnlockMenu(item)
 
                 unlockButtons[index] = {str = unlock.menuName, substr = substr, unlockName = name .. "!",
                     tooltip = {spr = {sprite = unlockSprites[name], shadow = true, invisible = false, float = {3, 2.5}, scale = Vector(scaleX, scaleY), width = width, height = height, center = true}},
-                    func = function() if not REVEL.GetShowingAchievement() and revel.IsAchievementUnlocked(name) then
+                    func = function() if not REVEL.GetShowingAchievement() and REVEL.IsAchievementUnlocked(name) then
                         REVEL.AnimateAchievement("gfx/ui/achievement/"..unlock.img, SoundEffect.SOUND_BOOK_PAGE_TURN_12, nil, -1)
                       end
                     end

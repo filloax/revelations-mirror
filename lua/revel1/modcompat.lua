@@ -128,45 +128,21 @@ local function LoadFiendFolioCompat(typeLoaded)
     if not FiendFolio then return end
 
     --Glacier Rooms
-    REVEL.SimpleAddRoomsSet("Glacier", "Glacier", nil, "revel1.ff.glacier_", REVEL.RoomEditors, {"Test"})
-    REVEL.SimpleAddRoomsSet("GlacierSpecial", "GlacierSpecial", nil, "revel1.ff.glacier_special_", REVEL.RoomEditors, {"Test"})
+    local ffRooms = {}
+    for _, name in ipairs(REVEL.RoomEditors) do
+        local rooms = REVEL.GetRoomsIfExistent("revel1.ff.glacier_"..name)
+        if rooms then
+            table.insert(ffRooms,{Name = name.."(FF)", Rooms = rooms})
+        end
+    end
+
+    for _, roomName in ipairs(ffRooms) do
+        REVEL.RoomLists["Glacier"]:AddRooms(roomName)
+    end
 
     --Glacier Reskins
     REVEL.mixin(REVEL.EntityReplacements["Glacier"].Replacements, {
-        [FiendFolio.FF.Wimpy.ID] = {
-            [FiendFolio.FF.Wimpy.Var] = {
-                SPRITESHEET = {
-                    [0] = "reskins/ff/wimpynew_glacier",
-                },
-                SPLAT_COLOR = REVEL.WaterSplatColor
-            }
-        },
-        [FiendFolio.FF.Yawner.ID] = {
-            [FiendFolio.FF.Yawner.Var] = {
-                SPRITESHEET = {
-                    [0] = "reskins/ff/monster_yawnerhead_glacier",
-                    [1] = "reskins/ff/monster_yawnerbody_glacier"
-                },
-                SPLAT_COLOR = REVEL.WaterSplatColor
-            }
-        },
-        [FiendFolio.FF.Weaver.ID] = {
-            [FiendFolio.FF.Weaver.Var] = {
-                SPRITESHEET = {
-                    [0] = "reskins/ff/weaver_glacier",
-                },
-                SPLAT_COLOR = REVEL.WaterSplatColor,
-            }
-        },
-        [FiendFolio.FF.DrinkWorm.ID] = {
-            [FiendFolio.FF.DrinkWorm.Var] = {
-                SPRITESHEET = {
-                    [0] = "reskins/ff/drink_worm_glacier",
-                },
-                SPLAT_COLOR = REVEL.WaterSplatColor,
-            }
-        },
-        [FiendFolio.FF.Drumstick.ID] = {
+        [15] = {
             [FiendFolio.FF.Drumstick.Var] = {
                 SPRITESHEET = {
                     [0] = "reskins/ff/monster_drumstick_glacier",
@@ -174,21 +150,81 @@ local function LoadFiendFolioCompat(typeLoaded)
                 SPLAT_COLOR = REVEL.WaterSplatColor,
             }
         },
-        [FiendFolio.FF.Haunted.ID] = {
+        [115] = {
+            [FiendFolio.FF.Edema.Var] = {
+                SPRITESHEET = {
+                    [0] = "reskins/ff/monster_edema_glacier",
+                },
+                SPLAT_COLOR = REVEL.WaterSplatColor
+            }
+        },
+        [151] = {
+            [FiendFolio.FF.Wimpy.Var] = {
+                SPRITESHEET = {
+                    [0] = "reskins/ff/wimpynew_glacier",
+                },
+                SPLAT_COLOR = REVEL.WaterSplatColor
+            }
+        },
+        [155] = {
+            [FiendFolio.FF.Weaver.Var] = {
+                SPRITESHEET = {
+                    [0] = "reskins/ff/weaver_glacier",
+                },
+                SPLAT_COLOR = REVEL.WaterSplatColor,
+            }
+        },
+        [160] = {
             [FiendFolio.FF.Haunted.Var] = {
                 SPRITESHEET = {
                     [0] = "reskins/ff/monster_hauntedbody_glacier",
                     [1] = "reskins/ff/monster_hauntedhead_glacier"
                 },
                 SPLAT_COLOR = REVEL.WaterSplatColor
+            },
+            [FiendFolio.FF.Yawner.Var] = {
+                SPRITESHEET = {
+                    [0] = "reskins/ff/monster_yawnerhead_glacier",
+                    [1] = "reskins/ff/monster_yawnerbody_glacier"
+                },
+                SPLAT_COLOR = REVEL.WaterSplatColor
+            },
+            [FiendFolio.FF.Slim.Var] = {
+                [0] = {
+                    SPRITESHEET = {
+                        [0] = "reskins/ff/slim_full_glacier",
+                        [1] = "reskins/ff/slim_full_glacier",
+                    },
+                    SPLAT_COLOR = REVEL.WaterSplatColor
+                },
+                [2] = {
+                    SPRITESHEET = {
+                        [0] = "reskins/ff/limb_glacier",
+                    },
+                    SPLAT_COLOR = REVEL.WaterSplatColor
+                },
+            },
+            [FiendFolio.FF.Meatwad.Var] = {
+                SPRITESHEET = {
+                    [0] = "reskins/ff/meatwad_glacier",
+                },
+                SPLAT_COLOR = REVEL.WaterSplatColor
             }
         },
-        [FiendFolio.FF.Fish.ID] = {
+        [450] = {
             [FiendFolio.FF.Fish.Var] = {
                 SPRITESHEET = {
                     [0] = "reskins/ff/fishygaper_glacier",
                 },
                 SPLAT_COLOR = REVEL.WaterSplatColor
+            }
+        },
+        [666] = {
+            [FiendFolio.FF.DrinkWorm.Var] = {
+                SPRITESHEET = {
+                    [0] = "reskins/ff/drink_worm_glacier",
+                },
+                SPLAT_COLOR = REVEL.WaterSplatColor,
             }
         },
     }, true)

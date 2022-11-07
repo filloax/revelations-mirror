@@ -189,6 +189,7 @@ StageAPI.AddCallback("Revelations", RevCallbacks.NPC_UPDATE_INIT, 1, function(np
 		StageAPI.ChangeRoomGfx(REVEL.GlacierChillFreezerBurnRoomGfx)
 		npc.MaxHitPoints = data.bal.MaxHP
 		npc.HitPoints = data.bal.MaxHP
+		npc:AddEntityFlags(EntityFlag.FLAG_NO_STATUS_EFFECTS)
 		REVEL.SetScaledBossHP(npc)
 		REVEL.WendyInRoomLoad = true
 
@@ -1626,10 +1627,10 @@ revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, e, dmg, flag, src
 		
 		if not data.IsChampion then
 			if e.HitPoints - dmg - REVEL.GetDamageBuffer(e) 
-					<= e.MaxHitPoints/3*2 and not data.SpikeyTime then -- on 2/3 health, start spikey time
+					<= e.MaxHitPoints*0.7 and not data.SpikeyTime then -- on 2/3 health, start spikey time
 				data.SpikeyTime = "Active"
 			elseif e.HitPoints - dmg - REVEL.GetDamageBuffer(e) 
-					<= e.MaxHitPoints/3 and not data.WhirlwindTime then -- on 1/3 health, start whirlwind
+					<= e.MaxHitPoints*0.4 and not data.WhirlwindTime then -- on 1/3 health, start whirlwind
 				data.WhirlwindTime = "Active"
 			end
 		end

@@ -116,9 +116,13 @@ do
             return
         end
 
+        if not (e:ToNPC() and e:ToNPC():IsBoss()) then
+            return
+        end
+
         for _, champAchievement in pairs(champAchievements) do
 
-            if not revel.IsAchievementUnlocked(champAchievement.Name) then
+            if not REVEL.IsAchievementUnlocked(champAchievement.Name) then
                 local unbeatenBosses = false
                 for i, boss in ipairs(champAchievement.Bosses) do
                     local name = boss.Name
@@ -127,7 +131,7 @@ do
                     revel.data.BossesBeaten[name] = revel.data.BossesBeaten[name] or isChapterBoss
                     -- REVEL.DebugToConsole(name, isChapterBoss, e.Type, e.Variant )
 
-                    if not (revel.data.BossesBeaten[name] or revel.data.BossesBeaten[OldGlacierBossNames[name]]) then
+                    if not (revel.data.BossesBeaten[name]) then
                         unbeatenBosses = true
                     end
 
@@ -135,7 +139,7 @@ do
                 end
 
                 if not unbeatenBosses then
-                    revel.UnlockAchievement(champAchievement.Name)
+                    REVEL.UnlockAchievement(champAchievement.Name)
                 end
             end
 
@@ -171,7 +175,7 @@ do
                 return false
             end
 
-            -- if not revel.IsAchievementUnlocked(champAchievement.Name) then
+            -- if not REVEL.IsAchievementUnlocked(champAchievement.Name) then
             --     local champBosses = StageAPI.CountLayoutEntities(layout, champAchievement.LayoutFilter)
             --     if champBosses > 0 then
             --         return false
@@ -222,7 +226,7 @@ do
         end
 
         for stage, champAchievement in pairs(champAchievements) do
-            if revel.IsAchievementUnlocked(champAchievement.Name)
+            if REVEL.IsAchievementUnlocked(champAchievement.Name)
             and REVEL.some(champAchievement.LayoutFilter, function(param)
                 return StageAPI.DoesEntityDataMatchParameters(param, npc)
             end) then

@@ -23,8 +23,8 @@ end
 
 local function characterUnlockPlayerUpdate(_, player)
     if REVEL.room:IsClear() and REVEL.room:GetType() == RoomType.ROOM_BOSS then
-        local type = player:GetPlayerType()
-        local unlocks = CharacterUnlocks[type]
+        local ptype = player:GetPlayerType()
+        local unlocks = CharacterUnlocks[ptype]
         if not unlocks then
             for _, unlockSet in pairs(CharacterUnlocks) do
                 if unlockSet.IsPlayerCheck and unlockSet.IsPlayerCheck(player) then
@@ -37,12 +37,21 @@ local function characterUnlockPlayerUpdate(_, player)
         if unlocks then
             local stage, stageType = REVEL.level:GetStage(), REVEL.level:GetStageType()
             for _, unlock in ipairs(unlocks) do
-                if not revel.IsAchievementUnlocked(unlock.Unlock) then
-                    if not unlock.IsGreed or REVEL.game:IsGreedMode() then
-                        if (stage == unlock.Stage or (unlock.StageIfXL and HasBit(REVEL.level:GetCurses(), LevelCurse.CURSE_OF_LABYRINTH) and stage == unlock.StageIfXL and REVEL.room:IsCurrentRoomLastBoss())) and (not unlock.StageType or stageType == unlock.StageType) then
-                            revel.UnlockAchievement(unlock.Unlock)
-                        end
-                    end
+                if not REVEL.IsAchievementUnlocked(unlock.Unlock)
+                and (not unlock.IsGreed or REVEL.game:IsGreedMode())
+                and (
+                    stage == unlock.Stage 
+                    or (
+                        unlock.StageIfXL 
+                        and HasBit(REVEL.level:GetCurses(), LevelCurse.CURSE_OF_LABYRINTH) 
+                        and stage == unlock.StageIfXL 
+                        and REVEL.room:IsCurrentRoomLastBoss()
+                    )
+                ) 
+                and (not unlock.StageType or stageType == unlock.StageType)
+                then
+                    REVEL.DebugLog(unlock)
+                    REVEL.UnlockAchievement(unlock.Unlock)
                 end
             end
         end

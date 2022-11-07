@@ -15,13 +15,13 @@
     </entity>
 
     <!-- Snow Flake -->
-    <entity anm2path="monsters/revel1/snowflake.anm2" baseHP="1" boss="0" champion="0" collisionDamage="1" collisionMass="20" collisionRadius="10" friction="1" id="624" name="Snow Flake" gridCollision="none" numGridCollisionPoints="24" shadowSize="15" stageHP="0" variant="541" portrait="65">
+    <entity anm2path="monsters/revel1/snowflake.anm2" baseHP="5" boss="0" champion="0" collisionDamage="1" collisionMass="20" collisionRadius="10" friction="1" id="624" name="Snow Flake" gridCollision="none" numGridCollisionPoints="24" shadowSize="15" stageHP="0" variant="541" portrait="65">
         <bestiary transform="0,-10,1" anim="SnowFlake1"/>
         <gibs amount="3" blood="2" bone="0" eye="1" gut="0" large="0" />
     </entity>
 
     <!-- Big Snow Flake -->
-    <entity anm2path="monsters/revel1/snowflake_big.anm2" baseHP="5" boss="0" champion="0" collisionDamage="1" collisionMass="20" collisionRadius="12" friction="1" id="624" name="Big Snow Flake" gridCollision="none" numGridCollisionPoints="24" shadowSize="12" stageHP="0" variant="542" portrait="6">
+    <entity anm2path="monsters/revel1/snowflake_big.anm2" baseHP="10" boss="0" champion="0" collisionDamage="1" collisionMass="20" collisionRadius="12" friction="1" id="624" name="Big Snow Flake" gridCollision="none" numGridCollisionPoints="24" shadowSize="12" stageHP="0" variant="542" portrait="6">
         <bestiary transform="0,-10,1" anim="SnowFlake1"/>
         <gibs amount="3" blood="2" bone="0" eye="1" gut="0" large="0" />
     </entity>
@@ -174,7 +174,7 @@
     </entity>
 
     <!-- Hice -->
-    <entity anm2path="monsters/revel1/hice.anm2" reroll="true" baseHP="13" boss="0" champion="1" collisionDamage="0" collisionMass="7" collisionRadius="13" friction="1" id="22" name="Hice" numGridCollisionPoints="12" shadowSize="14" stageHP="0" variant="541" portrait="31">
+    <entity anm2path="monsters/revel1/hice.anm2" reroll="true" baseHP="14" boss="0" champion="1" collisionDamage="0" collisionMass="7" collisionRadius="13" friction="1" id="22" name="Hice" numGridCollisionPoints="12" shadowSize="14" stageHP="0" variant="541" portrait="31">
         <bestiary transform="0,0,1" anim="WalkVert" overlay="HeadWalk"/>
         <gibs amount="6" blood="1" bone="1" eye="0" gut="1" large="0" />
         <preload-snd id="143" /> <!-- SOUND_SCARED_WHIMPER -->
@@ -258,13 +258,13 @@
     </entity>
 
     <!-- Rolling Snowball -->
-    <entity id="485" variant="541" name="Rolling Snowball" reroll="true" baseHP="10" stageHP="0" boss="0" champion="0" collisionDamage="1" collisionMass="6" collisionRadius="10" friction="1" numGridCollisionPoints="12" shadowSize="12" portrait="55" anm2path="monsters/revel1/rolling_snowball.anm2">
+    <entity id="485" variant="541" name="Rolling Snowball" reroll="true" baseHP="22" stageHP="0" boss="0" champion="0" collisionDamage="1" collisionMass="6" collisionRadius="10" friction="1" numGridCollisionPoints="12" shadowSize="12" portrait="55" anm2path="monsters/revel1/rolling_snowball.anm2">
         <bestiary transform="0,0,1" anim="Roll V Small"/>
         <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" poop="0" />
     </entity>
 
     <!-- Snot Rocket -->
-    <entity id="485" variant="542" name="Snot Rocket" reroll="true" baseHP="10" stageHP="0" boss="0" champion="0" collisionDamage="1" collisionMass="6" collisionRadius="10" friction="1" numGridCollisionPoints="12" shadowSize="12" portrait="103" anm2path="monsters/revel1/rolling_snotball.anm2">
+    <entity id="485" variant="542" name="Snot Rocket" reroll="true" baseHP="22" stageHP="0" boss="0" champion="0" collisionDamage="1" collisionMass="6" collisionRadius="10" friction="1" numGridCollisionPoints="12" shadowSize="12" portrait="103" anm2path="monsters/revel1/rolling_snotball.anm2">
         <bestiary transform="0,0,1" anim="Roll V Small"/>
         <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" poop="0" />
     </entity>
@@ -381,7 +381,7 @@
     </entity>
 
     <!-- Iced Hive -->
-    <entity anm2path="monsters/revel1/iced_hive.anm2" reroll="true" baseHP="20" boss="0" champion="1" collisionDamage="0" collisionMass="7" collisionRadius="13" friction="1" id="489" name="Iced Hive" numGridCollisionPoints="12" shadowSize="14" stageHP="0" variant="541" portrait="92">
+    <entity anm2path="monsters/revel1/iced_hive.anm2" reroll="true" baseHP="14" boss="0" champion="1" collisionDamage="0" collisionMass="7" collisionRadius="13" friction="1" id="489" name="Iced Hive" numGridCollisionPoints="12" shadowSize="14" stageHP="0" variant="541" portrait="92">
         <bestiary transform="0,0,1" anim="WalkVert"/>
         <gibs amount="6" blood="1" bone="1" eye="0" gut="1" large="0" />
         <preload-snd id="143" /> <!-- SOUND_SCARED_WHIMPER -->
@@ -559,19 +559,19 @@
     </entity>
 
     <!-- Sandbip -->
-    <entity anm2path="monsters/revel2/sandbip.anm2" reroll="false" baseHP="9" boss="0" champion="0" collisionDamage="1" collisionMass="10" collisionRadius="6" friction="1" id="503" name="Sandbip" numGridCollisionPoints="12" shadowSize="0" stageHP="0" variant="542" portrait="56">
+    <entity anm2path="monsters/revel2/sandbip.anm2" reroll="false" baseHP="9" boss="0" champion="0" collisionDamage="1" collisionMass="10" collisionRadius="10" friction="1" id="503" name="Sandbip" numGridCollisionPoints="12" shadowSize="0" stageHP="0" variant="542" portrait="56">
         <bestiary transform="0,0,1" anim="Idle"/>
         <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
     </entity>
 
     <!-- Demobip -->
-    <entity anm2path="monsters/revel2/demobip.anm2" reroll="false" baseHP="9" boss="0" champion="0" collisionDamage="1" collisionMass="10" collisionRadius="6" friction="1" id="503" name="Demobip" numGridCollisionPoints="12" shadowSize="0" stageHP="0" variant="543" portrait="18">
+    <entity anm2path="monsters/revel2/demobip.anm2" reroll="false" baseHP="9" boss="0" champion="0" collisionDamage="1" collisionMass="10" collisionRadius="10" friction="1" id="503" name="Demobip" numGridCollisionPoints="12" shadowSize="0" stageHP="0" variant="543" portrait="18">
         <bestiary transform="0,0,1" anim="Idle"/>
         <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
     </entity>
 
     <!-- Bloatbip -->
-    <entity anm2path="monsters/revel2/bloatbip.anm2" reroll="false" baseHP="10" boss="0" champion="0" collisionDamage="1" collisionMass="10" collisionRadius="6" friction="1" id="503" name="Bloatbip" numGridCollisionPoints="12" shadowSize="0" stageHP="0" variant="544" portrait="7">
+    <entity anm2path="monsters/revel2/bloatbip.anm2" reroll="false" baseHP="10" boss="0" champion="0" collisionDamage="1" collisionMass="10" collisionRadius="10" friction="1" id="503" name="Bloatbip" numGridCollisionPoints="12" shadowSize="0" stageHP="0" variant="544" portrait="7">
         <bestiary transform="0,0,1" anim="Idle"/>
         <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
     </entity>
@@ -629,7 +629,7 @@
     <!-- Pyramid Head -->
     <entity anm2path="monsters/revel2/pyramid_head.anm2" reroll="false" baseHP="25" boss="0" champion="0" collisionDamage="0" collisionMass="30" collisionRadius="15" friction="1" id="506" name="Pyramid Head" numGridCollisionPoints="12" shadowSize="20" stageHP="0" variant="541" portrait="48" gridCollision="walls">
         <bestiary transform="0,0,1" anim="Walk"/>
-        <gibs amount="10" blood="1" bone="1" eye="0" gut="1" large="1" />
+        <gibs amount="10" blood="1" bone="1" eye="0" gut="1" large="1" rock="1"/>
     </entity>
 
     <!-- Pyramid Head Triangle -->
@@ -785,7 +785,7 @@
     <!-- Necragmancer -->
     <entity id="749" variant="541" name="Necragmancer" baseHP="28" stageHP="0" champion="0" collisionDamage="1" collisionMass="50" collisionRadius="20" friction="1" numGridCollisionPoints="12" shadowSize="16" anm2path="monsters/revel2/necragmancer.anm2" portrait="98">
         <bestiary transform="0,0,1" anim="WalkVert"/>
-        <gibs amount="6" blood="1" bone="1" eye="0" gut="1" large="1" />
+        <gibs amount="10" blood="1" bone="1" eye="0" gut="1" large="1" />
     </entity>
 
     <!-- Necragmancer No Shut Doors -->
@@ -864,24 +864,24 @@
     </entity>
 
     <!-- Cannonbip -->
-    <entity anm2path="monsters/revel2/cannonbip.anm2" reroll="false" baseHP="25" boss="0" champion="0" collisionDamage="1" collisionMass="3" collisionRadius="6" friction="0" id="759" name="Cannonbip" numGridCollisionPoints="12" shadowSize="0" stageHP="0" variant="541" portrait="100">
+    <entity anm2path="monsters/revel2/cannonbip.anm2" reroll="false" baseHP="25" boss="0" champion="0" collisionDamage="1" collisionMass="3" collisionRadius="10" friction="0" id="759" name="Cannonbip" numGridCollisionPoints="12" shadowSize="0" stageHP="0" variant="541" portrait="100">
         <bestiary transform="0,0,1" anim="Idle"/>
         <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
     </entity>
 
     <!-- Cannonbip Projectile -->
-    <entity anm2path="monsters/revel2/cannonbip.anm2" reroll="false" baseHP="0" boss="0" shutdoors="false" champion="0" collisionDamage="1" collisionMass="3" collisionRadius="6" friction="1" id="759" name="Cannonbip Projectile" numGridCollisionPoints="12" shadowSize="16" stageHP="0" variant="541" subtype="10">
+    <entity anm2path="monsters/revel2/cannonbip.anm2" reroll="false" baseHP="0" boss="0" shutdoors="false" champion="0" collisionDamage="1" collisionMass="3" collisionRadius="10" friction="1" id="759" name="Cannonbip Projectile" numGridCollisionPoints="12" shadowSize="16" stageHP="0" variant="541" subtype="10">
         <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
     </entity>
 
     <!-- Snipebip -->
-    <entity anm2path="monsters/revel2/snipebip.anm2" reroll="false" baseHP="12" boss="0" champion="0" collisionDamage="1" collisionMass="3" collisionRadius="6" friction="1" id="755" name="Snipebip" numGridCollisionPoints="12" shadowSize="0" stageHP="0" variant="541" portrait="99">
+    <entity anm2path="monsters/revel2/snipebip.anm2" reroll="false" baseHP="12" boss="0" champion="0" collisionDamage="1" collisionMass="3" collisionRadius="10" friction="1" id="755" name="Snipebip" numGridCollisionPoints="12" shadowSize="0" stageHP="0" variant="541" portrait="99">
         <bestiary transform="0,0,1" anim="Idle"/>
         <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
     </entity>
 
     <!-- Trenchbip -->
-    <entity anm2path="monsters/revel2/trenchbip.anm2" reroll="false" shutdoors="false" baseHP="10" boss="0" champion="0" collisionDamage="1" collisionMass="3" collisionRadius="6" friction="1" id="756" name="Trenchbip" numGridCollisionPoints="12" shadowSize="0" stageHP="0" variant="541" portrait="101">
+    <entity anm2path="monsters/revel2/trenchbip.anm2" reroll="false" shutdoors="false" baseHP="10" boss="0" champion="0" collisionDamage="1" collisionMass="3" collisionRadius="10" friction="1" id="756" name="Trenchbip" numGridCollisionPoints="12" shadowSize="0" stageHP="0" variant="541" portrait="101">
         <bestiary transform="0,0,1" anim="Move"/>
         <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
     </entity>
@@ -950,7 +950,7 @@
     </entity>
 
     <!-- Firecaller (Glacier) -->
-    <entity id="760" variant="542" name="Firecaller (Glacier)" baseHP="12" stageHP="0" champion="0" collisionDamage="1" collisionMass="50" collisionRadius="20" friction="1" numGridCollisionPoints="12" shadowSize="16" portrait="25" anm2path="monsters/revel1/firecaller_glacier.anm2">
+    <entity id="760" variant="542" name="Firecaller (Glacier)" baseHP="20" stageHP="0" champion="0" collisionDamage="1" collisionMass="50" collisionRadius="20" friction="1" numGridCollisionPoints="12" shadowSize="16" portrait="25" anm2path="monsters/revel1/firecaller_glacier.anm2">
         <bestiary transform="0,0,1" anim="WalkVert"/>
         <gibs amount="6" blood="1" bone="1" eye="0" gut="1" large="1" />
     </entity>
@@ -1319,25 +1319,25 @@
     </entity>
     
     <!-- Draugr -->
-    <entity anm2path="monsters/revel1/draugr/draugr.anm2" id="735" variant="541" name="Draugr" reroll="true" baseHP="10" boss="0" champion="0" collisionDamage="1" collisionMass="5" collisionRadius="13" friction="1" numGridCollisionPoints="12" shadowSize="14" stageHP="0" portrait="19">
+    <entity anm2path="monsters/revel1/draugr/draugr.anm2" id="735" variant="541" name="Draugr" reroll="true" baseHP="16" boss="0" champion="0" collisionDamage="1" collisionMass="5" collisionRadius="13" friction="1" numGridCollisionPoints="12" shadowSize="14" stageHP="0" portrait="19">
         <bestiary transform="0,0,1" anim="WalkVert" overlay="WalkVertHead"/>
         <gibs amount="6" blood="0" bone="1" eye="0" gut="0" large="0" />
     </entity>
 
     <!-- Haugr -->
-    <entity anm2path="monsters/revel1/draugr/haugr.anm2" id="735" variant="542" name="Haugr" reroll="true" baseHP="20" boss="0" champion="0" collisionDamage="1" collisionMass="10" collisionRadius="13" friction="1" numGridCollisionPoints="12" shadowSize="16" stageHP="0" portrait="30">
+    <entity anm2path="monsters/revel1/draugr/haugr.anm2" id="735" variant="542" name="Haugr" reroll="true" baseHP="30" boss="0" champion="0" collisionDamage="1" collisionMass="10" collisionRadius="13" friction="1" numGridCollisionPoints="12" shadowSize="16" stageHP="0" portrait="30">
         <bestiary transform="0,0,1" anim="WalkVert" overlay="WalkVertHead"/>
         <gibs amount="6" blood="0" bone="1" eye="0" gut="0" large="0" />
     </entity>
 
     <!-- Jaugr -->
-    <entity anm2path="monsters/revel1/draugr/jaugr.anm2" id="735" variant="543" name="Jaugr" reroll="true" baseHP="30" boss="0" champion="0" collisionDamage="1" collisionMass="40" collisionRadius="15" friction="1" numGridCollisionPoints="12" shadowSize="17" stageHP="0" portrait="35">
+    <entity anm2path="monsters/revel1/draugr/jaugr.anm2" id="735" variant="543" name="Jaugr" reroll="true" baseHP="40" shieldStrength="5" boss="0" champion="0" collisionDamage="1" collisionMass="40" collisionRadius="15" friction="1" numGridCollisionPoints="12" shadowSize="17" stageHP="0" portrait="35">
         <bestiary transform="0,0,1" anim="PunchFreeze_Chillo"/>
         <gibs amount="6" blood="0" bone="1" eye="0" gut="0" large="0" />
     </entity>
 
     <!-- Sasquatch -->
-    <entity id="614" variant="541" name="Sasquatch" baseHP="25" stageHP="0" boss="0" champion="0" collisionDamage="1" collisionMass="70" collisionRadius="19" friction="1" numGridCollisionPoints="12" shadowSize="23" anm2path="monsters/revel1/sasquatch.anm2" portrait="61">
+    <entity id="614" variant="541" name="Sasquatch" baseHP="30" stageHP="0" boss="0" champion="0" collisionDamage="1" collisionMass="70" collisionRadius="19" friction="1" numGridCollisionPoints="12" shadowSize="23" anm2path="monsters/revel1/sasquatch.anm2" portrait="61">
         <bestiary transform="0,0,1" anim="MoveDown"/>
         <gibs amount="12" blood="1" bone="1" eye="1" gut="2" large="1" />
     </entity>
@@ -1392,7 +1392,7 @@
 
 
     <!-- Huffpuff -->
-    <entity id="658" variant="541" name="Huffpuff" anm2path="monsters/revel1/huffpuff.anm2" reroll="true" baseHP="18" stageHP="0" boss="0" champion="0" collisionDamage="1" collisionMass="6" collisionRadius="13" friction="1" numGridCollisionPoints="8" shadowSize="14" gridCollision="walls" portrait="32">
+    <entity id="658" variant="541" name="Huffpuff" anm2path="monsters/revel1/huffpuff.anm2" reroll="true" baseHP="22" stageHP="0" boss="0" champion="0" collisionDamage="1" collisionMass="6" collisionRadius="13" friction="1" numGridCollisionPoints="8" shadowSize="14" gridCollision="walls" portrait="32">
         <bestiary transform="0,0,1" anim="HatTrick"/>
         <gibs amount="6" blood="1" bone="1" eye="0" gut="1" large="0" />
     </entity>
@@ -1404,7 +1404,7 @@
     </entity>
 
     <!-- Emperor -->
-    <entity id="659" name="Emperor" anm2path="monsters/revel1/emperor.anm2" reroll="true" baseHP="14" boss="0" champion="0" collisionDamage="1" collisionMass="8" collisionRadius="13" friction="1" numGridCollisionPoints="12" shadowSize="14" stageHP="0" variant="541" portrait="23">
+    <entity id="659" name="Emperor" anm2path="monsters/revel1/emperor.anm2" reroll="true" baseHP="20" boss="0" champion="0" collisionDamage="1" collisionMass="8" collisionRadius="13" friction="1" numGridCollisionPoints="12" shadowSize="14" stageHP="0" variant="541" portrait="23">
         <bestiary transform="0,0,1" anim="WalkDown"/>
         <gibs amount="6" blood="1" bone="1" eye="1" gut="1" large="0" />
     </entity>

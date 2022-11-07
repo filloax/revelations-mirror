@@ -729,8 +729,10 @@ local function ShootMagicBall(npc, data, addHeight, position, bloodRain, offset)
     local proj = Isaac.Spawn(EntityType.ENTITY_PROJECTILE, ProjectileVariant.PROJECTILE_NORMAL, 0, position or npc.Position, vel, nil):ToProjectile()
     proj:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
     proj.Size = proj.Size * 4
-    proj:GetSprite():Load("gfx/bosses/revel2/aragnid/aragnid_magicball.anm2", true)
-    proj:GetSprite():Play("Idle", true)
+    --proj:GetSprite():Load("gfx/bosses/revel2/aragnid/aragnid_magicball.anm2", true)
+    --proj:GetSprite():Play("Idle", true)
+    proj.Color = Color(1,1,1,1,0.5,0,0.3)
+    proj.Scale = 2.5
     proj.Height = height
 
     if bloodRain then
@@ -760,7 +762,7 @@ local function ShootMagicBall(npc, data, addHeight, position, bloodRain, offset)
     proj:Update()
     proj.ProjectileFlags = 0
     proj:GetData().PurpleColor = proj.Color
-    proj.Color = visible
+    --proj.Color = visible
 end
 
 REVEL.PushBlacklist[REVEL.ENT.ARAGNID.id] = {REVEL.ENT.ARAGNID.variant}

@@ -62,8 +62,8 @@ local function miscglacierPostNewLevel()
         revel.data.run.isGlacier = true
     elseif revel.data.run.isGlacier then
         revel.data.run.isGlacier = nil
-        if not revel.IsAchievementUnlocked("ICETRAY") then
-            revel.UnlockAchievement("ICETRAY")
+        if not REVEL.IsAchievementUnlocked("ICETRAY") then
+            REVEL.UnlockAchievement("ICETRAY")
         end
     end
 end

@@ -116,8 +116,8 @@ REVEL.AddShrine("Glacier", {
 
         REVEL.Glacier.SetFootprintsEnabledForRoom(false)
 
-        if not revel.IsAchievementUnlocked("WILLO") then
-            revel.UnlockAchievement("WILLO")
+        if not REVEL.IsAchievementUnlocked("WILLO") then
+            REVEL.UnlockAchievement("WILLO")
         end
         REVEL.ENT.GRILL_O_WISP:spawn(REVEL.room:GetCenterPos(), Vector.Zero, nil)
     end

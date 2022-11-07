@@ -14,7 +14,7 @@ revel:AddCallback(ModCallbacks.MC_EXECUTE_CMD, function(_, cmd, params)
             print("Listing all unlockables...")
             for name, unlockable in pairs(REVEL.UNLOCKABLES) do
                 if name then
-                    if revel.IsAchievementUnlocked(name) then
+                    if REVEL.IsAchievementUnlocked(name) then
                         print(" \"" .. name ..  "\" (unlocked)")
                     else
                         print(" \"" .. name ..  "\" (locked)")
@@ -25,8 +25,8 @@ revel:AddCallback(ModCallbacks.MC_EXECUTE_CMD, function(_, cmd, params)
             print("Unlocking all unlockables...")
             for name, unlockable in pairs(REVEL.UNLOCKABLES) do
                 if name then
-                    if not revel.IsAchievementUnlocked(name) then
-                        revel.UnlockAchievement(name, true)
+                    if not REVEL.IsAchievementUnlocked(name) then
+                        REVEL.UnlockAchievement(name, true)
                         print(" Unlocked \"" .. name ..  "\"")
                     else
                         print(" \"" .. name ..  "\" is already unlocked")
@@ -34,8 +34,8 @@ revel:AddCallback(ModCallbacks.MC_EXECUTE_CMD, function(_, cmd, params)
                 end
             end
         elseif REVEL.UNLOCKABLES[params] then
-            if not revel.IsAchievementUnlocked(params) then
-                revel.UnlockAchievement(params, true)
+            if not REVEL.IsAchievementUnlocked(params) then
+                REVEL.UnlockAchievement(params, true)
                 print("Unlocked \"" .. params ..  "\"")
             else
                 print("\"" .. params ..  "\" is already unlocked")
@@ -49,7 +49,7 @@ revel:AddCallback(ModCallbacks.MC_EXECUTE_CMD, function(_, cmd, params)
             print("Listing all unlockables...")
             for name, unlockable in pairs(REVEL.UNLOCKABLES) do
                 if name then
-                    if revel.IsAchievementUnlocked(name) then
+                    if REVEL.IsAchievementUnlocked(name) then
                         print(" \"" .. name ..  "\" (unlocked)")
                     else
                         print(" \"" .. name ..  "\" (locked)")
@@ -60,8 +60,8 @@ revel:AddCallback(ModCallbacks.MC_EXECUTE_CMD, function(_, cmd, params)
             print("Locking all unlockables...")
             for name, unlockable in pairs(REVEL.UNLOCKABLES) do
                 if name then
-                    if revel.IsAchievementUnlocked(name) then
-                        revel.LockAchievement(name)
+                    if REVEL.IsAchievementUnlocked(name) then
+                        REVEL.LockAchievement(name)
                         print(" Locked \"" .. name ..  "\"")
                     else
                         print(" \"" .. name ..  "\" is already locked")
@@ -69,8 +69,8 @@ revel:AddCallback(ModCallbacks.MC_EXECUTE_CMD, function(_, cmd, params)
                 end
             end
         elseif REVEL.UNLOCKABLES[params] then
-            if revel.IsAchievementUnlocked(params) then
-                revel.LockAchievement(params)
+            if REVEL.IsAchievementUnlocked(params) then
+                REVEL.LockAchievement(params)
                 print("Locked \"" .. params ..  "\"")
             else
                 print("\"" .. params ..  "\" is already locked")
@@ -81,11 +81,11 @@ revel:AddCallback(ModCallbacks.MC_EXECUTE_CMD, function(_, cmd, params)
     end
 end)
 
-function revel.IsAchievementUnlocked(name)
+function REVEL.IsAchievementUnlocked(name)
     return revel.data.unlockValues[name] == true
 end
 
-function revel.UnlockAchievement(name, hidden, sound)
+function REVEL.UnlockAchievement(name, hidden, sound)
     revel.data.unlockValues[name] = true
     if not hidden then
     -- revel.PlayUnlockAnimation(REVEL.UNLOCKABLES[name].img)
@@ -94,7 +94,7 @@ function revel.UnlockAchievement(name, hidden, sound)
     REVEL.DebugToString("Revelations: Unlocked "..name.."!")
 end
 
-function revel.LockAchievement(name)
+function REVEL.LockAchievement(name)
     revel.data.unlockValues[name] = false
 end
 
@@ -109,7 +109,7 @@ function REVEL.AddItemRerollCondition(item, func)
 end
 
 function REVEL.ShouldRerollUnlock(itemId, name)
-    if not revel.IsAchievementUnlocked(name) then return true end
+    if not REVEL.IsAchievementUnlocked(name) then return true end
 
     return REVEL.some(revel.itemRerollConditions, function(func)
         for i,p in ipairs(REVEL.players) do
@@ -150,7 +150,7 @@ end
 
 local function disableLockedItems()
     for name,a in pairs(REVEL.UNLOCKABLES) do
-        if a.item and not revel.IsAchievementUnlocked(name) then
+        if a.item and not REVEL.IsAchievementUnlocked(name) then
             if a.isTrinket then
                 REVEL.pool:RemoveTrinket(a.item)
             else

@@ -108,7 +108,7 @@ local function dynamicWeightsPostGetCollectible(_, itemID, pool, decrease, seed)
         if not onlyCheckLocked then
             if revel.data.dynamicItemWeights ~= 0 then
                 if not pickedUp then
-                    if unlockableItemData and revel.IsAchievementUnlocked(unlockableName) then
+                    if unlockableItemData and REVEL.IsAchievementUnlocked(unlockableName) then
                         chanceToReroll = chanceToReroll - Cfg.ChanceIncrease.NeverPickedUp.Unlockable
                     else
                         chanceToReroll = chanceToReroll - Cfg.ChanceIncrease.NeverPickedUp.Normal
@@ -116,7 +116,7 @@ local function dynamicWeightsPostGetCollectible(_, itemID, pool, decrease, seed)
                 end
 
                 if not wonWith then
-                    if unlockableItemData and revel.IsAchievementUnlocked(unlockableName) then
+                    if unlockableItemData and REVEL.IsAchievementUnlocked(unlockableName) then
                         chanceToReroll = chanceToReroll - Cfg.ChanceIncrease.NeverWonWith.Unlockable
                     else
                         chanceToReroll = chanceToReroll - Cfg.ChanceIncrease.NeverWonWith.Normal
@@ -127,7 +127,7 @@ local function dynamicWeightsPostGetCollectible(_, itemID, pool, decrease, seed)
             chanceToReroll = 0
         end
 
-        if unlockableItemData and not revel.IsAchievementUnlocked(unlockableName) then
+        if unlockableItemData and not REVEL.IsAchievementUnlocked(unlockableName) then
             chanceToReroll = 1
             REVEL.pool:AddRoomBlacklist(itemID) --prevent from being rolled again, to prevent infinite recursion
         end

@@ -15,6 +15,7 @@ StageAPI.AddCallback("Revelations", StageAPICallbacks.PRE_ROOM_LAYOUT_CHOOSE, -5
 
     if REVEL.STAGE.Glacier:IsStage() 
     and newRoom:GetType() == RoomType.ROOM_DEFAULT 
+    and REVEL.room:GetType() == RoomType.ROOM_DEFAULT -- check base room, for sarah reasons
     and newRoom.Shape == RoomShape.ROOMSHAPE_1x1 
     and not StageAPI.InExtraRoom() 
     and not revel.data.run.seenDanteSatan then

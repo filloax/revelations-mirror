@@ -20,6 +20,7 @@ return {
     {"deadinfinity", "coder", tooltip = {"please fight", "all of our", "lovely", "bosses"}},
     {"ferrium", "coder", tooltip = {"jd was here"}},
     {"gavitro", "coder"},
+    {"guwahavel", "coder"},
     {"hippocrunchy", "coder", tooltip = {"i paid them 5", "bones to put", "my name", "in here"}},
     {"piber", "coder", tooltip = {"egg"}},
 

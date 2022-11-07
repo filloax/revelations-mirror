@@ -55,9 +55,9 @@ revel:AddCallback(ModCallbacks.MC_POST_NPC_INIT, function(_, npc)
     sprite.Rotation = 0 + math.random(1, 360)
     sprite.Offset = Vector(0, -20)
 
-    data.MaxMoveSpeed = 2
+    data.MaxMoveSpeed = 1.5
     if variant == REVEL.ENT.SNOW_FLAKE_BIG.variant then
-        data.MaxMoveSpeed = 1.5
+        data.MaxMoveSpeed = 1.25
     end
 
     data.CurrentMoveSpeed = 0
@@ -104,9 +104,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
             REVEL.FollowPath(npc, data.CurrentMoveSpeed, data.Path, true, 0.7, false, true)
         else
             local direction = npc:GetPlayerTarget().Position - npc.Position
-            if variant == REVEL.ENT.SNOW_FLAKE_BIG.variant then
-                npc.Velocity = npc.Velocity * 0.7 + direction:Resized(data.CurrentMoveSpeed)
-            end
+            npc.Velocity = npc.Velocity * 0.7 + direction:Resized(data.CurrentMoveSpeed)
         end
     elseif data.MoveState == "Projectile" then
         if not REVEL.room:IsPositionInRoom(npc.Position, data.MaxMarginOutsideRoom) then
@@ -202,7 +200,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
             end
         end
 
-        if data.MoveState ~= "Orbit" and not data.CannotMerge then
+        if data.MoveState ~= "Orbit" and npc.FrameCount > 20 and not data.CannotMerge then
             local flakes = Isaac.FindByType(REVEL.ENT.SNOW_FLAKE.id, -1, -1, true, true)
             for _, flake in ipairs(flakes) do
                 if not flake:GetData().CannotMerge and flake:GetData().MoveState ~= "Orbit" and GetPtrHash(flake) ~= GetPtrHash(npc) and flake.Variant == variant then
@@ -264,6 +262,7 @@ revel:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, function(_, npc)
 
     REVEL.sfx:Stop(SoundEffect.SOUND_DEATH_BURST_SMALL)
     REVEL.sfx:Play(REVEL.SFX.BREAKING_SNOWFLAKE, 1, 0, false, 1)
+    REVEL.sfx:Play(SoundEffect.SOUND_DEATH_BURST_SMALL, 0.5, 0, false, 1.2)
 end, REVEL.ENT.SNOW_FLAKE.id)
 
 

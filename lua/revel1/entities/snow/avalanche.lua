@@ -23,6 +23,7 @@ local function SpawnEntity(npc, spawnData)
     local ent = REVEL.SpawnEntCoffin(spawnData.Type, spawnData.Variant, 0, npc.Position + REVEL.VEC_DOWN * 2, REVEL.VEC_DOWN:Rotated(math.random(bal.AngleVariation.Min, bal.AngleVariation.Max) * data.AngleMulti) * 3, npc)
     ent.SpawnerEntity = npc
     REVEL.ScaleEntity(ent, {SpriteScale = bal.EnemySizeScale, SizeScale = bal.EnemySizeScale, HealthScale = bal.EnemyHealthScale, ScaleChildren = true})
+    return EntityPtr(ent)
 end
 
 revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
@@ -35,6 +36,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
         npc.SplatColor = REVEL.SnowSplatColor
 
         data.Cooldown = math.random(bal.SpawnCooldown.Min, bal.SpawnCooldown.Max) / 2
+        data.CooldownAdjust = 0
         data.Position = npc.Position
 
         local currentRoom = StageAPI.GetCurrentRoom()
@@ -98,8 +100,14 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
             end
             REVEL.game:ShakeScreen(8)
             local toSpawn = math.max(0, math.min(spawned + spawnsPerAnim, spawnCap) - spawned)
+            data.CooldownAdjust = 0
             for i = 1, toSpawn do
-                SpawnEntity(npc, data.SpawnData)
+                local ent = SpawnEntity(npc, data.SpawnData)
+                if ent and ent.Ref then
+                    if ent.Ref.MaxHitPoints > 10 then
+                        data.CooldownAdjust = data.CooldownAdjust + (ent.Ref.MaxHitPoints * 5)
+                    end
+                end
             end
         end
     elseif sprite:IsPlaying("MouthOpenLong") then
@@ -123,7 +131,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
     elseif sprite:IsFinished(anim) then
         sprite:Play("Idle", true)
         npc.EntityCollisionClass = EntityCollisionClass.ENTCOLL_ALL
-        data.Cooldown = math.random(bal.SpawnCooldown.Min, bal.SpawnCooldown.Max)
+        data.Cooldown = math.random(bal.SpawnCooldown.Min, bal.SpawnCooldown.Max) + data.CooldownAdjust
     elseif sprite:IsPlaying("Idle") then
         if spawned < spawnCap or data.Cooldown > 10 then
             data.Cooldown = data.Cooldown - 1

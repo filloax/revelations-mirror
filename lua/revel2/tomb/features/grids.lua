@@ -42,7 +42,7 @@ StageAPI.AddCallback("Revelations", "POST_OVERRIDDEN_GRID_BREAK", 1, function(gr
         local disableRockSpawn = currentRoom.Metadata:Has{Index = grindex, Name = "Disable Random Special Rock Spawn"}
         if spawnedItem then
             -- bandage baby
-            if revel.IsAchievementUnlocked("BANDAGE_BABY") then
+            if REVEL.IsAchievementUnlocked("BANDAGE_BABY") then
                 Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, REVEL.ITEM.BANDAGE_BABY.id, REVEL.room:GetGridPosition(grindex), Vector.Zero, nil)
             end
         elseif spawnedFart and not REVEL.LocustDestroyedGrids[grindex] and not disableRockSpawn then

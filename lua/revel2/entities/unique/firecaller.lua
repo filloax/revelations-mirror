@@ -294,7 +294,7 @@ revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, e, amount, flags)
         end
 
         if e.HitPoints - amount - REVEL.GetDamageBuffer(e) < 0 and not e:GetData().IsFlame then
-            local heal = REVEL.ENT.FIRECALLER:isEnt(e) and 15 or 7
+            local heal = REVEL.ENT.FIRECALLER:isEnt(e) and 15 or 10
             e.HitPoints = heal + amount
             e:GetData().IsFlame = true
             e:GetSprite():Play("IgniteBecomeFire", true)

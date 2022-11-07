@@ -932,13 +932,17 @@ local function stalagmight_NpcUpdate(_, npc)
             elseif not colliding then
                 local l = npc.Velocity:Length()
                 if not data.Breaking then
-                    if l < 1 then
+                    if l < 0.00001 then
+                        npc.Velocity = Vector.FromAngle(math.random(0, 3) * 90 + 45) * maxMoveSpeed
+                    elseif l < 1 then
                         npc.Velocity = npc.Velocity * (maxMoveSpeed * 0.5 / l)
                     else
                         npc.Velocity = npc.Velocity * data.bal.Rumble.AccelMult --accelerate in case of slowdown
                     end
-                else
+                elseif l > 0.00001 then
                     npc.Velocity = npc.Velocity * (maxMoveSpeed / l)
+                else
+                    npc.Velocity = Vector.FromAngle(math.random(0, 3) * 90 + 45) * maxMoveSpeed
                 end
 
                 if l > 2 then
