@@ -20,7 +20,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
             and npc.EntityCollisionClass > 0
             and npc.Type ~= EntityType.ENTITY_FIREPLACE then
                 local rng = npc:GetDropRNG()
-                if rng:RandomFloat() <= 0.12 or true then
+                if rng:RandomFloat() <= 0.12 then
                     npc:GetData().MemoryCapped = true
                     for i = 0, 10 do
                         npc:GetSprite():ReplaceSpritesheet(i,"gfx/effects/revelcommon/pranshu/even_better/fun_glacier.png")
@@ -55,13 +55,17 @@ revel:AddCallback(ModCallbacks.MC_PRE_NPC_COLLISION, function(_, npc, ent)
             npc:Remove()
 
             local mult = ent:ToPlayer():GetTrinketMultiplier(REVEL.ITEM.MEMORY_CAP.id)
-            
-            ent:GetData().MemoryCapped = {}
-            ent:GetData().MemoryCapped.Timer = 150 + (50 * mult)
-            ent:GetData().MemoryCapped.Sprite = Sprite()
-            ent:GetData().MemoryCapped.Sprite:Load("gfx/effects/revelcommon/player_blackout.anm2",true)
-            ent:GetData().MemoryCapped.Sprite:Play("Idle",true)
-            ent:GetData().MemoryCapped.Sprite.Scale = ent.SpriteScale*1.05
+
+            if ent:GetData().MemoryCapped then
+                ent:GetData().MemoryCapped.Timer = ent:GetData().MemoryCapped.Timer + (50 * mult)
+            else
+                ent:GetData().MemoryCapped = {}
+                ent:GetData().MemoryCapped.Timer = 150 + (50 * mult)
+                ent:GetData().MemoryCapped.Sprite = Sprite()
+                ent:GetData().MemoryCapped.Sprite:Load("gfx/effects/revelcommon/player_blackout.anm2",true)
+                ent:GetData().MemoryCapped.Sprite:Play("Idle",true)
+                ent:GetData().MemoryCapped.Sprite.Scale = ent.SpriteScale*1.05
+            end
 
             REVEL.sfx:Play(SoundEffect.SOUND_EDEN_GLITCH)
 

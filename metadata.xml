@@ -67,7 +67,7 @@ Revelations is intended to be compatible with [url=https://steamcommunity.com/sh
 
 Recently, a limit of the Isaac engine was discovered when [b]too many mods are enabled at once[/b] (especially big ones), leading to sprites being replaced by black squares or becoming transparent after some gameplay. The specific limit isn't known yet, and it doesn't depend on the machine's performance. 
 
-If you get this bug, first try changing the setting "Clear cache every" to "every room" instead of "every level" in the Rev settings. If it doesn't help, try removing some mods and trying again. We and other modders are trying to find a solution at the moment. We still recommend playing with Fiend Folio and other mods if possible, but this limit is hard to work around.
+If you get this bug, first try changing the setting &quot;Clear cache every&quot; to &quot;every room&quot; instead of &quot;every level&quot; in the Rev settings. If it doesn't help, try removing some mods and trying again. We and other modders are trying to find a solution at the moment. We still recommend playing with Fiend Folio and other mods if possible, but this limit is hard to work around.
 
 [h3]Incompatibilities[/h3]
 
@@ -119,7 +119,7 @@ Talk to us on discord!
 [i]Testers, Room makers and Designers[/i] - Al, AnonymousKoala, Boogs, Bullet, Bustin, Creeps, Electoon, Grynn, Jerb, KindaLoveable, Melon, Minichibis, Pasta, Pixelo, PkPseudo, Robby Shenanigans, Sunil B
 
 [i]Special Thanks[/i] - Kilburn, The Isaac Community</description>
-    <version>1.4</version>
+    <version>1.5</version>
     <visibility>Public</visibility>
     <tag id="Lua"/>
     <tag id="Items"/>
