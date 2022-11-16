@@ -90,4 +90,3 @@ end
 Isaac.DebugString("Revelations: Loaded early callbacks!")
 
 end
-REVEL.PcallWorkaroundBreakFunction()

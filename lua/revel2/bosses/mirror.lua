@@ -3123,4 +3123,3 @@ end
 
 Isaac.DebugString("Revelations: Loaded Mirror for Chapter 2!")
 end
-REVEL.PcallWorkaroundBreakFunction()

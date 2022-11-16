@@ -63,12 +63,12 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_TEAR_POOF_INIT, 1,
 end)
 
 -- MYSTERIOUS LIQUID SYNERGY
-StageAPI.AddCallback("Revelations", RevCallbacks.EFFECT_UPDATE_INIT, 1, function(e)
-    if e.Variant == 53 and e:GetLastParent().Type == 1 and
+REVEL.AddEffectInitCallback(function(e)
+    if e:GetLastParent().Type == 1 and
         REVEL.ITEM.FECAL_FREAK:PlayerHasCollectible(REVEL.player) then
         e:GetSprite().Color = Color(1, 1, 0, 1, conv255ToFloat(75, 0, 0))
     end
-end)
+end, EffectVariant.PLAYER_CREEP_GREEN)
 
 revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, function(_, player)
     if REVEL.ITEM.FECAL_FREAK:PlayerHasCollectible(player) then
@@ -132,5 +132,3 @@ revel:AddCallback(ModCallbacks.MC_PRE_USE_ITEM, function(_, itemid, rng, player,
 end)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

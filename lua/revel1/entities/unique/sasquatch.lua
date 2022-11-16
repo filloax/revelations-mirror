@@ -622,5 +622,3 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_ENTITY_AIR_MOVEMENT_LAND, 
 end)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

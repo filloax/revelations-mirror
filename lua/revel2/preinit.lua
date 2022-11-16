@@ -8,6 +8,7 @@ REVEL.AddRoomsIfPossible("Sinami", "Sinami", nil, "revel1.sins.sinami")
 REVEL.SimpleAddRoomsSet("TombSpecial", "TombSpecial", nil, "revel2.tomb_special_", REVEL.RoomEditors, {"Test"})
 REVEL.SimpleAddRoomsSet("TombChallenge", "TombChallenge", nil, "revel2.tomb_challenge_", REVEL.RoomEditors, {"Test"})
 REVEL.SimpleAddRoomsSet("TombBossChallenge", "TombBossChallenge", nil, "revel2.tomb_boss_challenge_", REVEL.RoomEditors, {"Test"})
+REVEL.SimpleAddRoomsSet("TombDune", "TombDune", nil, "revel2.tomb_dune_", REVEL.RoomEditors, {"Test"})
 
 REVEL.Bosses.ChapterTwo = {
     {
@@ -126,5 +127,3 @@ REVEL.AddSinRooms("ChapterTwo", "revel2.sins.", REVEL.RoomEditors)
 
 --REVEL.AddGenericBossFiles(REVEL.Bosses.ChapterTwo, "Revel2Boss", nil, "revel2.bosses.", REVEL.RoomEditors, {"Test"})
 --REVEL.PreloadBossRooms(REVEL.Bosses.ChapterTwo, "Revel2Boss", nil, "revel2.bosses.", REVEL.RoomEditors, {"Test"})
-
-REVEL.PcallWorkaroundBreakFunction()

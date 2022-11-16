@@ -204,5 +204,3 @@ revel:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, function(_,  fam)
 end, REVEL.ENT.LIL_FRIDER.variant)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

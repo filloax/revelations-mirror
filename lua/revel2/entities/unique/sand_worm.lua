@@ -263,5 +263,3 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 end, REVEL.ENT.SAND_WORM.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

@@ -203,5 +203,3 @@ revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, ent, dmg)
 end, REVEL.ENT.SNOWST.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

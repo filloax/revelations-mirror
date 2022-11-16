@@ -1273,5 +1273,3 @@ revel:AddCallback(ModCallbacks.MC_POST_NPC_INIT, function(_, npc)
 end, EntityType.ENTITY_WIDOW)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

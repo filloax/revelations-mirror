@@ -49,4 +49,3 @@ REVEL.RunLoadFunctions(SubLoadFunctions)
 
 Isaac.DebugString("Revelations: Loaded Shrines!")
 end
-REVEL.PcallWorkaroundBreakFunction()

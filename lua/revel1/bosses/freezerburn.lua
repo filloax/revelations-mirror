@@ -1381,5 +1381,3 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
         numFiresToActivate = -1
     end)
 end
-
-REVEL.PcallWorkaroundBreakFunction()

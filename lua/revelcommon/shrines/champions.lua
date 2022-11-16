@@ -142,4 +142,3 @@ end
 revel:AddCallback(ModCallbacks.MC_EXECUTE_CMD, championsExecuteCommand)
 
 end
-REVEL.PcallWorkaroundBreakFunction()

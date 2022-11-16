@@ -23,5 +23,3 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_STAGEAPI_NEW_ROOM_WRAPPER,
 end)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

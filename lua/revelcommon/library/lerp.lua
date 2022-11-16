@@ -317,5 +317,3 @@ function REVEL.LerpAngleDegrees(aStart, aEnd, percent)
 end
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

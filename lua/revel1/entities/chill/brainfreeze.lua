@@ -106,5 +106,3 @@ function (npc, triggeredEventThisFrame)
 end, REVEL.ENT.BRAINFREEZE.id, REVEL.ENT.BRAINFREEZE.variant)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

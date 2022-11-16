@@ -196,5 +196,3 @@ function REVEL.SpawnInvisibleEntityFromTable(pos, vel, tbl, parent)
 end
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

@@ -12,7 +12,7 @@ local ReformingIcePits = {}
 function REVEL.TriggerPitfall(player, position)
     local data = player:GetData()
 
-    REVEL.DebugLog("Triggered pit fall")
+    REVEL.DebugStringMinor("Triggered pit fall")
 
     if not data.Pitfalling then
         data.Pitfalling = true
@@ -380,5 +380,3 @@ revel:AddCallback(ModCallbacks.MC_POST_UPDATE, fragileicePostUpdate)
 revel:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, fragileicePostPlayerUpdate)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

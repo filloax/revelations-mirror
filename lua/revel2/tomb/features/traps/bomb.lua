@@ -26,5 +26,3 @@ REVEL.TrapTypes.BombTrap = {
 }
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

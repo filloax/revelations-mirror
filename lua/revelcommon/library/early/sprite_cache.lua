@@ -309,5 +309,3 @@ revel:AddCallback(ModCallbacks.MC_POST_GAME_END, runSprite_PostGameStarted)
 
     
 end
-
-REVEL.PcallWorkaroundBreakFunction()

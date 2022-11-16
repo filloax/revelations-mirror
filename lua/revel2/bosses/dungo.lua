@@ -45,6 +45,7 @@ function REVEL.DungoSetUpTargets(dungo, amounttargets, color)
 		target:GetSprite():Load("gfx/1000.030_dr. fetus target.anm2", true)
 		target:GetSprite():Play("Idle", true)
 		target:GetSprite().Color = color
+		target:ToEffect().Timeout = 80
 		table.insert(targets, target)
 	end
 	return targets
@@ -382,9 +383,9 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 		if sprite:IsEventTriggered("Land") then
 			REVEL.sfx:NpcPlay(npc, REVEL.SFX.DUNGO_LAND_ON_POOP, 0.8, 0, false, 1)
 			REVEL.sfx:NpcPlay(npc,SoundEffect.SOUND_FORESTBOSS_STOMPS, 0.8, 0, false, 1)
-			local dir = (data.CurrentBoulder.Velocity):GetAngleDegrees()+90
+			local dir = (npc.Position-npc:GetPlayerTarget().Position):GetAngleDegrees()
 			for i=1, 2 do
-                REVEL.SpawnDungoShockwave(npc.Position+Vector.FromAngle(dir)*60, dir)
+                REVEL.SpawnDungoShockwave(npc.Position+Vector.FromAngle(dir)*50, dir)
                 REVEL.game:ShakeScreen(5)
 				dir=dir-180
 			end
@@ -775,12 +776,12 @@ revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, e, dmg, flag, src
     if e.Variant ~= REVEL.ENT.DUNGO.variant then return end
 
     local data = e:GetData()
-    if data.State == "Intro" or data.State == "MidPoint" then
-		local dmgReduction = dmg*0.8
+    if data.State == "Intro" or data.State == "MidPoint" or data.RunningAwayFromPlayer then
+		local dmgReduction = dmg*0.5
 		e.HitPoints = math.min(e.HitPoints + dmgReduction, e.MaxHitPoints)
     end
 
-	if data.Phase ~= 3 then
+	if data.State == "JumpingOnBoulder" or data.State == "OnPoops" then
 		e.HitPoints = e.HitPoints + (dmg - math.min(dmg, (e.HitPoints - REVEL.GetDamageBuffer(e)) / 2))
 	end
 end, REVEL.ENT.DUNGO.id)
@@ -805,6 +806,13 @@ revel:AddCallback(ModCallbacks.MC_POST_NPC_RENDER, function(_, npc)
             color:SetColorize(1.4,1,0.4,1)
 			bloodExplosion:SetColor(color, -1, 1, false, false)
         	REVEL.sfx:NpcPlay(npc, SoundEffect.SOUND_DEATH_BURST_LARGE, 1, 0, false, 1)
+
+			if data.PoopTargets then
+				for _, v in ipairs(data.PoopTargets) do
+					v:Remove()
+				end
+			end
+
 			data.Died = true
 		end
 	end
@@ -922,4 +930,3 @@ revel:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, function(_, npc)
 end, REVEL.ENT.DUNGO.id)
 
 end
-REVEL.PcallWorkaroundBreakFunction()

@@ -154,5 +154,3 @@ if Isaac.GetPlayer(0) then -- mod reloaded
 end
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

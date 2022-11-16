@@ -256,6 +256,30 @@ function REVEL.GetRoomDimensionByListIdx(listIndex)
     return -1
 end
 
+---@param roomDesc? RoomDescriptor
+function REVEL.RoomHasMinesButton(roomDesc)
+    roomDesc = roomDesc or REVEL.level:GetCurrentRoomDesc()
+    local stage = REVEL.level:GetStage()
+    local stageType = REVEL.level:GetStageType()
+    return (stage == LevelStage.STAGE2_1 or stage == LevelStage.STAGE2_2)
+        and (stageType == StageType.STAGETYPE_REPENTANCE or stageType == StageType.STAGETYPE_REPENTANCE_B)
+        and roomDesc.Data.Type == RoomType.ROOM_DEFAULT
+        and roomDesc.Data.Subtype == 1 or roomDesc.Data.Subtype == 10
 end
 
-REVEL.PcallWorkaroundBreakFunction()
+function REVEL.InMineshaft()
+    local roomDescriptor = REVEL.level:GetCurrentRoomDesc()
+    local subtype = roomDescriptor.Data.Subtype
+    local levelStage = REVEL.level:GetStage()
+    local stageType = REVEL.level:GetStageType()
+    return (levelStage == LevelStage.STAGE2_1 or levelStage == LevelStage.STAGE2_2)
+        and (stageType == StageType.STAGETYPE_REPENTANCE or stageType == StageType.STAGETYPE_REPENTANCE_B)
+        and (
+            subtype == 11
+            or subtype == 20
+            or subtype == 30
+            or subtype == 31
+        )
+end
+
+end

@@ -216,4 +216,3 @@ end)
 
 Isaac.DebugString("Revelations: Loaded Save Handling!")
 end
-REVEL.PcallWorkaroundBreakFunction()

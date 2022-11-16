@@ -19,4 +19,3 @@ REVEL.RunLoadFunctions(SubLoadFunctions)
 
 Isaac.DebugString("Revelations: Loaded Charon!")
 end
-REVEL.PcallWorkaroundBreakFunction()

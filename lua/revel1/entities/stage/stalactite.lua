@@ -288,5 +288,3 @@ end
 revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, stalactite_NpcUpdate, REVEL.ENT.STALACTITE.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

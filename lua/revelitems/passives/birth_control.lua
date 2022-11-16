@@ -28,7 +28,8 @@ local BirthControl = {
         [CollectibleType.COLLECTIBLE_DAMOCLES_PASSIVE] = true,
         [REVEL.ITEM.LIL_BELIAL.id] = true,
         [REVEL.ITEM.MIRROR.id] = true,
-        [REVEL.ITEM.MIRROR2.id] = true
+        [REVEL.ITEM.MIRROR2.id] = true,
+        [REVEL.ITEM.PHYLACTERY.id] = true
     },
     -- Since they are permanent effects, practically no reason not to add them as items
     FamToItem = {
@@ -967,5 +968,3 @@ revel:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, function(_, player)
 end)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

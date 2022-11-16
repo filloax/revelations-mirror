@@ -689,4 +689,3 @@ end
 
 Isaac.DebugString("Revelations: Loaded Sins for Chapter 1!")
 end
-REVEL.PcallWorkaroundBreakFunction()

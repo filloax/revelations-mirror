@@ -283,5 +283,3 @@ revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, pro)
 end, REVEL.ENT.FLAME_TRAP_FIRE.variant)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

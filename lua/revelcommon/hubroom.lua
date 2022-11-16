@@ -1047,4 +1047,3 @@ end
 
 Isaac.DebugString("Revelations: Loaded Hub Room!")
 end
-REVEL.PcallWorkaroundBreakFunction()

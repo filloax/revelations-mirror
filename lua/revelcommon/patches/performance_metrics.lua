@@ -242,6 +242,7 @@ local function PatchMod_PerformanceMetrics(mod)
                 for _, fn in ipairs(callbackInfo.List) do
                     local thisRet
                     t1 = gettime()
+                    -- PrintFunctionInfo(fn, "Revelations")
                     local ok, thisRet = xpcall(fn, debug.traceback, ...)
                     if not ok then
                         error(("\n[Revelations] Error in \"%s\" with param '%s': %s"):format(

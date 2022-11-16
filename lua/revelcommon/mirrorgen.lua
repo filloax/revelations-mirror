@@ -182,7 +182,13 @@ function REVEL.MirrorRoom.PlaceInLevel()
         x = x + 1
         y = y + 1
 
-        local mirrorRoom = StageAPI.LevelRoom(LAYOUT_NAME, nil, REVEL.room:GetSpawnSeed(), RoomShape.ROOMSHAPE_1x1, RevRoomType.MIRROR)
+        local mirrorRoom = StageAPI.LevelRoom {
+            LayoutName = LAYOUT_NAME,
+            SpawnSeed = REVEL.room:GetSpawnSeed() + 5,
+            Shape = RoomShape.ROOMSHAPE_1x1,
+            RoomType = RevRoomType.MIRROR,
+            IsExtraRoom = true,
+        }
         mirrorRoom:SetTypeOverride(RevRoomType.MIRROR)
         local roomData = defaultMap:AddRoom(mirrorRoom, {
             RoomID = REVEL.MirrorRoom.RoomId,
@@ -549,4 +555,3 @@ end, REVEL.MirrorRoom.LostModeDoor.Name)
 Isaac.DebugString("Revelations: Loaded Mirror room generation!")
 
 end
-REVEL.PcallWorkaroundBreakFunction()

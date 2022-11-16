@@ -93,7 +93,7 @@ local function LoadBossFromMenu(_, menu)
     end
 
     if boss.Mirror then
-        local mirrorRoom = StageAPI.LevelRoom("MirrorRoom", nil, REVEL.room:GetSpawnSeed(), RoomShape.ROOMSHAPE_1x1, RoomType.ROOM_DEFAULT)
+        local mirrorRoom = StageAPI.LevelRoom("MirrorRoom", nil, REVEL.room:GetSpawnSeed(), RoomShape.ROOMSHAPE_1x1, RoomType.ROOM_DEFAULT, true)
         mirrorRoom.TypeOverride = "Mirror"
         local roomData = StageAPI.GetDefaultLevelMap():AddRoom(mirrorRoom, {RoomID = "RevelationsBossHall"})
 

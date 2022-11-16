@@ -464,5 +464,3 @@ revel:AddCallback(ModCallbacks.MC_POST_EFFECT_RENDER, cameraModeStandinPostRende
     
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

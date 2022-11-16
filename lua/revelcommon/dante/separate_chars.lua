@@ -9,12 +9,12 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 -- Some items like dead cat and halo of flies add multiple copies of it
 -- TODO: check if it happens in rep
 local function AddSingleCollectible(player, id, charge, addCollectibles)
-    local startNum = player:GetCollectibleNum(id)
+    local startNum = player:GetCollectibleNum(id, true)
     player:AddCollectible(id, charge or 0, addCollectibles or false)
-    local newNum = player:GetCollectibleNum(id)
+    local newNum = player:GetCollectibleNum(id, true)
     if newNum > startNum + 1 then
         for i = 1, newNum - (startNum + 1) do
-            player:RemoveCollectible(id)
+            player:RemoveCollectible(id, true)
         end
     end
 end
@@ -373,7 +373,7 @@ function REVEL.Dante.StoreItems(player, remove, whitelist)
 
                     if remove then
                         for i = 1, numRemove do
-                            player:RemoveCollectible(id)
+                            player:RemoveCollectible(id, true)
                         end
                     end
                 end
@@ -387,7 +387,7 @@ end
 function REVEL.Dante.RemoveSpecificItems(player, items)
     for sid, count in pairs(items) do
         for i = 1, count do
-            player:RemoveCollectible(tonumber(sid))
+            player:RemoveCollectible(tonumber(sid), true)
         end
     end
 end
@@ -408,14 +408,14 @@ function REVEL.Dante.LoadItems(player, items, addSchoolbag, addCombinedItems, no
         end
     end
 
-    if addSchoolbag and not player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG) then
+    if addSchoolbag and not player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG, true) then
         player:AddCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG, 0, false)
         player:RemoveCostume(REVEL.config:GetCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG))
     end
 
     if addCombinedItems then
         for _, item in ipairs(combinedItems) do
-            if not player:HasCollectible(item) then
+            if not player:HasCollectible(item, true) then
                 player:AddCollectible(item, 0, false)
                 player:RemoveCostume(REVEL.config:GetCollectible(item))
             end
@@ -424,12 +424,12 @@ function REVEL.Dante.LoadItems(player, items, addSchoolbag, addCombinedItems, no
 
     if not noRemoveCharonItems then
         if not addSchoolbag then
-            player:RemoveCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG)
+            player:RemoveCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG, true)
         end
 
         if not addCombinedItems then
             for _, item in ipairs(combinedItems) do
-                player:RemoveCollectible(item)
+                player:RemoveCollectible(item, true)
             end
         end
     end
@@ -715,7 +715,6 @@ function REVEL.Dante.Merge(player, isGreed)
     end
 
     if not isGreed then
-        player:RemoveCollectible(REVEL.ITEM.PHYLACTERY.id)
         REVEL.Dante.SetPhylactery(player, REVEL.ITEM.PHYLACTERY_MERGED.id)
     end
 
@@ -914,18 +913,17 @@ function REVEL.Dante.Reset(player, noSetRoom, isGreed)
         end
 
         for _, item in ipairs(combinedItems) do
-            player:RemoveCollectible(item)
+            player:RemoveCollectible(item, true)
         end
         -- Important: must be done after removing actives, else doing it before would spawn the active on the ground
         if REVEL.PHYLACTERY_POCKET then
-            player:RemoveCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG)
+            player:RemoveCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG, true)
         end
 
         REVEL.Dante.RemoveHealth(player)
         REVEL.Dante.LoadHealth(player, health1)
 
         if not isGreed then
-            player:RemoveCollectible(REVEL.ITEM.PHYLACTERY_MERGED.id)
             REVEL.Dante.SetPhylactery(player, REVEL.ITEM.PHYLACTERY.id)
         end
 
@@ -945,17 +943,19 @@ function REVEL.Dante.Reset(player, noSetRoom, isGreed)
     player:AddCacheFlags(CacheFlag.CACHE_ALL)
     player:EvaluateItems()
 
-    if not noSetRoom then
+    if not noSetRoom and REVEL.level:GetStage() < 13 then
         REVEL.UpdatePathMap(LevelPathFromStart, true)
         local farthestDists = {}
         for index, dist in pairs(LevelPathFromStart.TargetMapSets[1].Map) do
             local roomDesc = REVEL.level:GetRoomByIdx(index)
-            if roomDesc and (not farthestDists[#farthestDists] or dist >= farthestDists[#farthestDists][1]) and roomDesc.Data.Shape == RoomShape.ROOMSHAPE_1x1 then
-                if farthestDists[#farthestDists] and dist > farthestDists[#farthestDists][1] then
-                    farthestDists = {}
-                end
+            if roomDesc.Data then
+                if roomDesc and (not farthestDists[#farthestDists] or dist >= farthestDists[#farthestDists][1]) and roomDesc.Data.Shape == RoomShape.ROOMSHAPE_1x1 then
+                    if farthestDists[#farthestDists] and dist > farthestDists[#farthestDists][1] then
+                        farthestDists = {}
+                    end
 
-                farthestDists[#farthestDists + 1] = {dist, index}
+                    farthestDists[#farthestDists + 1] = {dist, index}
+                end
             end
         end
 
@@ -963,7 +963,7 @@ function REVEL.Dante.Reset(player, noSetRoom, isGreed)
             local index = farthestDists[math.random(1, #farthestDists)][2]
             revel.data.run.dante.OtherRoom = index
             local roomDesc = REVEL.level:GetRoomByIdx(index)
-            local newRoom =  StageAPI.LevelRoom(CHARON_STARTING_ROOM_LAYOUT)
+            local newRoom = StageAPI.LevelRoom(CHARON_STARTING_ROOM_LAYOUT)
             StageAPI.SetLevelRoom(newRoom, roomDesc.ListIndex)
             revel.data.run.level.dante.StartingRoomIndex = roomDesc.ListIndex
             REVEL.DebugStringMinor("Dante | Set new charon starting room index to", revel.data.run.level.dante.StartingRoomIndex)
@@ -977,7 +977,7 @@ function REVEL.Dante.AddCollectibleToOtherPlayer(player, isInQueue, item, pos)
     local goldenHearts = player:GetGoldenHearts()
     player:AddGoldenHearts(-goldenHearts)
 
-    local startNum = player:GetCollectibleNum(item.ID)
+    local startNum = player:GetCollectibleNum(item.ID, true)
 
     if isInQueue then
         player:FlushQueueItem()
@@ -985,11 +985,11 @@ function REVEL.Dante.AddCollectibleToOtherPlayer(player, isInQueue, item, pos)
         player:AddCollectible(item.ID, 999, true)
     end
 
-    local newNum = player:GetCollectibleNum(item.ID)
+    local newNum = player:GetCollectibleNum(item.ID, true)
 
     if not revel.data.run.dante.IsCombined then
         for i = 1, newNum - startNum do
-            player:RemoveCollectible(item.ID)
+            player:RemoveCollectible(item.ID, true)
         end
 
         if item.AddMaxHearts then
@@ -1045,4 +1045,3 @@ function REVEL.Dante.AddCollectibleToOtherPlayer(player, isInQueue, item, pos)
 end
 
 end
-REVEL.PcallWorkaroundBreakFunction()

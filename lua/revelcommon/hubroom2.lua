@@ -124,7 +124,8 @@ hub2.AddCustomStageToHub2 (  -- Glacier
 		TrapdoorAnm2 = REVEL.Hub2CustomTrapdoors.Glacier.Anm2, 
 		Conditions = function()
 			local levelStage = hub2.GetCorrectedLevelStage()
-			return not StageAPI.InNewStage() and levelStage == LevelStage.STAGE1_1
+			return not REVEL.STAGE.Glacier:IsStage()
+				and levelStage == LevelStage.STAGE1_1
 		end, 
 	},
 	true,
@@ -139,7 +140,7 @@ hub2.AddCustomStageToHub2( -- Glacier 2
 		TrapdoorAnm2 = REVEL.Hub2CustomTrapdoors.Glacier.Anm2, 
 		Conditions = function()
 			local levelStage = hub2.GetCorrectedLevelStage()
-			return not StageAPI.InNewStage()
+			return not REVEL.STAGE.Glacier:IsStage()
 				and levelStage == LevelStage.STAGE1_2 
 		end, 
 	},
@@ -155,7 +156,7 @@ hub2.AddCustomStageToHub2( -- Tomb
 		TrapdoorAnm2 = REVEL.Hub2CustomTrapdoors.Tomb.Anm2, 
 		Conditions = function()
 			local levelStage = hub2.GetCorrectedLevelStage()
-			return (not StageAPI.InNewStage() or REVEL.STAGE.Glacier:IsStage())
+			return not REVEL.STAGE.Tomb:IsStage()
 				and levelStage == LevelStage.STAGE2_1
 		end, 
 	},
@@ -170,7 +171,7 @@ hub2.AddCustomStageToHub2( -- Tomb 2
 		TrapdoorAnm2 = REVEL.Hub2CustomTrapdoors.Tomb.Anm2, 
 		Conditions = function()
 			local levelStage = hub2.GetCorrectedLevelStage()
-			return not StageAPI.InNewStage()
+			return not REVEL.STAGE.Tomb:IsStage()
 				and levelStage == LevelStage.STAGE2_2
 		end, 
 	},
@@ -185,7 +186,7 @@ hub2.AddCustomStageToHub2( -- Vestige
 		TrapdoorAnm2 = REVEL.Hub2CustomTrapdoors.Vestige.Anm2, 
 		Conditions = function()
 			local levelStage = hub2.GetCorrectedLevelStage()
-			return (not StageAPI.InNewStage() or REVEL.STAGE.Tomb:IsStage())
+			return REVEL.STAGE.Tomb:IsStage()
 				and levelStage == LevelStage.STAGE3_1
 		end, 
 	},
@@ -267,4 +268,3 @@ end
 
 Isaac.DebugString("Revelations: Loaded Hub Room 2.0!")
 end
-REVEL.PcallWorkaroundBreakFunction()

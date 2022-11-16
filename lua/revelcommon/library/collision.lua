@@ -57,5 +57,3 @@ function REVEL.GetCollisionCircleSquare(cPos, sPos, cRad, sRad) --cRad will defa
 end
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

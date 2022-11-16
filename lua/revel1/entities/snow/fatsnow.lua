@@ -156,5 +156,3 @@ REVEL.AddDeathEventsCallback {
 }
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

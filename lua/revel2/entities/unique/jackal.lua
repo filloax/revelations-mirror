@@ -149,5 +149,3 @@ StageAPI.AddCallback("Revelations", RevCallbacks.NPC_UPDATE_INIT, 1, jackal_NpcU
 revel:AddCallback(ModCallbacks.MC_PRE_NPC_UPDATE, jackal_PreNpcUpdate, REVEL.ENT.JACKAL.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

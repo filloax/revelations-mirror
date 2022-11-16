@@ -369,5 +369,3 @@ revel:AddCallback(ModCallbacks.MC_USE_ITEM, rerolls_spindown_UseItem, Collectibl
 revel:AddCallback(ModCallbacks.MC_USE_CARD, rerolls_isaacSoul_UseCard, Card.CARD_SOUL_ISAAC)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

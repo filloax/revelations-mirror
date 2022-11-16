@@ -95,7 +95,7 @@ local function stabstack_Init(_, npc)
         npc.EntityCollisionClass = EntityCollisionClass.ENTCOLL_NONE
     else
         sprite:Play("Head_Fall", true)
-        data.ShootCounter = REVEL.GetFromMinMax(SHOOT_TIME)
+        data.ShootCounter = math.floor(REVEL.GetFromMinMax(SHOOT_TIME)/2)
     end
 
     npc.Mass = 50
@@ -153,7 +153,7 @@ function REVEL.ShootStabstackSegment(npc, dir, parent, remove)
     npc.Visible = false
 
     -- Ragma interaction
-    if data.ragmaParent then
+    if data.ragmaParent and data.ragmaParent.Ref then
         table.insert(data.ragmaParent.Ref:GetData().ragSnared, EntityPtr(rollingPart))
     end
 
@@ -520,5 +520,3 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_PROJ_POOF_INIT, 1, stabsta
 StageAPI.AddCallback("Revelations", RevCallbacks.POST_ENTITY_AIR_MOVEMENT_LAND, 1, stabstack_EntityAirMovementLand)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

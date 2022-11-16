@@ -1,6 +1,7 @@
 local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 local RevSettings       = require("lua.revelcommon.enums.RevSettings")
+local Dimension         = require("lua.revelcommon.enums.Dimension")
 
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
     local cloud, snow, heavy = "gfx/backdrop/revel1/glacier/cloud.anm2", "gfx/backdrop/revel1/glacier/snow.anm2", "gfx/backdrop/revel1/glacier/snow_heavy.anm2"
@@ -73,7 +74,10 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
     StageAPI.AddCallback("Revelations", StageAPICallbacks.POST_ROOM_LOAD, 1,  function(newRoom, revisited)
         local roomType = StageAPI.GetCurrentRoomType()
-        if REVEL.STAGE.Glacier:IsStage() and (REVEL.includes(REVEL.GlacierGfxRoomTypes, roomType) or not StageAPI.InExtraRoom) then
+        if REVEL.STAGE.Glacier:IsStage() 
+        and REVEL.includes(REVEL.GlacierGfxRoomTypes, roomType)
+        and StageAPI.GetDimension() ~= Dimension.DEATH_CERTIFICATE
+        then
             if REVEL.includes(REVEL.ChillRoomTypes, roomType) and not REVEL.IsChilly(newRoom) then
                 for _, overlay in ipairs(ChillFadingSnowOverlays) do
                     overlay:SetAlpha(0)
@@ -86,7 +90,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
         end
     end)    
 
-    StageAPI.AddCallback("Revelations", "PRE_TRANSITION_RENDER", 1, function()
+    StageAPI.AddCallback("Revelations", StageAPICallbacks.PRE_TRANSITION_RENDER, 1, function()
         if revel.data and revel.data.overlaysMode == 3 then --the if revel.data is to prevent logspam in case the mod is reloaded ingame and it errors
             return
         end
@@ -97,7 +101,10 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
             local listIndex = StageAPI.GetCurrentListIndex()
     
             local roomType = StageAPI.GetCurrentRoomType()
-            if REVEL.STAGE.Glacier:IsStage() and (REVEL.includes(REVEL.GlacierGfxRoomTypes, roomType) or not StageAPI.InExtraRoom) then
+            if REVEL.STAGE.Glacier:IsStage() 
+            and REVEL.includes(REVEL.GlacierGfxRoomTypes, roomType) 
+            and StageAPI.GetDimension() ~= Dimension.DEATH_CERTIFICATE
+            then
                 if (REVEL.includes(REVEL.ChillRoomTypes, roomType) or REVEL.DukeAuraStartup) then
                     if REVEL.DukeAuraStartup then
                         for _, overlay in ipairs(REVEL.GetChillFadingOverlays()) do
@@ -123,5 +130,3 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
         end
     end)    
 end
-
-REVEL.PcallWorkaroundBreakFunction()

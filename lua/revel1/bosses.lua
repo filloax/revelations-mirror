@@ -19,5 +19,3 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
     Isaac.DebugString("Revelations: Loaded Bosses (Chapter 1)!")
 end
-
-REVEL.PcallWorkaroundBreakFunction()

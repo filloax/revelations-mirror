@@ -81,9 +81,9 @@ local function jackalGilded_PreNpcUpdate(_, npc)
 
                 local timeout = 28
                 local tracer = REVEL.MakeLaserTracer(
-                    baseLaserPos + laserOff + Vector(0, -20),
+                    baseLaserPos + laserOff + Vector(0, 0),
                     timeout, 
-                    targetPos + laserOff + Vector(0, -20), 
+                    targetPos + laserOff + Vector(0, 0), 
                     Color(0.75, 0, 0.75),
                     npc, 
                     2
@@ -151,5 +151,3 @@ end
 revel:AddCallback(ModCallbacks.MC_PRE_NPC_UPDATE, jackalGilded_PreNpcUpdate, REVEL.ENT.JACKAL_GILDED.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

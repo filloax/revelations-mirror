@@ -452,4 +452,3 @@ end)
 REVEL.AddLowPriorityCallback(ModCallbacks.MC_POST_RENDER, musicCues_PostRender)
 
 end
-REVEL.PcallWorkaroundBreakFunction()

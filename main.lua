@@ -69,9 +69,6 @@ Our solution to this is to have each file return a load function that we can cal
 
 REVEL.Modules = include("lua.revelcommon.loadorder")
 
--- include now works in luadebug
-REVEL.PCALL_WORKAROUND = false
-
 REVEL.LoadFunctions = {}
 
 --[[
@@ -130,15 +127,6 @@ function REVEL.LoadModulesFromTable(modules)
     REVEL.LoadFunctions = prevLoadFunctions
 
     return loadFunctions
-end
-
--- Throws the error that is catched above in LoadModules, 
--- avoids caching ~~(since include() doesn't work with luadebug for now)~~
--- now it does, whoo
-function REVEL.PcallWorkaroundBreakFunction()
-    if REVEL.PCALL_WORKAROUND then 
-        revel.bork.NonExistantFunctionThatIsCalledToIntentionallyErrorThis() 
-    end
 end
 
 local MainLoadFunctions = REVEL.LoadModulesFromTable(REVEL.Modules)

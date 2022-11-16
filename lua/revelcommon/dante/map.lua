@@ -160,6 +160,8 @@ end
 local function SetSingleRoomDisplayData(desc, data, merge)
     -- For some reason setting VisitedCount and then reentering the starting room as Charon
     -- in custom floors makes stageapi forget you are in a custom floor, so to say
+    if not desc then return end
+    
     if merge then
         desc.DisplayFlags = BitOr(data.DisplayFlags, desc.DisplayFlags)
         -- desc.VisitedCount = data.VisitedCount + desc.VisitedCount
@@ -171,20 +173,22 @@ local function SetSingleRoomDisplayData(desc, data, merge)
     if MinimapAPI then
         ---@type MinimapAPI.Room
         local mroom = MinimapAPI:GetRoomByIdx(desc.GridIndex)
-        
-        mroom:SetDisplayFlags(desc.DisplayFlags)
-        mroom.Visited = desc.VisitedCount > 0
 
-        if merge then
-            for _, icon in ipairs(data.ItemIcons) do
-                if not REVEL.includes(mroom.ItemIcons, icon) then
-                    table.insert(mroom.ItemIcons, icon)
+        if mroom then
+            mroom:SetDisplayFlags(desc.DisplayFlags)
+            mroom.Visited = desc.VisitedCount > 0
+
+            if merge then
+                for _, icon in ipairs(data.ItemIcons) do
+                    if not REVEL.includes(mroom.ItemIcons, icon) then
+                        table.insert(mroom.ItemIcons, icon)
+                    end
                 end
+                mroom.Clear = mroom.Clear or data.Clear
+            else
+                mroom.ItemIcons = REVEL.CopyTable(data.ItemIcons)
+                mroom.Clear = data.Clear
             end
-            mroom.Clear = mroom.Clear or data.Clear
-        else
-            mroom.ItemIcons = REVEL.CopyTable(data.ItemIcons)
-            mroom.Clear = data.Clear
         end
     end
 end
@@ -250,4 +254,3 @@ end
 
 
 end
-REVEL.PcallWorkaroundBreakFunction()

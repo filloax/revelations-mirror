@@ -19,6 +19,9 @@ REVEL.RoomEditors = {
     "hippo",
     "creeps",
     "grynn",
+    "Sin",
+    "chillmunity",
+    "comummyty",
     "vanilla",
 }
 
@@ -70,5 +73,3 @@ REVEL.AddBossRooms("Common", "common", "revelcommon.bosses.", REVEL.RoomEditors)
 if MinimapAPI then
     MinimapAPI:RemovePlayerPositionCallback(revel)
 end
-
-REVEL.PcallWorkaroundBreakFunction()

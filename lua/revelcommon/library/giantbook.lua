@@ -85,5 +85,3 @@ revel:AddCallback(ModCallbacks.MC_POST_RENDER, giantbookPostRender)
 
     
 end
-
-REVEL.PcallWorkaroundBreakFunction()

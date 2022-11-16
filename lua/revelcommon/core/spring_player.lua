@@ -246,5 +246,3 @@ revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, player,  amount, 
 end, 1)
   
 end
-
-REVEL.PcallWorkaroundBreakFunction()

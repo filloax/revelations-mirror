@@ -516,5 +516,3 @@ revel:AddCallback(ModCallbacks.MC_POST_RENDER, fade_PostRender)
 StageAPI.AddCallback("Revelations", StageAPICallbacks.POST_HUD_RENDER, 9999, fade_PostRenderHud)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

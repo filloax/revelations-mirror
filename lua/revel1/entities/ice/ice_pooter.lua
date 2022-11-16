@@ -169,4 +169,3 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, icePooter_NpcUpdate, REVEL.ENT.ICE
 revel:AddCallback(ModCallbacks.MC_PRE_NPC_UPDATE, icepooterPooterPreUpdate, EntityType.ENTITY_POOTER)
 
 end
-REVEL.PcallWorkaroundBreakFunction()

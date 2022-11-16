@@ -274,5 +274,3 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_ITEM_PICKUP, 0, function(p
 end, REVEL.ITEM.HYPER_DICE.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

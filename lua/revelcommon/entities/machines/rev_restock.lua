@@ -164,5 +164,3 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_MACHINE_UPDATE, 1, Restock
 StageAPI.AddCallback("Revelations", RevCallbacks.POST_MACHINE_EXPLODE, 1, RestockMachinePostExplosion, REVEL.ENT.RESTOCK_MACHINE.variant)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

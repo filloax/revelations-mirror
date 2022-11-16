@@ -252,7 +252,7 @@ REVEL.STAGE.Tomb:SetDisplayName("Tomb I")
 REVEL.STAGE.Tomb:SetReplace(StageAPI.StageOverride.CatacombsOne)
 
 REVEL.STAGE.Tomb:SetIsSecondStage(false)
-REVEL.STAGE.Tomb:SetStageNumber(4)
+REVEL.STAGE.Tomb:SetStageNumber(4,3)
 REVEL.StageDisableLabyrinth(REVEL.STAGE.Tomb)
 
 local tombXL = REVEL.STAGE.Tomb("Tomb XL")
@@ -262,7 +262,7 @@ tombXL:SetNextStage({
     Stage = LevelStage.STAGE3_2
 })
 tombXL:SetIsSecondStage(true)
-tombXL:SetStageNumber(5)
+tombXL:SetStageNumber(5,3)
 
 REVEL.STAGE.Tomb:SetXLStage(tombXL)
 
@@ -275,7 +275,7 @@ REVEL.STAGE.TombTwo:SetNextStage({
     Stage = LevelStage.STAGE3_2
 })
 REVEL.STAGE.TombTwo:SetIsSecondStage(true)
-REVEL.STAGE.TombTwo:SetStageNumber(5)
+REVEL.STAGE.TombTwo:SetStageNumber(5,4)
 
 -- Sand grids different look in bottom row
 
@@ -402,5 +402,3 @@ do
 end
     
 end
-
-REVEL.PcallWorkaroundBreakFunction()

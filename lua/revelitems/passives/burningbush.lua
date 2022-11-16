@@ -7,5 +7,3 @@ local SubLoadFunctions = REVEL.LoadModulesFromTable(SubModules)
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
     REVEL.RunLoadFunctions(SubLoadFunctions)
 end
-
-REVEL.PcallWorkaroundBreakFunction()

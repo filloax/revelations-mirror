@@ -96,7 +96,7 @@ local function MergeRoomCharacterUpdate(effect, data, sprite, player, pdata)
             REVEL.FollowPath(effect, movementResized, data.Path, true, movementFriction, not player.CanFly, true, player.CanFly, false)
         end
 
-        if effect.FrameCount > 120 and not data.Path then
+        if effect.FrameCount > 100 and not data.Path then
             effect.Position = REVEL.room:FindFreePickupSpawnPosition(player.Position, 60, true)
             Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, effect.Position, Vector.Zero, effect)
         end
@@ -144,7 +144,8 @@ local function MergeRoomCharacterUpdate(effect, data, sprite, player, pdata)
         end
     end
 
-    if sprite:IsFinished("DanteStart") or sprite:IsFinished("CharonStart") or (data.HighFiving and data.IsAngry) then
+    if sprite:IsFinished("DanteStart") or sprite:IsFinished("CharonStart") or (data.HighFiving and data.IsAngry) 
+    or effect.FrameCount > 150 then
         data.HighFiving = false
 
         effect.GridCollisionClass = EntityGridCollisionClass.GRIDCOLL_NONE
@@ -557,7 +558,7 @@ function REVEL.Dante.Callbacks.Partner_PostNewRoom(player)
         end
 
         local data = player:GetData()
-        data.Dante = Isaac.Spawn(REVEL.ENT.DANTE.id, REVEL.ENT.DANTE.variant, 0, position, Vector.Zero, player)
+        data.Dante = Isaac.Spawn(REVEL.ENT.DANTE.id, REVEL.ENT.DANTE.variant, 0, position, Vector.Zero, nil)
         data.Dante:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
         data.Dante:GetData().Charon = player
 
@@ -566,6 +567,21 @@ function REVEL.Dante.Callbacks.Partner_PostNewRoom(player)
     elseif shared.PreviouslyEnteredOtherCharRoom then
         shared.PreviouslyEnteredOtherCharRoom = false
         shared.SkippedOtherChar = true
+    end
+
+    local roomDesc = REVEL.level:GetRoomByIdx(REVEL.level:GetCurrentRoomIndex())
+    if not revel.data.run.level.dante.RepFailsafe and roomDesc.Data.Subtype == 1 
+    and StageAPI.GetCurrentListIndex() == revel.data.run.level.dante.StartingRoomIndex then
+        if REVEL.level:GetStage() == LevelStage.STAGE1_2 and REVEL.level:GetStageType() > 3 then
+            --white fire
+            local pos = REVEL.room:FindFreeTilePosition(REVEL.room:GetGridPosition(1), 30)
+            Isaac.Spawn(EntityType.ENTITY_FIREPLACE, 4, 0, pos , Vector.Zero, nil)
+        end
+        if REVEL.level:GetStage() == LevelStage.STAGE2_2 and REVEL.level:GetStageType() > 3 then
+            --mines button
+            REVEL.room:SpawnGridEntity(16, GridEntityType.GRID_PRESSURE_PLATE, 3, REVEL.level:GetCurrentRoomDesc().SpawnSeed, 0)
+        end
+        revel.data.run.level.dante.RepFailsafe = true
     end
 end
 
@@ -661,4 +677,3 @@ end)
 
 
 end
-REVEL.PcallWorkaroundBreakFunction()

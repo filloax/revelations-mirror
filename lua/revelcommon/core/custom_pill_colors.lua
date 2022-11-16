@@ -381,5 +381,3 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
     StageAPI.AddCallback("Revelations", RevCallbacks.EARLY_POST_NEW_ROOM, 1, custompillsNewRoom)
     revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, custompillsPostPeffectUpdate)
 end
-
-REVEL.PcallWorkaroundBreakFunction()

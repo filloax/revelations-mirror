@@ -328,5 +328,3 @@ function REVEL.SpotTest(x, y, s, c)
 end
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

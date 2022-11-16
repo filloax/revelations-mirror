@@ -9,6 +9,7 @@ return {
     GROUNDING = "grounding",
     PURGATORY = "purgatory",
     BLEEDING = "bleeding",
+    MITOSIS = "mitosis",
 
     -- General
     CHAMPIONS_G = "glacier_champions",
@@ -27,6 +28,8 @@ return {
     PURGATORY_T = "tomb_purgatory",
     BLEEDING_G = "glacier_bleeding",
     BLEEDING_T = "tomb_bleeding",
+    MITOSIS__G = "glacier_mitosis",
+    MITOSIS__T = "tomb_mitosis",
 
     -- Glacier
     FROST = "chill",

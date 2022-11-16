@@ -10,9 +10,9 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 revel:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function(_, player, cacheflag)
     if REVEL.ITEM.NOT_A_BULLET:PlayerHasCollectible(player) then
         if cacheflag == CacheFlag.CACHE_SHOTSPEED then
-            player.ShotSpeed = player.ShotSpeed + (0.5 * player:GetCollectibleNum(REVEL.ITEM.NOT_A_BULLET.id))
+            player.ShotSpeed = player.ShotSpeed + (0.2 * player:GetCollectibleNum(REVEL.ITEM.NOT_A_BULLET.id))
         elseif cacheflag == CacheFlag.CACHE_DAMAGE then
-            player.Damage = player.Damage * math.max(player.ShotSpeed * 0.85, 1)
+            player.Damage = player.Damage + math.max(0.5, (player.ShotSpeed*0.6)-0.2)
         end
     end
 end)
@@ -52,5 +52,3 @@ StageAPI.AddCallback("Revelations", RevCallbacks.ON_TEAR, 0, function(e, data, s
 end)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

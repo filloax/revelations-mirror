@@ -1,4 +1,55 @@
 -- Keep lines at max 40 characters, can use for that https://www.gillmeister-software.com/online-tools/text/add-line-breaks_change-line-length.aspx
+REVEL.AddChangelog("Vanity (4.1.0)", "Nov 15 2022", [[- Add trinket: Memory Cap 
+- Add trinket: Christmas Stocking
+- Add object: Bell Shard 
+- Add shrine: Pact of Mitosis
+- Rev pocket items have announcer voice 
+lines 
+- Tutorial rooms for some rev floor 
+mechanics that are much more likely to 
+appear until first encountered 
+- New rooms 
+- New Fiend Folio-compat rooms, 
+including skins for many FF enemies 
+
+- Update internal MinimapAPI
+
+Tweaks 
+- Tweaked HP of a lot of Rev monsters 
+- D+C: no bonus heart 
+- D+C: extra boss items only on second 
+stages 
+- Sandshaper: AI rework, active instead 
+of reactive 
+- Dungo: shockwaves target player, can 
+die before phase 2 
+- Rag fatty: buffed 
+- Anima: faster 
+- Bloatbip: faster 
+- Antlion egg: spawns less babies with 
+more HP 
+- Tomb revive traps close doors 
+- Some item quality 
+- Pact of grounding: 2->3 vanity 
+- Vaniy shop items spawn the 
+collectible, should be more compatible 
+with various game features 
+- More SFX 
+- More EID support 
+
+Fixes 
+- D+C item dupes and knife/rep 
+sequences issues 
+- Rev item tracking counting fake items 
+as real 
+- Death certificate in rev stages, half 
+of this on the StageAPI side 
+- Mirror room shard dupe or vanishing 
+- Elites being guaranteed, weren't 
+supposed to 
+- Champion Prong not needing 
+achievement 
+- Dynamo]])
 REVEL.AddChangelog("Vanity (4.0.3)", "Nov 6 2022", [[- Vanity has functions for other mods
 to spawn their own vanity shop items
 - Hice and Iced Hive have new effects

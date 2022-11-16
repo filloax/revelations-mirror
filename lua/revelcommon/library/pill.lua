@@ -52,5 +52,3 @@ revel:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, listPills)
 StageAPI.AddCallback("Revelations", RevCallbacks.POST_INGAME_RELOAD, 1, listPills)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

@@ -187,7 +187,7 @@ local function LoadFiendFolioCompat(typeLoaded)
                     [0] = "reskins/ff/monster_yawnerhead_glacier",
                     [1] = "reskins/ff/monster_yawnerbody_glacier"
                 },
-                SPLAT_COLOR = REVEL.WaterSplatColor
+                SPLAT_COLOR = REVEL.SnowSplatColor
             },
             [FiendFolio.FF.Slim.Var] = {
                 [0] = {
@@ -209,7 +209,36 @@ local function LoadFiendFolioCompat(typeLoaded)
                     [0] = "reskins/ff/meatwad_glacier",
                 },
                 SPLAT_COLOR = REVEL.WaterSplatColor
-            }
+            },
+            [FiendFolio.FF.MrHorf.Var] = {
+                SPRITESHEET = {
+                    [0] = "reskins/glacier_greed_gaper_body",
+                    [1] = "reskins/ff/monster_mrhorfhead_glacier",
+                    [2] = "reskins/ff/monster_mrhorf_glacier"
+                },
+                SPLAT_COLOR = REVEL.WaterSplatColor
+            },
+            [FiendFolio.FF.MrHorfHead.Var] = {
+                SPRITESHEET = {
+                    [0] = "reskins/glacier_horf",
+                    [1] = "reskins/ff/monster_mrhorfhead_glacier",
+                    [2] = "reskins/ff/monster_mrhorf_glacier"
+                },
+                SPLAT_COLOR = REVEL.WaterSplatColor
+            },
+            [FiendFolio.FF.Matte.Var] = {
+                SPRITESHEET = {
+                    [0] = "reskins/ff/monster_matte_glacier",
+                    [1] = "reskins/ff/monster_matte_glacier",
+                },
+                SPLAT_COLOR = REVEL.WaterSplatColor
+            },
+            [FiendFolio.FF.Spitum.Var] = {
+                SPRITESHEET = {
+                    [0] = "reskins/ff/monster_spitum_glacier",
+                },
+                SPLAT_COLOR = REVEL.WaterSplatColor
+            },
         },
         [450] = {
             [FiendFolio.FF.Fish.Var] = {
@@ -217,6 +246,12 @@ local function LoadFiendFolioCompat(typeLoaded)
                     [0] = "reskins/ff/fishygaper_glacier",
                 },
                 SPLAT_COLOR = REVEL.WaterSplatColor
+            },
+            [FiendFolio.FF.Shirk.Var] = {
+                SPRITESHEET = {
+                    [0] = "reskins/ff/monster_shirk_glacier",
+                },
+                SPLAT_COLOR = REVEL.SnowSplatColor
             }
         },
         [666] = {
@@ -247,4 +282,3 @@ end
 
 Isaac.DebugString("Revelations: Loaded Mod Compatibility for Chapter 1!")
 end
-REVEL.PcallWorkaroundBreakFunction()

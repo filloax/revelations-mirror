@@ -296,5 +296,3 @@ REVEL.AddLowPriorityCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, trackDamageBuffer_
 revel:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, trackDamageBuffer_PostNewRoom)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

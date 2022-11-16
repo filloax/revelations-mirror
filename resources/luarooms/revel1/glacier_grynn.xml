@@ -2427,9 +2427,6 @@
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
 		<door exists="True" x="13" y="3"/>
-		<spawn x="0" y="0">
-			<entity type="494" variant="2167" subtype="0" weight="1.0"/>
-		</spawn>
 		<spawn x="2" y="0">
 			<entity type="792" variant="541" subtype="0" weight="1.0"/>
 			<entity type="705" variant="542" subtype="0" weight="1.0"/>
@@ -2445,6 +2442,9 @@
 		</spawn>
 		<spawn x="12" y="0">
 			<entity type="3000" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+		<spawn x="1" y="1">
+			<entity type="494" variant="2167" subtype="0" weight="1.0"/>
 		</spawn>
 		<spawn x="4" y="1">
 			<entity type="1002" variant="0" subtype="0" weight="1.0"/>

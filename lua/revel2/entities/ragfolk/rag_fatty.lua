@@ -138,34 +138,32 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
         if sprite:IsEventTriggered("Fart") then
             Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, npc.Position, Vector.Zero, nil)
             REVEL.sfx:NpcPlay(npc, SoundEffect.SOUND_FART, 1, 0, false, 1)
-            if data.HoldTime > 10 then
-                local numProjectiles = math.min(math.floor(data.HoldTime / 30), 6)
-                if not data.RagFattyProjectiles then
-                    data.RagFattyProjectiles = {}
-                end
+            local numProjectiles = math.min(math.floor(data.HoldTime / 30), 6)
+            if not data.RagFattyProjectiles then
+                data.RagFattyProjectiles = {}
+            end
 
-                for i = 1, numProjectiles + math.random(1, 2) do
-                    local pro = REVEL.SpawnNPCProjectile(npc, Vector(math.random(-5, 5), math.random(-10, -7)) * (math.random(80, 120) * 0.01))
+            for i = 1, numProjectiles + math.random(5, 7) do
+                local params = ProjectileParams()
+                params.Scale = math.random() + 0.5
+                if not data.Buffed then
+                    params.Variant = ProjectileVariant.PROJECTILE_PUKE
+                    if i == 1 then
+                        local pro = npc:FireBossProjectiles(1, npc:GetPlayerTarget().Position, 0, params)
+                    end
+                end
+                local pro = npc:FireBossProjectiles(1, npc.Position + Vector(math.random(20,40)*0.1,0):Rotated(math.random(1,360)), 0, params)
+
+                if data.Buffed then
                     pro.ProjectileFlags = BitOr(pro.ProjectileFlags, ProjectileFlags.SMART)
-                    pro.Scale = pro.Scale + math.random() * 0.5
-                    pro.FallingAccel = REVEL.Lerp(-0.06, -0.09, numProjectiles / 6)
+                    pro.FallingAccel = pro.FallingAccel * 0.6
                     pro:Update()
                     pro.ProjectileFlags = ClearBit(pro.ProjectileFlags, ProjectileFlags.SMART)
+
                     pro:GetData().RagFattyHoming = npc:GetPlayerTarget()
-
-                    local homingSpeed = 0.8
-                    if data.Buffed then
-                        homingSpeed = 1
-                    end
-
+                    local homingSpeed = 1.2
                     pro:GetData().RagFattyHomingSpeed = REVEL.Lerp(homingSpeed, homingSpeed + 0.2, numProjectiles / 6) + math.random() * 0.1
                     data.RagFattyProjectiles[#data.RagFattyProjectiles + 1] = pro
-                end
-            else
-                for i = 1, math.random(2, 3) do
-                    local pro = REVEL.SpawnNPCProjectile(npc, Vector(math.random(-5, 5), math.random(-10, -7)))
-                    pro.ProjectileFlags = BitOr(pro.ProjectileFlags, ProjectileFlags.SMART)
-                    pro.Scale = pro.Scale + math.random() * 0.5
                 end
             end
         end
@@ -243,7 +241,7 @@ revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, e, amount)
             REVEL.UpdateCreepSize(creep, creep.Size * 3, true)
 
             e:GetData().PhaseTwo = true
-            e.HitPoints = 30 + amount
+            e.HitPoints = e.MaxHitPoints + amount
             e:GetSprite():Play("HeadTransition", true)
             e:GetData().State = "Head"
         elseif e:GetData().State == "InflateFart" then
@@ -323,5 +321,3 @@ Anm2GlowNull0 = {
 }
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

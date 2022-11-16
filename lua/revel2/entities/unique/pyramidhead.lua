@@ -187,5 +187,3 @@ end
 revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, pyramidHead_Triangle_PostEffectUpdate, REVEL.ENT.PYRAMID_HEAD_TRIANGLE.variant)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

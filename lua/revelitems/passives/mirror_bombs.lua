@@ -545,5 +545,3 @@ revel:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, function(_, e)
     end
 end, 1000)
 end
-
-REVEL.PcallWorkaroundBreakFunction()

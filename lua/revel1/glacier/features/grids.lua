@@ -231,5 +231,3 @@ revel:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, iceGridChecks_PostNewRoom)
 StageAPI.AddCallback("Revelations", RevCallbacks.POST_INGAME_RELOAD, 0, iceGridChecks_PostNewRoom)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

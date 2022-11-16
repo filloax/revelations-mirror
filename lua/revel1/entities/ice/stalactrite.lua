@@ -91,5 +91,3 @@ revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, stalactrite_Stalactrite_EntTa
 
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

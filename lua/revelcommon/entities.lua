@@ -26,5 +26,3 @@ REVEL.RunLoadFunctions(SubLoadFunctions)
 
 Isaac.DebugString("Revelations: Loaded Generic Entities!")
 end
-
-REVEL.PcallWorkaroundBreakFunction()

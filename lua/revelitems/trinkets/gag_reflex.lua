@@ -12,5 +12,3 @@ revel:AddCallback(ModCallbacks.MC_USE_PILL, function(_, pillEffect, player, useF
 end)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

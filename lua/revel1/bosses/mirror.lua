@@ -723,6 +723,7 @@ Narc.Attacks = {
             fireSprite:Load("gfx/effects/revel1/freezer_burn_fire.anm2", true)
             fireSprite.Color = Color(0, 1, 1, 1,conv255ToFloat( 0, 0, 255))
             fireSprite:Play("Idle", true)
+            REVEL.sfx:Play(SoundEffect.SOUND_FIREDEATH_HISS, 1)
         end
     }
 }
@@ -1543,4 +1544,3 @@ do
 end
 
 end
-REVEL.PcallWorkaroundBreakFunction()

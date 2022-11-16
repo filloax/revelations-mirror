@@ -218,4 +218,3 @@ REVEL.BaseMaskShader = [[
     }
     ]].."]]"..[[></fragment>
 </shader>]]
-REVEL.PcallWorkaroundBreakFunction()

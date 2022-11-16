@@ -84,5 +84,3 @@ revel:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, function(_, entity)
 end, EntityType.ENTITY_ROCK_SPIDER)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

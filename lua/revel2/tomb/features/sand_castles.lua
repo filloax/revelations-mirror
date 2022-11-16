@@ -296,5 +296,3 @@ revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, REVEL.SandCastleParticleCh
 revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, REVEL.SandCastleParticleCheck, EffectVariant.POOP_PARTICLE)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

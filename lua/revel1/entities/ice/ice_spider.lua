@@ -80,5 +80,3 @@ revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, npc, dmg)
 end, REVEL.ENT.FROZEN_SPIDER.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

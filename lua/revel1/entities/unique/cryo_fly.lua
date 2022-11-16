@@ -160,5 +160,3 @@ revel:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
 end)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

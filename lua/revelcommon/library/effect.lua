@@ -139,5 +139,3 @@ end
 revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, tracerExtension_PostEffectUpdate, EffectVariant.GENERIC_TRACER)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

@@ -23,5 +23,3 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
     -- Was supposed to be ch1 item, not implemented
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

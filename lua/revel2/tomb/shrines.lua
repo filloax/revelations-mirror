@@ -261,6 +261,8 @@ REVEL.AddShrine("Tomb", {
     Name = ShrineTypes.BLEEDING_T,
 }, ShrineTypes.BLEEDING)
 
-end
+REVEL.AddShrine("Tomb", {
+    Name = ShrineTypes.MITOSIS__T,
+}, ShrineTypes.MITOSIS)
 
-REVEL.PcallWorkaroundBreakFunction()
+end

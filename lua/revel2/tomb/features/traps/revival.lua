@@ -6,11 +6,13 @@ REVEL.TrapTypes.RevivalTrap = {
         for _, rag in ipairs(rags) do
             REVEL.BuffEntity(rag)
         end
+        if (#rags or 0) > 0 then
+            REVEL.room:SetClear(false)
+            REVEL.ShutDoors()
+        end
     end,
     SingleUse = true,
     Animation = "Revive"
 }
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

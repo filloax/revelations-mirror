@@ -29,5 +29,3 @@ function REVEL.ApplyKnockbackImmunity(npc, undoVelocityChanges)
 end
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

@@ -65,5 +65,3 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 end, REVEL.ENT.STONE_CREEP.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

@@ -17,7 +17,7 @@ revel:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function(_, player, flag)
                 ---@type EntityFamiliar
                 familiar = familiar:ToFamiliar()
                 if familiar.Player and GetPtrHash(familiar.Player) == GetPtrHash(player) then
-                    player.Damage = player.Damage + (familiar.Hearts * 0.5)
+                    player.Damage = player.Damage + (familiar.Hearts * 0.2)
                 end
             end
         end
@@ -172,5 +172,3 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_ENTITY_TAKE_DMG, 1, functi
 end, EntityType.ENTITY_PLAYER)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

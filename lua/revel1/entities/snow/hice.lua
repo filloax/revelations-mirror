@@ -41,5 +41,3 @@ revel:AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN , function(_, entityType, var
 end)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

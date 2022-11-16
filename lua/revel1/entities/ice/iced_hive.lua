@@ -102,7 +102,7 @@ revel:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, function(_, npc)
     if not REVEL.ENT.ICED_HIVE:isEnt(npc) then return end
 
     for i = 1, 2 do
-        if i == 2 and (math.random(1,2) <= 1 or data.PooterInMouth) then
+        if i == 2 and (math.random(1,2) <= 1 or npc:GetData().PooterInMouth) then
             local f = Isaac.Spawn(REVEL.ENT.ICE_POOTER.id, REVEL.ENT.ICE_POOTER.variant, 0, npc.Position, RandomVector() * math.random(3,5), npc)
             f:GetData().HitCooldown = 5
             f:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
@@ -133,5 +133,3 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_PROJ_POOF_INIT, 1, functio
 end)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

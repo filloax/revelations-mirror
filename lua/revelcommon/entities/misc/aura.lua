@@ -162,5 +162,3 @@ revel:AddCallback(ModCallbacks.MC_POST_PROJECTILE_UPDATE, function(_, proj)
 end)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

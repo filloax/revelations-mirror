@@ -319,5 +319,3 @@ revel:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function(_, player, flag)
 end)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

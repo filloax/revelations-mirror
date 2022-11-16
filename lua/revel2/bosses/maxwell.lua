@@ -4247,4 +4247,3 @@ end)
 REVEL.MaxwellBalance = MaxwellBalance
 
 end
-REVEL.PcallWorkaroundBreakFunction()

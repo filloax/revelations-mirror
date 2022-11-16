@@ -225,5 +225,3 @@ revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, e1)
 end, REVEL.ENT.MONOLITH.variant)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

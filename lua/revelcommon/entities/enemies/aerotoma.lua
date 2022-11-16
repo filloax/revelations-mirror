@@ -144,5 +144,3 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 end, EntityType.ENTITY_SPIDER_L2)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

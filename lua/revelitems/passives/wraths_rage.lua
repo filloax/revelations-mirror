@@ -196,5 +196,3 @@ revel:AddCallback(ModCallbacks.MC_PRE_USE_ITEM,
 end, CollectibleType.COLLECTIBLE_REMOTE_DETONATOR)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

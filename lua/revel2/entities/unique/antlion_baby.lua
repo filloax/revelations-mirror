@@ -245,7 +245,7 @@ do -- Antlion Egg
                             revel.data.run.jeffreySeen = true
                         else
                             local amountBabies = Isaac.CountEntities(nil, REVEL.ENT.ANTLION_BABY.id, REVEL.ENT.ANTLION_BABY.variant, -1) or 0
-                            local babiesToSpawn = math.random(3,4)
+                            local babiesToSpawn = math.random(2,3)
                             if amountBabies > 2 then
                                 babiesToSpawn = babiesToSpawn - 1
                             end
@@ -385,5 +385,3 @@ do -- Antlion Egg
 end
     
 end
-
-REVEL.PcallWorkaroundBreakFunction()

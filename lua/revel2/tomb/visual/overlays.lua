@@ -1,5 +1,6 @@
 local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
+local Dimension         = require("lua.revelcommon.enums.Dimension")
 
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
@@ -16,7 +17,10 @@ local TombOverlays = {
 -- tombglow:SetFrame("idle", 0)
 
 StageAPI.AddCallback("Revelations", "PRE_TRANSITION_RENDER", 1, function()
-    if REVEL.STAGE.Tomb:IsStage() and not StageAPI.IsHUDAnimationPlaying() then
+    if REVEL.STAGE.Tomb:IsStage() 
+    and not StageAPI.IsHUDAnimationPlaying() 
+    and StageAPI.GetDimension() ~= Dimension.DEATH_CERTIFICATE
+    then
         for _, overlay in ipairs(TombOverlays) do
             overlay:Render(false, REVEL.room:GetRenderScrollOffset())
         end
@@ -29,5 +33,3 @@ StageAPI.AddCallback("Revelations", "PRE_TRANSITION_RENDER", 1, function()
 end)
     
 end
-
-REVEL.PcallWorkaroundBreakFunction()

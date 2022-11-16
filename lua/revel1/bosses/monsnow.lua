@@ -369,5 +369,3 @@ revel:AddCallback(ModCallbacks.MC_POST_EFFECT_INIT, function(_, effect)
 end, EffectVariant.POOF02)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

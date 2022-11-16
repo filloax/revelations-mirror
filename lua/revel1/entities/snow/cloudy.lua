@@ -52,6 +52,7 @@ local function cloudy_NpcUpdate(_, npc)
                 local p = Isaac.Spawn(9, 0, 0, npc.Position, Vector.FromAngle(-45+(90*i)):Resized(4), npc):ToProjectile()
                 p:GetData().PlayerTarget = player
                 p:AddProjectileFlags(ProjectileFlags.CURVE_LEFT)
+                p:GetData().CloudyBullet = true
                 p:GetData().RedirectTimer = 35
                 p.Parent = npc
             end
@@ -61,7 +62,8 @@ end
 revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, cloudy_NpcUpdate, REVEL.ENT.CLOUDY.id)
 
 revel:AddCallback(ModCallbacks.MC_POST_PROJECTILE_UPDATE, function(_, pro)
-    if pro.SpawnerType == REVEL.ENT.CLOUDY.id and pro.SpawnerVariant == REVEL.ENT.CLOUDY.variant then
+    if pro.SpawnerType == REVEL.ENT.CLOUDY.id and pro.SpawnerVariant == REVEL.ENT.CLOUDY.variant
+    and pro:GetData().CloudyBullet then
         local data = pro:GetData()
         data.RedirectTimer = data.RedirectTimer or 35
         data.RedirectTimer = data.RedirectTimer - 1
@@ -89,5 +91,3 @@ revel:AddCallback(ModCallbacks.MC_POST_PROJECTILE_UPDATE, function(_, pro)
 end)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

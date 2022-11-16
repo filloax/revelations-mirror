@@ -309,9 +309,9 @@ function REVEL.registerItem(softId, name, costume, exclusive, power, disable)
         return ret
     end
 
-    function inst:GetCollectibleNum(player, ignoreBlacklist)
+    function inst:GetCollectibleNum(player, ignoreBlacklist, onlyReal)
         if self:PlayerHasCollectible(player, ignoreBlacklist) then
-            return player:GetCollectibleNum(self.id)
+            return player:GetCollectibleNum(self.id, onlyReal)
         else
             return 0
         end
@@ -684,7 +684,7 @@ do
     end
 
     revel:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, registerLowPriorityCallbacks)
-    StageAPI.AddCallback("Revelations", RevCallbacks.POST_INGAME_RELOAD, -90, registerLowPriorityCallbacks)
+    StageAPI.AddCallback("Revelations", RevCallbacks.POST_INGAME_RELOAD, 90, registerLowPriorityCallbacks)
 end
 
 -- RNG class Wrapper
@@ -828,4 +828,3 @@ revel:AddCallback(ModCallbacks.MC_PRE_FAMILIAR_COLLISION, wispImmunity_PreFamili
 
 Isaac.DebugString("Revelations: Loaded Definitions Initialization!")
 end
-REVEL.PcallWorkaroundBreakFunction()

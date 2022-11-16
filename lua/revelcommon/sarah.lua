@@ -316,19 +316,10 @@ do -- Penance and Sarah shared
                     end
 
                     local levelIndex = StageAPI.GetCurrentRoomID()
-                    local newRoom = StageAPI.LevelRoom(
-                        nil, 
-                        REVEL.SarahAngelRoomLayouts, 
-                        nil, 
-                        nil, 
-                        nil, 
-                        nil, 
-                        nil, 
-                        nil, 
-                        nil, 
-                        nil, 
-                        levelIndex
-                    )
+                    local newRoom = StageAPI.LevelRoom {
+                        RoomsList = REVEL.SarahAngelRoomLayouts,
+                        LevelIndex = levelIndex,
+                    }
                     newRoom.PersistentData.AngelPosition = {X = angelPos.X, Y = angelPos.Y}
                     newRoom:SetTypeOverride(RoomType.ROOM_ANGEL)
                     StageAPI.SetCurrentRoom(newRoom)
@@ -1092,4 +1083,3 @@ end
 
 Isaac.DebugString("Revelations: Loaded Sarah!")
 end
-REVEL.PcallWorkaroundBreakFunction()

@@ -615,5 +615,3 @@ revel:AddCallback(ModCallbacks.MC_POST_PLAYER_RENDER, function(_, player)
 end)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

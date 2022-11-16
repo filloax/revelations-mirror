@@ -2,17 +2,21 @@ local PitState = require("lua.revelcommon.enums.PitState")
 
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
+local SNOW_TILE_GROUND = 1
+local SNOW_TILE_PIT = 2
+
 function REVEL.Glacier.SnowTile(index)
     local grid = REVEL.room:GetGridEntity(index)
     if grid and grid.Desc.Type == GridEntityType.GRID_WALL then return end
 
-    local numIndex
+    local numIndex, strIndex
 
     if type(index) ~= "string" then 
-        numIndex = index
-        index = tostring(index) 
+        numIndex = math.floor(index)
+        strIndex = tostring(numIndex)
     else
-        numIndex = tonumber(index)
+        strIndex = index
+        numIndex = math.floor(tonumber(index))
     end
 
     local currentRoom = StageAPI.GetCurrentRoom()
@@ -24,26 +28,63 @@ function REVEL.Glacier.SnowTile(index)
             fragileIce:Remove(false)
         end
         if currentRoom.PersistentData.FragileIce then
-            currentRoom.PersistentData.FragileIce[index] = nil
+            currentRoom.PersistentData.FragileIce[strIndex] = nil
         end
 
         local iceWorms = REVEL.ENT.ICE_WORM:getInRoom()
         for _, e in ipairs(iceWorms) do
-            if tostring(REVEL.room:GetGridIndex(e.Position)) == index then
+            if tostring(REVEL.room:GetGridIndex(e.Position)) == numIndex then
                 e:Kill()
             end
         end
 
-        local val = 1
-        if grid and grid.Desc.Type == GridEntityType.GRID_PIT then
-            val = 2
+        local val = SNOW_TILE_GROUND
+        if grid and grid.Desc.Type == GridEntityType.GRID_PIT
+        and grid.State ~= PitState.PIT_BRIDGE then
+            val = SNOW_TILE_PIT
+
+            grid:ToPit():MakeBridge(grid)
         end
 
-        if not currentRoom.PersistentData.SnowedTiles[index] then
-            currentRoom.PersistentData.SnowedTiles[index] = val
+        if not currentRoom.PersistentData.SnowedTiles[strIndex] then
+            currentRoom.PersistentData.SnowedTiles[strIndex] = val
             return true
         else --just update type, not a new snow tile though
-            currentRoom.PersistentData.SnowedTiles[index] = val
+            currentRoom.PersistentData.SnowedTiles[strIndex] = val
+        end
+    end
+
+    return false
+end
+
+function REVEL.Glacier.RemoveSnowTile(index)
+    local currentRoom = StageAPI.GetCurrentRoom()
+    if currentRoom.PersistentData.SnowedTiles then
+        local strIndex
+        local numIndex
+
+        if type(index) == "string" then 
+            strIndex = index
+            numIndex = math.floor(tonumber(strIndex))
+        else
+            numIndex = math.floor(index)
+            strIndex = tostring(index)
+        end
+        REVEL.DebugLog("RemoveSnowTile", index, strIndex, currentRoom.PersistentData.SnowedTiles[strIndex])
+
+        if currentRoom.PersistentData.SnowedTiles[strIndex] then 
+            if currentRoom.PersistentData.SnowedTiles[strIndex] == SNOW_TILE_PIT then
+                local grid = REVEL.room:GetGridEntity(numIndex)
+                    
+                if grid and grid.Desc.Type == GridEntityType.GRID_PIT and grid.State == PitState.PIT_BRIDGE then
+                    grid.State = PitState.PIT_NORMAL
+                    grid.CollisionClass = GridCollisionClass.COLLISION_PIT
+                    StageAPI.BridgedPits[numIndex] = nil
+                end
+            end
+
+            currentRoom.PersistentData.SnowedTiles[strIndex] = nil
+            return true
         end
     end
 
@@ -121,7 +162,7 @@ function REVEL.Glacier.SnowExplosion(pos, radius, effectScale, triggerStalactrit
 
     local currentRoom = StageAPI.GetCurrentRoom()
     local isProng = currentRoom and (currentRoom.PersistentData.BossID == "Prong"
-    or (currentRoom.IsExtraRoom and REVEL.ENT.PRONG:countInRoom() > 0))
+        or (currentRoom.IsExtraRoom and REVEL.ENT.PRONG:countInRoom() > 0))
 
     if (currentRoom and currentRoom.PersistentData.IcePitFrames) or isProng then
         local indicesToCheck = currentRoom.PersistentData.IcePitFrames
@@ -137,23 +178,15 @@ function REVEL.Glacier.SnowExplosion(pos, radius, effectScale, triggerStalactrit
             for gridX = startGridPos.X, endGridPos.X do
                 for gridY = startGridPos.Y, endGridPos.Y do
                     local index = REVEL.VectorToGrid(gridX, gridY)
-                    local strindex = tostring(math.floor(index))
-                    indicesToCheck[strindex] = 1
+                    indicesToCheck[index] = true
                 end
             end
         end
 
-        for strindex, _ in pairs(indicesToCheck) do
-            local index = tonumber(strindex)
+        for index, _ in pairs(indicesToCheck) do
             if REVEL.room:GetGridPosition(index):DistanceSquared(pos) < radius ^ 2 then
-                -- currentRoom.PersistentData.IcePitFrames[strindex] = nil
-                if REVEL.Glacier.SnowTile(strindex) then
-                    -- Spawn snow bridge
-                    if currentRoom.PersistentData.SnowedTiles[strindex] == 1 then -- ice pit
-                        SpawnIceSnowTileEffectGround(index)
-                    else
-                        SpawnSnowTileBridge(REVEL.room:GetGridEntity(index), index)
-                    end
+                if REVEL.Glacier.SnowTile(index) then
+                    SpawnIceSnowTileEffectGround(index)
                 end
             end
         end
@@ -163,10 +196,9 @@ function REVEL.Glacier.SnowExplosion(pos, radius, effectScale, triggerStalactrit
         local grid = REVEL.room:GetGridEntity(i)
         if grid and grid.Desc.Type == GridEntityType.GRID_PIT and grid.State ~= PitState.PIT_BRIDGE 
         and REVEL.room:GetGridPosition(i):DistanceSquared(pos) < radius ^ 2 then
-            grid:ToPit():MakeBridge(grid)
-            REVEL.Glacier.SnowTile(i)
-
-            SpawnSnowTileBridge(grid, i)
+            if REVEL.Glacier.SnowTile(i) then
+                SpawnSnowTileBridge(grid, i)
+            end
         end
     end
 
@@ -234,5 +266,3 @@ revel:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, snowTile_PostNewRoom)
 
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

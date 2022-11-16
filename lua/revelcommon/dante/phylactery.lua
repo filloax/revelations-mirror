@@ -9,6 +9,13 @@ local PhylacteryAddCharge
 local PhylacteryTransferring
 local PhylacteryTransferringPosition
 
+REVEL.Dante.PhylacteryItems = {
+    REVEL.ITEM.PHYLACTERY.id,
+    REVEL.ITEM.PHYLACTERY_MERGED.id,
+    REVEL.ITEM.PHYLACTERY_PICKUP_ITEM.id,
+    REVEL.ITEM.PHYLACTERY_PICKUP_ITEM_CHARGE.id,
+}
+
 function REVEL.Dante.GetPhylactery(player)
     if REVEL.PHYLACTERY_POCKET then
         return player:GetActiveItem(ActiveSlot.SLOT_POCKET)
@@ -17,7 +24,23 @@ function REVEL.Dante.GetPhylactery(player)
     end
 end
 
+---@param player EntityPlayer
+---@param item CollectibleType
 function REVEL.Dante.SetPhylactery(player, item)
+    for _, itemId in ipairs(REVEL.Dante.PhylacteryItems) do
+        local num = player:GetCollectibleNum(itemId, true)
+        if itemId ~= item then
+            for i = 1, num do
+                player:RemoveCollectible(itemId)
+            end
+        elseif player:GetCollectibleNum(itemId, true) > 1 then
+            for i = 2, num do
+                player:RemoveCollectible(itemId)
+            end
+        end
+    end
+
+    REVEL.DebugToString("Called in:", REVEL.TryGetTraceback(true, true))
     if REVEL.PHYLACTERY_POCKET then
         player:SetPocketActiveItem(item, ActiveSlot.SLOT_POCKET, false)
         player:DischargeActiveItem(ActiveSlot.SLOT_POCKET)
@@ -204,6 +227,7 @@ revel:AddCallback(ModCallbacks.MC_POST_FAMILIAR_RENDER, function(_, fam)
                     local sprite = fam:GetSprite()
                     if not sprite:IsPlaying("Absorb") then
                         sprite:Play("Absorb", true)
+                        REVEL.sfx:Play(SoundEffect.SOUND_UNLOCK00, 1, 0, false, 1.1)
                     end
 
                     if sprite:IsEventTriggered("Close") then
@@ -211,6 +235,8 @@ revel:AddCallback(ModCallbacks.MC_POST_FAMILIAR_RENDER, function(_, fam)
                         if data.Light then
                             data.LightSize = 4
                         end
+                        REVEL.sfx:Play(REVEL.SFX.HATCH_CLOSE, 0.8, 5, false, 1.2)
+                        REVEL.sfx:Play(SoundEffect.SOUND_FIREDEATH_HISS, 0.4)
                     end
                 else
                     item.Velocity = REVEL.Lerp(Vector.Zero, (targPos - item.Position):Resized(7), accel)
@@ -273,15 +299,16 @@ function REVEL.Dante.Callbacks.Phylactery_PostUpdate(player, data)
         checkId = REVEL.ITEM.PHYLACTERY_MERGED.id
     end
 
-    if not player:HasCollectible(checkId) 
-    and not player:HasCollectible(REVEL.ITEM.PHYLACTERY_PICKUP_ITEM.id) 
-    and not player:HasCollectible(REVEL.ITEM.PHYLACTERY_PICKUP_ITEM_CHARGE.id) then
+    if not player:HasCollectible(checkId, true) 
+    and not player:HasCollectible(REVEL.ITEM.PHYLACTERY_PICKUP_ITEM.id, true) 
+    and not player:HasCollectible(REVEL.ITEM.PHYLACTERY_PICKUP_ITEM_CHARGE.id, true) 
+    then
         local phylacteries = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, checkId, false, false)
         for _, phylactery in ipairs(phylacteries) do
             phylactery:Remove()
         end
 
-        player:AddCollectible(checkId, 999, false)
+        REVEL.Dante.SetPhylactery(player, checkId)
     end
 
     if PhylacterySwitch then
@@ -462,7 +489,6 @@ revel:AddCallback(ModCallbacks.MC_POST_RENDER, function()
                 and REVEL.Dante.IsInventoryManagedItem(nil, player.QueuedItem.Item)
 
 			if (active == REVEL.ITEM.PHYLACTERY.id or active == REVEL.ITEM.PHYLACTERY_MERGED.id) and isHoldingItem then
-				player:RemoveCollectible(active)
 				local charge = player:GetActiveCharge(REVEL.Dante.GetPhylacteryActiveSlot()) + player:GetBatteryCharge(REVEL.Dante.GetPhylacteryActiveSlot())
 				if active == REVEL.ITEM.PHYLACTERY.id then
                     REVEL.Dante.SetPhylactery(player, REVEL.ITEM.PHYLACTERY_PICKUP_ITEM_CHARGE.id)
@@ -479,7 +505,6 @@ revel:AddCallback(ModCallbacks.MC_POST_RENDER, function()
                 phylacteryHudSprite:Play("NearItem", true)
 
 			elseif isActivePhylacteryPickup and not isHoldingItem then
-				player:RemoveCollectible(active)
 				local charge = player:GetActiveCharge(REVEL.Dante.GetPhylacteryActiveSlot()) + player:GetBatteryCharge(REVEL.Dante.GetPhylacteryActiveSlot())
 				if revel.data.run.dante.IsCombined or REVEL.game.Difficulty == Difficulty.DIFFICULTY_GREED 
                 or REVEL.game.Difficulty == Difficulty.DIFFICULTY_GREEDIER then
@@ -538,4 +563,3 @@ revel:AddCallback(ModCallbacks.MC_PRE_GAME_EXIT, function()
 end)
 
 end
-REVEL.PcallWorkaroundBreakFunction()

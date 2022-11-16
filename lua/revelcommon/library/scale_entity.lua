@@ -89,5 +89,3 @@ StageAPI.AddCallback("Revelations", RevCallbacks.EARLY_POST_NEW_ROOM, 1, scaleEn
 StageAPI.AddCallback("Revelations", RevCallbacks.NPC_UPDATE_INIT, 1, scaleEntityNpcInit)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

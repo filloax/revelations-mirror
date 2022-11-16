@@ -187,5 +187,3 @@ revel:AddCallback(ModCallbacks.MC_POST_UPDATE, forceinputCallbackCheckPostUpdate
 revel:AddCallback(ModCallbacks.MC_POST_RENDER, mouseBtnTriggeredPostRender)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

@@ -34,7 +34,7 @@ local function ragGaperUpdate(_, npc)
 
     if data.Buffed and not data.BuffedInit then
         sprite:ReplaceSpritesheet(1, "gfx/monsters/revel2/rag_gaper_body_buffed.png")
-        sprite:ReplaceSpritesheet(2, "gfx/monsters/revel2/rag_gaper_body_buffed.png")
+        sprite:ReplaceSpritesheet(2, "gfx/monsters/revel2/rag_gusher_buffed.png")
         sprite:ReplaceSpritesheet(3, "gfx/monsters/revel2/rag_gusher_buffed.png")
         sprite:LoadGraphics()
         data.BuffedInit = true
@@ -314,5 +314,3 @@ Anm2GlowNullHead1 = {
 }
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

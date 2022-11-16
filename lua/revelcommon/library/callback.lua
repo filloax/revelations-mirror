@@ -19,5 +19,3 @@ function REVEL.CallbackOnce(callbackId, func, param)
 end
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

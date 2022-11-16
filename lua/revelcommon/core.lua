@@ -35,5 +35,3 @@ REVEL.RunLoadFunctions(SubLoadFunctions)
 
 Isaac.DebugString("Revelations: Loaded Core!")
 end
-
-REVEL.PcallWorkaroundBreakFunction()

@@ -242,4 +242,3 @@ revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, e)
 end, StageAPI.E.GenericEffect.V)
 
 end
-REVEL.PcallWorkaroundBreakFunction()

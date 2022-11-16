@@ -101,5 +101,3 @@ function REVEL.LerpEntityPositionSmooth(entity, pos, tar, time)
   end
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

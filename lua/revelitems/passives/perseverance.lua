@@ -120,5 +120,3 @@ revel:AddCallback(ModCallbacks.MC_POST_NPC_RENDER, function(_, npc, renderOffset
 end)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

@@ -368,14 +368,38 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
             end
 
             if sprite:IsPlaying("ChaseLoop") and npc.Position:DistanceSquared(npc:GetPlayerTarget().Position) < 100 ^ 2 then
-                sprite:Play("ChaseStop", true)
-                data.State = "Shoot"
+                sprite:Play("Charge", true)
+                data.State = "Charge"
             end
 
             sprite.FlipX = npc.Velocity.X > 0
         else
             data.State = "Idle"
         end
+    elseif data.State == "Charge" then
+        if sprite:IsFinished("Charge") then
+            sprite:Play("ChargeLoop", true)
+        end
+
+        if sprite:IsEventTriggered("Charge") then
+            data.ChargeVel = ((npc:GetPlayerTarget().Position+npc:GetPlayerTarget().Velocity*2)-npc.Position):Resized(12)
+            REVEL.sfx:NpcPlay(npc, SoundEffect.SOUND_BLACK_POOF, 0.4, 0, false, 3)
+        end
+
+        if data.ChargeVel then
+            npc.Velocity = REVEL.Lerp(npc.Velocity, data.ChargeVel, 0.2)
+            sprite.FlipX = npc.Velocity.X > 0
+        end
+
+        data.ChargeTimer = data.ChargeTimer or 15
+        if data.ChargeTimer > 0 then
+            data.ChargeTimer = data.ChargeTimer - 1
+        else
+            data.ChargeTimer = nil
+            sprite:Play("ChaseStop", true)
+            data.State = "Shoot"
+        end
+
     elseif data.State == "Shoot" then
         if sprite:IsFinished("ChaseStop") then
             sprite:Play("Shoot", true)
@@ -383,6 +407,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 
         if sprite:IsEventTriggered("Shoot") then
             REVEL.sfx:NpcPlay(npc, REVEL.SFX.BIP_CRY, 0.6)
+            REVEL.sfx:NpcPlay(npc, SoundEffect.SOUND_BLOODSHOOT)
             for i = 1, math.random(8, 12) do
                 local newProjectile = npc:FireBossProjectiles(1, npc:GetPlayerTarget().Position, 4, ProjectileParams())
                 newProjectile.Velocity = newProjectile.Velocity * 0.9
@@ -401,7 +426,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
             data.State = "Idle"
         end
 
-        npc.Velocity = npc.Velocity * 0.75
+        npc.Velocity = npc.Velocity * 0.85
     end
 end, REVEL.ENT.BLOATBIP.id)
 
@@ -420,5 +445,3 @@ revel:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, function(_, npc)
 end, REVEL.ENT.SANDBOB.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

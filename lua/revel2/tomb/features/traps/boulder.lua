@@ -423,5 +423,3 @@ revel:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, function(_, ent)
 end, REVEL.ENT.SAND_BOULDER.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

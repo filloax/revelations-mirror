@@ -33,7 +33,7 @@ function revel.tbug.FireTear(player)
     tear.FallingAcceleration = revel.tbug.tearFAccel
     tear:GetSprite().Color = revel.tbug.tearColor
     tear.Scale = tear.Scale * 1.3
-    tear.CollisionDamage = tear.CollisionDamage * 1.3
+    tear.CollisionDamage = tear.CollisionDamage * 2
 end
 
 revel.tbug.nonBlockingCollisions = {
@@ -223,5 +223,3 @@ revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, function(_, player)
 end)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

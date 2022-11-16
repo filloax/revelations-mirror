@@ -39,4 +39,3 @@ function REVEL.GetHudTextOffset()
 end
 
 end
-REVEL.PcallWorkaroundBreakFunction()

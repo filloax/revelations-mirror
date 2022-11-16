@@ -299,5 +299,3 @@ end, REVEL.ENT.NECRAGMANCER.id)
 revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, necragmancer_NpcUpdate, REVEL.ENT.NECRAGMANCER.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

@@ -155,12 +155,13 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
         npc.Velocity = REVEL.Lerp(npc.Velocity, Vector.Zero, 0.2)
     end
 
-    if not d.startClear and REVEL.room:IsClear() then
+    if not d.startClear and REVEL.room:IsClear() and d.state ~= "Death" then
         d.deathAnim = "Death" .. d.faceDir
-        if d.state == "Idle" then d.deathAnim = "IdleDeath" end
+        if d.state == "Idle" then 
+            d.deathAnim = "IdleDeath" 
+        end
         d.state = "Death"
     end
-
 
 end, REVEL.ENT.DUNE.id)
 
@@ -170,5 +171,3 @@ revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, entity, amount)
 end, REVEL.ENT.DUNE.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

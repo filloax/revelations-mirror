@@ -889,4 +889,3 @@ revel:AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, function(_, type, variant, s
 end)
 
 end
-REVEL.PcallWorkaroundBreakFunction()

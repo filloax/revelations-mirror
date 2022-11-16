@@ -124,12 +124,15 @@ revel:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function() -- Figure out which
 
         local valid
         if GlacierOneNoElites then
-            valid = StageAPI.Random(1, 3, eliteSpawnRNG) 
-                and not (REVEL.STAGE.Glacier:IsStage() 
-                    and (not StageAPI.GetCurrentStage().IsSecondStage 
-                        or HasBit(REVEL.level:GetCurses(), LevelCurse.CURSE_OF_LABYRINTH)))
+            if (REVEL.STAGE.Glacier:IsStage()) then
+                valid = StageAPI.Random(1, 3, eliteSpawnRNG) == 1
+                    and (StageAPI.GetCurrentStage().IsSecondStage 
+                    or HasBit(REVEL.level:GetCurses(), LevelCurse.CURSE_OF_LABYRINTH))
+            else
+                valid = StageAPI.Random(1, 3, eliteSpawnRNG) == 1
+            end
         else
-            valid = StageAPI.Random(1, 3, eliteSpawnRNG) -- or StageAPI.GetCurrentStage().IsSecondStage
+            valid = StageAPI.Random(1, 3, eliteSpawnRNG) == 1 -- or StageAPI.GetCurrentStage().IsSecondStage
         end
 
         if valid then
@@ -273,4 +276,3 @@ end
 
 Isaac.DebugString("Revelations: Loaded Elites!")
 end
-REVEL.PcallWorkaroundBreakFunction()

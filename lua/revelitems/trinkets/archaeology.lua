@@ -247,5 +247,3 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_ROCK_BREAK, 1, function(gr
 end)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

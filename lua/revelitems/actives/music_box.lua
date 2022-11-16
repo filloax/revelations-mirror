@@ -312,5 +312,3 @@ end)
 
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

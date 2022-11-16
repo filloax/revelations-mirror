@@ -267,5 +267,3 @@ end, REVEL.ENT.SNOW_FLAKE.id)
 
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

@@ -46,6 +46,8 @@ local function hasAnyItems(p, ...)
     return has
 end
   
+---@param id CollectibleType
+---@return EntityPlayer?
 function REVEL.GetRandomPlayerWithItem(id)
     local t = REVEL.GetFilteredArray(REVEL.players, hasItem, id)
     if #t ~= 0 then
@@ -53,8 +55,37 @@ function REVEL.GetRandomPlayerWithItem(id)
     end
 end
   
+---@vararg CollectibleType
+---@return EntityPlayer?
 function REVEL.GetRandomPlayerWithItems(...)
     local t = REVEL.GetFilteredArray(REVEL.players, hasAnyItems, ...)
+    if #t ~= 0 then
+        return t[math.random(#t)]
+    end
+end
+
+local function hasAnyTrinkets(p, ...)
+    local arg = {...}
+    local has = false
+    for i,id in ipairs(arg) do
+        has = has or p:HasTrinket(id)
+    end
+    return has
+end
+
+---@param id TrinketType
+---@return EntityPlayer?
+function REVEL.GetRandomPlayerWithTrinket(id)
+    local t = REVEL.GetFilteredArray(REVEL.players, hasAnyTrinkets, id)
+    if #t ~= 0 then
+        return t[math.random(#t)]
+    end
+end
+  
+---@vararg TrinketType
+---@return EntityPlayer?
+function REVEL.GetRandomPlayerWithTrinkets(...)
+    local t = REVEL.GetFilteredArray(REVEL.players, hasAnyTrinkets, ...)
     if #t ~= 0 then
         return t[math.random(#t)]
     end
@@ -87,5 +118,3 @@ function REVEL.GetCollectibleNameFromID(itemID)
 end
    
 end
-
-REVEL.PcallWorkaroundBreakFunction()

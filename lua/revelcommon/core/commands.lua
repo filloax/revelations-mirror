@@ -207,7 +207,11 @@ local function commands_ExecuteCmd(_, cmd, params)
         local doLostMode = args[2] == "lost"
 
         if args[1] == 'd' then
-            REVEL.SafeRoomTransition(revel.data.run.level.mirrorDoorRoomIndex, true)
+            if revel.data.run.level.mirrorDoorRoomIndex >= 0 then
+                REVEL.SafeRoomTransition(revel.data.run.level.mirrorDoorRoomIndex, true)
+            else
+                REVEL.DebugLog("No mirror room in this floor!")
+            end
         else
             local validDoors = {}
             for i = 0, 7 do
@@ -683,4 +687,3 @@ end)
 
 Isaac.DebugString("Revelations: Loaded Commands!")
 end
-REVEL.PcallWorkaroundBreakFunction()

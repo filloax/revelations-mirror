@@ -36,5 +36,3 @@ function REVEL.GetGigaBombTiles(indexOrPos)
 end
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

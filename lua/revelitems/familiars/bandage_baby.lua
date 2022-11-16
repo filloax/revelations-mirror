@@ -244,5 +244,3 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_ENTITY_AIR_MOVEMENT_LAND, 
 end, REVEL.ENT.BANDAGE_BABY_BALL.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

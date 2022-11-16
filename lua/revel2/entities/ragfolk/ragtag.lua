@@ -377,5 +377,3 @@ Anm2GlowNullVariants1 = {
 }
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

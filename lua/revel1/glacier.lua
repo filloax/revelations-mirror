@@ -73,4 +73,3 @@ revel:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, miscglacierPostNewLevel)
 
 Isaac.DebugString("Revelations: Loaded Glacier!")
 end
-REVEL.PcallWorkaroundBreakFunction()

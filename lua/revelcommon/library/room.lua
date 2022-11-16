@@ -362,5 +362,3 @@ StageAPI.AddCallback("Revelations", RevCallbacks.EARLY_POST_NEW_ROOM, 1, roomTra
 revel:AddCallback(ModCallbacks.MC_POST_UPDATE, updateRoomASAPUpdate)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

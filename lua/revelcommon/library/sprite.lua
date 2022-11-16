@@ -477,5 +477,3 @@ function REVEL.ReplaceEnemySpritesheet(npc, filepath, layer, loadGraphics) --Lea
 end
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

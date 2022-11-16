@@ -224,6 +224,9 @@ REVEL.ITEM = {
     TELESCOPE = REVEL.registerTrinket(5, "Telescope", nil),
     SCRATCHED_SACK = REVEL.registerTrinket(6, "Scratched Sack", nil),
     MAX_HORN = REVEL.registerTrinket(7, "Maxwell's Horn", nil),
+    MEMORY_CAP = REVEL.registerTrinket(8, "Memory Cap", nil),
+    -- why is it shortened to Xmas in english anyways
+    XMAS_STOCKING = REVEL.registerTrinket(9, "Christmas Stocking", nil),
 }
 
 ---------------------
@@ -231,7 +234,14 @@ REVEL.ITEM = {
 ---------------------
 REVEL.POCKETITEM = {
     -- Cards --
-    LOTTERY_TICKET = Isaac.GetCardIdByName("55_LotteryTicket"),
+    LOTTERY_TICKET = {
+        Id = Isaac.GetCardIdByName("55_LotteryTicket"),
+        Announcer = REVEL.registerSound("REV Announcer Lottery Ticket"),
+    },
+    BELL_SHARD = {
+        Id = Isaac.GetCardIdByName("BellShard"),
+        Announcer = REVEL.registerSound("REV Announcer Bell Shard"),
+    },
 
     -- Pill effects --
 }
@@ -362,4 +372,3 @@ REVEL.STAGE = {}
 
 Isaac.DebugString("Revelations: Loaded Definitions for Chapter 1!")
 end
-REVEL.PcallWorkaroundBreakFunction()

@@ -36,6 +36,7 @@ REVEL.DEFAULT_MODDATA = {
                     Other = {},
                 },
                 RoomClearAwards = {},
+                RepFailsafe = false
             },
 
             destroyedPenanceStatue = false,
@@ -74,7 +75,7 @@ REVEL.DEFAULT_MODDATA = {
         itemCount = {},
         itemHistory = {},
         trinketHistory = {},
-        bellEffect = {0, 0, 0, 0},
+        bellEffect = {},
         visitedDevil = false,
         visitedShop = false,
         visitedArcade = false,
@@ -202,7 +203,6 @@ REVEL.DEFAULT_MODDATA = {
             ActiveComesFromCharon = false,
             RedHeartPrioritizeDante = true,
             RedHeartPrioritySet = false,
-            SpawnedHealthUp = false,
             IsCombined = false,
             IsDante = false,
             IsInitialized = false,
@@ -281,4 +281,3 @@ end
 
 Isaac.DebugString("Revelations: Loaded Common Default Save Data!")
 end
-REVEL.PcallWorkaroundBreakFunction()

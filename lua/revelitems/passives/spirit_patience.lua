@@ -70,5 +70,3 @@ revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, function(_, player)
 end)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

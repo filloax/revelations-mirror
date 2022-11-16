@@ -346,5 +346,3 @@ revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, effect)
 end, REVEL.ENT.HALF_CHEWED_PONY.variant)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

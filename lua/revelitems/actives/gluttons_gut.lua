@@ -466,5 +466,3 @@ StageAPI.AddCallback("Revelations", RevCallbacks.EARLY_POST_NEW_ROOM, 1, functio
 end)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

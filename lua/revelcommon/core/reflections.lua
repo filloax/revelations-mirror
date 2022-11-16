@@ -697,5 +697,3 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
     revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, reflectionPostPlayerUpdate)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

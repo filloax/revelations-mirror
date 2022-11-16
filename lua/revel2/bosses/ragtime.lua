@@ -2510,6 +2510,14 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
                 REVEL.SpawnPurpleThunder(npc)
                 REVEL.sfx:Stop(data.bal.Sounds.ClappingLoop.Sound)
 
+                sprite:ReplaceSpritesheet(0, "gfx/bosses/revel2/ragtime/ragtime_revived.png")
+                sprite:ReplaceSpritesheet(1, "gfx/bosses/revel2/ragtime/ragtime_revived.png")
+                sprite:ReplaceSpritesheet(2, "gfx/bosses/revel2/ragtime/ragtime_revived.png")
+                sprite:ReplaceSpritesheet(3, "gfx/bosses/revel2/ragtime/ragtime_revived.png")
+                sprite:ReplaceSpritesheet(4, "gfx/bosses/revel2/ragtime/ragtime_body_revived.png")
+                sprite:ReplaceSpritesheet(5, "gfx/bosses/revel2/ragtime/ragtime_revived.png")
+                sprite:LoadGraphics()
+
                 -- Trigger phase 2
                 data.Phase = 2
                 npc.HitPoints = data.PhaseHP[data.Phase]
@@ -3174,5 +3182,3 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
         postRenderRagtime()
     end)
 end
-
-REVEL.PcallWorkaroundBreakFunction()

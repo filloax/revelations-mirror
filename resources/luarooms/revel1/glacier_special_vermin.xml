@@ -105,7 +105,7 @@
 			<entity type="625" variant="274" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="0" name="SecretVerm002" type="7" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="1" name="SecretVerm002" type="7" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -190,7 +190,7 @@
 			<entity type="1000" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="0" name="SecretVerm003" type="7" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="2" name="SecretVerm003" type="7" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -388,7 +388,7 @@
 			<entity type="1000" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="0" name="SecretVerm004" type="7" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="3" name="SecretVerm004" type="7" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -451,12 +451,6 @@
 		<spawn x="2" y="2">
 			<entity type="625" variant="274" subtype="0" weight="1.0"/>
 		</spawn>
-		<spawn x="3" y="2">
-			<entity type="1000" variant="0" subtype="0" weight="1.0"/>
-		</spawn>
-		<spawn x="4" y="2">
-			<entity type="1000" variant="0" subtype="0" weight="1.0"/>
-		</spawn>
 		<spawn x="9" y="2">
 			<entity type="1000" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
@@ -479,20 +473,8 @@
 		<spawn x="2" y="3">
 			<entity type="625" variant="274" subtype="0" weight="1.0"/>
 		</spawn>
-		<spawn x="3" y="3">
-			<entity type="1000" variant="0" subtype="0" weight="1.0"/>
-		</spawn>
-		<spawn x="4" y="3">
-			<entity type="1000" variant="0" subtype="0" weight="1.0"/>
-		</spawn>
 		<spawn x="6" y="3">
 			<entity type="5" variant="100" subtype="0" weight="1.0"/>
-		</spawn>
-		<spawn x="8" y="3">
-			<entity type="1000" variant="0" subtype="0" weight="1.0"/>
-		</spawn>
-		<spawn x="9" y="3">
-			<entity type="1000" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 		<spawn x="10" y="3">
 			<entity type="625" variant="274" subtype="0" weight="1.0"/>
@@ -513,18 +495,6 @@
 			<entity type="625" variant="274" subtype="0" weight="1.0"/>
 		</spawn>
 		<spawn x="3" y="4">
-			<entity type="1000" variant="0" subtype="0" weight="1.0"/>
-		</spawn>
-		<spawn x="4" y="4">
-			<entity type="1000" variant="0" subtype="0" weight="1.0"/>
-		</spawn>
-		<spawn x="7" y="4">
-			<entity type="1000" variant="0" subtype="0" weight="1.0"/>
-		</spawn>
-		<spawn x="8" y="4">
-			<entity type="1000" variant="0" subtype="0" weight="1.0"/>
-		</spawn>
-		<spawn x="9" y="4">
 			<entity type="1000" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 		<spawn x="10" y="4">
@@ -599,7 +569,7 @@
 			<entity type="625" variant="274" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="0" name="SecretVerm005" type="7" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="4" name="SecretVerm005" type="7" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -641,7 +611,7 @@
 			<entity type="1002" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="0" name="SecretVerm006" type="7" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
+	<room variant="5" name="SecretVerm006" type="7" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -854,7 +824,7 @@
 			<entity type="1000" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="0" name="SecretVerm007(nea)" type="7" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0" lastTestTime="2020-03-02T16:02+00:00">
+	<room variant="6" name="SecretVerm007(nea)" type="7" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0" lastTestTime="2020-03-02T16:02+00:00">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>
@@ -930,7 +900,7 @@
 			<entity type="1000" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="0" name="SecretVerm008 The Lovers (nea)" type="7" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0" lastTestTime="2020-03-02T16:11+00:00">
+	<room variant="7" name="SecretVerm008 The Lovers (nea)" type="7" subtype="0" shape="1" width="13" height="7" difficulty="1" weight="1.0" lastTestTime="2020-03-02T16:11+00:00">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
 		<door exists="True" x="6" y="7"/>

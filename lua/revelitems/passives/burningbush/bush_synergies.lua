@@ -26,7 +26,7 @@ revel:AddCallback(ModCallbacks.MC_POST_KNIFE_UPDATE, function(_, e)
     end
 end)
 
-StageAPI.AddCallback("Revelations", "REV_KNIFE_UPDATE_INIT", 1, function(e)
+StageAPI.AddCallback("Revelations", RevCallbacks.KNIFE_UPDATE_INIT, 1, function(e)
     local player = e.Parent:ToPlayer()
     if not player or not REVEL.ITEM.BURNBUSH:PlayerHasCollectible(player) or player:GetPlayerType() == PlayerType.PLAYER_THEFORGOTTEN then return end
 
@@ -101,14 +101,14 @@ do
         RemoveOnAnimEnd = false
     }
 
-    local function LaserParentDoesFire(e)
-        local parent = e.Parent
-        local isPlayer = e.SpawnerType == 1 or (parent and (parent.Type == 1 or parent.SpawnerType == 1))
-        if isPlayer then
-            local player = e:GetLastParent():ToPlayer()
-            return player and player:HasCollectible(REVEL.ITEM.BURNBUSH.id)
+    local function GetLaserPlayerWithFire(e)
+        local parent = e:GetLastParent()
+        parent = parent.SpawnerEntity or parent -- anti gravity doesn't return player as last parent with the function
+        local player = parent and parent:ToPlayer()
+
+        if player and REVEL.ITEM.BURNBUSH:PlayerHasCollectible(player) then
+            return player
         end
-        return false
     end
 
     local BrimstoneLikeLaserVariants = {
@@ -118,84 +118,21 @@ do
         LaserVariant.THICK_BROWN,
     }
 
+    ---@param e EntityLaser
     revel:AddCallback(ModCallbacks.MC_POST_LASER_UPDATE, function(_, e)
-        if not REVEL.includes(BrimstoneLikeLaserVariants, e.Variant) or not e.Parent then 
+
+        if not REVEL.includes(BrimstoneLikeLaserVariants, e.Variant) then 
             return 
         end
-        local player = e.Parent:ToPlayer()
+        local player = GetLaserPlayerWithFire(e)
 
-        -- needs to be brim or shoop da woop
-        if not player or not REVEL.ITEM.BURNBUSH:PlayerHasCollectible(player) or (e.Variant ~= 1 and e.Variant ~= 3) then return end
+        if not player then return end
 
-        e = e:ToLaser()
         local data = e:GetData()
 
-        -- needs to be brim or shoop da woop
-        if player and player:HasCollectible(REVEL.ITEM.BURNBUSH.id) then
-            local stats = player:GetData().BushStats
-
-            if not data.bushFireDelay then
-                data.bushFireDelay = 0
-                data.bushFireTreshold = 1 / (stats.FiresPerUpdate * BushLagAdjGlobals.FirerateMult)
-            end
-
-            data.bushFireDelay = data.bushFireDelay + 1
-
-            while data.bushFireDelay >= data.bushFireTreshold do
-                data.bushFireDelay = data.bushFireDelay - data.bushFireTreshold
-                if e:IsCircleLaser() then --TECH X + BRIM
-                    local vec = RandomVector()
-                    local tear = REVEL.ShootFireTear(player, e.Position + vec*(e.Radius*0.7), vec*10, 1, false, 0.65)
-                    tear:GetData().monolith = true
-                    tear:GetData().CustomColor = e:GetSprite().Color
-                else
-                    local pos = Vector(
-                        e.Parent.Position.X + (e.EndPoint.X-e.Parent.Position.X)*math.random() ,
-                        e.Parent.Position.Y + (e.EndPoint.Y-e.Parent.Position.Y)*math.random() 
-                    )
-                    local vel = Vector.FromAngle(e.AngleDegrees - 45 + math.random(90)) * 10
-                    local tear = REVEL.ShootFireTear(player, pos, vel, 1, false, 0.65)
-                    tear:GetData().monolith = true
-                    tear:GetData().CustomColor = e:GetSprite().Color
-                end
-            end
-        end
-        if LaserParentDoesFire(e) then
-            local pos 
-            if e:IsCircleLaser() then
-                pos = e.Position + RandomVector() * (e.Radius*0.7)
-            else
-                pos = Vector(
-                    e.Parent.Position.X + (e.EndPoint.X-e.Parent.Position.X)*math.random() ,
-                    e.Parent.Position.Y + (e.EndPoint.Y-e.Parent.Position.Y)*math.random() 
-                )
-            end
-            REVEL.SpawnFireParticles(pos, -5, 0, e.FrameCount, nil, 1)
-        end
-    end)
-
-    StageAPI.AddCallback("Revelations", RevCallbacks.EFFECT_UPDATE_INIT, 1, function(e)
-        if e.Variant == EffectVariant.LASER_IMPACT and e.Parent and e.Parent.SpawnerType == 1 then
-            local player = e:GetLastParent():ToPlayer()
-            if player and REVEL.ITEM.BURNBUSH:PlayerHasCollectible(player) and e.SubType == 1 then
-                local spr = e:GetSprite()
-
-                spr:Load("gfx/effects/revelcommon/burning_brimstone_impact.anm2", true)
-                spr.Color = e.Parent:GetSprite().Color
-            end
-        elseif e.Variant == EffectVariant.BRIMSTONE_SWIRL and ( (e.Parent and (e.Parent.SpawnerType == 1 or e.Parent.Type == 1)) or e.SpawnerType == 1 ) then
-            local player = e:GetLastParent():ToPlayer()
-            if player and REVEL.ITEM.BURNBUSH:PlayerHasCollectible(player) then
-                local spr = e:GetSprite()
-
-                spr:ReplaceSpritesheet(0, "gfx/effects/revelcommon/burning_brimstone_swirl.png")
-                spr:LoadGraphics()
-            end
-        end
-    end)
-
-    StageAPI.AddCallback("Revelations", RevCallbacks.LASER_UPDATE_INIT, 1, function(e)
-        if e.SpawnerType == 1 and REVEL.ITEM.BURNBUSH:PlayerHasCollectible(REVEL.player) then
+        -- no frame check as anti-gravity lasers are init before
+        if not data.__LaserBushInit then
+            data.__LaserBushInit = true
             if REVEL.includes(BrimstoneLikeLaserVariants, e.Variant) then --BRIM/SHOOP
                 local spr,color = e:GetSprite(),e:GetSprite().Color
 
@@ -229,7 +166,76 @@ do
                 REVEL.sfx:Play(REVEL.SFX.FIRE_END, 0.6, 0, false, 0.5) 
             end
         end
+
+        e = e:ToLaser()
+        local data = e:GetData()
+
+        -- needs to be brim or shoop da woop
+        local stats = player:GetData().BushStats
+
+        if not data.bushFireDelay then
+            data.bushFireDelay = 0
+            data.bushFireTreshold = 1 / (stats.FiresPerUpdate * BushLagAdjGlobals.FirerateMult)
+        end
+
+        data.bushFireDelay = data.bushFireDelay + 1
+
+        while data.bushFireDelay >= data.bushFireTreshold do
+            data.bushFireDelay = data.bushFireDelay - data.bushFireTreshold
+            if e:IsCircleLaser() then --TECH X + BRIM
+                local vec = RandomVector()
+                local tear = REVEL.ShootFireTear(player, e.Position + vec*(e.Radius*0.7), vec*10, 1, false, 0.65)
+                tear:GetData().monolith = true
+                tear:GetData().CustomColor = e:GetSprite().Color
+            else
+                local pos = Vector(
+                    e.Parent.Position.X + (e.EndPoint.X-e.Parent.Position.X)*math.random() ,
+                    e.Parent.Position.Y + (e.EndPoint.Y-e.Parent.Position.Y)*math.random() 
+                )
+                local vel = Vector.FromAngle(e.AngleDegrees - 45 + math.random(90)) * 10
+                local tear = REVEL.ShootFireTear(player, pos, vel, 1, false, 0.65)
+                tear:GetData().monolith = true
+                tear:GetData().CustomColor = e:GetSprite().Color
+            end
+        end
+
+        local pos 
+        if e:IsCircleLaser() then
+            pos = e.Position + RandomVector() * (e.Radius*0.7)
+        else
+            pos = Vector(
+                e.Parent.Position.X + (e.EndPoint.X-e.Parent.Position.X)*math.random() ,
+                e.Parent.Position.Y + (e.EndPoint.Y-e.Parent.Position.Y)*math.random() 
+            )
+        end
+        REVEL.SpawnFireParticles(pos, -5, 0, e.FrameCount, nil, 1)
     end)
+
+    REVEL.AddEffectInitCallback(function(e)
+        local player = GetLaserPlayerWithFire(e)
+        if player and e.SubType == 1 then
+            local spr = e:GetSprite()
+
+            local anim = spr:GetAnimation()
+
+            spr:Load("gfx/effects/revelcommon/burning_brimstone_impact.anm2", true)
+            spr.Color = e.Parent:GetSprite().Color
+            spr:Play(anim, true)
+        end
+    end, EffectVariant.LASER_IMPACT)
+
+    REVEL.AddEffectInitCallback(function(e)
+        local player = GetLaserPlayerWithFire(e)
+        if player then
+            -- Seems to be hardcoded to red color if color is at default, so just use
+            -- a lava like color
+            -- local spr = e:GetSprite()
+            -- local anim = spr:GetAnimation()
+            -- spr:Load("gfx/effects/revelcommon/burning_brimstone_swirl.anm2", true)
+            -- spr:Play(anim, true)
+            e.Color = Color(1,1,1,1, 0.5, 0.5, 0)
+        end 
+    end, EffectVariant.BRIMSTONE_SWIRL)
 end
 
 --Ipecac
@@ -525,5 +531,3 @@ do
 end
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

@@ -183,4 +183,3 @@ StageAPI.AddCallback("Revelations", RevCallbacks.ON_TEAR, 1, function(tear, data
 end)
 
 end
-REVEL.PcallWorkaroundBreakFunction()

@@ -349,5 +349,3 @@ StageAPI.AddCallback("Revelations", RevCallbacks.PRE_TEARIMPACTS_SOUND, 1, funct
 end)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

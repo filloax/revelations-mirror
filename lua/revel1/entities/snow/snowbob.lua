@@ -141,5 +141,3 @@ end
 revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, snowbob_NpcUpdate, REVEL.ENT.SNOWBOB.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

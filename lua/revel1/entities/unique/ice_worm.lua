@@ -252,5 +252,3 @@ revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, iceWorm_EntityTakeDmg, REVEL.
 
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

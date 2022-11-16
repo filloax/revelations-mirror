@@ -126,5 +126,3 @@ end, REVEL.ENT.IGLOO.id)
 revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, iglooUpdate, REVEL.ENT.IGLOO.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

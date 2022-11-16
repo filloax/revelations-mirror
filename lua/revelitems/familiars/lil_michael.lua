@@ -353,5 +353,3 @@ end, REVEL.ENT.LIL_MICHAEL.variant)
 -- end)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

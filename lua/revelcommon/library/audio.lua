@@ -141,5 +141,3 @@ end
 revel:AddCallback(ModCallbacks.MC_POST_UPDATE, musicfadeoutPostUpdate)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

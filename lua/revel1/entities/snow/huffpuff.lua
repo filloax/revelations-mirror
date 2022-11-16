@@ -11,7 +11,7 @@ local bal = {
     Friction = 0.95,
     TargetMoveAccel = 0.4,
     MaxHeldNum = 3,
-    CooldownAfterGulp = {Min = 55, Max = 85},
+    CooldownAfterGulp = {Min = 35, Max = 55},
     CooldownAfterGrab = {Min = 10, Max = 30},
     CooldownAfterGrabAll = {Min = 15, Max = 40},
     ShootSpeed = 15,
@@ -482,5 +482,3 @@ revel:AddCallback(ModCallbacks.MC_POST_NPC_RENDER, function(_, npc, renderOffset
 end, REVEL.ENT.HUFFPUFF.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

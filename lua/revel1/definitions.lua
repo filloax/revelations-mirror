@@ -560,4 +560,3 @@ REVEL.mixin(REVEL.UNLOCKABLES, {
 
 Isaac.DebugString("Revelations: Loaded Definitions for Chapter 1!")
 end
-REVEL.PcallWorkaroundBreakFunction()

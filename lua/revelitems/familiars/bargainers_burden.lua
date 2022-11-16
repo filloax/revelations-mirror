@@ -252,5 +252,3 @@ revel:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, function(_, fam)
 end, REVEL.ENT.BARG_BURD.variant)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

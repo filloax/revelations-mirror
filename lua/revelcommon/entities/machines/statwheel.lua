@@ -320,5 +320,3 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_MACHINE_RENDER, 1, statwhe
 StageAPI.AddCallback("Revelations", StageAPICallbacks.POST_ROOM_LOAD, 1, statwheel_PostRoomLoad)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

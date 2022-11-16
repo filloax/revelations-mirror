@@ -86,5 +86,3 @@ end
 revel:AddCallback(ModCallbacks.MC_POST_UPDATE, slipperyPostUpdate)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

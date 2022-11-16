@@ -111,5 +111,3 @@ function REVEL.IsPositionInScreen(pos)
 end
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

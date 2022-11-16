@@ -388,5 +388,3 @@ revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG , function(_,    e, dmg, flag,
 end)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

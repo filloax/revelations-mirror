@@ -81,5 +81,3 @@ function REVEL.HSVtoColorLight(h,s,v,a,ro,bo,go)
 end
   
 end
-
-REVEL.PcallWorkaroundBreakFunction()

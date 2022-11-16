@@ -170,5 +170,3 @@ end
 StageAPI.AddCallback("Revelations", "POST_ROOM_INIT", 1, icepitsPostRoomInit)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

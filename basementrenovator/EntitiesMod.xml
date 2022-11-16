@@ -212,6 +212,25 @@
 		<entity Name="Poky"/>
 		<entity Name="Slide"/>
     </group>
+    <group Name="(Rev) Glacier Fiend Folio" Label="Fiend Folio">
+        <entity Name="Ice Hazard (Slammer)"/>
+        <entity Name="Ice Hazard (Morsel)"/>
+        <entity Name="Slammer"/>
+        <entity Name="Wimpy"/>
+        <entity Name="Morsel"/>
+        <entity Name="Mr. Horf"/>
+        <entity Name="Drink Worm"/>
+        <entity Name="Haunted"/>
+        <entity Name="Yawner"/>
+        <entity Name="Weaver"/>
+        <entity Name="Drumstick"/>
+        <entity Name="Shirk"/>
+        <entity Name="Shirk Spot"/>
+        <entity Name="Spark"/>
+        <entity Name="Spitum"/>
+        <entity Name="Matte"/>
+        <entity Name="Cuffs"/>
+    </group>
 </group>
 
 <group Name="(Rev) Glacier Draugr">
@@ -386,6 +405,28 @@
 		<entity Name="Broken Gaping Maw"/>
 		<entity Name="Poky"/>
 		<entity Name="Slide"/>
+    </group>
+    <group Name="(Rev) Tomb Fiend Folio" Label="Fiend Folio">
+        <entity Name="Skuzz"/>
+        <entity Name="Spooter"/>
+        <entity Name="Super Spooter"/>
+        <entity Name="Ragurge"/>
+        <entity Name="Centipede"/>
+        <entity Name="Centipede Segment"/>
+        <entity Name="Centipede (Pit)"/>
+        <entity Name="Roly Poly"/>
+        <entity Name="Weaver Sr."/>
+        <entity Name="Menace"/>
+        <entity Name="Unpawtunate"/>
+        <entity Name="Bone Worm"/>
+        <entity Name="Dr. Shambles"/>
+        <entity Name="Mr. Bones"/>
+        <entity Name="Edema"/>
+        <entity Name="Shrunken Head"/>
+        <entity Name="Eternal Flickerspirit"/>
+        <entity Name="Viscerspirit"/>
+        <entity Name="Super Grimace"/>
+        <entity Name="Frowny"/>
     </group>
 </group>
 
@@ -740,6 +781,7 @@
     <entity Metadata="1" ID="709" Image="revelations/trinkets/telescope.png" Name="Telescope" Subtype="5" Variant="3993" />
     <entity Metadata="1" ID="709" Image="revelations/trinkets/scratched_sack.png" Name="Scratched Sack" Subtype="6" Variant="3993" />
     <entity Metadata="1" ID="709" Image="revelations/trinkets/maxwells_horn.png" Name="Maxwell's Horn" Subtype="7" Variant="3993" />
+    <entity Metadata="1" ID="709" Image="revelations/trinkets/memory_cap.png" Name="Memory Cap" Subtype="8" Variant="3993" />
 </group>
 
 <group Name="Collect">

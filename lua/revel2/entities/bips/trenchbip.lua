@@ -122,5 +122,3 @@ end, REVEL.ENT.TRENCHBIP.id)
 
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

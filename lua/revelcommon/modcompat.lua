@@ -13,7 +13,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
         EID:addCollectible(REVEL.ITEM.HEAVENLY_BELL.id, "Gives a random effect each floor:#All secret rooms have items#Always spawn items when destroying machines##Always spawn dimes when destroying machines#3 pedestals options on bosses, only activates with no damage taken#On death, respawn as blue baby#Crawlspace always under shopkeeper")
         EID:addCollectible(REVEL.ITEM.MINT_GUM.id, "Tears slow enemies#Enemies that are hit five times in a row get frozen")
         EID:addCollectible(REVEL.ITEM.FECAL_FREAK.id, "Tear keys reversed#↑ {{Damage}} +50% Damage multiplier#↑ {{Damage}} +1.5 Damage up#↓ {{Range}} -25% Range multiplier#↓ {{Shotspeed}} -25% ShotSpeed multiplier")
-        EID:addCollectible(REVEL.ITEM.LIL_BELIAL.id, "Targets enemies#Slows Targeted enemies#If targeted enemies are killed in order, drops a card")
+        EID:addCollectible(REVEL.ITEM.LIL_BELIAL.id, "Targets enemies#Slows targeted enemies#If targeted enemies are killed in order, drops a card")
         EID:addCollectible(REVEL.ITEM.AEGIS.id, "Grants a shield that blocks shots from behind")
         EID:addCollectible(REVEL.ITEM.BIRTHDAY_CANDLE.id, "Drops a pickup that Isaac is missing#If birthday candle has nothing to give, grants an all stats up instead")
         EID:addCollectible(REVEL.ITEM.DYNAMO.id, "Charge attack that unleashes beams of energy in random directions")
@@ -35,16 +35,15 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
         EID:addCollectible(REVEL.ITEM.SMBLADE.id, "Throws a sawblade that runs along walls#Lets any active sawblades jump to the opposite wall#Sawblades also hurt players")
         EID:addCollectible(REVEL.ITEM.PRESCRIPTION.id, "Drops a pill#Entering new rooms has a chance to use a pill that has been taken before")
         EID:addCollectible(REVEL.ITEM.GEODE.id, "Drops a rune#Any soul hearts dropped by tinted rocks are turned into runes instead")
-        EID:addCollectible(REVEL.ITEM.NOT_A_BULLET.id, "↑ {{Shotspeed}} +0.5 Shotspeed#Damage multiplier that scales with Shotspeed")
+        EID:addCollectible(REVEL.ITEM.NOT_A_BULLET.id, "↑ {{Shotspeed}} +0.2 Shotspeed#Damage up that scales with shotspeed")
         EID:addCollectible(REVEL.ITEM.DRAMAMINE.id, "Spawns a big stationary tear acting as landmine#Permanently floats and explodes on enemy contact#Synergizes with tear effects")
         
         EID:addTrinket(REVEL.ITEM.SPARE_CHANGE.id, "Drops a nickel when entering a shop#Drops 3 cents when entering an arcade#Drops a soul heart when entering a devil room")
         EID:addTrinket(REVEL.ITEM.LIBRARY_CARD.id, "Libraries can be entered for free")
         EID:addTrinket(REVEL.ITEM.ARCHAEOLOGY.id, "Pots, Mushrooms, Skulls, Polyps and Ice blocks are twice as likely to pay out with their drops when destroyed")
         EID:addTrinket(REVEL.ITEM.GAGREFLEX.id, "Taking a pill gives Isaac Ipecac for the room")
-        
-        EID:addCard(REVEL.POCKETITEM.LOTTERY_TICKET, "Item pedestals will start cycling between multiple items from the same pool.")     
-        
+        EID:addTrinket(REVEL.ITEM.XMAS_STOCKING.id, "Chance for consumables to be replaced by the one you have less of#Can also replace hearts when at full health#Chance is 25%, and increases the higher the difference in amount is, up to 25%")
+                
         -- Chapter 2
                 
         EID:addCollectible(REVEL.ITEM.WANDERING_SOUL.id, "A ghost of a random character appears in every room#The ghost attacks enemies using the attacks of the ghost's character")
@@ -58,8 +57,8 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
         EID:addCollectible(REVEL.ITEM.ADDICT.id, "Every room entered without holding a pill will have a pill enemy#Spider pills spawn a bad pill when killed#Angel pills spawn a good pill when killed")
         EID:addCollectible(REVEL.ITEM.OPHANIM.id, "Grants a golden ring around the player that fires orbiting tears#Taking damage will make the ring bounce around the room until it rejoins you")
         EID:addCollectible(REVEL.ITEM.PILGRIMS_WARD.id, "A beam of light appears in uncleared rooms#Walking into the light will spawn a homing laser ring")
-        EID:addCollectible(REVEL.ITEM.WRATHS_RAGE.id, "Bombs dropped by Isaac explode instantly#Dropping bombs grants a damage bonus per room#")
-        EID:addCollectible(REVEL.ITEM.PRIDES_POSTURING.id, "Firing for the first in an uncleared room unleashes pride lasers#This also activates all of the players damage effects")
+        EID:addCollectible(REVEL.ITEM.WRATHS_RAGE.id, "Bombs dropped by Isaac explode instantly#You don't take damage from your bomb explosions#Dropping bombs grants a damage bonus per room#")
+        EID:addCollectible(REVEL.ITEM.PRIDES_POSTURING.id, "Firing for the first time in an uncleared room unleashes pride lasers#This also activates all of the players damage effects")
         EID:addCollectible(REVEL.ITEM.SLOTHS_SADDLE.id, "A small Sloth rests on the player's head#Speed Up in cleared rooms#A small maggot familiar spawns for every 10 damage dealt")
         EID:addCollectible(REVEL.ITEM.LOVERS_LIB.id, "Item pedestals grow legs and run away from the player#Catching these item pedestals spawns a random trinket")
 
@@ -72,10 +71,11 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
         EID:addCollectible(REVEL.ITEM.MUSIC_BOX.id, "Spawns a music box which plays a random song#Lullaby: Enemies become sleepy#Hymn: Isaac gains speed and damage#Samba: Isaac gains tears and piercing shots#Metal: Enemies randomly attack each other")
         EID:addCollectible(REVEL.ITEM.HALF_CHEWED_PONY.id, "Pony item, grants flight when held#Spawns a friendly submerged antlion that sucks in and chomps on enemies#Has a small chance to consume the pony and makes the antlion emerge from the ground")
         EID:addCollectible(REVEL.ITEM.MOXIE_YARN.id, "Throws a ball of yarn that summons a friendly Catastrophe cat.")
+        EID:addCollectible(REVEL.ITEM.GUT.id, "Consumes nearby enemies and projectiles.#Throws a projectile that scales based on how many things you consumed.#Alternatively, You may swallow to heal a full heart.")
 
         EID:addCollectible(REVEL.ITEM.VIRGIL.id, "Grants a familiar which has many abilities:#-Guides the player to special rooms#-Throws rocks at tinted rocks#Pushes troll bombs away from Isaac#-Can revive Isaac once#-Baits enemies to target him by throwing rocks#If Isaac takes damage, Virgil confuses the enemy.")
         EID:addCollectible(REVEL.ITEM.MIRROR2.id, "Two mirror shards can be thrown#The shards will fire a laser between each other")
-        EID:addCollectible(REVEL.ITEM.CURSED_GRAIL.id, "Grants a grail familiar which will fill itself with blood when a sacrifice room is used#Each fill permanently increases damage by 0.5#This maxes out at 6 fills, granting flight")
+        EID:addCollectible(REVEL.ITEM.CURSED_GRAIL.id, "Grants a grail familiar which will fill itself with blood when a sacrifice room is used#Each fill permanently increases damage by 0.2#This maxes out at 6 fills, granting flight")
         EID:addCollectible(REVEL.ITEM.BANDAGE_BABY.id, "Grants an orbiting familiar which fires bandage balls#Bandage balls turn into a pile of rags that slow enemies#The familiar can block shots, but collapses into a pile of rags.")
         EID:addCollectible(REVEL.ITEM.LIL_MICHAEL.id, "Grants a familiar which absorbs any shots fired at him#After firing 20 tears, Lil Micheal will unleash 20 tears of damage to a nearby enemy")
         EID:addCollectible(REVEL.ITEM.HUNGRY_GRUB.id, "Grants a familiar which can be fired in a direction#Attaches to enemeies and feasts on them#Eating enemies increases its size and damage")
@@ -86,6 +86,12 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
         EID:addTrinket(REVEL.ITEM.TELESCOPE.id, "Improves the effects of zodiac sign items")
         EID:addTrinket(REVEL.ITEM.SCRATCHED_SACK.id, "When a room is cleared without taking damage, there is a small chance for the rewards to be doubled")
         EID:addTrinket(REVEL.ITEM.MAX_HORN.id, "Using an active item will cause a boulder to fall")
+        EID:addTrinket(REVEL.ITEM.MEMORY_CAP.id, "Enemies can randomly appear as black boxes#Touching a black box will turn you into a black box#You are invincible while black boxed")
+
+        -- Pocket items
+
+        EID:addCard(REVEL.POCKETITEM.LOTTERY_TICKET.Id, "Item pedestals will start cycling between multiple items from the same pool.")     
+        EID:addCard(REVEL.POCKETITEM.BELL_SHARD.Id, "Gives a random effect from the Heavenly Bell item")
 
         -- Transformations
         EID:assignTransformation("collectible", REVEL.ITEM.HEAVENLY_BELL.id, EID.TRANSFORMATION.ANGEL)
@@ -143,16 +149,14 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
             EID:addCollectible(REVEL.ITEM.SMBLADE.id, "Throws a sawblade that runs along walls#Lets any active sawblades jump to the opposite wall#Sawblades also hurt players", nil, "it")
             EID:addCollectible(REVEL.ITEM.PRESCRIPTION.id, "Small chance upon new room enter to proc one of your previously used pills again#Positive pills have a slightly higher chance to proc again", nil, "it")
             EID:addCollectible(REVEL.ITEM.GEODE.id, "Any soul hearts dropped by tinted rocks are turned into runes instead", nil, "it")
-            EID:addCollectible(REVEL.ITEM.NOT_A_BULLET.id, "+0.5 Shotspeed#Damage multiplier that scales with Shotspeed", nil, "it")
+            EID:addCollectible(REVEL.ITEM.NOT_A_BULLET.id, "+0.2 Shotspeed#Damage up that scales with shotspeed", nil, "it")
             EID:addCollectible(REVEL.ITEM.DRAMAMINE.id, "Spawns a big stationary tear acting as landmine#Permanently floats and explodes on enemy contact#Synergizes with tear effects", nil, "it")
             
             EID:addTrinket(REVEL.ITEM.SPARE_CHANGE.id, "Drops a nickel when entering a shop#Drops 3 cents when entering an arcade#Drops a soul heart when entering a devil room", nil, "it")
             EID:addTrinket(REVEL.ITEM.LIBRARY_CARD.id, "Libraries can be entered for free", nil, "it")
             EID:addTrinket(REVEL.ITEM.ARCHAEOLOGY.id, "Pots, Mushrooms, Skulls, Polyps and Ice blocks are twice as likely to pay out with their drops when destroyed", nil, "it")
             EID:addTrinket(REVEL.ITEM.GAGREFLEX.id, "Taking a pill gives Isaac Ipecac for the room", nil, "it")
-            
-            EID:addCard(REVEL.POCKETITEM.LOTTERY_TICKET, "Continually rerolls items in the room between a small selection until picked up.", nil, "it")     
-            
+                        
             -- Chapter 2
                     
             EID:addCollectible(REVEL.ITEM.WANDERING_SOUL.id, "A ghost of a random character appears in every room#The ghost attacks enemies using the attacks of the ghost's character", nil, "it")
@@ -180,10 +184,11 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
             EID:addCollectible(REVEL.ITEM.MUSIC_BOX.id, "When used, spawns a music box which will play a random song out of four#Lullaby: Enemies slow down and fall asleep. Damaging enemies in this state will wake them up#Hymn: The player gains +1 speed and +2 damage#Samba: The player's tear delay decreases by 2 and gains piercing and spectral tears#Metal: Enemies randomly attack each other", nil, "it")
             EID:addCollectible(REVEL.ITEM.HALF_CHEWED_PONY.id, "Pony item, grants flight when held#When used, spawns a friendly submerged antlion which sucks in and eats nearby enemies#There is a small chance for this antlion to suck in the player's pony instead#After sucking in the pony, the antlion emerges from the ground and follows the player while attacking enemies#The emerged antlion returns every floor, even if it was killed", nil, "it")
             EID:addCollectible(REVEL.ITEM.MOXIE_YARN.id, "When used, a ball of yarn can be thrown#The yarn will summon a random friendly Catastrophe cat.", nil, "it")
+            EID:addCollectible(REVEL.ITEM.GUT.id, "Consumes nearby enemies and projectiles.#Throws a projectile that scales based on how many things you consumed.#Alternatively, You may swallow to heal a full heart.", nil, "it")
 
             EID:addCollectible(REVEL.ITEM.VIRGIL.id, "Grants a familiar which has many abilities:#-Guides the player to treasure rooms, shops, and boss rooms#-Throws rocks at tinted rocks#Pushes troll bombs away from the player#-Revives the player if they died, this only happens once#-Throws rocks at enemies, which makes the enemy target Virgil#If the player takes damage, Virgil confuses the enemy.", nil, "it")
             EID:addCollectible(REVEL.ITEM.MIRROR2.id, "Two mirror shards can be thrown#The shards will fire a laser between each other", nil, "it")
-            EID:addCollectible(REVEL.ITEM.CURSED_GRAIL.id, "Grants a grail familiar which will fill itself with blood when a sacrifice room is used#Each fill permanently increases damage by 0.5#This maxes out at 6 fills, totaling at 3 damage and granting flight", nil, "it")
+            EID:addCollectible(REVEL.ITEM.CURSED_GRAIL.id, "Grants a grail familiar which will fill itself with blood when a sacrifice room is used#Each fill permanently increases damage by 0.2#This maxes out at 6 fills, totaling at 3 damage and granting flight", nil, "it")
             EID:addCollectible(REVEL.ITEM.BANDAGE_BABY.id, "Grants an orbiting familiar which fires bandage balls at enemies#When a bandage ball lands, it turns into a pile of rags which will slow enemies when walked on#The familiar can block shots, but collapses into a pile of rags.", nil, "it")
             EID:addCollectible(REVEL.ITEM.LIL_MICHAEL.id, "Grants a familiar which absorbs any shots fired at him#After firing 20 tears, Lil Micheal does the total sum amount of damage absorbed from the tears to a nearby enemy", nil, "it")
             EID:addCollectible(REVEL.ITEM.HUNGRY_GRUB.id, "Grants a following familiar which can be fired in a direction#When it hits an enemy it attaches to it and feasts on it#Once it is done, it increases in size and deals more damage", nil, "it")
@@ -194,6 +199,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
             EID:addTrinket(REVEL.ITEM.TELESCOPE.id, "Improves the effects of zodiac sign items", nil, "it")
             EID:addTrinket(REVEL.ITEM.SCRATCHED_SACK.id, "When a room is cleared, there is a small chance for the rewards to be doubled#Rewards will not be doubled if damage was taken in the room", nil, "it")
             EID:addTrinket(REVEL.ITEM.MAX_HORN.id, "Using an active item will cause a boulder to fall", nil, "it")
+            EID:addTrinket(REVEL.ITEM.MEMORY_CAP.id, "Enemies can randomly appear as black boxes#Touching a black box will turn you into a black box#You are invincible while black boxed", nil, "it")
         end
 
         EID._currentMod = prevCurrentMod
@@ -204,6 +210,15 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
     ---@return {Name: string, Description: string, Transformation?: string}
     function REVEL.GetEidItemDesc(collectibleType)
         local arrayData = EID:getDescriptionData(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, collectibleType)
+        return {
+            Name = arrayData[2],
+            Description = arrayData[3],
+            -- Transformation = arrayData[4],
+        }
+    end
+
+    function REVEL.GetEidTrinketDesc(trinketType)
+        local arrayData = EID:getDescriptionData(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, trinketType)
         return {
             Name = arrayData[2],
             Description = arrayData[3],
@@ -332,6 +347,17 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
                     {str = "Trivia", fsize = 2, clr = 3, halign = 0},
                     {str = "The trinket's effect is based on Pact of Peril's old passive effect. The effect was depreciated, and became a trinket."},
                     {str = "The trinket's design is based on Champion Maxwell, who is missing his horns."},
+                },
+            },
+            XMAS_STOCKING = {
+                { -- Info
+                    {str = "Info", fsize = 2, clr = 3, halign = 0},
+                    {str = "Christmas Stocking is a trinket added after the Vanity Update. When held, coins, keys and bombs are replaced by the one you have the lowest amount of."},
+                },
+                { -- Notes
+                    {str = "Notes", fsize = 2, clr = 3, halign = 0},
+                    {str = "Hearts can also be replaced if all players are at full health."},
+                    {str = "The replacement chance starts at 25%, and increases the higher the difference in amount between your consumables is. It caps at 75% when the difference is 20 or more, for example if you have 26 coins, 25 keys, and 5 bombs."},
                 },
             },
         }
@@ -1868,10 +1894,8 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
                 },
                 { -- Effects
                     {str = "Effects", fsize = 2, clr = 3, halign = 0},
-                    {str = "Gives the player +0.5 shot speed."},
+                    {str = "Gives the player +0.2 shot speed."},
                     {str = "The players damage scales up based on their shot speed stat"},
-					{str = "The damage increase given is the players shot speed multiplied by 0.85"},
-					{str = "Tears fire from the middle of the players face."},
                 },
                 Pools = {
                     Encyclopedia.ItemPools.POOL_TREASURE,
@@ -1941,7 +1965,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
         
         Encyclopedia.AddCard({ -- Lottery Ticket
             Class = "Revelations",
-            ID = REVEL.POCKETITEM.LOTTERY_TICKET,
+            ID = REVEL.POCKETITEM.LOTTERY_TICKET.Id,
             WikiDesc = {
                 { -- Effect
                     {str = "Effect", fsize = 2, clr = 3, halign = 0},
@@ -1954,6 +1978,22 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
                 },
             },
             Sprite = Encyclopedia.RegisterSprite("../content/gfx/ui_cardfronts.anm2", "55_LotteryTicket"),
+        })
+        
+        Encyclopedia.AddCard({ -- Bell Shard
+            Class = "Revelations",
+            ID = REVEL.POCKETITEM.BELL_SHARD.Id,
+            WikiDesc = {
+                { -- Effect
+                    {str = "Effect", fsize = 2, clr = 3, halign = 0},
+                    {str = "Upon use, adds a random effect for the level, like the ones triggered by the Heavenly Bell item."},
+                },
+                { -- Notes
+                    {str = "Notes", fsize = 2, clr = 3, halign = 0},
+                    {str = "More uses in a level will create more effects, also stacking with the Heavenly Bell item itself."},
+                },
+            },
+            Sprite = Encyclopedia.RegisterSprite("../content/gfx/ui_cardfronts.anm2", "BellShard"),
         })
         
     end
@@ -2049,4 +2089,3 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
     Isaac.DebugString("Revelations: Loaded Common Mod Compatibility!")
 end
-REVEL.PcallWorkaroundBreakFunction()

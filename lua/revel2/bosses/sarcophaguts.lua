@@ -1518,4 +1518,3 @@ REVEL.AddBrokenCallback(ModCallbacks.MC_PRE_NPC_COLLISION, function(_, npc, coll
 end, REVEL.ENT.SARCOPHAGUTS.id)
 
 end
-REVEL.PcallWorkaroundBreakFunction()

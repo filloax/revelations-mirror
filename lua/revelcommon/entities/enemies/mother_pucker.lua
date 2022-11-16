@@ -154,5 +154,3 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 end, REVEL.ENT.MOTHER_PUCKER.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

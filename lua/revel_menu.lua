@@ -583,7 +583,5 @@ end
 
 
 Isaac.DebugString("Revelations: Loaded Rev DSS Menu!")
-
-REVEL.PcallWorkaroundBreakFunction()
     
 end

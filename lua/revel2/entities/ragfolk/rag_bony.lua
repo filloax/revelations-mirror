@@ -223,6 +223,10 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
     if npc:IsDead() and (not data.Buffed or (REVEL.IsShrineEffectActive(ShrineTypes.REVIVAL) and math.random(1, 5) == 1)) and not data.NoRags then
         REVEL.SpawnRevivalRag(npc)
     end
+
+    if npc:IsDead() then
+        REVEL.sfx:Play(SoundEffect.SOUND_DEATH_BURST_BONE)
+    end
 end, REVEL.ENT.RAG_BONY.id)
 
 revel:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, function(_, ent)
@@ -274,5 +278,3 @@ Anm2GlowNull0 = {
 }
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

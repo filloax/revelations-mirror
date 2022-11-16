@@ -468,5 +468,3 @@ end
 
 Isaac.DebugString("Revelations: Loaded Reskins/Replacements system!")
 end
-
-REVEL.PcallWorkaroundBreakFunction()

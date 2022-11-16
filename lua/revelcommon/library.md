@@ -74,6 +74,20 @@ REVEL.AddBossRooms(bossKey, floorPrefix, prefix, editors)
 REVEL.AddSinRooms(listName, prefix, editors)
 REVEL.GetBossEntityData(entName, fallbackRoomName, subType, ignoreVariant)
 
+**SPRITE_CACHE**:
+REVEL.RoomSprite(params)
+REVEL.LazyLoadRoomSprite(params)
+REVEL.GetRoomSprite(id)
+REVEL.ClearRoomSprite(id)
+REVEL.LevelSprite(params)
+REVEL.LazyLoadLevelSprite(params)
+REVEL.GetLevelSprite(id)
+REVEL.ClearLevelSprite(id)
+REVEL.RunSprite(params)
+REVEL.LazyLoadRunSprite(params)
+REVEL.GetRunSprite(id)
+REVEL.ClearRunSprite(id)
+
 **ACHIEVEMENT_UI**:
 REVEL.AnimateAchievement(spritesheet, sound, doPause, time)
 REVEL.GetShowingAchievement()
@@ -282,6 +296,8 @@ REVEL.IsLastChapterStage()
 REVEL.GetDoorsForRoomFromDesc(roomDesc, maxFromOriginalLayout)
 REVEL.GetRoomDescByListIdx(listIndex)
 REVEL.GetRoomDimensionByListIdx(listIndex)
+REVEL.RoomHasMinesButton(roomDesc)
+REVEL.InMineshaft()
 
 **MATH**:
 REVEL.GetAngleDifference(a1, a2)
@@ -443,12 +459,6 @@ REVEL.DrawRotatedTilingSprite(sprite, pos1, pos2, tileLength, cutStart, cutEnd)
 REVEL.DrawRotatedTilingCapSprites(sprite, pos1, pos2, offset, startEndOnly)
 REVEL.GetAnimLength(sprite)
 REVEL.ReplaceEnemySpritesheet(npc, filepath, layer, loadGraphics)
-
-**SPRITE_CACHE**:
-REVEL.RoomSprite(params)
-REVEL.LazyLoadRoomSprite(params)
-REVEL.GetRoomSprite(id)
-REVEL.ClearRoomSprite(id)
 
 **TABLE**:
 REVEL.ConcatTables(...)

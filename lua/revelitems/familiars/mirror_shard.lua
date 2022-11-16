@@ -71,5 +71,3 @@ end, REVEL.ENT.MIRRORSHARD.variant)
 
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

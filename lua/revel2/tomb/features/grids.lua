@@ -78,5 +78,3 @@ revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, eff)
 end, EffectVariant.ROCK_PARTICLE)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

@@ -462,5 +462,3 @@ Anm2GlowNull1 = {
 }
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

@@ -233,5 +233,3 @@ revel:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, function(_, familiar)
 end, REVEL.ENT.ANGRY_GEMINI.variant)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

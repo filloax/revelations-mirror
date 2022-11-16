@@ -245,5 +245,3 @@ revel:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL,
 end, REVEL.ENT.SKITTER_G.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

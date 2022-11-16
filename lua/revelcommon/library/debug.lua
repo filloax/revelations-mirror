@@ -316,5 +316,3 @@ end
 revel:AddCallback(ModCallbacks.MC_POST_RENDER, ingamelogPostRender)
   
 end
-
-REVEL.PcallWorkaroundBreakFunction()

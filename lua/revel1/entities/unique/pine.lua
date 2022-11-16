@@ -279,6 +279,8 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
             end
         elseif data.state == "Panic" then
             data.pineParent = nil
+            npc.GridCollisionClass = EntityGridCollisionClass.GRIDCOLL_WALLS
+
             if not sprite:IsPlaying("Panic") then
                 sprite:Play("Panic")
             end
@@ -348,26 +350,46 @@ revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, npc, amt, flag, s
     end
 end, REVEL.ENT.PINE.id)
 
-revel:AddCallback(ModCallbacks.MC_POST_NPC_RENDER, function(_, npc, renderOffset)
-    if (not REVEL.ENT.PINE:isEnt(npc) and not REVEL.ENT.PINECONE:isEnt(npc)) or not REVEL.IsRenderPassNormal() then return end
-
-    local sprite, data = npc:GetSprite(), npc:GetData()
-
-    if not data.Dying and npc:HasMortalDamage() then
-        npc.HitPoints = 0
-        npc.EntityCollisionClass = EntityCollisionClass.ENTCOLL_NONE
-        sprite:Play("Death", true)
-        npc:RemoveStatusEffects()
-        data.Dying = true
-        npc.State = NpcState.STATE_UNIQUE_DEATH
-    end
-
-    if IsAnimOn(sprite, "Death") then
+REVEL.AddDeathEventsCallback {
+    OnDeath = function(npc)
+        local data = npc:GetData()
         npc.Velocity = Vector.Zero
-    end
+    end,
+    DeathRender = function (npc, triggeredEventThisFrame)
+        local sprite, data = npc:GetSprite(), npc:GetData()
+        if IsAnimOn(sprite, "Death") and not triggeredEventThisFrame then
+            local justTriggered
 
-end, REVEL.ENT.PINE.id)
+            if sprite:IsFinished("Death") then
+                npc:Kill()
+                justTriggered = true
+            end
+            return justTriggered
+        end
+    end, 
+    Type = REVEL.ENT.PINE.id, 
+    Variant = REVEL.ENT.PINE.variant,
+}
 
+
+REVEL.AddDeathEventsCallback {
+    OnDeath = function(npc)
+        local data = npc:GetData()
+        npc.Velocity = Vector.Zero
+    end,
+    DeathRender = function (npc, triggeredEventThisFrame)
+        local sprite, data = npc:GetSprite(), npc:GetData()
+        if IsAnimOn(sprite, "Death") and not triggeredEventThisFrame then
+            local justTriggered
+
+            if sprite:IsFinished("Death") then
+                npc:Kill()
+                justTriggered = true
+            end
+            return justTriggered
+        end
+    end, 
+    Type = REVEL.ENT.PINECONE.id, 
+    Variant = REVEL.ENT.PINECONE.variant,
+}
 end
-
-REVEL.PcallWorkaroundBreakFunction()

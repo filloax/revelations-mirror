@@ -30,6 +30,7 @@ local ch2DefaultModData = {
   sandySeenWarIntro = false,
   ragtimeSeenSpecialIntro = false,
   seenNarcissusTomb = false,
+  seenDuneRoom = false,
 }
 
 REVEL.mixin(REVEL.DEFAULT_MODDATA, ch2DefaultModData, true)
@@ -37,4 +38,3 @@ REVEL.mixin(REVEL.DEFAULT_MODDATA, ch2DefaultModData, true)
 
 Isaac.DebugString("Revelations: Loaded Default Save Data for Chapter 2!")
 end
-REVEL.PcallWorkaroundBreakFunction()

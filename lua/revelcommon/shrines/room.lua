@@ -165,8 +165,70 @@ local function shrineRoom_TrollBombs_PreEntitySpawn(_, type, variant, subtype, p
     end
 end
 
+--Lightable fire tutorial room
+local tutorialRoomRNG = REVEL.RNG()
+
+StageAPI.AddCallback("Revelations", StageAPICallbacks.PRE_ROOMS_LIST_USE, 1, function(newRoom)
+    if not revel.data.seenLightableFireRoom
+    and not StageAPI.InOrTransitioningToExtraRoom() and not newRoom.IsExtraRoom 
+    and IsRoomDescValid(REVEL.level:GetCurrentRoomDesc(), REVEL.RoomLists.GlacierLightableFire)
+    and REVEL.STAGE.Glacier:IsStage() then
+        tutorialRoomRNG:SetSeed(newRoom.Seed, 0)
+        if StageAPI.Random(1, 5, tutorialRoomRNG) == 1 then
+            revel.data.seenLightableFireRoom = true
+            return REVEL.RoomLists.GlacierLightableFire
+        end
+    end
+end)
+
+--Snowman tutorial room
+
+StageAPI.AddCallback("Revelations", StageAPICallbacks.PRE_ROOMS_LIST_USE, 1, function(newRoom)
+    if not revel.data.seenSnowmanRoom
+    and not StageAPI.InOrTransitioningToExtraRoom() and not newRoom.IsExtraRoom 
+    and IsRoomDescValid(REVEL.level:GetCurrentRoomDesc(), REVEL.RoomLists.GlacierSnowman)
+    and REVEL.STAGE.Glacier:IsStage() then
+        tutorialRoomRNG:SetSeed(newRoom.Seed, 0)
+        if StageAPI.Random(1, 5, tutorialRoomRNG) == 2 then
+            revel.data.seenSnowmanRoom = true
+            return REVEL.RoomLists.GlacierSnowman
+        end
+    end
+end)
+
+--Dune tutorial room
+
+StageAPI.AddCallback("Revelations", StageAPICallbacks.PRE_ROOMS_LIST_USE, 1, function(newRoom)
+    if not revel.data.seenDuneRoom
+    and not StageAPI.InOrTransitioningToExtraRoom() and not newRoom.IsExtraRoom 
+    and IsRoomDescValid(REVEL.level:GetCurrentRoomDesc(), REVEL.RoomLists.TombDune)
+    and REVEL.STAGE.Tomb:IsStage() then
+        tutorialRoomRNG:SetSeed(newRoom.Seed, 0)
+        if StageAPI.Random(1, 5, tutorialRoomRNG) == 1 then
+            revel.data.seenDuneRoom = true
+            return REVEL.RoomLists.TombDune
+        end
+    end
+end)
+
+StageAPI.AddCallback("Revelations", StageAPICallbacks.PRE_ROOM_LAYOUT_CHOOSE, 1, function(newRoom, roomsList)
+    if roomsList == REVEL.RoomLists.GlacierLightableFire
+    or roomsList == REVEL.RoomLists.GlacierSnowman
+    or roomsList == REVEL.RoomLists.TombDune then
+        return StageAPI.ChooseRoomLayout{
+            RoomList = roomsList,
+            Seed = newRoom.SpawnSeed,
+            Shape = newRoom.Shape,
+            IgnoreDoors = false,
+            -- stageapi considers max possible doors for the original vanilla room layout
+            -- that would have spawned instead of doors in room
+            -- needed here as we don't necessarily have 4 door rooms
+            Doors = REVEL.GetDoorsForRoomFromDesc(REVEL.level:GetCurrentRoomDesc()),
+        }
+    end
+end)
+
 revel:AddCallback(ModCallbacks.MC_USE_ITEM, shrineRoomSpawning_PostUseRKey, CollectibleType.COLLECTIBLE_R_KEY)
 revel:AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, shrineRoom_TrollBombs_PreEntitySpawn)
 
 end
-REVEL.PcallWorkaroundBreakFunction()

@@ -166,5 +166,3 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_ENTITY_TAKE_DMG, 1, functi
 end, 1)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

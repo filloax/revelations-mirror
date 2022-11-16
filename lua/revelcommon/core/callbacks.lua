@@ -825,7 +825,7 @@ end
     
 -- UPDATE_INIT
 do 
-    local callbacksInfo = {
+    local CallbacksInfo = {
         REV_TEAR_UPDATE_INIT = {Callback = ModCallbacks.MC_POST_TEAR_UPDATE},
         REV_FAMILIAR_UPDATE_INIT = {Callback = ModCallbacks.MC_FAMILIAR_UPDATE},
         REV_BOMB_UPDATE_INIT = {Callback = ModCallbacks.MC_POST_BOMB_UPDATE},
@@ -834,21 +834,54 @@ do
         REV_KNIFE_UPDATE_INIT = {Callback = ModCallbacks.MC_POST_KNIFE_UPDATE, CheckAgainst = "SubType"},
         REV_PROJECTILE_UPDATE_INIT = {Callback = ModCallbacks.MC_POST_PROJECTILE_UPDATE},
         REV_NPC_UPDATE_INIT = {Callback = ModCallbacks.MC_NPC_UPDATE, CheckAgainst = "Type"},
-        REV_EFFECT_UPDATE_INIT = {Callback = ModCallbacks.MC_POST_EFFECT_UPDATE},
+        -- REV_EFFECT_UPDATE_INIT = {Callback = ModCallbacks.MC_POST_EFFECT_UPDATE}, --adds lag, avoiding
     }
 
-    for revCallback, info in pairs(callbacksInfo) do
+    -- double check against this and data in case one gets reset
+    local RanForEnt = {}
+
+    for revCallback, info in pairs(CallbacksInfo) do
         revel:AddCallback(info.Callback, function(_, entity)
-            -- Some entities start at frame 0, it seems
-            if entity.FrameCount == 0 
-            or (entity.FrameCount == 1 and not entity:GetData().__ranUpdateInit) then
+            -- For some reason, it seems that the base callback runs more than once at frame 0? at least for NPCs
+
+            -- Some entities start at frame 0, some at frame 1, it seems
+            if entity.FrameCount <= 1
+            and not entity:GetData().__ranUpdateInit
+            and not RanForEnt[GetPtrHash(entity)]
+            then
                 entity:GetData().__ranUpdateInit = true
+                RanForEnt[GetPtrHash(entity)] = true
                 local key = info.CheckAgainst or "Variant"
-                StageAPI.CallCallbacksWithParams(revCallback, false, entity[key], 
-                    entity)
+                StageAPI.CallCallbacksWithParams(revCallback, false, entity[key], entity)
             end
         end)
     end
+
+    local RanForEntEff = {}
+
+    -- To avoid lagging game by running things on each single effect's update
+    -- as they are much more numerous than other ents
+    ---@param func fun(effect: EntityEffect)
+    ---@param variant? EffectVariant
+    function REVEL.AddEffectInitCallback(func, variant)
+        revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, entity)
+            if entity.FrameCount <= 1
+            and not (entity:GetData().__ranUpdateInit and entity:GetData().__ranUpdateInit[func])
+            and not (RanForEntEff[func] and RanForEntEff[func][GetPtrHash(entity)])
+            then
+                entity:GetData().__ranUpdateInit = entity:GetData().__ranUpdateInit or {}
+                entity:GetData().__ranUpdateInit[func] = true
+                RanForEntEff[func] = RanForEntEff[func] or {}
+                RanForEntEff[func][GetPtrHash(entity)] = true
+                func(entity)
+            end
+        end, variant)
+    end
+
+    StageAPI.AddCallback("Revelations", RevCallbacks.EARLY_POST_NEW_ROOM, -20, function()
+        RanForEnt = {}
+        RanForEntEff = {}
+    end)
 end
 
 do
@@ -909,6 +942,7 @@ revel:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function()
 end)
 
 
+---@deprecated
 -- Deprecated as of Repentance API patch, since POST_x_INIT
 -- callbacks now have position and other general attributes set
 function REVEL.AddInitCallback(callback, func, id)
@@ -917,4 +951,3 @@ function REVEL.AddInitCallback(callback, func, id)
 end
 
 end
-REVEL.PcallWorkaroundBreakFunction()

@@ -173,5 +173,3 @@ StageAPI.AddCallback("Revelations", "PRE_SELECT_ENTITY_LIST", 5, function(entity
 end)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

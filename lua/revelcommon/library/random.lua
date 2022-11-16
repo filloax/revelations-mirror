@@ -113,5 +113,3 @@ function REVEL.RandomSign()
 end
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

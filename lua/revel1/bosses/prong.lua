@@ -833,29 +833,16 @@ end
 local function BreakSnowBridgesInSegment(seg, noPitfall)
     local broke = false
     local brokeGrids = {}
-    local currentRoom = StageAPI.GetCurrentRoom()
     
     ForGridInSegment(seg, function(index)
-        local grid = REVEL.room:GetGridEntity(index)
-        if grid and grid.Desc.Type == GridEntityType.GRID_PIT and grid.State == PitState.PIT_BRIDGE then --if is bridge
-            grid.State = PitState.PIT_NORMAL
-            grid.CollisionClass = GridCollisionClass.COLLISION_PIT
-            broke = true
-            StageAPI.BridgedPits[index] = nil
+        local brokenSnowTile = REVEL.Glacier.RemoveSnowTile(index)
+        if brokenSnowTile then
+            local grid = REVEL.room:GetGridEntity(index)
+            if grid and grid.Desc.Type == GridEntityType.GRID_PIT and grid.State == PitState.PIT_BRIDGE then
+                broke = true
+                brokeGrids[index] = true
+            end
             SpawnBrokenSnowParticles(REVEL.room:GetGridPosition(index))
-            brokeGrids[index] = true
-
-			for _,eff in ipairs(REVEL.roomEffects) do
-				if eff:GetData().IsSnowedTileEffect then
-					if REVEL.room:GetGridIndex(eff.Position) == index then
-						eff:Remove()
-						break
-					end
-				end
-			end
-        end
-        if currentRoom and currentRoom.PersistentData.SnowedTiles then
-            currentRoom.PersistentData.SnowedTiles[tostring(index)] = nil
         end
     end)
 
@@ -881,6 +868,8 @@ end
 local function BreakSegment(seg, npc)
     local breakingGrids = {}
     local pitfallPlayers = true
+
+    BreakSnowBridgesInSegment(seg, not pitfallPlayers)
 
     if not seg.Broken then
         SpawnCrackParticles(nil, seg.RoomTLPos, seg.Crack)
@@ -930,8 +919,6 @@ local function BreakSegment(seg, npc)
 
         pitfallPlayers = false
     end
-
-    BreakSnowBridgesInSegment(seg, not pitfallPlayers)
 
     seg.Broken = true
 end
@@ -995,10 +982,12 @@ local function BreakAllSnowBridges()
     end
     local currentRoom = StageAPI.GetCurrentRoom()
     if currentRoom and currentRoom.PersistentData.SnowedTiles then
-        for index, _ in pairs(currentRoom.PersistentData.SnowedTiles) do
-            SpawnBrokenSnowParticles(REVEL.room:GetGridPosition(index))
+        for strIndex, _ in pairs(currentRoom.PersistentData.SnowedTiles) do
+            local index = tonumber(strIndex)
+            if REVEL.Glacier.RemoveSnowTile(strIndex) then
+                SpawnBrokenSnowParticles(REVEL.room:GetGridPosition(index))
+            end
         end
-        currentRoom.PersistentData.SnowedTiles = {}
     end
 end
 
@@ -2522,5 +2511,3 @@ revel:AddCallback(ModCallbacks.MC_POST_BOMB_UPDATE, function(_, bomb)
 end)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

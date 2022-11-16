@@ -51,4 +51,3 @@ revel:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, horsepilldetectPostPickupIni
 revel:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, repAltDetectPostNewLevel)
 
 end
-REVEL.PcallWorkaroundBreakFunction()

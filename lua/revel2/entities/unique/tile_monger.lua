@@ -279,5 +279,3 @@ revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, ent, amount)
 end, REVEL.ENT.TILE_MONGER.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

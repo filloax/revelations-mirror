@@ -63,14 +63,17 @@ local SubModules = {
     'lua.revelitems.passives.wraths_rage',
 
     'lua.revelitems.pocketitems.lottery_ticket',
+    'lua.revelitems.pocketitems.bell_shard',
 
     'lua.revelitems.trinkets.archaeology',
     'lua.revelitems.trinkets.gag_reflex',
     'lua.revelitems.trinkets.library_card',
     'lua.revelitems.trinkets.maxwells_horn',
+    'lua.revelitems.trinkets.memory_cap',
     'lua.revelitems.trinkets.scratched_sack',
     'lua.revelitems.trinkets.spare_change',
     'lua.revelitems.trinkets.telescope',
+    'lua.revelitems.trinkets.christmas_stocking',
 }
 
 local SubLoadFunctions = REVEL.LoadModulesFromTable(SubModules)
@@ -79,16 +82,17 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
     --Pocket items pool
     do
-        revel.CardPool = {
-            REVEL.POCKETITEM.LOTTERY_TICKET
+        REVEL.CardPool = {
+            REVEL.POCKETITEM.LOTTERY_TICKET.Id,
+            REVEL.POCKETITEM.BELL_SHARD.Id,
         }
-        revel.RunesPool = {
+        REVEL.RunesPool = {
         
         }
         
         revel:AddCallback(ModCallbacks.MC_GET_CARD, function(_, rng, CurrentCard, Playing, Runes, OnlyRunes)
-            local pool = revel.CardPool
-            if OnlyRunes then pool = revel.RunesPool end
+            local pool = REVEL.CardPool
+            if OnlyRunes then pool = REVEL.RunesPool end
             local rollA = rng:RandomInt(#pool+Card.NUM_CARDS) + 1
             local rollB = rng:RandomInt(#pool) + 1
             if rollA > Card.NUM_CARDS then
@@ -96,10 +100,28 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
             end
         end)
     end
+
+    -- Pocket items announcer
+    do
+        local AnnouncerVoideMode = {
+            RANDOM = 0,
+            OFF = 1,
+            ALWAYS = 2,
+        }
+        for _, item in pairs(REVEL.POCKETITEM) do
+            if item.Announcer then
+                revel:AddCallback(ModCallbacks.MC_USE_CARD, function(_, cardID, player, useFlags)
+                    if Options.AnnouncerVoiceMode == AnnouncerVoideMode.ALWAYS
+                    or Options.AnnouncerVoiceMode == AnnouncerVoideMode.RANDOM and math.random() < 0.5
+                    then
+                        REVEL.sfx:Play(item.Announcer)
+                    end
+                end, item.Id)
+            end
+        end
+    end
     
     REVEL.RunLoadFunctions(SubLoadFunctions)
 
     Isaac.DebugString("Revelations: Loaded Items!")
 end
-
-REVEL.PcallWorkaroundBreakFunction()

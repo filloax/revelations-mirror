@@ -21,11 +21,12 @@ return {
     {"ferrium", "coder", tooltip = {"jd was here"}},
     {"gavitro", "coder"},
     {"guwahavel", "coder"},
-    {"hippocrunchy", "coder", tooltip = {"i paid them 5", "bones to put", "my name", "in here"}},
+    {"hippocrunchy", "coder", "rooms", tooltip = {"i paid them 5", "bones to put", "my name", "in here"}},
     {"piber", "coder", tooltip = {"egg"}},
 
     {"wertandrew", "music", "sfx", tooltip = {"music has", "appeared in", "the basement"}},
     {"happyhead", "sfx", "3d", tooltip = {"a"}},
+    {"shapatsmith", "announcer"},
     {"grynn", "wiki", "testing", tooltip = {"sarah", "best girl"}},
 
     {"al", "rooms"},
@@ -40,9 +41,10 @@ return {
     {"melon", "design", "coder", "rooms", tooltip = {"please enjoy", "my stone", "wall creeps"}},
     {"minichibis", "testing", "artist", tooltip = {"this quote", "made by", "fiend gang"}},
     {"pasta", "testing", "rooms", tooltip = {"new enemies", "and more!?"}},
-    {"pixelo", "testing", tooltip = {"caught a fever"}},
-    {"pkpseudo", "testing"},
+    {"pixelo", "testing", "rooms", tooltip = {"caught a fever"}},
+    {"pkpseudo", "testing", "rooms"},
 	{"robby shenanigans", "testing", tooltip = {"if you guys", "don't", "appreciate", "dramamine", "i'm gonna be", "pissed"}},
+    {"sin", "testing", "rooms"},
 	{"sunil b", "testing", "rooms", tooltip = {"now where", "could my", "pipe be?", "", "garfield!"}},
 
     

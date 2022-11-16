@@ -94,5 +94,3 @@ end
 revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, smolycephalus_NpcUpdate, REVEL.ENT.SMOLYCEPHALUS.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

@@ -64,5 +64,3 @@ REVEL.ENT.GLOW_EFFECT:addCallback(ModCallbacks.MC_POST_EFFECT_RENDER, function(e
 end)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

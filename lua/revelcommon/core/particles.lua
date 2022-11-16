@@ -1338,4 +1338,3 @@ end)
 
 Isaac.DebugString("Revelations: Loaded Particles!")
 end
-REVEL.PcallWorkaroundBreakFunction()

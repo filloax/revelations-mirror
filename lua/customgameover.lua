@@ -209,4 +209,3 @@ if CustomGameOver then
 end
 
 end
-REVEL.PcallWorkaroundBreakFunction()

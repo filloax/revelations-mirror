@@ -52,4 +52,3 @@ end
 revel:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, playerCutscenePostPlayerUpdate)
 
 end
-REVEL.PcallWorkaroundBreakFunction()

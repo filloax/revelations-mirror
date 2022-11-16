@@ -75,9 +75,9 @@ REVEL.WendyBalance = {
 	StalagmiteProjVelocity = 12,
 	StalagmiteProjHeight = 16,
 	
-	SnowpileMaxHP = {Default = 30, Chocolate = 42},
+	SnowpileMaxHP = {Default = 60, Chocolate = 42},
 	SnowpileRegenTime = {Default = 90, Chocolate = -1},
-	PostSnowstormSnowpileDmgMult = {Default = 5, Chocolate = 1},
+	PostSnowstormSnowpileDmgMult = {Default = 10, Chocolate = 1},
 	
 	-- Champion only
 	StrawberrySnowballSpritesheet = "gfx/effects/revel1/snowball_strawberry_projectiles.png",
@@ -1682,5 +1682,3 @@ REVEL.AddBrokenCallback(ModCallbacks.MC_PRE_PROJECTILE_COLLISION, function(_, pr
 end)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

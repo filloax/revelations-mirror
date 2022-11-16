@@ -200,5 +200,3 @@ revel:AddCallback(ModCallbacks.MC_PRE_FAMILIAR_COLLISION, function(_, e, c)
 end, FamiliarVariant.WISP)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

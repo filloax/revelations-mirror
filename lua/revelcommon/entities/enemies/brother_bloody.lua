@@ -198,5 +198,3 @@ end, REVEL.ENT.BROTHER_BLOODY.id)
 end)]]
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

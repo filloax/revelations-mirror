@@ -8,7 +8,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
 function REVEL.VectorToGrid(x, y, width)
     width = width or REVEL.room:GetGridWidth()
-    return width + 1 + (x + width * y)
+    return math.floor(width + 1 + (x + width * y))
 end
 
 ---@param index integer
@@ -390,5 +390,3 @@ StageAPI.AddCallback("Revelations", RevCallbacks.EARLY_POST_NEW_ROOM, 1, ResetTe
 revel:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, ResetTempGridData)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

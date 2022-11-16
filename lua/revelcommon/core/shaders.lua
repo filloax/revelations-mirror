@@ -792,4 +792,3 @@ end
 Isaac.DebugString("Revelations: Loaded Shader Core!")
 
 end
-REVEL.PcallWorkaroundBreakFunction()

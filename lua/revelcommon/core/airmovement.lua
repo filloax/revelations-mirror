@@ -605,4 +605,3 @@ end
 
 Isaac.DebugString("Revelations: Loaded Air Movement!")
 end
-REVEL.PcallWorkaroundBreakFunction()

@@ -208,5 +208,3 @@ revel:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, function(_, familiar)
 end)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

@@ -45,8 +45,5 @@
 		<spawn x="10" y="5">
 			<entity type="656" variant="6" subtype="0" weight="1.0"/>
 		</spawn>
-		<spawn x="1" y="6">
-			<entity type="770" variant="1010" subtype="0" weight="1.0"/>
-		</spawn>
 	</room>
 </rooms>

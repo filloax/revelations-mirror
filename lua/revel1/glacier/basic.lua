@@ -24,7 +24,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
     
         ExplodingSnowmanRadius = 40 * 2.5,
     
-        DarkIceChillDuration = 50,
+        DarkIceChillDuration = 60,
         DarkIceInChill = false,
     
         FragilityIceEntityBlacklist = {
@@ -287,7 +287,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
     REVEL.STAGE.Glacier:SetDisplayName("Glacier I")
     
     REVEL.STAGE.Glacier:SetIsSecondStage(false)
-    REVEL.STAGE.Glacier:SetStageNumber(2)
+    REVEL.STAGE.Glacier:SetStageNumber(2,1)
     
     local glacierXL = REVEL.STAGE.Glacier("Glacier XL")
     glacierXL:SetDisplayName("Glacier XL")
@@ -296,7 +296,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
         Stage = LevelStage.STAGE2_2
     })
     glacierXL:SetIsSecondStage(true)
-    glacierXL:SetStageNumber(3)
+    glacierXL:SetStageNumber(3,1)
     
     REVEL.STAGE.Glacier:SetXLStage(glacierXL)
     
@@ -310,7 +310,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
     })
     REVEL.STAGE.GlacierTwo:SetIsSecondStage(true)
     REVEL.STAGE.GlacierTwo:SetRenderStartingRoomControls(false)
-    REVEL.STAGE.GlacierTwo:SetStageNumber(3)
+    REVEL.STAGE.GlacierTwo:SetStageNumber(3,2)
 
     REVEL.STAGE.Glacier:SetLevelgenStage(LevelStage.STAGE1_2)
     REVEL.STAGE.GlacierTwo:SetLevelgenStage(LevelStage.STAGE2_1)
@@ -405,5 +405,3 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
         }
     end
 end
-
-REVEL.PcallWorkaroundBreakFunction()

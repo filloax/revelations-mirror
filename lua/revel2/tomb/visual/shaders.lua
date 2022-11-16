@@ -1,3 +1,4 @@
+local Dimension = require "lua.revelcommon.enums.Dimension"
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
     -- Base shaders
     
@@ -38,7 +39,13 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
     function REVEL.TombShader:OnUpdate()
         local rtype = REVEL.room:GetType()
-        if (REVEL.includes(REVEL.TombGfxRoomTypes, StageAPI.GetCurrentRoomType()) or REVEL.includes(extraRoomShaderTypes, rtype) or rtype == RoomType.ROOM_SECRET) and REVEL.STAGE.Tomb:IsStage() then
+        if (
+            REVEL.includes(REVEL.TombGfxRoomTypes, StageAPI.GetCurrentRoomType()) 
+            or REVEL.includes(extraRoomShaderTypes, rtype) or rtype == RoomType.ROOM_SECRET
+        ) 
+        and REVEL.STAGE.Tomb:IsStage() 
+        and StageAPI.GetDimension() ~= Dimension.DEATH_CERTIFICATE
+        then
             if REVEL.WasChanged("TSUpdDark", REVEL.IsThereCurse(LevelCurse.CURSE_OF_DARKNESS)) then
                 if REVEL.IsThereCurse(LevelCurse.CURSE_OF_DARKNESS) then
                     REVEL.TombShader:SetLightness(-0.01)
@@ -168,9 +175,11 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
         local rtype = REVEL.room:GetType()
         if (REVEL.includes(REVEL.TombGfxRoomTypes, currentRoomType) or REVEL.includes(extraRoomShaderTypes, rtype)) 
         and REVEL.STAGE.Tomb:IsStage() and REVEL.NotBossOrNightmare() 
+        and StageAPI.GetDimension() ~= Dimension.DEATH_CERTIFICATE
         and not REVEL.IsThereCurse(LevelCurse.CURSE_OF_DARKNESS) 
         and (REVEL.GetRoomTransitionProgress() < 1 or pauseCount < 8 or not REVEL.game:IsPaused())
-        and shader <= numShaders then
+        and shader <= numShaders 
+        then
             if REVEL.includes(REVEL.TombSandGfxRoomTypes, currentRoomType) then
                 t = REVEL.TombMaskAdjustSand.Output
             else
@@ -208,5 +217,3 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
         end
     end)
 end
-
-REVEL.PcallWorkaroundBreakFunction()

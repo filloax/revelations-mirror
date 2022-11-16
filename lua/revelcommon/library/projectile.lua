@@ -118,5 +118,3 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_PROJ_POOF_INIT, 1, project
 revel:AddCallback(ModCallbacks.MC_POST_EFFECT_RENDER, projectileOverlayPostEffectRender)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

@@ -488,7 +488,14 @@ local function SetVanityCollectible(effect, itemType)
     sprite:Play("ShopIdle", true)
 
     if EID then
+        if not EID.effectList[REVEL.ENT.PACT_SHOP.variant] then
+            EID.effectList[REVEL.ENT.PACT_SHOP.variant] = true
+        end
         data.EID_Description = REVEL.GetEidItemDesc(itemType)
+        if not data.EID_Description.Name then
+            local itemConfig = REVEL.config:GetCollectible(itemType)
+            data.EID_Description.Name = itemConfig.Name
+        end
     end
 end
 
@@ -564,6 +571,16 @@ local function rewardShop_Init(_, effect)
                     local configTrinket = REVEL.config:GetTrinket(rewardEntity.SubType)
                     local spritesheet = configTrinket.GfxFileName
                     rewardData.Sprites[i]:ReplaceSpritesheet(0, spritesheet)
+
+                    if EID then
+                        if not EID.effectList[REVEL.ENT.PACT_SHOP.variant] then
+                            EID.effectList[REVEL.ENT.PACT_SHOP.variant] = true
+                        end
+                        data.EID_Description = REVEL.GetEidTrinketDesc(configTrinket.ID)
+                        if not data.EID_Description.Name then
+                            data.EID_Description.Name = configTrinket.Name
+                        end
+                    end
                 end
                 rewardData.Sprites[i]:LoadGraphics()
                 rewardData.Sprites[i]:Play("Idle", true) --rewardSprite:GetAnimation(), true)
@@ -586,6 +603,16 @@ local function rewardShop_Init(_, effect)
                     local configTrinket = REVEL.config:GetTrinket(rewardEntity.SubType)
                     local spritesheet = configTrinket.GfxFileName
                     rewardData.Sprites[i]:ReplaceSpritesheet(0, spritesheet)
+
+                    if EID then
+                        if not EID.effectList[REVEL.ENT.PACT_SHOP.variant] then
+                            EID.effectList[REVEL.ENT.PACT_SHOP.variant] = true
+                        end
+                        data.EID_Description = REVEL.GetEidTrinketDesc(configTrinket.ID)
+                        if not data.EID_Description.Name then
+                            data.EID_Description.Name = configTrinket.Name
+                        end
+                    end
                 end
                 rewardData.Sprites[i]:LoadGraphics()
                 rewardData.Sprites[i]:Play("Idle", true) --rewardSprite:GetAnimation(), true)
@@ -642,6 +669,16 @@ local function rewardShop_Init(_, effect)
         sprite:ReplaceSpritesheet(1, "gfx/effects/revelcommon/devil_room_teleport.png")
         sprite:LoadGraphics()
         sprite:Play("Idle", true)
+
+        if EID then
+            if not EID.effectList[REVEL.ENT.PACT_SHOP.variant] then
+                EID.effectList[REVEL.ENT.PACT_SHOP.variant] = true
+            end
+            data.EID_Description = {
+                Name = "Divine Command",
+                Description = "Teleports you to the Devil or Angel deal",
+            }
+        end
     end
 
     data.Reward = reward
@@ -817,7 +854,7 @@ local function rewardShop_PostUpdate(_, effect)
             data.StopRenderingPrice = true
         elseif data.Reward.Kind == RewardKinds.COLLECTIBLE then
             local configItem = REVEL.config:GetCollectible(data.Reward.Item)
-            if configItem.Type == ItemType.ITEM_ACTIVE then
+            --[[if configItem.Type == ItemType.ITEM_ACTIVE then
                 local activeItem = player:GetActiveItem(ActiveSlot.SLOT_PRIMARY)
                 if activeItem > 0 then
                     local coll = Isaac.Spawn(
@@ -835,7 +872,16 @@ local function rewardShop_PostUpdate(_, effect)
             player:AddCollectible(data.Reward.Item, configItem.MaxCharges)
             player:AnimateCollectible(data.Reward.Item)
             REVEL.game:GetHUD():ShowItemText(player, configItem)
-            REVEL.sfx:Play(SoundEffect["SOUND_POWERUP" .. math.random(1, 3)])
+            REVEL.sfx:Play(SoundEffect["SOUND_POWERUP" .. math.random(1, 3)])]]
+
+            local coll = Isaac.Spawn(
+                        EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, data.Reward.Item,
+                        effect.Position, Vector.Zero,
+                        nil
+                    ):ToPickup()
+            REVEL.sfx:Play(SoundEffect.SOUND_CHEST_DROP)
+            REVEL.sfx:Play(SoundEffect.SOUND_THUMBSUP)
+
         elseif data.Reward.Kind == RewardKinds.DEVIL_ROOM_TELEPORT then
             TeleportToDevilRoom(player)
             doNotRemove = true
@@ -1462,7 +1508,8 @@ local function mirrorFireChest_NpcUpdate(_, npc)
         npc:AddEntityFlags(BitOr(
             EntityFlag.FLAG_NO_TARGET,
             EntityFlag.FLAG_NO_KNOCKBACK,
-            EntityFlag.FLAG_NO_PHYSICS_KNOCKBACK
+            EntityFlag.FLAG_NO_PHYSICS_KNOCKBACK,
+            EntityFlag.FLAG_NO_STATUS_EFFECTS
         ))
         npc:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
         npc.EntityCollisionClass = EntityCollisionClass.ENTCOLL_PLAYERONLY
@@ -2329,4 +2376,3 @@ revel:AddCallback(ModCallbacks.MC_EXECUTE_CMD, vanity_ExecuteCmd)
 
 
 end
-REVEL.PcallWorkaroundBreakFunction()

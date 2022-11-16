@@ -68,5 +68,3 @@ function REVEL.GetDirectionFromAngle(angle)
 end
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

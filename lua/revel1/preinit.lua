@@ -5,6 +5,8 @@ REVEL.SimpleAddRoomsSet("GlacierSpecial", "GlacierSpecial", nil, "revel1.glacier
 REVEL.SimpleAddRoomsSet("GlacierChallenge", "GlacierChallenge", nil, "revel1.glacier_challenge_", REVEL.RoomEditors, {"Test"})
 REVEL.SimpleAddRoomsSet("GlacierBossChallenge", "GlacierBossChallenge", nil, "revel1.glacier_boss_challenge_", REVEL.RoomEditors, {"Test"})
 REVEL.SimpleAddRoomsSet("GlacierDanteSatan2", "GlacierDanteSatan2", nil, "revel1.glacier_dantesatan2_", REVEL.RoomEditors, {"Test"})
+REVEL.SimpleAddRoomsSet("GlacierLightableFire", "GlacierLightableFire", nil, "revel1.glacier_lightablefire_", REVEL.RoomEditors, {"Test"})
+REVEL.SimpleAddRoomsSet("GlacierSnowman", "GlacierSnowman", nil, "revel1.glacier_snowman_", REVEL.RoomEditors, {"Test"})
 
 REVEL.Bosses.ChapterOne = {
     --[[
@@ -177,5 +179,3 @@ REVEL.AddSinRooms("ChapterOne", "revel1.sins.", REVEL.RoomEditors)
 
 -- this will, for instance, set REVEL.Rooms["Revel1BossFreezerBurnBlorenge"] to require("resources.luarooms.revel1.bosses.freezer_burn_blorenge") if it exists.
 --REVEL.PreloadBossRooms(REVEL.Bosses.ChapterOne, "Revel1Boss", nil, "revel1.bosses.", REVEL.RoomEditors, {"Test"})
-
-REVEL.PcallWorkaroundBreakFunction()

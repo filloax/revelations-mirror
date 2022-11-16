@@ -205,5 +205,3 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_PROJ_POOF_INIT, 1, functio
 end)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

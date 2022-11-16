@@ -78,5 +78,3 @@ function REVEL.DuneTileProcessing(ent, pos)
 end
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

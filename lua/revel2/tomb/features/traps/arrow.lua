@@ -149,5 +149,3 @@ end, EntityType.ENTITY_PLAYER)
 
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

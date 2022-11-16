@@ -1370,4 +1370,3 @@ end
 
 Isaac.DebugString("Revelations: Loaded Pathfinding Library!")
 end
-REVEL.PcallWorkaroundBreakFunction()

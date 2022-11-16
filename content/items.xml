@@ -33,7 +33,7 @@
 	<!--Lover's Libido --><passive name="Lover's Libido" description="Running only makes it harder..." gfx="revelcommon/loverslibido.png" id="36" tags="offensive" quality="1"/>
 	<!--Prescription--><passive name="Prescription" description="Lasting treatment" gfx="revelcommon/prescription.png" id="65" tags="offensive" quality="2"/>
 	<!--Geode--><passive name="Geode" description="Can't wait to break it open!" gfx="revelcommon/geode.png" id="66" tags="offensive" quality="2"/>
-	<!--Not a Bullet --><passive name="Not a Bullet" description="Velocity = Power" gfx="revelcommon/not_a_bullet.png" id="67" cache="damage shotspeed" tags="offensive" quality="2"/>
+	<!--Not a Bullet --><passive name="Not a Bullet" description="Velocity = Power" gfx="revelcommon/not_a_bullet.png" id="67" cache="damage shotspeed" tags="offensive" quality="3"/>
 
 
 	<!--                      Active                      -->
@@ -51,8 +51,8 @@
 	<!--Music Box--><active name="Music Box" description="Thank the Maestro" id="50" gfx="revelcommon/music_box.png" maxcharges="3" tags="offensive" quality="1"/>
 	<!--Half Chewed Pony--><active name="Half Chewed Pony" description="She's not done with that!" id="51" gfx="revelcommon/half_chewed_pony.png" maxcharges="2" tags="offensive" quality="2"/>
 	<!--Moxie's Yarn--><active name="Moxie's Yarn" description="Play Time!" id="52" gfx="revelcommon/moxies_yarn.png" maxcharges="6" tags="offensive" quality="1"/>
-	<!--Super Meat Blade--><active name="Super Meat Blade" description="Will it blend?" id="64" maxcharges="4" gfx="revelcommon/supermeatblade.png" tags="offensive" quality="3"/>
-	                       <active name="Super Meat Blade " description="Will it blend?" id="63" maxcharges="0" gfx="revelcommon/supermeatblade.png" hidden="true"/>
+	<!--Super Meat Blade--><active name="Super Meat Blade" description="Will it blend?" id="64" maxcharges="4" gfx="revelcommon/supermeatblade.png" tags="offensive" quality="2"/>
+	                       <active name="Super Meat Blade " description="Will it blend?" id="63" maxcharges="0" gfx="revelcommon/supermeatblade.png" hidden="true" quality="2"/>
 	<!--Dramamine--><active name="Dramamine" description="Vomit stopper" id="62" maxcharges="200" gfx="revelcommon/dramamine.png" chargetype="timed" quality="1"/>
 
 	<!--                      Familiar                      -->
@@ -66,9 +66,9 @@
 	<!--Phylactery (Pickup Item)--><active name="Phylactery  " description="" id="44" gfx="revelcommon/phylactery_blank.png" maxcharges="0" hidden="true"/>
 	<!--Phylactery (Pickup Item Charge)--><active name="Phylactery   " description="" id="45" gfx="revelcommon/phylactery_blank.png" maxcharges="1" hidden="true"/>
 	<!--Mirror Fragment--><familiar name="Mirror Fragment" description="Just one piece missing" id="54" gfx="revelcommon/mirror_fragment.png" tags="uniquefamiliar lazarusshared noeden quest" quality="1"/>
-	<!--Cursed Grail--><familiar name="Cursed Grail" description="Sacrifice your blood to me..." id="55" gfx="revelcommon/cursed_grail.png" cache="damage" quality="1"/>
+	<!--Cursed Grail--><familiar name="Cursed Grail" description="Sacrifice your blood to me..." id="55" gfx="revelcommon/cursed_grail.png" cache="damage" quality="2"/>
 	<!--Bandage Baby--><familiar name="Bandage Baby" description="Rag tag buddy!" id="56" gfx="revelcommon/bandage_baby.png" tags="offensive baby" quality="0"/>
-	<!--Lil Michael--><familiar name="Lil Michael" description="Grant me your strength" id="57" gfx="revelcommon/lil_michael.png" tags="offensive angel baby" quality="3"/>
+	<!--Lil Michael--><familiar name="Lil Michael" description="Grant me your strength" id="57" gfx="revelcommon/lil_michael.png" tags="offensive angel baby" quality="2"/>
 	<!--Hungry Grub--><familiar name="Hungry Grub" description="Feed him up, watch him go" id="58" gfx="revelcommon/hungry_grub.png" tags="offensive" quality="2"/>
 	<!--Envy's Enmity--><familiar name="Envy's Enmity" description="Heads up!" id="59" gfx="revelcommon/envys_enmity.png" tags="offensive" quality="2"/>
 	<!--Bargainer's Burden--><familiar name="Bargainer's Burden" description="Share the wealth" id="60" gfx="revelcommon/bargainers_burden.png" tags="offensive" quality="1"/>
@@ -82,4 +82,6 @@
 	<!--Telescope--><trinket cache="all" name="Telescope" description="Constellations seem bigger" gfx="revelcommon/telescope.png" />
 	<!--Scratched Sack--><trinket name="Scratched Sack" description="Cat's Out!" gfx="revelcommon/scratched_sack.png" />
 	<!--Maxwell's Horn--><trinket name="Maxwell's Horn" description="You broke it!" gfx="revelcommon/maxs_horn.png" />
+	<!--Memory Cap--><trinket name="Memory Cap" description="[DATA EXPUNGED]" gfx="revelcommon/memory_cap.png" />
+	<!--Christmas Stocking--><trinket name="Christmas Stocking" description="All the goodies you wanted" gfx="revelcommon/christmas_stocking.png" />
 </items>

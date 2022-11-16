@@ -69,6 +69,10 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
     end
     npc.Velocity = Vector.Zero
 
+    if npc:HasEntityFlags(EntityFlag.FLAG_ICE) then
+        npc:ClearEntityFlags(EntityFlag.FLAG_ICE)
+    end
+
     if npc:IsDead() then
         if not data.CoalHeaterDied then
             REVEL.sfx:NpcPlay(npc, SoundEffect.SOUND_ROCK_CRUMBLE, 1, 0, false, 1)
@@ -85,5 +89,3 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 end, REVEL.ENT.COAL_HEATER.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

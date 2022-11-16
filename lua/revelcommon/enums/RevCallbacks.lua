@@ -21,7 +21,7 @@ return {
     KNIFE_UPDATE_INIT = "REV_KNIFE_UPDATE_INIT", -- (knife): KnifeSubType
     PROJECTILE_UPDATE_INIT = "REV_PROJECTILE_UPDATE_INIT", -- (projectile): Variant
     NPC_UPDATE_INIT = "REV_NPC_UPDATE_INIT", -- (npc): Type
-    EFFECT_UPDATE_INIT = "REV_EFFECT_UPDATE_INIT", -- (effect): Variant
+    -- EFFECT_UPDATE_INIT = "REV_EFFECT_UPDATE_INIT", -- (effect): Variant # disabled because it adds an update to all effects
     POST_INGAME_RELOAD = "REV_POST_INGAME_RELOAD", -- (isReload) 
     POST_ITEM_PICKUP = "REV_POST_ITEM_PICKUP", -- (player, playerID, itemID, isD4Effect)
     ITEM_CHECK = "REV_ITEM_CHECK", -- (item id, item table): ItemId -> boolean

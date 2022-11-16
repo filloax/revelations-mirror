@@ -299,5 +299,3 @@ StageAPI.AddCallback("Revelations", StageAPICallbacks.POST_CUSTOM_GRID_UPDATE, 0
 --#endregion
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

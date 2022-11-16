@@ -54,5 +54,3 @@ function REVEL.AddDeathEventsCallback(onDeath, deathRender, npcId, npcVariant)
 end
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

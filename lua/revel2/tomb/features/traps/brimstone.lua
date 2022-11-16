@@ -133,5 +133,3 @@ end, REVEL.ENT.BRIM_TRAP.variant)
 -- end, REVEL.ENT.BRIM_TRAP.variant)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

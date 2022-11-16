@@ -1177,15 +1177,15 @@ local function catastrophe_NpcUpdate(_, npc)
 end
 revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, catastrophe_NpcUpdate, REVEL.ENT.CATASTROPHE_CRICKET.id)
 
-StageAPI.AddCallback("Revelations", RevCallbacks.EFFECT_UPDATE_INIT, 1, function(effect)
+REVEL.AddEffectInitCallback(function(effect)
 	local parent = effect:GetLastParent()
-	if effect.Variant == 50 and effect.SubType == 1 and parent and parent.Type == REVEL.ENT.CATASTROPHE_CRICKET.id then
+	if effect.SubType == 1 and parent and parent.Type == REVEL.ENT.CATASTROPHE_CRICKET.id then
 		local sprite = effect:GetSprite()
         sprite:ReplaceSpritesheet(0, "gfx/effects/revel2/brimfly_impact.png")
         sprite:LoadGraphics()
         sprite.Color = effect.Parent:GetColor()
 	end
-end)
+end, EffectVariant.LASER_IMPACT)
 
 revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
     local data = npc:GetData()
@@ -1295,4 +1295,3 @@ revel:AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, function(_, type, variant, s
 end)
 
 end
-REVEL.PcallWorkaroundBreakFunction()

@@ -130,5 +130,3 @@ function REVEL.AxisAlignVector(vector, amount)
 end
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

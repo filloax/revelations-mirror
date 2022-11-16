@@ -160,13 +160,23 @@ function REVEL.InitializeRevendingMachine(machine, data)
 
     REVEL.ChooseRevelShopItem(machine, data)
 
+    local itemConfig = Isaac:GetItemConfig():GetCollectible(machine.SubType)
+    if EID then
+        if not EID.effectList[REVEL.ENT.REVENDING_MACHINE.variant] then
+            EID.effectList[REVEL.ENT.REVENDING_MACHINE.variant] = true
+        end
+        machine:GetData().EID_Description = REVEL.GetEidItemDesc(machine.SubType)
+        if not machine:GetData().EID_Description.Name then
+            machine:GetData().EID_Description.Name = itemConfig.Name
+        end
+    end
+
     if not data.Price then
         data.Price = GetRunData(machine, "Price")
         data.Discount = GetRunData(machine, "Discount")
         if not data.Price then
             data.Price = Prices[data.Type]
 
-            local itemConfig = Isaac:GetItemConfig():GetCollectible(machine.SubType)
             if itemConfig then
                 if itemConfig.Quality >= 4 then
                     data.Price = data.Price + 10
@@ -450,5 +460,3 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_MACHINE_RESPAWN, 1, revend
 revel:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, revendingGreedPostEntityKill, EntityType.ENTITY_GREED)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

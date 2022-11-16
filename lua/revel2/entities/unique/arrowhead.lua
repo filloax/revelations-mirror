@@ -75,10 +75,11 @@ local function arrowhead_NpcUpdate(_, npc)
             end
 
             data.ChaseFrame = data.ChaseFrame + 1
-            if data.ChaseFrame >= 120 then
+            if data.ChaseFrame >= 90 then
                 sprite:RemoveOverlay()
                 sprite.PlaybackSpeed = 1
                 data.State = "Shoot1"
+                sprite:Play("ShootTell", true)
             end
         elseif data.State == "Shoot1" then
             if not sprite:IsPlaying("ShootTell") then
@@ -116,5 +117,3 @@ end
 revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, arrowhead_EntityTakeDmg, REVEL.ENT.ARROWHEAD.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

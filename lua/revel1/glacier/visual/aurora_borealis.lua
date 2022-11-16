@@ -299,5 +299,3 @@ function REVEL.AuroraShader:OnUpdate()
 end
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

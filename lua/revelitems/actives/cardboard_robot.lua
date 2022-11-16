@@ -556,5 +556,3 @@ revel:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, function(_, e)
 end, FamiliarVariant.WISP)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

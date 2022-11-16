@@ -517,5 +517,3 @@ revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, icehazardDmg, REVEL.ENT.ICE_H
 
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

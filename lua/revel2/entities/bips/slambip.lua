@@ -225,5 +225,3 @@ revel:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, function(_, npc)
 end, REVEL.ENT.SLAMBIP.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

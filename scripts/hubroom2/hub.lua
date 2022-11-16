@@ -521,6 +521,10 @@ function hub2.LoadHub2(room, levelRoom, isFirstLoad)
 					StageType = hub2.SimulateStageTransitionStageType(levelStage + levelStage%2, trapdoor and trapdoor.StageType == "rep")
 				}
 			end
+
+			if trapdoor and (trapdoor.StageType == "rep" or trapdoor.StageType == "vanilla") then
+				stage = StageAPI.CallCallbacks("PRE_SELECT_NEXT_STAGE", true, StageAPI.GetCurrentStage(), trapdoor.StageType == "rep") or stage
+			end
 			
 			local trapdoorEnt = StageAPI.SpawnCustomTrapdoor(
 				room:GetGridPosition(hub2.Hub2TrapdoorSpots[slot]), 

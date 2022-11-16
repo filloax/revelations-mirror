@@ -641,6 +641,10 @@ local function draugrHaugrNpcUpdate(_, npc)
     if data.GlowSprite then
         data.GlowSprite.PlaybackSpeed = data.HeadSprite.PlaybackSpeed
     end
+
+    if npc:HasEntityFlags(EntityFlag.FLAG_ICE) then
+        npc:ClearEntityFlags(EntityFlag.FLAG_ICE)
+    end
 end
 
 local SoundCooldown = {Min = 80, Max = 100}
@@ -1000,6 +1004,10 @@ local function jaugrNpcUpdate(_, npc)
             end
         end
     end
+
+    if npc:HasEntityFlags(EntityFlag.FLAG_ICE) then
+        npc:ClearEntityFlags(EntityFlag.FLAG_ICE)
+    end
 end
 
 local function jaugrStunnedPreNpcUpdate(_, npc)
@@ -1244,5 +1252,3 @@ revel:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, draugrPostEntityRemove, RE
 revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, draugrEntityTakeDmg, REVEL.ENT.DRAUGR.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

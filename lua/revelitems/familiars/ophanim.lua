@@ -148,5 +148,3 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_ENTITY_TAKE_DMG, 1, functi
 end, EntityType.ENTITY_PLAYER)
   
 end
-
-REVEL.PcallWorkaroundBreakFunction()

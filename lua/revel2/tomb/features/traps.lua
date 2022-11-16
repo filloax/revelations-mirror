@@ -575,5 +575,3 @@ end, StageAPI.E.FloorEffect.V)
 
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

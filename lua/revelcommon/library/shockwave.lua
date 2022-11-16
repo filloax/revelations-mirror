@@ -126,5 +126,3 @@ end
 revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, shockwavePostEffectUpdate, REVEL.ENT.CUSTOM_SHOCKWAVE.variant)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

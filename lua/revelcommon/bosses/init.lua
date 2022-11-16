@@ -175,12 +175,12 @@ do
                 return false
             end
 
-            -- if not REVEL.IsAchievementUnlocked(champAchievement.Name) then
-            --     local champBosses = StageAPI.CountLayoutEntities(layout, champAchievement.LayoutFilter)
-            --     if champBosses > 0 then
-            --         return false
-            --     end
-            -- end
+            if not REVEL.IsAchievementUnlocked(champAchievement.Name) then
+                local champBosses = StageAPI.CountLayoutEntities(layout, champAchievement.LayoutFilter)
+                if champBosses > 0 then
+                    return false
+                end
+            end
         end
     end)
 
@@ -328,8 +328,8 @@ do
         },
 
         -- Bomb / Orbital Damage (Deals damage based on a percentage of damage the boss is expected to take per second. For instance, bombs here would deal 10 seconds worth of damage to the boss.)
-        BombMaxDamage = 14,
-        BombMinDamage = 8,
+        BombMaxDamage = 12,
+        BombMinDamage = 6,
         BombTapering = 0.75, -- bomb damage is multiplied by this for each bomb used, until it reaches BombMinDamage.
         OrbitalMaxDamage = 0.15,
         OrbitalDamageDivide = 4, -- orbital damage is divided by this, then multiplied by OrbitalMaxDamage
@@ -532,6 +532,7 @@ do
     local EstimateDPSUmbilicalWhip
 
     ---@param player EntityPlayer
+    ---@return number
     function REVEL.EstimateDPS(player)
         local altDPS = StageAPI.CallCallbacks(RevCallbacks.PRE_ESTIMATE_DPS, true, player)
         if altDPS then
@@ -1548,4 +1549,3 @@ end
 
 Isaac.DebugString("Revelations: Loaded Generic Bosses!")
 end
-REVEL.PcallWorkaroundBreakFunction()

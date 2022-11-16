@@ -372,5 +372,3 @@ revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, effect)
 end, EffectVariant.HOT_BOMB_FIRE)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

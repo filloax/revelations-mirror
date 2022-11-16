@@ -203,5 +203,3 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
     revel:AddCallback(ModCallbacks.MC_POST_UPDATE, machines_PostUpdate)
     revel:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, machines_PostNewRoom)
 end
-
-REVEL.PcallWorkaroundBreakFunction()

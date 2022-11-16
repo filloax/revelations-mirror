@@ -54,5 +54,3 @@ revel:AddCallback(ModCallbacks.MC_USE_ITEM, function(_, itemID, itemRNG, player,
 end)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

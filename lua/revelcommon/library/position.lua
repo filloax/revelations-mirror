@@ -211,5 +211,3 @@ function REVEL.FindFreeIndex(fromIndex, checkEntities, checkGrids, entityTables,
 end
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

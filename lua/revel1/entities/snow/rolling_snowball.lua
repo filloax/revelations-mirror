@@ -211,5 +211,3 @@ end
 revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, rolling_NpcUpdate, REVEL.ENT.ROLLING_SNOWBALL.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

@@ -75,5 +75,3 @@ StageAPI.AddCallback("Revelations", StageAPICallbacks.POST_CUSTOM_GRID_UPDATE, 1
 end, REVEL.GRIDENT.EXPLODING_SNOWMAN.Name)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

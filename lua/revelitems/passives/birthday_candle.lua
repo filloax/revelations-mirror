@@ -44,5 +44,3 @@ revel:AddCallback(ModCallbacks.MC_EVALUATE_CACHE , function(_, player, cacheFlag
 end)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

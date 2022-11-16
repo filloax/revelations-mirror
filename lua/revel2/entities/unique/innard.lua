@@ -125,5 +125,3 @@ revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, e, amount)
 end, REVEL.ENT.INNARD.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

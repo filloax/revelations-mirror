@@ -78,5 +78,3 @@ end
 revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, geicer_NpcUpdate, REVEL.ENT.GEICER.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

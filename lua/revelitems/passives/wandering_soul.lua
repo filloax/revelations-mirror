@@ -681,5 +681,3 @@ revel:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, revel.GameStart)
 revel:AddCallback(ModCallbacks.MC_POST_UPDATE, revel.SpawnSouls)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

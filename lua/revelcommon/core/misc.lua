@@ -1015,7 +1015,7 @@ do -- Disabled items
 				end
 
 				for _, player in ipairs(REVEL.players) do
-					local numItem = player:GetCollectibleNum(item.id)
+					local numItem = player:GetCollectibleNum(item.id, true)
 					if numItem > 0 then
 						for i = 1, numItem do
 							player:RemoveCollectible(item.id)
@@ -1572,4 +1572,3 @@ do
 end
 
 end
-REVEL.PcallWorkaroundBreakFunction()

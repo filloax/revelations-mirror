@@ -50,5 +50,3 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
     revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, taintedWarningPlayerCheck)
     revel:AddCallback(ModCallbacks.MC_POST_RENDER, taintedWarningRender)
 end
-
-REVEL.PcallWorkaroundBreakFunction()

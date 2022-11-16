@@ -92,6 +92,9 @@ REVEL.CharonBlacklist = {
     [CollectibleType.COLLECTIBLE_MOMS_PURSE] = true,
     [CollectibleType.COLLECTIBLE_SCHOOLBAG] = true,
     [CollectibleType.COLLECTIBLE_BIRTHRIGHT] = true,
+    [CollectibleType.COLLECTIBLE_PURGATORY] = true,
+    [CollectibleType.COLLECTIBLE_KNIFE_PIECE_1] = true,
+    [CollectibleType.COLLECTIBLE_KNIFE_PIECE_2] = true,
 }
 
 -- Outright reroll
@@ -112,6 +115,9 @@ REVEL.CharonFullBan = {
     [CollectibleType.COLLECTIBLE_ODD_MUSHROOM_DAMAGE] = true,
     [CollectibleType.COLLECTIBLE_CAFFEINE_PILL] = true,
     [CollectibleType.COLLECTIBLE_4_5_VOLT] = true,
+    [CollectibleType.COLLECTIBLE_20_20] = true,
+    [CollectibleType.COLLECTIBLE_INNER_EYE] = true,
+    [CollectibleType.COLLECTIBLE_MUTANT_SPIDER] = true,
 }
 
 -- Changing player type messes pocket actives up
@@ -151,4 +157,3 @@ function REVEL.Dante.SwitchCostume(player, toCharon)
 end
 
 end
-REVEL.PcallWorkaroundBreakFunction()

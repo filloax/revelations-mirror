@@ -276,5 +276,3 @@ revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, npc, dmg, flag, s
 end, REVEL.ENT.BLOCK_GAPER.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

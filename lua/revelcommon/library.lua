@@ -56,4 +56,3 @@ REVEL.RunLoadFunctions(SubLoadFunctions)
 Isaac.DebugString("Revelations: Loaded Main Library!")
 
 end
-REVEL.PcallWorkaroundBreakFunction()

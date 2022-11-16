@@ -209,7 +209,6 @@ local function frozenBody_PostCustomGridDestroy(customGrid)
 
         local rng = eff:GetDropRNG()
         local chance = rng:RandomFloat()
-        print(chance)
         if chance < FROZEN_BODY_SOUL_DROP_CHANCE then
             local dir = RandomVector()
             Isaac.Spawn(

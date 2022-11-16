@@ -2,4 +2,3 @@
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
 end
-REVEL.PcallWorkaroundBreakFunction()

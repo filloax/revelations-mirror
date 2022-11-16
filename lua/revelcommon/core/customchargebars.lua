@@ -456,4 +456,3 @@ end
 
 Isaac.DebugString("Revelations: Loaded Custom Charge Bars!")
 end
-REVEL.PcallWorkaroundBreakFunction()

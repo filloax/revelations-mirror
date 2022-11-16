@@ -145,5 +145,3 @@ function toBitString(num)
 end
   
 end
-
-REVEL.PcallWorkaroundBreakFunction()

@@ -1029,5 +1029,3 @@ revel:AddCallback(ModCallbacks.MC_POST_NPC_INIT, function(_, npc)
 end, EntityType.ENTITY_POLYCEPHALUS)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

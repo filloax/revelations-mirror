@@ -38,7 +38,7 @@ revel:AddCallback(ModCallbacks.MC_USE_CARD, function(_, cardID, player, useFlags
 
     Isaac.Spawn(EntityType.ENTITY_SLOT, 10, 0, pos, Vector.Zero, player)
     ]]
-end, REVEL.POCKETITEM.LOTTERY_TICKET)
+end, REVEL.POCKETITEM.LOTTERY_TICKET.Id)
 
 revel:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, function(_, item)
     local data = item:GetData()
@@ -96,5 +96,3 @@ revel:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, function(_, item)
 end, PickupVariant.PICKUP_COLLECTIBLE)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

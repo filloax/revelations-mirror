@@ -29,18 +29,17 @@ local function LoadFiendFolioCompat(typeLoaded)
                 },
             }
         },
-        [23] = {
-            [FiendFolio.FF.Sternum.Var] = {
+        [114] = {
+            [FiendFolio.FF.Frowny.Var] = {
                 SPRITESHEET = {
-                    [0] = "reskins/ff/monster_bonecharger_tomb",
+                    [0] = "reskins/ff/Frowny_tomb",
                 },
             }
         },
-        [153] = {
-            [FiendFolio.FF.DryWheeze.Var] = {
+        [115] = {
+            [FiendFolio.FF.Edema.Var] = {
                 SPRITESHEET = {
-                    [0] = "reskins/ff/dry_wheeze_body_tomb",
-                    [1] = "reskins/ff/dry_wheeze_head_tomb",
+                    [0] = "reskins/ff/monster_edema_tomb",
                 },
             }
         },
@@ -51,6 +50,7 @@ local function LoadFiendFolioCompat(typeLoaded)
                 },
             }
         },
+        
         [160] = {
             [FiendFolio.FF.Centipede.Var] = {
                 SPRITESHEET = {
@@ -65,6 +65,11 @@ local function LoadFiendFolioCompat(typeLoaded)
             [FiendFolio.FF.Carrier.Var] = {
                 SPRITESHEET = {
                     [0] = "reskins/ff/monster_carrier_tomb",
+                },
+            },
+            [FiendFolio.FF.SuperGrimace.Var] = {
+                SPRITESHEET = {
+                    [0] = "reskins/ff/super_grimace_tomb",
                 },
             }
         },
@@ -99,33 +104,16 @@ local function LoadFiendFolioCompat(typeLoaded)
                 },
             }
         },
-        [666] = {
-            [FiendFolio.FF.Breadbin.Var] = {
-                SPRITESHEET = {
-                    [0] = "reskins/ff/breadbin_tomb",
-                },
-            },
-            [FiendFolio.FF.Calzone.Var] = {
-                SPRITESHEET = {
-                    [0] = "reskins/ff/calzone_tomb",
-                },
-            }
-        },
         [750] = {
             [FiendFolio.FF.Ragurge.Var] = {
                 ANM2 = "reskins/ff/monster_ragurge_tomb",
             },
             [FiendFolio.FF.Unpawtunate.Var] = {
-                SPRITESHEET = {
-                    [0] = "reskins/ff/kitty kannon_tomb",
-                    [1] = "reskins/ff/kitty kannon_tomb",
-                },
+                ANM2 = "reskins/ff/kitty kannon_tomb",
             },
-            [FiendFolio.FF.Ossularry.Var] = {
-                SPRITESHEET = {
-                    [0] = "reskins/ff/monster_ossularry_tomb",
-                },
-            }
+            [FiendFolio.FF.UnpawtunateSkull.Var] = {
+                ANM2 = "reskins/ff/kitty skull_tomb",
+            },
         },
     }, true)
 
@@ -154,4 +142,3 @@ end
 
 Isaac.DebugString("Revelations: Loaded Mod Compatibility for Chapter 2!")
 end
-REVEL.PcallWorkaroundBreakFunction()

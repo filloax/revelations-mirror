@@ -39,5 +39,3 @@ function REVEL.AddSmeltedTrinket(player, trinket, firstTimePickingUp)
 end
    
 end
-
-REVEL.PcallWorkaroundBreakFunction()

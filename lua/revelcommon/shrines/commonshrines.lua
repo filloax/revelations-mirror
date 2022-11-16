@@ -1,5 +1,7 @@
 local ShrineTypes = require("lua.revelcommon.enums.ShrineTypes")
 local RandomPickupSubtype = require("lua.revelcommon.enums.RandomPickupSubtype")
+local StageAPICallbacks   = require("lua.revelcommon.enums.StageAPICallbacks")
+local RevCallbacks        = require("lua.revelcommon.enums.RevCallbacks")
 
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
@@ -428,6 +430,8 @@ REVEL.AddCommonShrine {
     Name = "grounding",
     DisplayName = "Grounding",
     Description = "Flightless",
+    Value = 3,
+    ValueOneChapter = 2,
     EID_Description = {
         Name = "Grounding",
         Description = "Flying becomes disabled for this chapter"
@@ -559,7 +563,7 @@ REVEL.AddCommonShrine {
     EID_Description = {
         Name = "Purgatory",
         Description = "Enemies have a " .. (math.floor(PURGATORY_SPAWN_CHANCE * 100)) .. "% chance of spawning"
-            .. "#ghosts that chase Isaac and explode"
+            .. " ghosts that chase Isaac and explode"
             .. "#this chance is halved for enemies spawned by other enemies"
     },
     OnTrigger = function()
@@ -818,6 +822,80 @@ local function bleeding_PostPlayerUpdate(_, player)
     end
 end
 
+-- Mitosis
+
+--#region Mitosis
+
+local MITOSIS_CHANCE = 0.3
+local MITOSIS_BOOSTED_CHANCE = 0.6
+
+local MitosisEntityBlacklist = {
+    [EntityType.ENTITY_FIREPLACE] = true,
+    [REVEL.ENT.CHILL_O_WISP.id] = {
+        [REVEL.ENT.CHILL_O_WISP.variant] = true,
+    },
+    -- Static enemies, looks weird when mitosed
+    [REVEL.ENT.GEICER.id] = {
+        [REVEL.ENT.GEICER.variant] = true,
+        [REVEL.ENT.COAL_HEATER.variant] = true,
+    },
+    [REVEL.ENT.PINE.id] = {
+        [REVEL.ENT.PINE.variant] = true,
+        [REVEL.ENT.PINECONE.variant] = true,
+    },
+    [REVEL.ENT.RAGMA.id] = {
+        [REVEL.ENT.RAGMA.variant] = true,
+    },
+}
+
+REVEL.AddCommonShrine {
+    Name = ShrineTypes.MITOSIS,
+    DisplayName = "Mitosis",
+    Description = "Strength in\nnumbers",
+    EID_Description = {
+        Name = "Mitosis",
+        Description = "Enemies have a chance to become doubled"
+        .. "#Taking this multiple times will increase the chance"
+    },
+    Repeatable = true,
+    MaxRepeats = 2,
+    Sprite = "mitosis",
+    IsTall = true,
+    HudIconFrame = 10,
+}
+
+local function mitosis_PostNpcInit(npc)
+    if REVEL.IsShrineEffectActive(ShrineTypes.MITOSIS, true)
+    and not (npc.SpawnerType and npc.SpawnerType >= 10 and npc.SpawnerType ~= 1000) 
+    and npc.MaxHitPoints > 0
+    and npc:IsVulnerableEnemy() and not npc:IsBoss() and npc:ToNPC()
+    and not REVEL.IsTypeVariantInMap(npc, MitosisEntityBlacklist)
+    and not npc:HasEntityFlags(EntityFlag.FLAG_FRIENDLY)
+    and not npc:HasEntityFlags(EntityFlag.FLAG_NO_TARGET) then
+        local dpsMax = 7
+        for _, player in ipairs(REVEL.players) do
+            local dps = REVEL.EstimateDPS(player)
+            if not dpsMax or dps > dpsMax then
+                dpsMax = dps
+            end
+        end
+
+        local chance = MITOSIS_CHANCE
+        local _, shrineAmount = REVEL.IsShrineEffectActive(ShrineTypes.MITOSIS, true)
+        if shrineAmount > 1 then chance = MITOSIS_BOOSTED_CHANCE end
+
+        if dpsMax and dpsMax > npc.MaxHitPoints * 0.4 then
+            if npc:GetDropRNG():RandomFloat() < chance then
+                local double = Isaac.Spawn(npc.Type, npc.Variant, npc.SubType, npc.Position+Vector(10,0):Rotated(math.random(360)), Vector.Zero, npc)
+
+                if double then
+                    double:SetColor(Color(1,1,1,1,1,1,1),30, 1, true, false)
+                end
+            end
+        end
+    end
+end
+
 --#endregion
 
 -- Callbacks
@@ -828,6 +906,7 @@ revel:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, bleeding_PostPlayerUpdate)
 revel:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, purgatory_PostEntityKill)
 revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, purgatory_soul_NpcUpdate, REVEL.ENT.PURGATORY_ENEMY.id)
 revel:AddCallback(ModCallbacks.MC_POST_NPC_RENDER, purgatory_soul_PostNpcRender, REVEL.ENT.PURGATORY_ENEMY.id)
+StageAPI.AddCallback("Revelations", RevCallbacks.NPC_UPDATE_INIT, 90, mitosis_PostNpcInit)
 -- StageAPI.AddCallback("Revelations", "POST_STAGEAPI_NEW_ROOM_WRAPPER", 1, grounding_PostNewRoom)
 
 -- call early in earlycallbacks.lua, to avoid running other callbacks more
@@ -837,4 +916,3 @@ REVEL.EarlyCallbacks.masochism_EntityTakeDmg_Player = masochism_EntityTakeDmg_Pl
 
 
 end
-REVEL.PcallWorkaroundBreakFunction()

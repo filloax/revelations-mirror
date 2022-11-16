@@ -33,10 +33,19 @@ revel:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, function(_, pickup)
             and REVEL.config:GetCollectible(pickup.SubType).Type == ItemType.ITEM_ACTIVE
             and holdingPhylactery
             and (
-            not player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG)
-            or player:GetActiveItem(ActiveSlot.SLOT_SECONDARY) > 0
+                not player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG)
+                or player:GetActiveItem(ActiveSlot.SLOT_SECONDARY) > 0
             )) then
                 pickup.Wait = 10
+            end
+
+            if pickup.SubType == CollectibleType.COLLECTIBLE_KNIFE_PIECE_2 and REVEL.InMineshaft() then
+                pickup:Remove()
+                Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, pickup.Position, Vector.Zero, nil)
+                player:AddCollectible(CollectibleType.COLLECTIBLE_KNIFE_PIECE_2)
+
+                player:AnimateCollectible(CollectibleType.COLLECTIBLE_KNIFE_PIECE_2)
+                REVEL.sfx:Play(SoundEffect["SOUND_POWERUP" .. math.random(1, 3)])
             end
 
             local data = pickup:GetData()
@@ -105,6 +114,7 @@ end)
 
 revel:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, function(_, pickup)
     if REVEL.IsDanteCharon(REVEL.player) and REVEL.room:IsClear() 
+    and REVEL.level:GetStage() % 2 == 0
     and isUnclearedBossRoom and REVEL.level:GetStage() ~= LevelStage.STAGE3_2 
     and (REVEL.level:GetStage() ~= LevelStage.STAGE3_1 
         or not HasBit(REVEL.level:GetCurses(), LevelCurse.CURSE_OF_LABYRINTH) 
@@ -125,11 +135,6 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_STAGEAPI_NEW_ROOM_WRAPPER,
                 pickup:GetData().CharonBossChoice = true
             end
         end
-
-        if not revel.data.run.dante.SpawnedHealthUp then
-            REVEL.AddItemToRoom(CollectibleType.COLLECTIBLE_HEART)
-            revel.data.run.dante.SpawnedHealthUp = true
-        end
     end
 end)
 
@@ -143,31 +148,60 @@ local wavesCount = -1
 StageAPI.AddCallback("Revelations", RevCallbacks.POST_STAGEAPI_NEW_ROOM_WRAPPER, 55, function()
     local levelStage, stageType = REVEL.level:GetStage(), REVEL.level:GetStageType()
 
-    -- first floor, or first rev/alt floor if skipped with hub
-    local isStageGood = (
+    if StageAPI.GetCurrentListIndex() == revel.data.run.level.dante.StartingRoomIndex then
+
+        -- first floor, or first rev/alt floor if skipped with hub
+        local isStageGood = (
             levelStage == LevelStage.STAGE1_1 and (
                 revel.data.run.skippedFloor 
                 or (stageType ~= StageType.STAGETYPE_REPENTANCE and stageType ~= StageType.STAGETYPE_REPENTANCE_B)
             )
-        ) or (revel.data.run.skippedFloor 
-            and REVEL.STAGE.Glacier:IsStage() and not StageAPI.GetCurrentStage().IsSecondStage
-        )
+            ) or (revel.data.run.skippedFloor 
+                and REVEL.STAGE.Glacier:IsStage() and not StageAPI.GetCurrentStage().IsSecondStage
+            )
+        if isStageGood then
+            local backdropEntity = REVEL.ENT.DECORATION:spawn(REVEL.room:GetCenterPos(), Vector.Zero)
+            backdropEntity:GetSprite():Load("gfx/backdrop/revelcommon/charon_controls.anm2", true)
+            backdropEntity:GetSprite():Play("Charon", true)
     
-    if isStageGood
-    and StageAPI.GetCurrentListIndex() == revel.data.run.level.dante.StartingRoomIndex then
-        local backdropEntity = REVEL.ENT.DECORATION:spawn(REVEL.room:GetCenterPos(), Vector.Zero)
-        backdropEntity:GetSprite():Load("gfx/backdrop/revelcommon/charon_controls.anm2", true)
-        backdropEntity:GetSprite():Play("Charon", true)
-
-        if REVEL.STAGE.Glacier:IsStage() then
-            backdropEntity.Color = Color(0.75,1,1,1, 0.25, 0.25, 0.25)
-        elseif stageType == StageType.STAGETYPE_AFTERBIRTH then
-            backdropEntity.Color = Color(0.5,0.5, 0.5)
-        else
-            backdropEntity.Color = Color.Default
+            if REVEL.STAGE.Glacier:IsStage() then
+                backdropEntity.Color = Color(0.75,1,1,1, 0.25, 0.25, 0.25)
+            elseif stageType == StageType.STAGETYPE_AFTERBIRTH then
+                backdropEntity.Color = Color(0.5,0.5, 0.5)
+            else
+                backdropEntity.Color = Color.Default
+            end
+    
+            backdropEntity:AddEntityFlags(EntityFlag.FLAG_RENDER_FLOOR)    
         end
 
-        backdropEntity:AddEntityFlags(EntityFlag.FLAG_RENDER_FLOOR)
+        -- Double check that charon didn't delete mines button
+        if REVEL.RoomHasMinesButton() and REVEL.room:IsFirstVisit() then
+            -- button seems to get spawned another time
+            -- by the game as fallback, but doesn't always work?
+            -- check a frame later just in case
+            local gridIndex = 32
+            local minesButtonVariant = 3
+
+            local width = REVEL.room:GetGridWidth()
+            local found = false
+            for i = width, REVEL.room:GetGridSize() - 1 do
+                local grid = REVEL.room:GetGridEntity(i)
+                if grid and grid:GetType() == GridEntityType.GRID_PRESSURE_PLATE
+                and grid:GetVariant() == minesButtonVariant then
+                    found = true
+                    break
+                end
+            end
+
+            if not found then
+                REVEL.DebugToString("Dante | Spawning replacement mines button in charon starting room")
+                Isaac.GridSpawn(
+                    GridEntityType.GRID_PRESSURE_PLATE, minesButtonVariant,
+                    REVEL.room:GetGridPosition(gridIndex), true
+                )
+            end
+        end
     end
 end)
 
@@ -362,4 +396,3 @@ revel:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, function(_, tear)
 end, EntityType.ENTITY_TEAR)
 
 end
-REVEL.PcallWorkaroundBreakFunction()

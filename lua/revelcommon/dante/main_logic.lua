@@ -223,8 +223,8 @@ revel:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
             end
 
             for item, _ in pairs(REVEL.CharonFullBan) do
-                if item ~= CollectibleType.COLLECTIBLE_SCHOOLBAG and player:HasCollectible(item) then
-                    player:RemoveCollectible(item)
+                if item ~= CollectibleType.COLLECTIBLE_SCHOOLBAG and player:HasCollectible(item, true) then
+                    player:RemoveCollectible(item, true)
                 end
             end
 
@@ -361,4 +361,3 @@ end, REVEL.ENT.CHARON_DOOR_CHAINS.variant)
 
 
 end
-REVEL.PcallWorkaroundBreakFunction()

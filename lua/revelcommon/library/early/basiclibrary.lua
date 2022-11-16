@@ -970,4 +970,3 @@ end
 
 Isaac.DebugString("Revelations: Loaded Basic Library!")
 --end
-REVEL.PcallWorkaroundBreakFunction()

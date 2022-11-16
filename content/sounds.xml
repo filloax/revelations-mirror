@@ -896,4 +896,13 @@
 	<sound name="REV Special Narc Reward">
 		<sample weight="1" path="revelcommon/afterlife_item_room_4.wav"/>
 	</sound>
+
+	<!-- Announcer -->
+	<sound name="REV Announcer Lottery Ticket">
+		<sample weight="1" path="revelcommon/announcer/Lottery_Ticket.wav"/>
+	</sound>
+	<sound name="REV Announcer Bell Shard">
+		<sample weight="1" path="revelcommon/announcer/Bell_Shard.wav"/>
+	</sound>
+
 </sounds>

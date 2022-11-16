@@ -243,6 +243,10 @@ REVEL.AddShrine("Glacier", {
     Name = ShrineTypes.BLEEDING_G,
 }, ShrineTypes.BLEEDING)
 
+REVEL.AddShrine("Glacier", {
+    Name = ShrineTypes.MITOSIS__G,
+}, ShrineTypes.MITOSIS)
+
 --[[
     Shrines no longer have positive effects
 revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, e)
@@ -253,5 +257,3 @@ end)
 ]]
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

@@ -61,5 +61,3 @@ end
 revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, homingGusher_NpcUpdate, REVEL.ENT.RAG_GUSHER.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

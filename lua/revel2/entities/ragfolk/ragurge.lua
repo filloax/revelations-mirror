@@ -79,5 +79,3 @@ end, FiendFolio.FF.Ragurge.ID)
 end
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

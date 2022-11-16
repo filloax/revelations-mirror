@@ -59,4 +59,3 @@ function REVEL.Dante.GetBirthrightWhitelist(player)
 end
 
 end
-REVEL.PcallWorkaroundBreakFunction()

@@ -1,6 +1,7 @@
 local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 local RevSettings       = require("lua.revelcommon.enums.RevSettings")
+local Dimension         = require("lua.revelcommon.enums.Dimension")
 
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
@@ -60,7 +61,10 @@ function REVEL.SetChillShaderDir(a)
 end
 
 function REVEL.GlacierShader:OnUpdate()
-    if REVEL.STAGE.Glacier:IsStage() and REVEL.includes(REVEL.GlacierGfxRoomTypes, StageAPI.GetCurrentRoomType()) then
+    if REVEL.STAGE.Glacier:IsStage() 
+    and REVEL.includes(REVEL.GlacierGfxRoomTypes, StageAPI.GetCurrentRoomType()) 
+    and StageAPI.GetDimension() ~= Dimension.DEATH_CERTIFICATE
+    then
         self.Active = 1 - (chillShaderLerp / REVEL.DEFAULT_CHILL_FADE_TIME)
     else
         self.Active = 0
@@ -72,7 +76,10 @@ end
 -- local s = 0
 
 function REVEL.GlacierChillShader:OnUpdate()
-    if REVEL.STAGE.Glacier:IsStage() and REVEL.includes(REVEL.GlacierGfxRoomTypes, StageAPI.GetCurrentRoomType()) then
+    if REVEL.STAGE.Glacier:IsStage() 
+    and REVEL.includes(REVEL.GlacierGfxRoomTypes, StageAPI.GetCurrentRoomType()) 
+    and StageAPI.GetDimension() ~= Dimension.DEATH_CERTIFICATE
+    then
         if REVEL.WasChanged("GlShCursed", REVEL.IsThereCurse(LevelCurse.CURSE_OF_DARKNESS)) then
             if REVEL.IsThereCurse(LevelCurse.CURSE_OF_DARKNESS) then
                 REVEL.GlacierChillShader:SetContrast(0)
@@ -262,6 +269,8 @@ do
     revel:AddCallback(ModCallbacks.MC_POST_RENDER, function()
         isGlacierGfxRoomType = REVEL.STAGE.Glacier:IsStage() 
             and REVEL.includes(REVEL.GlacierGfxRoomTypes, StageAPI.GetCurrentRoomType())
+            and StageAPI.GetDimension() ~= Dimension.DEATH_CERTIFICATE
+
         if SnowShaderEnabled() and not StageAPI.IsHUDAnimationPlaying() then
             if (ForceChillSnow == nil and REVEL.IsChilly())
             or ForceChillSnow then
@@ -334,5 +343,3 @@ end
 
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

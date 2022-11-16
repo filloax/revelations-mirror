@@ -223,5 +223,3 @@ revel:AddCallback(ModCallbacks.MC_PRE_GAME_EXIT, runLoaded_PreGameExit)
 StageAPI.AddCallback("Revelations", RevCallbacks.POST_INGAME_RELOAD, 5, runLoaded_PostIngameReload)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

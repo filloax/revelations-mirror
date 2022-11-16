@@ -51,5 +51,3 @@ REVEL.RunLoadFunctions(SubLoadFunctions)
 
 Isaac.DebugString("Revelations: Loaded Chapter 1 Entities!")
 end
-
-REVEL.PcallWorkaroundBreakFunction()

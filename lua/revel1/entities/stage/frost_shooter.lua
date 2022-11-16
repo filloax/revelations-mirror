@@ -176,5 +176,3 @@ revel:AddCallback(ModCallbacks.MC_POST_NPC_RENDER, function(_, npc)
 end, REVEL.ENT.FROST_SHOOTER.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

@@ -1240,5 +1240,3 @@ revel:AddCallback(ModCallbacks.MC_PRE_SPAWN_CLEAN_AWARD, doorCloseCleanAward)
 
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

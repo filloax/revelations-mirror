@@ -211,5 +211,3 @@ end, REVEL.ENT.SMOLYCEPHALUS_FOR_SCALE.id)
 
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

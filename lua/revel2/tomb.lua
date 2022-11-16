@@ -86,4 +86,3 @@ end)
 
 Isaac.DebugString("Revelations: Loaded Tomb!")
 end
-REVEL.PcallWorkaroundBreakFunction()

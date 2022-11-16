@@ -488,5 +488,3 @@ revel:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, iceWraith_PostNewRoom)
 revel:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, iceWraith_PostNewLevel)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

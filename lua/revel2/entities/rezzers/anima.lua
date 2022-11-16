@@ -63,6 +63,8 @@ local function anima_NpcUpdate(_, npc)
         npc.EntityCollisionClass = EntityCollisionClass.ENTCOLL_NONE
         npc.GridCollisionClass = EntityGridCollisionClass.GRIDCOLL_WALLS
 
+        npc:AddEntityFlags(EntityFlag.FLAG_HIDE_HP_BAR)
+
         data.Init = true
     end
 
@@ -78,7 +80,7 @@ local function anima_NpcUpdate(_, npc)
 
             ragNpcs = REVEL.GetFilteredArray(REVEL.roomEnemies, isUnbuffedRagFamily)
 
-            if data.FrameCount > 60 and #ragNpcs ~= 0 then
+            if data.FrameCount > 10 and #ragNpcs ~= 0 then
                 data.targ = ragNpcs[math.random(#ragNpcs)]
                 data.targ:GetData().Anima = npc
                 data.State = "GoTo Host"
@@ -284,5 +286,3 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 end)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

@@ -1,5 +1,6 @@
 local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
+local Dimension         = require("lua.revelcommon.enums.Dimension")
 
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
@@ -155,7 +156,12 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_STAGEAPI_NEW_ROOM_WRAPPER,
     if REVEL.STAGE.Tomb:IsStage() then
         local currentRoomType = StageAPI.GetCurrentRoomType()
         REVEL.roomBraziers = {}
-        if REVEL.includes(REVEL.TombGfxRoomTypes, currentRoomType) or REVEL.TombGfxBrazierOnlyTypes[currentRoomType] ~= nil then
+        if (
+            REVEL.includes(REVEL.TombGfxRoomTypes, currentRoomType) 
+            or REVEL.TombGfxBrazierOnlyTypes[currentRoomType] ~= nil 
+        )
+        and StageAPI.GetDimension() ~= Dimension.DEATH_CERTIFICATE
+        then
             REVEL.SpawnTombCornerDecorations(REVEL.TombGfxBrazierOnlyTypes[currentRoomType], false)
         end
     end
@@ -238,7 +244,7 @@ revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, eff)
         if sprite:IsEventTriggered("spawn enemy") then
             if not data.SpawnEnemies[1][5] then
             local r = math.random(55,125)
-            local ent = REVEL.SpawnEntCoffin(data.SpawnEnemies[1][1], data.SpawnEnemies[1][2], 0, eff.Position, Vector.FromAngle(sprite.Rotation + r) * 5, eff)
+            local ent = REVEL.SpawnEntCoffin(data.SpawnEnemies[1][1], data.SpawnEnemies[1][2], data.SpawnEnemies[1][3] or 0, eff.Position, Vector.FromAngle(sprite.Rotation + r) * 5, eff)
 
                 if data.SpawnEnemies[1][3] then
                     if data.SpawnEnemies[1][1] == REVEL.ENT.LOCUST.id and data.SpawnEnemies[1][2] == REVEL.ENT.LOCUST.variant
@@ -276,7 +282,7 @@ revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, eff)
 end, REVEL.ENT.CORNER_COFFIN.variant)
 
 function REVEL.SpawnEntCoffin(t, v, s, pos, vel, spawner) --also used for Maxwell
-    local ent = Isaac.Spawn(t, v, s, pos, vel, spawner)
+    local ent = Isaac.Spawn(t, v, s or 0, pos, vel, spawner)
     coffinSpawns[#coffinSpawns + 1] = ent
     ent:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
     ent:GetData().BlackFade = true
@@ -336,5 +342,3 @@ end)
 
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

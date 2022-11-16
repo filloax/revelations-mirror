@@ -109,5 +109,3 @@ revel:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, function(_, ent)
 end, EntityType.ENTITY_PROJECTILE)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

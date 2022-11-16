@@ -128,5 +128,3 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 end, REVEL.ENT.EMPEROR.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

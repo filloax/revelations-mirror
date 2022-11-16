@@ -891,5 +891,3 @@ revel:AddCallback(ModCallbacks.MC_POST_FAMILIAR_RENDER, chillGuillotinePostRende
 StageAPI.AddCallback("Revelations", RevCallbacks.EARLY_POST_NEW_ROOM, 1, chillAura_PostNewRoom)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

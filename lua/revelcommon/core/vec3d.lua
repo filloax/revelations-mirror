@@ -351,5 +351,3 @@ REVEL.VEC3_ZERO = _Vec3Meta:New(0)
 REVEL.VEC3_ONE = _Vec3Meta:New(1)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

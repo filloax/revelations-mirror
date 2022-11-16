@@ -68,10 +68,15 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 
     local sandcastles = StageAPI.GetCustomGrids(nil, REVEL.GRIDENT.SAND_CASTLE.Name)
     local deadCastles = {}
+    local liveCastles = {}
     for _, castle in ipairs(sandcastles) do
         local grid = castle.GridEntity
-        if grid and REVEL.IsGridBroken(grid) then
-            deadCastles[#deadCastles + 1] = castle.GridIndex
+        if grid then
+            if REVEL.IsGridBroken(grid) then
+                deadCastles[#deadCastles + 1] = castle.GridIndex
+            else
+                liveCastles[#liveCastles + 1] = castle.GridIndex
+            end
         end
     end
 
@@ -79,9 +84,13 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
     if not data.State then
         data.State = "Idle"
         data.AttackCooldown = 20
+        data.CounterCooldown = 60
+        data.CastlesExploded = 0
         REVEL.UsePathMap(NpcPathMap, npc)
+        npc.SplatColor = REVEL.SandSplatColor
     end
 
+    data.CounterCooldown = data.CounterCooldown - 1
     if data.State == "Idle" then
         data.AttackCooldown = data.AttackCooldown - 1
         if not sprite:IsPlaying("Idle") and not sprite:IsPlaying("Appear") then
@@ -95,15 +104,19 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
             else
                 data.GroundHit = data.GroundHit % 2 + 1
             end
-
+            
             sprite:Play("GroundHit" .. tostring(data.GroundHit))
             data.State = "GroundHit"
             npc.Velocity = npc.Velocity * 0.9
             nothingToDo = false
         else
-            if #deadCastles > 0 then
+            useCastles = liveCastles
+            if data.CastlesExploded >= 3 then
+                useCastles = deadCastles
+            end
+            if #useCastles > 0 then
                 local minDist, closestCastle, closestCastlePosition
-                for _, castle in ipairs(deadCastles) do
+                for _, castle in ipairs(useCastles) do
                     local pos = REVEL.room:GetGridPosition(castle)
                     local dist = pos:DistanceSquared(target.Position)
                     if not minDist or dist < minDist then
@@ -121,15 +134,16 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 
                 if closestCastlePosition:DistanceSquared(npc.Position) < (120 ^ 2) then
                     if data.AttackCooldown <= 0 then
-                        if math.random(1, 5) ~= 1 or minDist < (30 ^ 2) then
-                            sprite:Play("ProjectileRaise", true)
-                            data.State = "ProjectileRaise"
-                            data.AttackCooldown = math.random(30, 60)
-                            data.UsingCastle = closestCastle
-                        else
+                        if data.CastlesExploded >= 3 then
                             sprite:Play("Summon", true)
                             data.State = "Summon"
                             data.AttackCooldown = math.random(45, 75)
+                            data.CastlesExploded = 0
+                            data.UsingCastle = closestCastle
+                        else
+                            sprite:Play("ProjectileRaise", true)
+                            data.State = "ProjectileRaise"
+                            data.AttackCooldown = math.random(20, 30)
                             data.UsingCastle = closestCastle
                         end
                     elseif not data.Path then
@@ -156,7 +170,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
             local waves = {
                 round = 2,
                 direct = 2,
-                split = 1
+                --split = 1
             }
 
             if data.LastShockwave then
@@ -175,9 +189,9 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
                 for num = 1, 12 do
                     local dir = Vector.FromAngle(num * 30)
                     if num == 1 then
-                        REVEL.SpawnCustomShockwave(npc.Position + dir * 25, dir * 4, "gfx/effects/revel2/tomb_shockwave.png", 30, nil, nil, nil, nil, SoundEffect.SOUND_ROCK_CRUMBLE)
+                        REVEL.SpawnCustomShockwave(npc.Position + dir * 25, dir * 3, "gfx/effects/revel2/tomb_shockwave.png", 20, nil, nil, nil, nil, SoundEffect.SOUND_ROCK_CRUMBLE)
                     else
-                        REVEL.SpawnCustomShockwave(npc.Position + dir * 25, dir * 4, "gfx/effects/revel2/tomb_shockwave.png", 30)
+                        REVEL.SpawnCustomShockwave(npc.Position + dir * 25, dir * 3, "gfx/effects/revel2/tomb_shockwave.png", 20)
                     end
                 end
             elseif wave == "direct" then
@@ -212,6 +226,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
                 -- REVEL.room:Update()
                 local pos = REVEL.room:GetGridPosition(data.UsingCastle)
                 Isaac.Spawn(REVEL.ENT.SANDBOB.id, REVEL.ENT.SANDBOB.variant, 0, pos, Vector.Zero, nil)
+                REVEL.sfx:NpcPlay(npc, SoundEffect.SOUND_SUMMONSOUND, 1, 0, false, 1)
             end
         end
 
@@ -224,7 +239,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
             data.RaiseTimer = 0
             sprite:Play("ProjectileRaiseLoop", true)
             if REVEL.room:GetGridEntity(data.UsingCastle) then
-                REVEL.room:RemoveGridEntity(data.UsingCastle, 0, false)
+                REVEL.room:DamageGrid(data.UsingCastle, 3000)
                 -- REVEL.room:Update()
             end
         end
@@ -243,7 +258,8 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 
             if #data.Projectiles < 8 then
                 local castlePos = REVEL.room:GetGridPosition(data.UsingCastle)
-                local newProjectile = REVEL.SpawnNPCProjectile(npc, nil, castlePos + RandomVector() * math.random(1, 20))
+                local spawnpos = castlePos + RandomVector() * math.random(1, 20)
+                local newProjectile = REVEL.SpawnNPCProjectile(npc, (spawnpos - castlePos):Normalized(), spawnpos)
                 newProjectile.Scale = 0.5
                 newProjectile.Height = -7
                 newProjectile.FallingAccel = -0.1
@@ -264,7 +280,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
                     end
                 end
 
-                if allProjectilesAtHeight and data.RaiseTimer > 30 then
+                if allProjectilesAtHeight and data.RaiseTimer > 0 then
                     sprite:Play("ProjectileShoot", true)
                 end
             end
@@ -293,6 +309,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
         if sprite:IsFinished("ProjectileShoot") then
             data.Projectiles = nil
             data.State = "Idle"
+            data.CastlesExploded = data.CastlesExploded + 1
         end
     elseif data.State == "Death" then
         npc.Velocity = Vector.Zero
@@ -333,7 +350,10 @@ revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, ent, amount)
             return false
         end
 
-        ent:GetData().BeenHit = true
+        if ent:GetData().CounterCooldown <= 0 then
+            ent:GetData().BeenHit = true
+            ent:GetData().CounterCooldown = 120
+        end
 
         if ent.HitPoints - amount - REVEL.GetDamageBuffer(ent) <= 0 then
             ent:GetData().State = "Death"
@@ -348,5 +368,3 @@ revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, ent, amount)
 end, REVEL.ENT.SANDSHAPER.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

@@ -142,6 +142,9 @@ local function InitPickup(e)
             ndata.TheresOptions = e.OptionsPickupIndex == 1
             if EID then
                 ndata.EID_Description = REVEL.GetEidItemDesc(e.SubType)
+                if not ndata.EID_Description.Name then
+                    ndata.EID_Description.Name = item.Name
+                end
             end
             npc:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
 
@@ -215,6 +218,10 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, e)
         data.Item = REVEL.config:GetCollectible(data.OrigPickup.SubType)
         if EID then
             data.EID_Description = REVEL.GetEidItemDesc(data.Item.ID)
+            if not data.EID_Description.Name then
+                local itemConfig = REVEL.config:GetCollectible(data.Item.ID)
+                data.EID_Description.Name = itemConfig.Name
+            end
         end
         spr:ReplaceSpritesheet(1, data.Item.GfxFileName)
         spr:LoadGraphics()
@@ -329,12 +336,10 @@ revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, e, dmg)
     if e.Variant ~= REVEL.ENT.LOVERS_LIB_PD.variant then return end
     local spr, data = e:GetSprite(), e:GetData()
 
-    e.HitPoints = e.HitPoints + dmg
     data.dmgCount = data.dmgCount + dmg
     data.spazOutTimer = 6
-    e:BloodExplode()
+    e:SetColor(Color(1,1,1,1,-0.2,-0.2,0.1), 20, 1, true, false)
+    return false
 end, REVEL.ENT.LOVERS_LIB_PD.id)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

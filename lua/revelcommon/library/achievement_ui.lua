@@ -123,5 +123,3 @@ revel:AddCallback(ModCallbacks.MC_PRE_USE_ITEM, achievementUIPreUseItem)
 revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, achievementUITakeDamage)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

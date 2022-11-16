@@ -1974,4 +1974,3 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_INGAME_RELOAD, 1, function
 end)
 
 end
-REVEL.PcallWorkaroundBreakFunction()

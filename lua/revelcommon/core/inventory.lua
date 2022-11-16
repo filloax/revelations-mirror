@@ -31,7 +31,7 @@ function REVEL.UpdateInventory(_, force, isD4Effect)
                 local sid = tostring(id)
                 local item = REVEL.config:GetCollectible(id)
                 if item then
-                    local num = player:GetCollectibleNum(id)
+                    local num = player:GetCollectibleNum(id, true)
 
                     -- item history
                     if num > 0 then
@@ -111,5 +111,3 @@ function REVEL.HasTrinketBeenEncounteredThisRun(trinketType)
 end
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

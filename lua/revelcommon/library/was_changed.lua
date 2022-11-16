@@ -23,5 +23,3 @@ function REVEL.WasChanged(name, ...) --breaks with nil values
 end
   
 end
-
-REVEL.PcallWorkaroundBreakFunction()

@@ -503,5 +503,3 @@ StageAPI.AddCallback("StageAPI", StageAPICallbacks.POST_CUSTOM_GRID_UPDATE, 1, f
 end, REVEL.GRIDENT.TOUGH_ICE.Name)
 
 end
-
-REVEL.PcallWorkaroundBreakFunction()

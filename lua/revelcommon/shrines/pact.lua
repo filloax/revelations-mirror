@@ -276,4 +276,3 @@ StageAPI.AddCallback("Revelations", StageAPICallbacks.POST_HUD_RENDER, 1, shrine
 StageAPI.AddCallback("Revelations", RevCallbacks.POST_SAVEDATA_LOAD, 1, REVEL.UpdateActiveShrineSet)
 
 end
-REVEL.PcallWorkaroundBreakFunction()

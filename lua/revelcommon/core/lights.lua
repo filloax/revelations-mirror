@@ -249,5 +249,3 @@ end
     --Size is a multiplier
   
 end
-
-REVEL.PcallWorkaroundBreakFunction()
