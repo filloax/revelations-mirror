@@ -122,8 +122,8 @@ REVEL.GetRandomPlayingCard(notUnique)
 REVEL.AddCharacterUnlock(playerType, unlock, stage, stageIfXL, stageType, isGreed, isPlayerCheck)
 
 **COLLECTIBLE**:
-REVEL.OnePlayerHasCollectible(id)
-REVEL.AllPlayersHaveCollectible(id)
+REVEL.OnePlayerHasCollectible(id, ignoreModifiers)
+REVEL.AllPlayersHaveCollectible(id, ignoreModifiers)
 REVEL.OnePlayerHasTrinket(id)
 REVEL.GetCollectibleSum(id)
 REVEL.GetRandomPlayerWithItem(id)

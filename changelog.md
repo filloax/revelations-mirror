@@ -1,3 +1,10 @@
+## 4.1.1
+
+- Perseverance: quality 3
+- Punishment: cannot attempt steal Legemeton wisps
+- Various room tweaks
+- Fix room-related crash
+
 ## 4.1.0
 
 - Add trinket: Memory Cap

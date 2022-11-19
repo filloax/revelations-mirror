@@ -108,7 +108,7 @@ end
 local function FilterPunishmentItems(player, sid)
     local id = tonumber(sid)
     return not PunishmentCollectibleBlacklist[id]
-        and player:HasCollectible(id) -- avoid some inventory bugs
+        and player:HasCollectible(id,true) -- avoid some inventory bugs
         and player:GetActiveItem(ActiveSlot.SLOT_POCKET) ~= id
         and player:GetActiveItem(ActiveSlot.SLOT_POCKET2) ~= id
         and not (
@@ -845,6 +845,9 @@ local MitosisEntityBlacklist = {
     },
     [REVEL.ENT.RAGMA.id] = {
         [REVEL.ENT.RAGMA.variant] = true,
+    },
+    [REVEL.ENT.STALACTITE.id] = {
+        [REVEL.ENT.STALACTITE.variant] = true,
     },
 }
 

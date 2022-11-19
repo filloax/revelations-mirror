@@ -23,7 +23,7 @@
 	<!--Death Mask--><passive name="Death Mask" description="Death comes naturally" gfx="revelcommon/death_mask.png" id="26" tags="offensive" quality="1"/>
 	<!--Mirror Bombs--><passive name="Mirror Bombs" description="Reflects its surroundings" gfx="revelcommon/mirror_bombs.png" id="27" tags="offensive" quality="2"/>
 	<!--Broken Oar--><passive name="Broken Oar" description="Make a splash" gfx="revelcommon/broken_oar.png" id="28" tags="offensive" quality="3"/>
-	<!--Perseverance--><passive name="Perseverance" description="Hard work pays off" gfx="revelcommon/perseverance.png" id="29" tags="offensive" quality="4"/>
+	<!--Perseverance--><passive name="Perseverance" description="Hard work pays off" gfx="revelcommon/perseverance.png" id="29" tags="offensive" quality="3"/>
 	<!--Addict--><passive name="Addict" description="1 a day, keeps the shadows away" gfx="revelcommon/addict.png" id="30" tags="offensive syringe" quality="1"/>
 	<!--Ophanim--><passive name="Ophanim" description="Eyes of judgment" gfx="revelcommon/ophanim.png" id="31" tags="offensive angel" quality="3" />
 	<!--Pilgrim's Ward--><passive name="Pilgrim's Ward" description="May the light shine your way" gfx="revelcommon/pilgrims_ward.png" id="32" tags="offensive angel" quality="4"/>

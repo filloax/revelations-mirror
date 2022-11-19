@@ -105,7 +105,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
                 if data.AttackCooldown <= 0 then
                     data.State = "ShootOff"
                     sprite:Play("ScopeStart", true)
-                    --REVEL.sfx:NpcPlay(npc, REVEL.SFX.SNIPEBIP_CHARGE, 0.6, 0, false, 0.9+(math.random()*0.2))
+                    REVEL.sfx:NpcPlay(npc, REVEL.SFX.SNIPEBIP_CHARGE, 0.6, 0, false, 0.9+(math.random()*0.2))
                     data.AttackCooldown = math.random(20, 40)
                 end
             end
@@ -119,7 +119,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
         if data.AttackCooldown <= 0 then
             data.State = "Shoot"
             sprite:Play("ScopeStart2", true)
-            --REVEL.sfx:NpcPlay(npc, REVEL.SFX.SNIPEBIP_CHARGE, 0.6, 0, false, 0.9+(math.random()*0.2))
+            REVEL.sfx:NpcPlay(npc, REVEL.SFX.SNIPEBIP_CHARGE, 0.6, 0, false, 0.9+(math.random()*0.2))
             data.AttackCooldown = math.random(20, 40)
         end
     elseif data.State == "Shoot" or data.State == "ShootOff" then

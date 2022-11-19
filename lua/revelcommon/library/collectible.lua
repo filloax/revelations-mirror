@@ -1,18 +1,20 @@
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
 
-function REVEL.OnePlayerHasCollectible(id)
+function REVEL.OnePlayerHasCollectible(id, ignoreModifiers)
     local ret
+    ignoreModifiers = ignoreModifiers or false
     for i,player in ipairs(REVEL.players) do
-        ret = ret or player:HasCollectible(id)
+        ret = ret or player:HasCollectible(id, ignoreModifiers)
     end
     return ret
 end
 
-function REVEL.AllPlayersHaveCollectible(id)
+function REVEL.AllPlayersHaveCollectible(id, ignoreModifiers)
     local ret = true
+    ignoreModifiers = ignoreModifiers or false
     for i,player in ipairs(REVEL.players) do
-        ret = ret and player:HasCollectible(id)
+        ret = ret and player:HasCollectible(id, ignoreModifiers)
     end
     return ret
 end
@@ -28,13 +30,14 @@ end
 function REVEL.GetCollectibleSum(id)
     local a = 0
     for i,v in ipairs(REVEL.players) do
-        a = a + v:GetCollectibleNum(id)
+        a = a + v:GetCollectibleNum(id, true)
     end
     return a
 end
 
-local function hasItem(p, id)
-    return p:HasCollectible(id)
+local function hasItem(p, id, ignoreModifiers)
+    ignoreModifiers = ignoreModifiers or false
+    return p:HasCollectible(id, ignoreModifiers)
 end
   
 local function hasAnyItems(p, ...)

@@ -1,4 +1,9 @@
 -- Keep lines at max 40 characters, can use for that https://www.gillmeister-software.com/online-tools/text/add-line-breaks_change-line-length.aspx
+REVEL.AddChangelog("Vanity (4.1.1)", "Nov 19 2022", [[- Perseverance: quality 3 
+- Punishment: cannot attempt steal 
+Legemeton wisps 
+- Various room tweaks 
+- Fix room-related crash]])
 REVEL.AddChangelog("Vanity (4.1.0)", "Nov 15 2022", [[- Add trinket: Memory Cap 
 - Add trinket: Christmas Stocking
 - Add object: Bell Shard 
