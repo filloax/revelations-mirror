@@ -389,6 +389,23 @@ local revdirectory = {
                 end
             },
             {
+                str = 'enable start hub',
+                tooltip = {strset = {'enable a', 'trapdoor to', 'go to glacier', 'at the start', 'of the', 'first floor'}},
+                choices = {'off', 'on'},
+                variable = 'StartHub',
+                setting = 1,
+                load = function()
+                    if revel.data.enableStartHub then
+                        return 2
+                    else
+                        return 1
+                    end
+                end,
+                store = function(var)
+                    revel.data.enableStartHub = var == 2
+                end
+            },
+            {
                 str = 'clear cache mode',
                 tooltip = {strset = {'isaac never', 'clears memory', 'we do it', 'manually to', 'avoid sprite', 'load errors'}},
                 choices = {'off', 'every level', 'every room'},

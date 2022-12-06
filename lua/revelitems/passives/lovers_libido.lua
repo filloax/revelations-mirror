@@ -133,6 +133,11 @@ local function InitPickup(e)
             local item = REVEL.config:GetCollectible(e.SubType)
             local gfx = item.GfxFileName
 
+            local hasBlind = REVEL.IsThereCurse(LevelCurse.CURSE_OF_BLIND)
+            if hasBlind then
+                gfx = "gfx/items/collectibles/questionmark.png"
+            end
+
             nspr:ReplaceSpritesheet(1, gfx)
             nspr:LoadGraphics()
             nspr:Play("Idle", true)
@@ -140,7 +145,7 @@ local function InitPickup(e)
             ndata.Item = item
             ndata.OrigPickup = e
             ndata.TheresOptions = e.OptionsPickupIndex == 1
-            if EID then
+            if EID and not hasBlind then
                 ndata.EID_Description = REVEL.GetEidItemDesc(e.SubType)
                 if not ndata.EID_Description.Name then
                     ndata.EID_Description.Name = item.Name
@@ -216,14 +221,22 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, e)
 
     if data.Item.ID ~= data.OrigPickup.SubType then -- rerolled
         data.Item = REVEL.config:GetCollectible(data.OrigPickup.SubType)
-        if EID then
+
+        local gfx = data.Item.GfxFileName
+        local hasBlind = REVEL.IsThereCurse(LevelCurse.CURSE_OF_BLIND)
+        if hasBlind then
+            gfx = "gfx/items/collectibles/questionmark.png"
+        end
+
+        if EID and not hasBlind then
             data.EID_Description = REVEL.GetEidItemDesc(data.Item.ID)
             if not data.EID_Description.Name then
                 local itemConfig = REVEL.config:GetCollectible(data.Item.ID)
                 data.EID_Description.Name = itemConfig.Name
             end
         end
-        spr:ReplaceSpritesheet(1, data.Item.GfxFileName)
+        
+        spr:ReplaceSpritesheet(1, gfx)
         spr:LoadGraphics()
     end
 

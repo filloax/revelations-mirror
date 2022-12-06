@@ -565,7 +565,7 @@ local function lust_PreNpcUpdate(_, npc)
 			npc:MultiplyFriction(0.9)
 		end
 
-		if npc.FrameCount % 2 == 0 then
+		if npc.Variant == 0 and npc.FrameCount % 2 == 0 then
             local creep = REVEL.SpawnCreep(EffectVariant.CREEP_RED, 0, npc.Position, npc, false):ToEffect()
             REVEL.UpdateCreepSize(creep,creep.Size*0.6)
 			creep.Timeout = 5

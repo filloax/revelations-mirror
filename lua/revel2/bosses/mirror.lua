@@ -253,7 +253,7 @@ do -- Narcissus 2
             Chain = 0.16,
             Shade = 0.15,
             Robobaby = 0.07,
-            DeadBird = 0.015,
+            DeadBird = 0.025,
             Vampire = 0.1 -- heal
         },
         BombDamage = 0.05

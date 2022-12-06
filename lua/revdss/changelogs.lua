@@ -1,4 +1,13 @@
 -- Keep lines at max 40 characters, can use for that https://www.gillmeister-software.com/online-tools/text/add-line-breaks_change-line-length.aspx
+REVEL.AddChangelog("Vanity (4.1.2)", "Dec 3 2022", [[- Community rooms! 
+- Tomb Prank now has sand attack
+- Nerf igloo firerate 
+- Lovers libido works with curse 
+of the blind 
+- Vanity shops + curse of the blind fix 
+- Narc spikes can't be mitosed 
+- Minor epiphany compat tweak for 
+vanity shop ]])
 REVEL.AddChangelog("Vanity (4.1.1)", "Nov 19 2022", [[- Perseverance: quality 3 
 - Punishment: cannot attempt steal 
 Legemeton wisps 

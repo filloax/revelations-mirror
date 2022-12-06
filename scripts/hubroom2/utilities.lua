@@ -177,35 +177,38 @@ end
 
 hub2:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, repAltDetectPostNewLevel)
 
--- Get the next stage type in case of Repentance level transition
--- Example, if the next stage will be dross or downpour, etc
+-- Source: kittenchilly
 function hub2.SimulateStageTransitionStageType(levelStage, isRepPath)
-	local level = game:GetLevel()
-	
-	local oldStage, oldStageType = level:GetAbsoluteStage(), level:GetStageType()
     local seeds = game:GetSeeds()
-	local oldSeed = seeds:GetStartSeedString()
-	
-	local testStage = levelStage - 1
-	local testStageType = isRepPath and StageType.STAGETYPE_REPENTANCE or StageType.STAGETYPE_ORIGINAL
-	level:SetStage(testStage, testStageType)
-	
-	level:SetNextStage()
-	local stageType = level:GetStageType()
-	
-	seeds:SetStartSeed(oldSeed)
-    level:SetStage(oldStage, oldStageType)
-	
-    -- In case of curse of labyrinth and others it doesn't work
-    if isRepPath and not (stageType == StageType.STAGETYPE_REPENTANCE or stageType == StageType.STAGETYPE_REPENTANCE_B) then
-        local rng = RNG()
-        rng:SetSeed(seeds:GetStageSeed(levelStage), 127)
-        if rng:RandomFloat() < 0.5 or not hub2.HasUnlockedRepentanceAlt(levelStage) then
-            stageType = StageType.STAGETYPE_REPENTANCE
-        else
-            stageType = StageType.STAGETYPE_REPENTANCE_B
+    if isRepPath then
+        -- There is no alternate floor for Corpse.
+        if levelStage == LevelStage.WOMB_1 or levelStage == LevelStage.WOMB_2 then
+            return StageType.STAGETYPE_REPENTANCE
         end
-    end
 
-	return stageType
+        -- This algorithm is from Kilburn. We add one because the alt path is offset by 1 relative to the
+        -- normal path.
+        local adjustedStage = levelStage + 1
+        local stageSeed = seeds:GetStageSeed(adjustedStage)
+
+        local halfStageSeed = math.floor(stageSeed / 2)
+        if halfStageSeed % 2 == 0 then
+            return StageType.STAGETYPE_REPENTANCE_B
+        end
+
+        return StageType.STAGETYPE_REPENTANCE
+    else
+        -- From spider, is game code
+        local stageSeed = seeds:GetStageSeed(levelStage)
+      
+        if (stageSeed % 2 == 0) then
+          return StageType.STAGETYPE_WOTL
+        end
+      
+        if (stageSeed % 3 == 0) then
+          return StageType.STAGETYPE_AFTERBIRTH
+        end
+      
+        return StageType.STAGETYPE_ORIGINAL
+    end
 end

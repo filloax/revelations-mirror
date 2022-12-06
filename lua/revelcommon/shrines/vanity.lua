@@ -487,7 +487,7 @@ local function SetVanityCollectible(effect, itemType)
     sprite:LoadGraphics()
     sprite:Play("ShopIdle", true)
 
-    if EID then
+    if EID and not hasBlind then
         if not EID.effectList[REVEL.ENT.PACT_SHOP.variant] then
             EID.effectList[REVEL.ENT.PACT_SHOP.variant] = true
         end
@@ -849,6 +849,9 @@ local function rewardShop_PostUpdate(_, effect)
                     entity.Timeout = -1
                     entity.Wait = 5
                 end
+                if Epiphany then
+                    Epiphany.PersistentDataHelper:GetPickupData(entity).TRK_HasMidasImmunity = true
+                end
             end
             data.RewardData.Sprites = {}
             data.StopRenderingPrice = true
@@ -881,6 +884,10 @@ local function rewardShop_PostUpdate(_, effect)
                     ):ToPickup()
             REVEL.sfx:Play(SoundEffect.SOUND_CHEST_DROP)
             REVEL.sfx:Play(SoundEffect.SOUND_THUMBSUP)
+
+            if Epiphany then
+                Epiphany.PersistentDataHelper:GetPickupData(coll).TRK_HasMidasImmunity = true
+            end
 
         elseif data.Reward.Kind == RewardKinds.DEVIL_ROOM_TELEPORT then
             TeleportToDevilRoom(player)

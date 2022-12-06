@@ -88,22 +88,6 @@ local function LoadFiendFolioCompat(typeLoaded)
                 },
             }
         },
-        [451] = {
-            [FiendFolio.FF.SkitterSkull.Var] = {
-                SPRITESHEET = {
-                    [0] = "reskins/ff/monster_skitterskull_tomb",
-                    [1] = "reskins/ff/monster_skitterskull_tomb",
-                    [2] = "reskins/ff/monster_skitterskull_tomb",
-                    [3] = "reskins/ff/monster_skitterskull_tomb",
-                    [4] = "reskins/ff/monster_skitterskull_tomb",
-                    [5] = "reskins/ff/monster_skitterskull_tomb",
-                    [6] = "reskins/ff/monster_skitterskull_tomb",
-                    [7] = "reskins/ff/monster_skitterskull_tomb",
-                    [8] = "reskins/ff/monster_skitterskull_tomb",
-                    [9] = "reskins/ff/monster_skitterskull_tomb",
-                },
-            }
-        },
         [750] = {
             [FiendFolio.FF.Ragurge.Var] = {
                 ANM2 = "reskins/ff/monster_ragurge_tomb",

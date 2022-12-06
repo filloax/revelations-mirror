@@ -10,12 +10,11 @@ local RevRoomType       = require("lua.revelcommon.enums.RevRoomType")
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
 local crateItemOffset = 10
-local DisableTrapdoor = false
 
 revel:AddCallback(ModCallbacks.MC_EXECUTE_CMD, function(_, cmd)
     if cmd == "togglehubdoor" or cmd == "thub" then
-        DisableTrapdoor = not DisableTrapdoor
-        if DisableTrapdoor then
+        revel.data.enableStartHub = not revel.data.enableStartHub
+        if not revel.data.enableStartHub then
             Isaac.ConsoleOutput("Hub trapdoor disabled.\n")
         else
             Isaac.ConsoleOutput("Hub trapdoor enabled.\n")
@@ -50,7 +49,7 @@ end, REVEL.GRIDENT.HUB_TRAPDOOR.Name)
 
 StageAPI.AddCallback("Revelations", RevCallbacks.POST_STAGEAPI_NEW_ROOM_WRAPPER, 1, function()
     if not REVEL.game:IsGreedMode() 
-    and not DisableTrapdoor
+    and revel.data.enableStartHub
     and REVEL.level:GetStage() == LevelStage.STAGE1_1 
     and not REVEL.game:GetSeeds():HasSeedEffect(SeedEffect.SEED_INFINITE_BASEMENT) 
     and Isaac.GetChallenge() ~= Challenge.CHALLENGE_BACKASSWARDS 

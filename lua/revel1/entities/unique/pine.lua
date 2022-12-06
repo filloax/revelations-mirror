@@ -236,6 +236,8 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
             if not sprite:IsPlaying("Attack") then
                 sprite:Play("Attack")
             end
+
+            npc.Velocity = npc.Velocity * 0.8
         end
 
     -- PINECONE

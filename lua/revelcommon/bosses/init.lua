@@ -67,10 +67,10 @@ REVEL.BossTargetTimeTable = {
         [REVEL.ENT.NARCISSUS_2.variant] = {TargetLength = 100, Vulnerability = 0.15}
     },
     [REVEL.ENT.DUNGO.id] = { -- dungo has a quarter, each boulder (red and normal) has a sixth
-        [REVEL.ENT.DUNGO.variant] = {TargetLength = 40, Vulnerability = 0.4}
+        [REVEL.ENT.DUNGO.variant] = {TargetLength = 40, Vulnerability = 0.5}
     },
     [REVEL.ENT.RAGTIME.id] = { -- split between phases
-        [REVEL.ENT.DUNGO.variant] = {TargetLength = 40, Vulnerability = 0.35}
+        [REVEL.ENT.RAGTIME.variant] = {TargetLength = 40, Vulnerability = 0.35}
     },
 
     -- Prank (same type)

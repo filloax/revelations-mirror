@@ -1,5 +1,5 @@
 <AnimatedActor>
-	<Info CreatedBy="Unknown" CreatedOn="10/29/2022 9:18:01 PM" Version="99" Fps="45"/>
+	<Info CreatedBy="Unknown" CreatedOn="11/29/2022 5:41:29 PM" Version="103" Fps="45"/>
 	<Content>
 		<Spritesheets>
 			<Spritesheet Path="prank.png" Id="0"/>
@@ -28,6 +28,7 @@
 			<Event Name="Explode" Id="6"/>
 			<Event Name="BloodEnd" Id="7"/>
 			<Event Name="Land" Id="8"/>
+			<Event Name="Move" Id="9"/>
 		</Events>
 	</Content>
 	<Animations DefaultAnimation="Emerge">
@@ -325,6 +326,7 @@
 				<NullAnimation NullId="1" Visible="true"/>
 			</NullAnimations>
 			<Triggers>
+				<Trigger EventId="9" AtFrame="24"/>
 				<Trigger EventId="1" AtFrame="33"/>
 			</Triggers>
 		</Animation>

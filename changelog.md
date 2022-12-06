@@ -1,3 +1,13 @@
+## 4.1.2
+
+- Community rooms!
+- Tomb Prank now has sand attack
+- Nerf igloo firerate
+- Lovers libido works with curse of the blind
+- Vanity shops + curse of the blind fix
+- Narc spikes can't be mitosed
+- Minor epiphany compat tweak for vanity shop
+
 ## 4.1.1
 
 - Perseverance: quality 3

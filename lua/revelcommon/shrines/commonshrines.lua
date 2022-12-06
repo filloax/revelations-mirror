@@ -131,6 +131,7 @@ REVEL.AddCommonShrine {
     },
     Sprite = "punishment",
     IsTall = true,
+    HudIconFrame = 10,
     Requires = function()
         return REVEL.some(REVEL.players, function(player)
             local inventory = revel.data.run.inventory[REVEL.GetPlayerID(player)]
@@ -849,6 +850,9 @@ local MitosisEntityBlacklist = {
     [REVEL.ENT.STALACTITE.id] = {
         [REVEL.ENT.STALACTITE.variant] = true,
     },
+    [REVEL.ENT.GLASS_SPIKE.id] = {
+        [REVEL.ENT.GLASS_SPIKE.variant] = true,
+    }
 }
 
 REVEL.AddCommonShrine {
@@ -864,7 +868,7 @@ REVEL.AddCommonShrine {
     MaxRepeats = 2,
     Sprite = "mitosis",
     IsTall = true,
-    HudIconFrame = 10,
+    HudIconFrame = 12,
 }
 
 local function mitosis_PostNpcInit(npc)

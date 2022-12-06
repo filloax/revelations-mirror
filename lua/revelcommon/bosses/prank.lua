@@ -397,62 +397,71 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 
         if not closestPrankablePickup then
             local closestTrap, minDist
-            for _, trap in ipairs(Isaac.FindByType(StageAPI.E.FloorEffect.T, StageAPI.E.FloorEffect.V, -1, false, false)) do
-                local tdata = trap:GetData()
-                if tdata.TrapData and not tdata.Pranked and REVEL.IsTrapTriggerable(trap, tdata) then
-                    local facing, alignAmount = REVEL.GetAlignment(trap.Position, target.Position)
-                    if alignAmount < 50 then
-                        local dist = trap.Position:DistanceSquared(npc.Position)
-                        if not minDist or dist < minDist then
-                            closestTrap = trap
-                            minDist = dist
-                        end
-                    end
-                end
-            end
 
-            if closestTrap then
-                targetIndex = REVEL.room:GetGridIndex(closestTrap.Position)
-                if minDist < (npc.Size + 16) ^ 2 then
-                    sprite:Play("Slam", true)
-                    data.State = "TriggerTrap"
-                end
+            if REVEL.includes(REVEL.TombSandGfxRoomTypes, StageAPI.GetCurrentRoomType()) 
+            and math.floor(data.PrankTimer) % 5 == 0 
+            and math.random(5) == 1 
+            and npc.Position:Distance(target.Position) < 150 then
+                sprite:Play("Slam", true)
+                data.State = "SandSlam"
             else
-                local validCoffin, closestCoffin, minDist
-                if treshold >= 0.5 and REVEL.room:GetAliveEnemiesCount() <= 5 then
-                    for _, coffin in ipairs(Isaac.FindByType(REVEL.ENT.CORNER_COFFIN.id, REVEL.ENT.CORNER_COFFIN.variant, -1, false, false)) do
-                        local cdata = coffin:GetData()
-                        if cdata.IsPathable and not cdata.Pranked and (not cdata.SpawnEnemies or #cdata.SpawnEnemies == 0) then
-                            local dist = coffin.Position:DistanceSquared(npc.Position)
-                            if dist < 100 ^ 2 then
-                                validCoffin = coffin
-                                break
-                            else
-                                if not minDist or dist < minDist then
-                                    minDist = dist
-                                    closestCoffin = coffin
-                                end
+                for _, trap in ipairs(Isaac.FindByType(StageAPI.E.FloorEffect.T, StageAPI.E.FloorEffect.V, -1, false, false)) do
+                    local tdata = trap:GetData()
+                    if tdata.TrapData and not tdata.Pranked and REVEL.IsTrapTriggerable(trap, tdata) then
+                        local facing, alignAmount = REVEL.GetAlignment(trap.Position, target.Position)
+                        if alignAmount < 50 then
+                            local dist = trap.Position:DistanceSquared(npc.Position)
+                            if not minDist or dist < minDist then
+                                closestTrap = trap
+                                minDist = dist
                             end
                         end
                     end
                 end
 
-                if validCoffin then
-                    sprite:Play("Yell", true)
-                    data.State = "TriggerCoffin"
-                    data.TriggeringCoffin = validCoffin
-                elseif closestCoffin and minDist > 100 ^ 2 then
-                    targetIndex = REVEL.room:GetGridIndex(closestCoffin.Position)
-
-                    if not data.SteppedOn and data.Path then
-                        sprite:Play("Submerge", true)
-                        data.State = "DigToCoffin"
-                        data.TriggeringCoffin = closestCoffin
+                if closestTrap then
+                    targetIndex = REVEL.room:GetGridIndex(closestTrap.Position)
+                    if minDist < (npc.Size) ^ 2 then
+                        sprite:Play("Slam", true)
+                        data.State = "TriggerTrap"
                     end
                 else
-                    movingRandomly = true
-                    data.PrankTimer = data.PrankTimer - 2
-                    REVEL.MoveRandomly(npc, 360, 4, 8, 0.4, 0.9, npc.Position)
+                    local validCoffin, closestCoffin, minDist
+                    if treshold >= 0.5 and REVEL.room:GetAliveEnemiesCount() <= 5 then
+                        for _, coffin in ipairs(Isaac.FindByType(REVEL.ENT.CORNER_COFFIN.id, REVEL.ENT.CORNER_COFFIN.variant, -1, false, false)) do
+                            local cdata = coffin:GetData()
+                            if cdata.IsPathable and not cdata.Pranked and (not cdata.SpawnEnemies or #cdata.SpawnEnemies == 0) then
+                                local dist = coffin.Position:DistanceSquared(npc.Position)
+                                if dist < 100 ^ 2 then
+                                    validCoffin = coffin
+                                    break
+                                else
+                                    if not minDist or dist < minDist then
+                                        minDist = dist
+                                        closestCoffin = coffin
+                                    end
+                                end
+                            end
+                        end
+                    end
+
+                    if validCoffin then
+                        sprite:Play("Yell", true)
+                        data.State = "TriggerCoffin"
+                        data.TriggeringCoffin = validCoffin
+                    elseif closestCoffin and minDist > 100 ^ 2 and math.random(15) == 1 then
+                        targetIndex = REVEL.room:GetGridIndex(closestCoffin.Position)
+
+                        if not data.SteppedOn and data.Path then
+                            sprite:Play("Submerge", true)
+                            data.State = "DigToCoffin"
+                            data.TriggeringCoffin = closestCoffin
+                        end
+                    else
+                        movingRandomly = true
+                        data.PrankTimer = data.PrankTimer - 1
+                        REVEL.MoveRandomly(npc, 360, 4, 8, 0.4, 0.9, npc.Position)
+                    end
                 end
             end
 
@@ -486,10 +495,11 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
             data.State = "Idle"
         end
     elseif data.State == "TriggerTrap" then
-        npc.Velocity = npc.Velocity * 0.9
+        npc.Velocity = npc.Velocity * 0.5
         if sprite:IsEventTriggered("PressButton") then
             REVEL.sfx:NpcPlay(npc, SoundEffect.SOUND_FORESTBOSS_STOMPS, 1, 0, false, 1)
             REVEL.TriggerTrapsInRange(npc.Position, npc.Size + 16, true, true)
+            npc.Velocity = Vector.Zero
         end
 
         if sprite:IsFinished("Slam") then
@@ -513,6 +523,32 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
             data.TriggeringCoffin = nil
             data.State = "Idle"
         end
+
+    elseif data.State == "SandSlam" then
+        npc.Velocity = npc.Velocity * 0.9
+        if sprite:IsFinished("Slam") then
+            data.State = "Idle"
+        elseif sprite:IsEventTriggered("Move") then
+            npc.Velocity = (target.Position - npc.Position):Resized(15)
+            REVEL.sfx:NpcPlay(npc, SoundEffect.SOUND_FETUS_JUMP, 1, 0, false, 1)
+        elseif sprite:IsEventTriggered("PressButton") then
+            REVEL.sfx:NpcPlay(npc, SoundEffect.SOUND_FORESTBOSS_STOMPS, 1, 0, false, 1)
+            REVEL.sfx:NpcPlay(npc, SoundEffect.SOUND_BLACK_POOF, 1, 0, false, 1)
+            local poof = Isaac.Spawn(1000,16,1,npc.Position,Vector.Zero,npc)
+            local poof2 = Isaac.Spawn(1000,16,2,npc.Position,Vector.Zero,npc)
+            poof.SpriteScale = Vector(0.9,0.9)
+            poof.Color = REVEL.SandSplatColor
+            poof2.Color = REVEL.SandSplatColor
+            npc.Velocity = npc.Velocity * 0.5
+            for i = 1,  REVEL.game:GetNumPlayers() do
+                local player = REVEL.game:GetPlayer(i)
+                if player and player.Position:Distance(npc.Position) < 100 then
+                    player:GetData().PrankSanded = 300
+                    player.Velocity = (player.Position - npc.Position):Resized(10)
+                end
+            end
+        end
+
     elseif data.State == "DigToCoffin" then
         data.UsePlayerFlyingMap = nil
 
@@ -607,6 +643,33 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
         end
     end
 end, REVEL.ENT.PRANK_TOMB.id)
+
+revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, function(_, player)
+    local data = player:GetData()
+    if data.PrankSanded then
+        if data.PrankSanded > 0 then
+            data.PrankSanded = data.PrankSanded - 1
+            player:SetColor(Color(1,0.6,0.4), 5, 1, true, false)
+            if data.PrankSanded % 2 == 0 then
+                local sand = Isaac.Spawn(1000, EffectVariant.DARK_BALL_SMOKE_PARTICLE, 0, player.Position, RandomVector() * 4, player)
+                sand.Color = Color(0,0,0,1,conv255ToFloat(60,40,20))
+                sand.SpriteOffset = (Vector(0,-20 * player.SpriteScale.Y))
+                sand.DepthOffset = -80
+                sand:Update()
+            end
+        end
+    end
+end)
+
+StageAPI.AddCallback("Revelations", RevCallbacks.ON_TEAR, 1, function(e, data, spr, player)
+    if player:GetData().PrankSanded and player:GetData().PrankSanded > 0 and e.SpawnerType == 1 then
+        local angle = math.random(8,30)
+        if math.random(2) == 1 then
+            angle = -angle
+        end
+        e.Velocity = e.Velocity:Rotated(angle)
+    end
+end)
 
 StageAPI.AddCallback("Revelations", StageAPICallbacks.PRE_SPAWN_ENTITY, 1, function(info, entityList, index, doGrids, doPersistentOnly, doAutoPersistent, avoidSpawning, persistentPositions)
     for _, prank in ipairs(REVEL.Pranks) do

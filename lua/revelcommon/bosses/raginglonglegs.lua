@@ -1005,8 +1005,6 @@ local function flamingSpiderUpdate(_, npc)
 		end
 		if data.IsFlamingSpider then
 			npc.MaxHitPoints = npc.MaxHitPoints*0.5
-		else
-			npc.MaxHitPoints = npc.MaxHitPoints*0.75
 		end
 
 		npc.HitPoints = npc.MaxHitPoints
