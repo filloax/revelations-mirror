@@ -1,3 +1,5 @@
+local RevCallbacks = require("lua.revelcommon.enums.RevCallbacks")
+
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 -----------------
 -- HAPHEPHOBIA --
@@ -14,19 +16,19 @@ revel.haph = {
     ents = {}
 }
 
-revel:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, function(_, p)
+revel:AddCallback(RevCallbacks.POST_BASE_PLAYER_INIT, function(_, p)
     local data = p:GetData()
     data.haphCounter = 0
 end)
 
-revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, function(_, p)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, p)
     local data = p:GetData()
     if data.haphCounter and data.haphCounter ~= 0 then
         data.haphCounter = math.max(0, data.haphCounter - 1)
     end
 end)
 
-revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, function(_, p)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, p)
     if not REVEL.game:IsPaused()
     and REVEL.ITEM.HAPHEPHOBIA:PlayerHasCollectible(p)
     and p:GetData().haphCounter == 0 

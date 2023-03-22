@@ -290,7 +290,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
         npc.Velocity = Vector.Zero
         npc.Position = data.LockedInPlace
         
-        if REVEL.GetEntityZPosition(npc) == 0 then
+        if REVEL.ZPos.GetPosition(npc) == 0 then
             if not data.EmbeddedFrame then
                 data.EmbeddedFrame = REVEL.randomFrom(EmbeddedFrames)
             end
@@ -347,11 +347,8 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 
     if REVEL.IsShrineEffectActive(ShrineTypes.FRAGILITY) and not data.LockedInPlace and (vel < 0.1 or data.Creeping)
     and npc.Variant ~= REVEL.ENT.ICE_HAZARD_EMPTY.variant then
-        if not REVEL.IsUsingPathMap(REVEL.GenericChaserPathMap, npc) then
-            REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
-        end
-        data.UsePlayerMap = true
-        
+        REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
+    
         if not data.Creeping then
             if not data.CreepingDelay then
                 data.CreepingDelay = math.random(10, 20)

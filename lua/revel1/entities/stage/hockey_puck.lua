@@ -1,3 +1,4 @@
+local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 local KnifeSubtype = require "lua.revelcommon.enums.KnifeSubtype"
 local KnifeVariant = require "lua.revelcommon.enums.KnifeVariant"
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
@@ -15,7 +16,7 @@ local PuckDamage = 13
 local HurtPlayers = false
 local TearsPush = false
 
-revel:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, function(_, player)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, player)
     local data = player:GetData()
 
     local mov = player:GetMovementVector()
@@ -154,7 +155,7 @@ function REVEL.UpdatePushableEnt(npc, data)
     end
 end
 
-REVEL.AddBrokenCallback(ModCallbacks.MC_PRE_NPC_COLLISION, function(_, npc, ent)
+revel:AddCallback(ModCallbacks.MC_PRE_NPC_COLLISION, function(_, npc, ent)
     local data = npc:GetData()
     if not data.PushableData then return end
 

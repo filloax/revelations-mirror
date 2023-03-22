@@ -9,15 +9,13 @@ StageAPI.AddCallback("Revelations", RevCallbacks.EARLY_POST_NEW_ROOM, 1, functio
     REVEL.LocustDestroyedGrids = {}
 end)
 
-StageAPI.AddCallback("Revelations", "POST_OVERRIDDEN_GRID_BREAK", 1, function(grindex, grid, shroomData)
+StageAPI.AddCallback("Revelations", "POST_OVERRIDDEN_ALT_ROCK_BREAK", 1, function(gridpos, gridvar, shroomData, customGrid)
     if REVEL.STAGE.Tomb:IsStage() then
         local currentRoom = StageAPI.GetCurrentRoom()
 
-        if grid:GetType() == GridEntityType.GRID_ROCK_ALT then
-            REVEL.sfx:Stop(SoundEffect.SOUND_MUSHROOM_POOF)
-            REVEL.sfx:Stop(SoundEffect.SOUND_MUSHROOM_POOF_2)
-            REVEL.sfx:Play(SoundEffect.SOUND_POT_BREAK_2, 1, 0, false, 1)
-        end
+        REVEL.sfx:Stop(SoundEffect.SOUND_MUSHROOM_POOF_2)
+        REVEL.DelayFunction(0, function() REVEL.sfx:Stop(SoundEffect.SOUND_MUSHROOM_POOF_2) end, {}, false, true)
+        REVEL.sfx:Play(SoundEffect.SOUND_POT_BREAK_2, 1, 0, false, 1)
 
         local spawnedItem, spawnedFart, spawnedPickup
         if shroomData then
@@ -39,25 +37,28 @@ StageAPI.AddCallback("Revelations", "POST_OVERRIDDEN_GRID_BREAK", 1, function(gr
             end
         end
 
-        local disableRockSpawn = currentRoom.Metadata:Has{Index = grindex, Name = "Disable Random Special Rock Spawn"}
+        --local disableRockSpawn = currentRoom.Metadata:Has{Index = grindex, Name = "Disable Random Special Rock Spawn"}
         if spawnedItem then
             -- bandage baby
             if REVEL.IsAchievementUnlocked("BANDAGE_BABY") then
-                Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, REVEL.ITEM.BANDAGE_BABY.id, REVEL.room:GetGridPosition(grindex), Vector.Zero, nil)
+                Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, REVEL.ITEM.BANDAGE_BABY.id, gridpos, Vector.Zero, nil)
             end
-        elseif spawnedFart and not REVEL.LocustDestroyedGrids[grindex] and not disableRockSpawn then
+        --elseif spawnedFart and not REVEL.LocustDestroyedGrids[grindex] and not disableRockSpawn then
             -- spawn enemy (don't want a locust softlock)
             --REVEL.ENT.INNARD:spawn(REVEL.room:GetGridPosition(grindex), Vector.Zero, nil)
         elseif spawnedPickup then
             local times = REVEL.RNG():RandomInt(2)+1
 			for i = 1, times do
 				local vec = Vector(1,0):Rotated(REVEL.RNG():RandomInt(360)+1)
-				local coin = Isaac.Spawn(5, PickupVariant.PICKUP_COIN, 0, REVEL.room:GetGridPosition(grindex), vec, nil):ToPickup()
+				local coin = Isaac.Spawn(5, PickupVariant.PICKUP_COIN, 0, gridpos, vec, nil):ToPickup()
 			end
         end
-
-        if REVEL.LocustDestroyedGrids[grindex] then
-            REVEL.LocustDestroyedGrids[grindex] = nil
+        
+        if customGrid.GridEntity then
+            local grindex = customGrid.GridEntity:GetGridIndex()
+            if REVEL.LocustDestroyedGrids[grindex] then
+                REVEL.LocustDestroyedGrids[grindex] = nil
+            end
         end
     end
 end)

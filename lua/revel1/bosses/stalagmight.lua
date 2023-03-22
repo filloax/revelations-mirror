@@ -387,8 +387,8 @@ local function spawnStalactite(npc, stateTable)
                 -- entity:GetData().DarkIce = true
             end
 
-            REVEL.SetEntityAirMovement(entity, {ZPosition = 150, ZVelocity = -5, Gravity = 0.25})
-            REVEL.UpdateEntityAirMovement(entity)
+            REVEL.ZPos.SetData(entity, {ZPosition = 150, ZVelocity = -5, Gravity = 0.25})
+            REVEL.ZPos.UpdateEntity(entity)
         else
             if stateTable.InstaBreak then
                 stalac = REVEL.ENT.STALACTITE_SMALL:spawn(pos, Vector.Zero, npc)
@@ -1139,10 +1139,6 @@ local function stalagmight_NpcUpdate(_, npc)
 
     --Unfrozen
     elseif REVEL.ENT.STALAGMITE_2:isEnt(npc) then
-        if not REVEL.IsUsingPathMap(REVEL.GenericChaserPathMap, npc) then
-            REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
-        end
-
         if sprite:IsPlaying("AppearAnim") then
             return
         elseif sprite:IsFinished("AppearAnim") then
@@ -1253,13 +1249,13 @@ local function stalagmight_NpcUpdate(_, npc)
             end
         end
 
-        data.UsePlayerMap = follow
-
         if follow then
+            REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
             if data.Path then
                 REVEL.FollowPath(npc, accel, data.Path, true, data.bal.UnfrozenFriction)
             end
         else
+            REVEL.StopUsingPathMap(REVEL.GenericChaserPathMap, npc)
             npc.Velocity = npc.Velocity * 0.6
         end
         REVEL.AnimateWalkFrameOverlaySpeed(sprite, npc.Velocity, data.bal.UnfrozenWalkAnims)

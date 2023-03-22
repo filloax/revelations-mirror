@@ -7,6 +7,7 @@ return {
   "lua.revelcommon.library.early.basiclibrary",
   "lua.revelcommon.library.early.room_load_helpers",
   "lua.revelcommon.library.early.sprite_cache",
+  'lua.revelcommon.library.early.entity_data',
 
   -- Includes resetting of other mod callbacks
   "lua.revelcommon.preinit",
@@ -21,9 +22,6 @@ return {
   "lua.revel2.definitions",
 
   -- First callbacks are added from here
-  
-  -- Callbacks to run before everything else
-  "lua.revelcommon.earlycallbacks",
 
   "lua.revel_savehandling",
 
@@ -68,5 +66,8 @@ return {
 
   -- Must be last so that it renders after everything else.
   "lua.revel_menu",
+
+  "lua.revelcommon.performance_tracker",
+
   "lua.postload",
 }

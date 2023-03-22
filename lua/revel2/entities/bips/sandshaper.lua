@@ -335,7 +335,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 end, REVEL.ENT.SANDSHAPER.id)
 
 revel:AddCallback(ModCallbacks.MC_POST_PROJECTILE_UPDATE, function(_, pro)
-    if pro:GetData().SandProjectile then
+    if pro:GetData().SandProjectile and not pro:HasProjectileFlags(ProjectileFlags.NO_WALL_COLLIDE) then
         pro.GridCollisionClass = EntityGridCollisionClass.GRIDCOLL_WALLS
 
         if pro:GetData().Sandshaper and not pro:GetData().Sandshaper:Exists() then

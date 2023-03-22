@@ -417,11 +417,11 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 
             if thrownEnt then
                 thrownEnt.GridCollisionClass = EntityGridCollisionClass.GRIDCOLL_WALLS
-                REVEL.AddEntityZPosition(thrownEnt, startHeight)
+                REVEL.ZPos.AddPosition(thrownEnt, startHeight)
 
-                REVEL.AddEntityZVelocity(thrownEnt, REVEL.GetNeededZSpeedForDistance(npc, throwDist, IceThrowSpeed))
+                REVEL.ZPos.AddVelocity(thrownEnt, REVEL.ZPos.GetNeededVelocityForDistance(npc, throwDist, IceThrowSpeed))
 
-                -- local nextDist = REVEL.GetDistanceBeforeZLanding(iceBlock)
+                -- local nextDist = REVEL.ZPos.DistanceBeforeLanding(iceBlock)
                 -- IDebug.RenderUntilNext("IceblockThrow", IDebug.RenderLine, iceBlock.Position, iceBlock.Position + iceBlock.Velocity:Resized(nextDist), false, Color(1, 0, 0, 0.2,conv255ToFloat( 0, 0, 0)))
 
                 -- local pos = iceBlock.Position + iceBlock.Velocity:Rotated(90):Resized(5)
@@ -480,8 +480,8 @@ revel:AddCallback(ModCallbacks.MC_POST_NPC_RENDER, function(_, npc, renderOffset
 
             if heldEnt then
                 heldEnt:GetData().SpawnedOnSasquatchDeath = true
-                REVEL.AddEntityZPosition(heldEnt, -40)
-                REVEL.AddEntityZVelocity(heldEnt, 3)
+                REVEL.ZPos.AddPosition(heldEnt, -40)
+                REVEL.ZPos.AddVelocity(heldEnt, 3)
             end
 
             data.HoldingSomething = nil
@@ -536,7 +536,7 @@ local function IceBlockDie(npc)
     REVEL.sfx:NpcPlay(npc, REVEL.SFX.MINT_GUM_BREAK, 1, 0, false, 1)
     sprite:Play("Break", true)
 
-    if REVEL.GetEntityZPosition(npc) < 5 then
+    if REVEL.ZPos.GetPosition(npc) < 5 then
         if data.IsPiss then
             local creep = REVEL.SpawnCreep(EffectVariant.CREEP_YELLOW, 0, npc.Position, npc, false)
             REVEL.UpdateCreepSize(creep, creep.Size * 0.7, true)
@@ -580,7 +580,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
         npc.SplatColor = REVEL.WaterSplatColor
     end
 
-    if REVEL.GetEntityZPosition(npc) == 0 then
+    if REVEL.ZPos.GetPosition(npc) == 0 then
         if npc.FrameCount % 3 == 0 then
             if data.IsPiss then
                 local creep = REVEL.SpawnCreep(EffectVariant.CREEP_YELLOW, 0, npc.Position, npc, false)
@@ -597,7 +597,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
         end
     end
 
-    if npc.Velocity.X * data.Velocity.X < 0 or npc.Velocity.Y * data.Velocity.Y < 0 or (REVEL.GetEntityZPosition(npc) == 0 and data.DieOnLand) then
+    if npc.Velocity.X * data.Velocity.X < 0 or npc.Velocity.Y * data.Velocity.Y < 0 or (REVEL.ZPos.GetPosition(npc) == 0 and data.DieOnLand) then
         IceBlockDie(npc)
         return
     end
@@ -612,7 +612,7 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_ENTITY_TAKE_DMG, 1, functi
     end
 end, 1)
 
-StageAPI.AddCallback("Revelations", RevCallbacks.POST_ENTITY_AIR_MOVEMENT_LAND, 0, function(entity, airMovementData, fromGrid)
+revel:AddCallback(RevCallbacks.POST_ENTITY_ZPOS_LAND, function(_, entity, airMovementData, fromGrid)
     if entity.Type == REVEL.ENT.BLOCKHEAD.id and
             (entity.Variant == REVEL.ENT.BLOCKHEAD.variant or entity.Variant == REVEL.ENT.CARDINAL_BLOCKHEAD.variant
             or entity.Variant == REVEL.ENT.YELLOW_BLOCKHEAD.variant or entity.Variant == REVEL.ENT.YELLOW_CARDINAL_BLOCKHEAD.variant)

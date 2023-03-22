@@ -1,3 +1,5 @@
+local RevCallbacks = require("lua.revelcommon.enums.RevCallbacks")
+
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
     local TaintedWarningSprite = REVEL.LazyLoadRoomSprite{
@@ -47,6 +49,6 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
     end
 
     revel:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, taintedWarningPlayerCheck)
-    revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, taintedWarningPlayerCheck)
+    revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, taintedWarningPlayerCheck)
     revel:AddCallback(ModCallbacks.MC_POST_RENDER, taintedWarningRender)
 end

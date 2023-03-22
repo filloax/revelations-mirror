@@ -1,3 +1,5 @@
+local RevCallbacks = require("lua.revelcommon.enums.RevCallbacks")
+
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
 ---@param player? EntityPlayer
@@ -181,8 +183,8 @@ local function mouseBtnTriggeredPostRender()
     end
 end
 
-revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, lastFireInputPostPlayerUpdate)
-revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, forceinputPlayerUpdate)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, lastFireInputPostPlayerUpdate)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, forceinputPlayerUpdate)
 revel:AddCallback(ModCallbacks.MC_POST_UPDATE, forceinputCallbackCheckPostUpdate)
 revel:AddCallback(ModCallbacks.MC_POST_RENDER, mouseBtnTriggeredPostRender)
 

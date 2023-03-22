@@ -1,3 +1,5 @@
+local RevCallbacks = require("lua.revelcommon.enums.RevCallbacks")
+
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 ----------------
 -- THE TAMPON -- (now COTTON STICK)
@@ -24,7 +26,7 @@ end, 1)
 
 local cottonColor = Color(1, 1, 1, 1, conv255ToFloat(40, 30, 0))
 
-revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, function(_, player)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, player)
     if REVEL.ITEM.TAMPON:PlayerHasCollectible(player) then
         local data = player:GetData()
         local prevCounter = data.CottonCounter

@@ -74,6 +74,12 @@ revel:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, function(_, fam)
             local dist = player.Position:Distance(fam.Position)
             if dist <= Radius then
                 REVEL.Warm(player, nil, true, true)
+                for _,v in ipairs(REVEL.roomLasers) do
+                    if v.SpawnerEntity.Index == player.Index then
+                        v:SetHomingType(2)
+                        v.Color = REVEL.HOMING_COLOR
+                    end
+                end
             end
             if not data.BControl then
                 if dist <= 200 then
@@ -110,18 +116,15 @@ revel:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, function(_, fam)
 
         if spr:IsPlaying("Attack") and spr:IsEventTriggered("Shoot") and
             data.LastTarget and data.LastTarget:Exists() then
-            local tear = Isaac.Spawn(
-                2, 
-                0, 
-                0, 
-                fam.Position, 
-                (data.LastTarget.Position - fam.Position):Resized(11),
-                fam
-            ):ToTear()
-            tear.TearFlags = BitOr(tear.TearFlags, TearFlags.TEAR_HOMING)
-            tear.CollisionDamage = REVEL.Lerp(3.5, fam.Player.Damage, 0.5)
-            tear.Color = REVEL.HOMING_COLOR
-            tear.Target = data.LastTarget
+            for i=1,5 do
+                local tear = Isaac.Spawn(2, 0, 0, fam.Position, 
+                (data.LastTarget.Position - fam.Position):Resized(8+4*math.random()):Rotated(math.random(-60,60)), fam):ToTear()
+                tear.TearFlags = BitOr(tear.TearFlags, TearFlags.TEAR_HOMING, TearFlags.TEAR_SPECTRAL)
+                tear.CollisionDamage = REVEL.Lerp(3.5, fam.Player.Damage, 0.5)
+                tear.Color = REVEL.HOMING_COLOR
+                tear.FallingSpeed = math.random(-16,-4)
+                tear.Target = data.LastTarget
+            end
         end
         if spr:IsFinished("Attack") then 
             spr:Play("Idle", true) 
@@ -164,5 +167,18 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_ENTITY_TAKE_DMG, 1, functi
         end
     end
 end, 1)
+
+StageAPI.AddCallback("Revelations", RevCallbacks.ON_TEAR, 2, function(tear, data, sprite, player)
+    if REVEL.OnePlayerHasCollectible(REVEL.ITEM.WILLO.id, true) and player then
+        local willos = REVEL.ENT.WILLO:getInRoom()
+        for _, fam in ipairs(willos) do
+            local dist = player.Position:Distance(fam.Position)
+            if dist <= Radius then
+                tear:AddTearFlags(TearFlags.TEAR_HOMING)
+                tear:GetSprite().Color = player.TearColor * REVEL.HOMING_COLOR
+            end
+        end
+    end
+end)
 
 end

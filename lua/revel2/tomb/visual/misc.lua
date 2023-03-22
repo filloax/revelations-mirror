@@ -15,7 +15,7 @@ revel:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
     end
 end)
 
-revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, function(_, player)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, player)
     if REVEL.STAGE.Tomb:IsStage() then
         local currentRoomType = StageAPI.GetCurrentRoomType()
         if REVEL.includes(REVEL.TombSandGfxRoomTypes, currentRoomType) then
@@ -37,11 +37,11 @@ revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, eff)
     end
 end, StageAPI.E.FloorEffect.V)
 
-StageAPI.AddCallback("Revelations", RevCallbacks.POST_ENTITY_AIR_MOVEMENT_LAND, 2, function(entity, airMovementData, fromPit)
+revel:AddCallback(RevCallbacks.POST_ENTITY_ZPOS_LAND, function(_, entity, airMovementData, fromPit, oldZVelocity)
     if REVEL.STAGE.Tomb:IsStage() then
         local currentRoomType = StageAPI.GetCurrentRoomType()
         if REVEL.includes(REVEL.TombSandGfxRoomTypes, currentRoomType) then
-            REVEL.SpawnLandingDust(entity, airMovementData, fromPit, 110, 90, 60)
+            REVEL.SpawnLandingDust(entity, oldZVelocity, fromPit, 110, 90, 60)
         end
     end
 end, EntityType.ENTITY_PLAYER)

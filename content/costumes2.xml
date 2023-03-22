@@ -4,10 +4,6 @@
 	<!-- Charon Hair --><costume anm2path="characters/revelcommon/character_charon_hair.anm2" type="none" priority="99" />
 	<!-- Dante Hair --><costume anm2path="characters/revelcommon/character_dante_hair.anm2" type="none" priority="99" />
 
-	<!-- Truecoop Sarah Ghost --><costume anm2path="truecoop/costumes/ghost/ghost_sarah.anm2" type="none" isFlying="true"/>
-	<!-- Truecoop Dante Ghost --><costume anm2path="truecoop/costumes/ghost/ghost_dante.anm2" type="none" isFlying="true"/>
-	<!-- Truecoop Charon Ghost --><costume anm2path="truecoop/costumes/ghost/ghost_charon.anm2" type="none" isFlying="true"/>
-
 	<!-- Heavenly Bell --><costume id="1" anm2path="characters/revelcommon/heavenly_bell.anm2" type="passive" />
 	<!-- Mint Gum --><costume id="2" anm2path="characters/revelcommon/mint_gum.anm2" type="passive" hasSkinAlt="true" />
 	<!-- Fecal Freak --><costume id="3" anm2path="characters/revelcommon/fecal_freak.anm2" type="passive" hasSkinAlt="true" />

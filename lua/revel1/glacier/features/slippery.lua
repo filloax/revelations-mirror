@@ -18,7 +18,7 @@ function REVEL.Glacier.IsIceIndex(index)
 end
 
 function REVEL.Glacier.CheckIce(ent, currentRoom, ignoreCreep)
-    if not ent:IsFlying() and not ent:GetData().springHeight then
+    if not ent:IsFlying() and REVEL.ZPos.GetPosition(ent) <= 0 then
         local index = REVEL.room:GetGridIndex(ent.Position)
         if REVEL.Glacier.IsIceIndex(index) then
             return true

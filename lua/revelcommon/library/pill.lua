@@ -5,9 +5,9 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
 --using numbers cause I can't be bothered to do all that copypasting, 
 -- you can check enums for what they are (I'm going to regret this aren't I)
-local GoodEffects =    {2,  7, 12, 14, 16, 18,  5, 23, 20, 10, 24, 26, 41, 28, 34, 35, 36, 38, 43, 45, 46}
-local NeutralEffects = {0,  3,  4,  8,  9, 19, 21, 30, 32, 33, 39, 40, 44}
-local BadEffects =     {1,  6, 11, 13, 15, 17, 22, 25, 27, 29, 31, 37, 42}
+local GoodEffects =    {2,  7, 12, 14, 16, 18,  5, 23, 20, 10, 24, 26, 41, 28, 34, 35, 36, 38, 43, 45, 46, 48}
+local NeutralEffects = {0,  3,  4,  8,  9, 19, 21, 30, 32, 33, 39, 40, 44, 49}
+local BadEffects =     {1,  6, 11, 13, 15, 17, 22, 25, 27, 29, 31, 37, 42, 47}
 
 local GoodPills = {}
 local NeutralPills = {}
@@ -40,7 +40,11 @@ end
 local function listPills()
     local pool = REVEL.game:GetItemPool()
 
-    for i=1, PillColor.NUM_PILLS-1 do
+    GoodPills = {}
+    NeutralPills = {}
+    BadPills = {}
+
+    for i=1, PillColor.NUM_PILLS-2 do
         local eff = pool:GetPillEffect(i)
         if REVEL.includes(GoodEffects, eff) then table.insert(GoodPills, i)
         elseif REVEL.includes(NeutralEffects, eff) then table.insert(NeutralPills, i)

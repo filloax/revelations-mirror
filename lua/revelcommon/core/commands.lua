@@ -158,7 +158,8 @@ local PatchSpawn, RestoreSpawn
 local logRemoves
 local logRemovesBlacklist = {}
 
-local showingPathMap = nil
+---@type PathMap?
+local ShowingPathMap = nil
 local registeredShowPathMap = false
 local showPathMapPostRender
 
@@ -473,7 +474,7 @@ local function commands_ExecuteCmd(_, cmd, params)
                 revel:RemoveCallback(ModCallbacks.MC_POST_RENDER, showPathMapPostRender)
                 registeredShowPathMap = false
             end
-            showingPathMap = nil
+            ShowingPathMap = nil
             Isaac.ConsoleOutput("Hiding path maps\n")
         elseif params ~= "" then
             if not REVEL.PathMaps[params] then
@@ -484,7 +485,7 @@ local function commands_ExecuteCmd(_, cmd, params)
             if not registeredShowPathMap then
                 revel:AddCallback(ModCallbacks.MC_POST_RENDER, showPathMapPostRender)
             end
-            showingPathMap = REVEL.PathMaps[params]
+            ShowingPathMap = REVEL.PathMaps[params]
             Isaac.ConsoleOutput(("Showing path map %s, target set 1\n"):format(params))
         end
     elseif cmd == "playerframes" then
@@ -503,14 +504,42 @@ end
 
 revel:AddCallback(ModCallbacks.MC_EXECUTE_CMD, commands_ExecuteCmd)
 
+local PathmapFont = Font()
+PathmapFont:Load("font/pftempestasevencondensed.fnt")
+local PathmapFontColor = KColor(1,1,1,1)
+
 function showPathMapPostRender()
-    if showingPathMap then
-        if showingPathMap.TargetMapSets[1] then
-            local map = showingPathMap.TargetMapSets[1].Map
+    if ShowingPathMap then
+        if ShowingPathMap.TargetMapSets[1] then
+            local sideCollisions = ShowingPathMap.GetSideCollisions and ShowingPathMap.GetSideCollisions()
+            local map = ShowingPathMap.TargetMapSets[1].Map
             for i = 0, REVEL.room:GetGridSize() do
-                local pos = Isaac.WorldToScreen(REVEL.room:GetGridPosition(i))
+                local pos = REVEL.room:GetGridPosition(i)
+                local rpos = Isaac.WorldToScreen(pos)
                 if map[i] then
-                    Isaac.RenderText(tostring(map[i]), pos.X, pos.Y, 255, 255, 255, 255)
+                    local valstr = tostring(map[i])
+                    local w = PathmapFont:GetStringWidth(valstr)
+                    PathmapFont:DrawString(valstr, rpos.X - w / 2, rpos.Y, PathmapFontColor)
+
+                    if sideCollisions 
+                    and IDebug
+                    and sideCollisions[i]
+                    then
+                        local border = 2
+
+                        for dir = 0, 3 do
+                            if sideCollisions[i][dir] then
+                                local par = REVEL.dirToVel[dir]
+                                local perp = REVEL.dirToVel[(dir + 1) % 4]
+                                local vec1 = pos + par * (20 - border) + perp * 20
+                                local vec2 = pos + par * (20 - border) - perp * 20
+                                local tl = Vector(math.min(vec1.X, vec2.X), math.min(vec1.Y, vec2.Y))
+                                local br = Vector(math.max(vec1.X, vec2.X), math.max(vec1.Y, vec2.Y))
+
+                                IDebug.RenderLine(tl, br, false, Color(0, 0, 1))
+                            end
+                        end
+                    end
                 end
             end
         end

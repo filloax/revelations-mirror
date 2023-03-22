@@ -7,15 +7,19 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 ------------
 
 local killAllPills = false
-local maxCount = 4 -- +1 for every extra item instance
+local removeAllPills = false
+local maxCount = 5 -- +1 for every extra item instance
 local usedPill = 2 -- 0: not used 1: used 2: not used, in cleared room
-local goodChanceBase = 0.5
+local pillTimeout = true
+local goodChanceBase = 0.1
 local goodVsNeutralWeigth = 2
-local goodChanceCap = 0.25
+local goodChanceCap = 0.5
 local roomsWithoutSkitterCards = 0
 
 StageAPI.AddCallback("Revelations", RevCallbacks.POST_STAGEAPI_NEW_ROOM_WRAPPER, 1, function()
     killAllPills = false
+    removeAllPills = false
+    pillTimeout = true
 
     if not REVEL.OnePlayerHasCollectible(REVEL.ITEM.ADDICT.id) then
         return
@@ -54,34 +58,36 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_STAGEAPI_NEW_ROOM_WRAPPER,
         roomsWithoutSkitterCards = 0
         usedPill = 0
 
-        for i = 1, sum + revel.data.run.addictCount do
-            -- get random position in other half of the room
-            local tl, br, c, ppos = REVEL.room:GetTopLeftPos(),
-                                    REVEL.room:GetBottomRightPos(),
-                                    REVEL.room:GetCenterPos(),
-                                    REVEL.player.Position
-            local x, y
-            if ppos.X - tl.X > br.X - ppos.X then -- on right half
-                x = math.random(tl.X, c.X)
-            else
-                x = math.random(c.X, br.X)
-            end
-            if ppos.Y - tl.Y > br.Y - ppos.Y then -- on bottom half
-                y = math.random(tl.Y, c.Y)
-            else
-                y = math.random(c.Y, br.Y)
-            end
-            local pos = Isaac.GetFreeNearPosition(Vector(x, y), 40)
+        if revel.data.run.addictCount > 0 then
+            for i = 1, sum + revel.data.run.addictCount - 1 do
+                -- get random position in other half of the room
+                local tl, br, c, ppos = REVEL.room:GetTopLeftPos(),
+                                        REVEL.room:GetBottomRightPos(),
+                                        REVEL.room:GetCenterPos(),
+                                        REVEL.player.Position
+                local x, y
+                if ppos.X - tl.X > br.X - ppos.X then -- on right half
+                    x = math.random(tl.X, c.X)
+                else
+                    x = math.random(c.X, br.X)
+                end
+                if ppos.Y - tl.Y > br.Y - ppos.Y then -- on bottom half
+                    y = math.random(tl.Y, c.Y)
+                else
+                    y = math.random(c.Y, br.Y)
+                end
+                local pos = Isaac.GetFreeNearPosition(Vector(x, y), 40)
 
-            if hasStarterDeck then
-                REVEL.ENT.SKITTER_C:spawn(pos, Vector.Zero, nil)
-            elseif math.random() >
-                REVEL.Lerp2(goodChanceBase, goodChanceCap,
-                            revel.data.run.addictCount, 0,
-                            maxCount - 1 + sum) then
-                REVEL.ENT.SKITTER_G:spawn(pos, Vector.Zero, nil)
-            else
-                REVEL.ENT.SKITTER_B:spawn(pos, Vector.Zero, nil)
+                if hasStarterDeck then
+                    REVEL.ENT.SKITTER_C:spawn(pos, Vector.Zero, nil)
+                elseif math.random() <
+                    REVEL.Lerp2(goodChanceBase, goodChanceCap,
+                                revel.data.run.addictCount, 0,
+                                maxCount - 1 + sum) then
+                    REVEL.ENT.SKITTER_G:spawn(pos, Vector.Zero, nil)
+                else
+                    REVEL.ENT.SKITTER_B:spawn(pos, Vector.Zero, nil)
+                end
             end
         end
     else
@@ -91,24 +97,24 @@ end)
 
 revel:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
     local hasNotableEnemies = false
-    for i, e in ipairs(REVEL.roomEnemies) do
-        if e:IsVulnerableEnemy() and
-            not e:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) and
-            not e:IsInvincible() and REVEL.CanShutDoors(e) and
-            not (e.Type == REVEL.ENT.SKITTER_G.id and
-                (REVEL.ENT.SKITTER_G.variant == e.Variant or
-                    REVEL.ENT.SKITTER_B.variant == e.Variant or
-                    REVEL.ENT.SKITTER_C.variant == e.Variant)) then
+    for i, npc in pairs(REVEL.roomNPCs) do
+        if REVEL.CanShutDoors(npc) and
+        not (npc.Type == REVEL.ENT.SKITTER_G.id and
+        (REVEL.ENT.SKITTER_G.variant == npc.Variant or
+        REVEL.ENT.SKITTER_B.variant == npc.Variant or
+        REVEL.ENT.SKITTER_C.variant == npc.Variant)) then
             hasNotableEnemies = true
             break
         end
     end
-    if not hasNotableEnemies then killAllPills = true end
+    if not hasNotableEnemies then removeAllPills = true end
 end)
 
 revel:AddCallback(ModCallbacks.MC_USE_PILL, function()
     if not REVEL.OnePlayerHasCollectible(
         CollectibleType.COLLECTIBLE_STARTER_DECK) then usedPill = 1 end
+    pillTimeout = false
+    killAllPills = true
 end)
 
 revel:AddCallback(ModCallbacks.MC_USE_CARD, function()
@@ -209,10 +215,14 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
         data.Init = true
     end
 
-    if killAllPills then
-        Isaac.Spawn(1000, EffectVariant.POOF01, 0, npc.Position,
-                    Vector.Zero, npc)
+    if removeAllPills then
+        Isaac.Spawn(1000, EffectVariant.POOF01, 0, npc.Position,Vector.Zero, npc)
         npc:Remove()
+        return
+    end
+
+    if killAllPills then
+        npc:Kill()
         return
     end
 
@@ -243,5 +253,17 @@ revel:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL,
 
     Isaac.Spawn(5, var, sub, ent.Position, Vector.Zero, ent)
 end, REVEL.ENT.SKITTER_G.id)
+
+
+revel:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, function(_, pickup)
+    if pillTimeout and pickup.Variant == PickupVariant.PICKUP_PILL and
+    pickup.SpawnerType == REVEL.ENT.SKITTER_G.id and
+    (pickup.SpawnerVariant == REVEL.ENT.SKITTER_G.variant or
+    pickup.SpawnerVariant == REVEL.ENT.SKITTER_B.variant or
+    pickup.SpawnerVariant == REVEL.ENT.SKITTER_C.variant) then
+        pickup.Timeout = 60
+        pickup.Wait = 20
+    end
+end)
 
 end

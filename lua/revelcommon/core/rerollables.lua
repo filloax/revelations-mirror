@@ -42,6 +42,7 @@ REVEL.Rerolls = {}
 ---@field DoReroll fun(entity: Entity, newType: CollectibleType) # From the new rerolled item id, actually apply the reroll on the item
 ---@field GetRerollItem (fun(entity: Entity, currentId: CollectibleType, hasChaos: boolean): CollectibleType)?  # Specify if you want to manually handle deciding what item the reroll results in
 ---@field OnDelete (fun(entity: Entity))?  # Specify if you want alternate behavior on eternal d6 / spindown dice sad onion deletion than removing the entity
+---@field DoDuplicate (fun(entity: Entity))? # Spawns a new pedestal of that collectible type
 
 ---Register entity to be handled like 
 -- a collectible by reroll items 
@@ -198,6 +199,22 @@ local function rerolls_spindown_UseItem(_, collectibleType, rng, player, useFlag
             end
         else
             handler.DoReroll(entity, itemType)
+        end
+    end
+end
+
+---@param player EntityPlayer
+---@param useFlags UseFlag
+---@param activeSlot ActiveSlot
+local function rerolls_diplopia_UseItem(_, collectibleType, rng, player, useFlags, activeSlot, varData)
+    for entity, handler in EachRerollableEntity(RegisteredEntities.Collectibles) do
+        if handler.DoDuplicate then
+            handler.DoDuplicate(entity)
+        else
+            local currentId = handler.GetItemId(entity)
+
+            local freePos = REVEL.room:FindFreePickupSpawnPosition(entity.Position+Vector(0,16))
+            Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, currentId, freePos, Vector.Zero, entity):ToPickup()
         end
     end
 end
@@ -366,6 +383,7 @@ revel:AddCallback(ModCallbacks.MC_USE_ITEM, rerolls_rerollItem_UseItem, Collecti
 revel:AddCallback(ModCallbacks.MC_USE_ITEM, rerolls_rerollItem_UseItem, CollectibleType.COLLECTIBLE_D100)
 revel:AddCallback(ModCallbacks.MC_USE_ITEM, rerolls_eternald6_UseItem, CollectibleType.COLLECTIBLE_ETERNAL_D6)
 revel:AddCallback(ModCallbacks.MC_USE_ITEM, rerolls_spindown_UseItem, CollectibleType.COLLECTIBLE_SPINDOWN_DICE)
+revel:AddCallback(ModCallbacks.MC_USE_ITEM, rerolls_diplopia_UseItem, CollectibleType.COLLECTIBLE_DIPLOPIA)
 revel:AddCallback(ModCallbacks.MC_USE_CARD, rerolls_isaacSoul_UseCard, Card.CARD_SOUL_ISAAC)
 
 end

@@ -66,7 +66,7 @@ local function setDynamoPhase(player, data, level, alt)
 end
 
 ---@param player EntityPlayer
-revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, function(_, player)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, player)
     if not REVEL.ITEM.DYNAMO:PlayerHasCollectible(player)
     and player:GetData().Dynamo
     then

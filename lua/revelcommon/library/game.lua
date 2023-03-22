@@ -218,7 +218,7 @@ revel:AddCallback(ModCallbacks.MC_POST_RENDER, fps_postRender)
 revel:AddCallback(ModCallbacks.MC_POST_RENDER, bossAnimNoPause_PostRender)
 revel:AddCallback(ModCallbacks.MC_PRE_USE_ITEM, bossAnimNoPause_PreUseItem)
 revel:AddCallback(ModCallbacks.MC_POST_RENDER, isMapLarge_PostRender)
-REVEL.EarlyCallbacks.runLoaded_PostPlayerInit = runLoaded_PostPlayerInit
+revel:AddPriorityCallback(ModCallbacks.MC_POST_PLAYER_INIT, CallbackPriority.IMPORTANT, runLoaded_PostPlayerInit)
 revel:AddCallback(ModCallbacks.MC_PRE_GAME_EXIT, runLoaded_PreGameExit)
 StageAPI.AddCallback("Revelations", RevCallbacks.POST_INGAME_RELOAD, 5, runLoaded_PostIngameReload)
 

@@ -82,7 +82,7 @@ revel:AddCallback(ModCallbacks.MC_POST_PLAYER_RENDER, function(_, player, render
     end
 end)
 
-REVEL.AddBrokenCallback(ModCallbacks.MC_PRE_PLAYER_COLLISION, function(_, player, e, low)
+revel:AddCallback(ModCallbacks.MC_PRE_PLAYER_COLLISION, function(_, player, e, low)
     if REVEL.ITEM.PRIDES_POSTURING:PlayerHasCollectible(player) then
         return false
     end

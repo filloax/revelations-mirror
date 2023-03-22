@@ -1,5 +1,6 @@
 local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
+local PlayerVariant     = require("lua.revelcommon.enums.PlayerVariant")
 
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
@@ -10,18 +11,21 @@ function REVEL.GetPlayerID(player)
         error("GetPlayerID | player nil", 2)
     end
 
-    local data = player:GetData()
+    local data = REVEL.GetData(player)
 
     -- see basiccore.lua
-    if data.playerID then
-        return data.playerID
-    end
-    -- force players IDs to be set, in case they weren't 
-    -- initialized yet (eg. other mods that run evaluate_cache)
-    -- before rev, or add items with cache flags
-    local _ = REVEL.players
+    if not data.playerID then
+        if player.Variant == PlayerVariant.PLAYER then
+            -- force players IDs to be set, in case they weren't 
+            -- initialized yet (eg. other mods that run evaluate_cache)
+            -- before rev, or add items with cache flags
+            local _ = REVEL.players
 
-    REVEL.DebugStringMinor("Revelations | player ID accessed before initialization, initializing early (other mod?)")
+            REVEL.DebugStringMinor("Revelations | player ID accessed before initialization, initializing early (other mod?)")
+        else --not much in the mod uses the coop babies table, so might not have been initialzied yet
+            local _ = REVEL.playersAndBabies
+        end
+    end
 
     return data.playerID
 end
@@ -72,17 +76,26 @@ function REVEL.GetApproximateKnifeCharge(knife)
     return 0
 end
 
+---@param src EntityRef
+---@return EntityPlayer? player
+---@return Entity? sourceEntity
 function REVEL.GetPlayerFromDmgSrc(src)
     local srcEnt, player = REVEL.GetEntFromRef(src), nil
-    if srcEnt and srcEnt.Type == 1 then
-        player = srcEnt:ToPlayer()
-    elseif srcEnt and srcEnt.SpawnerType == 1 then
-        if srcEnt.SpawnerEntity then
-            player = srcEnt.SpawnerEntity:ToPlayer()
-        else
-            player = srcEnt:GetData().__player
+    if srcEnt and srcEnt:Exists() then
+        if srcEnt.Type == 1 then
+            player = srcEnt:ToPlayer()
+        elseif srcEnt.SpawnerType == 1 then
+            if srcEnt.SpawnerEntity then
+                player = srcEnt.SpawnerEntity:ToPlayer()
+            else
+                player = srcEnt:GetData().__player
+            end
+        end
+        if player and not player:Exists() then
+            player = nil
         end
     end
+
     return player, srcEnt
 end
 
@@ -157,8 +170,7 @@ function REVEL.PlayerCameraMode(player)
             FakePlayer = fakePlayer,
         }
 
-        data.Camera.WasVisible = player.Visible
-        player.Visible = false
+        REVEL.LockEntityVisibility(player, "Camera")
 
         data.Camera.HadNoTarget = player:HasEntityFlags(EntityFlag.FLAG_NO_TARGET)
         player:AddEntityFlags(EntityFlag.FLAG_NO_TARGET)
@@ -218,9 +230,7 @@ function REVEL.StopPlayerCameraMode(player, restorePos)
     local data = player:GetData()
     
     if data.CameraMode then
-        if data.Camera.WasVisible then
-            player.Visible = true
-        end
+        REVEL.UnlockEntityVisibility(player, "Camera")
 
         -- WILL break if more player camera modes are active at the same time, 
         -- but it shouldn't be a common usecase anyways
@@ -397,6 +407,30 @@ function REVEL.PlayerIsLost(player)
         or player:GetEffects():HasNullEffect(NullItemID.ID_LOST_CURSE)
 end
 
+local ActionsToDisable = {
+    ButtonAction.ACTION_LEFT, ButtonAction.ACTION_UP,
+    ButtonAction.ACTION_RIGHT, ButtonAction.ACTION_DOWN,
+    ButtonAction.ACTION_SHOOTLEFT, ButtonAction.ACTION_SHOOTUP,
+    ButtonAction.ACTION_SHOOTRIGHT, ButtonAction.ACTION_SHOOTDOWN,
+    ButtonAction.ACTION_ITEM, 
+    ButtonAction.ACTION_PILLCARD,
+    ButtonAction.ACTION_BOMB,
+    ButtonAction.ACTION_DROP,
+}
+ActionsToDisable = REVEL.toSet(ActionsToDisable)
+
+local PlayerInputGlobalCounter = 0
+
+-- Use hook instead of ControlsEnabled to avoid interference with game mechanics/mods
+local function disablePlayerInput_InputAction(_, entity, inputHook, buttonAction)
+    if entity and inputHook == InputHook.IS_ACTION_PRESSED and ActionsToDisable[buttonAction] then
+        local data = entity:GetData()
+        if data.__DisablePlayerControls and data.__DisablePlayerControls.Counter > 0 then
+            return false
+        end
+    end
+end
+
 ---Disable player controls and avoid overriding other functionalities that do
 -- it, using an id to track different uses of this
 -- This also keeps ControlsEnabled true on new room
@@ -407,18 +441,18 @@ function REVEL.LockPlayerControls(player, lockId)
     if not data.__DisablePlayerControls then
         data.__DisablePlayerControls = {
             Set = {},
-            LastState = nil,
+            Counter = 0,
         }
     end
 
-    if REVEL.isEmpty(data.__DisablePlayerControls.Set) then
-        data.__DisablePlayerControls.LastState = player.ControlsEnabled
-        player.ControlsEnabled = false
-    end
-
-
     if not data.__DisablePlayerControls.Set[lockId] then
         data.__DisablePlayerControls.Set[lockId] = true
+        data.__DisablePlayerControls.Counter = data.__DisablePlayerControls.Counter + 1
+        if PlayerInputGlobalCounter == 0 then
+            revel:AddPriorityCallback(ModCallbacks.MC_INPUT_ACTION, CallbackPriority.EARLY, disablePlayerInput_InputAction)
+        end
+        PlayerInputGlobalCounter = PlayerInputGlobalCounter + 1
+        REVEL.DebugStringMinor("Locked player controls, id:", lockId, "counter:", PlayerInputGlobalCounter)
     end
 end
 
@@ -428,36 +462,26 @@ end
 function REVEL.UnlockPlayerControls(player, lockId)
     local data = player:GetData()
 
-    REVEL.Assert(data.__DisablePlayerControls, "UnlockPlayerControls | __DisablePlayerControls is nil!", 2)
-
-    if data.__DisablePlayerControls.Set[lockId] then
+    if data.__DisablePlayerControls and data.__DisablePlayerControls.Set[lockId] then
         data.__DisablePlayerControls.Set[lockId] = nil
-        if REVEL.isEmpty(data.__DisablePlayerControls.Set)
-        and data.__DisablePlayerControls.LastState ~= nil
-        then
-            player.ControlsEnabled = data.__DisablePlayerControls.LastState
-            data.__DisablePlayerControls.LastState = nil
+        data.__DisablePlayerControls.Counter = data.__DisablePlayerControls.Counter - 1
+        PlayerInputGlobalCounter = PlayerInputGlobalCounter - 1
+        REVEL.DebugStringMinor("Unlocked player controls, id:", lockId, "counter:", PlayerInputGlobalCounter)
+        if PlayerInputGlobalCounter == 0 then
+            revel:RemoveCallback(ModCallbacks.MC_INPUT_ACTION, disablePlayerInput_InputAction)
         end
     end
 end
 
-local function lockPlayerControls_PostNewRoom()
-    -- ControlsEnabled gets reset to true on first room frame
-    REVEL.CallbackOnce(ModCallbacks.MC_POST_UPDATE, function()
-        for _, player in ipairs(REVEL.players) do
-            local data = player:GetData()
-            if  data.__DisablePlayerControls then
-                if not REVEL.isEmpty(data.__DisablePlayerControls.Set) then
-                    player.ControlsEnabled = false
-                end
-            end
-        end
-    end)
+---Checks for player validity
+---@param player EntityPlayer
+---@return boolean
+function REVEL.IsValidPlayer(player)
+    return not (player == nil or player.Type == 0)
 end
 
 StageAPI.AddCallback("Revelations", RevCallbacks.POST_ENTITY_TAKE_DMG, 1, damagedThisRoomPlayerTakeDmg, 1)
 StageAPI.AddCallback("Revelations", RevCallbacks.EARLY_POST_NEW_ROOM, 1, damagedThisRoomPostNewRoom)
-StageAPI.AddCallback("Revelations", RevCallbacks.EARLY_POST_NEW_ROOM, 1, lockPlayerControls_PostNewRoom)
 revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, cameraModePlayerTakeDmg, 1)
 revel:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, cameraModeFamiliarUpdate)
 revel:AddCallback(ModCallbacks.MC_POST_EFFECT_RENDER, cameraModeStandinPostRender, REVEL.ENT.PLAYER_CAMERA_STANDIN.variant)

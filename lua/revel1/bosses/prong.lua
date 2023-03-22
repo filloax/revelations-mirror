@@ -59,7 +59,6 @@ local prongBalance = {
                     FlopAndCrack = 1
                 },
                 LShape = true,
-                Repeat = 1,
                 CooldownBetween = 20,
                 CooldownAfter = {
                     Min = 60,
@@ -176,7 +175,6 @@ local prongBalance = {
                     FlopAndCrack = 1
                 },
                 UShape = true,
-                Repeat = 2,
                 CooldownBetween = 20,
                 CooldownAfter = {
                     Min = 60,
@@ -190,7 +188,6 @@ local prongBalance = {
                     FlopAndCrack = 1
                 },
                 IIShape = true,
-                Repeat = 1,
                 CooldownBetween = 20,
                 CooldownAfter = {
                     Min = 60,
@@ -454,7 +451,6 @@ local prongBalance = {
                 FlopAndCrack = 1
             },
             IIShape = true,
-            Repeat = 1,
             CooldownBetween = 20,
             CooldownAfter = {
                 Min = 60,
@@ -494,7 +490,6 @@ local prongBalance = {
                 FlopAndCrack = 1
             },
             UShape = true,
-            Repeat = 2,
             CooldownBetween = 20,
             CooldownAfter = {
                 Min = 60,
@@ -619,12 +614,13 @@ local prongBalance = {
 	},
 }
 
-local corners = {1, 3, 6, 8}
+local Corners = {1, 3, 6, 8}
+local MiddleSegments = {2, 4, 5, 7}
 
-local roomSegments
+local RoomSegments
 
 local function ResetSegments()
-    roomSegments = {
+    RoomSegments = {
         {
             TL = Vector(0, 0), -- off of room top left in grids
             Size = Vector(3, 1), -- grids, starting at 0
@@ -768,7 +764,7 @@ end, StageAPI.E.FloorEffect.V)
 
 local function CrackSegment(seg, longCrack, noRemoveCrack)
     if type(seg) ~= "table" then
-        seg = roomSegments[seg]
+        seg = RoomSegments[seg]
     end
 
     local crack = seg.Crack
@@ -795,7 +791,7 @@ end
 
 local function ForGridInSegment(seg, fn)
     if type(seg) ~= "table" then
-        seg = roomSegments[seg]
+        seg = RoomSegments[seg]
     end
 
     local width = REVEL.room:GetGridWidth()
@@ -848,9 +844,9 @@ local function BreakSnowBridgesInSegment(seg, noPitfall)
 
     for _, player in ipairs(REVEL.players) do
         if brokeGrids[REVEL.room:GetGridIndex(player.Position)] then
-            player:AnimatePitfallIn()
-            player:GetData().springPitFalling = true
-            player:GetData().springSafePosition = Isaac.GetFreeNearPosition(player.Position, 0)
+            REVEL.ZPos.StartPlayerPitfall(player:ToPlayer(), nil,
+                REVEL.room:GetGridIndex(Isaac.GetFreeNearPosition(player.Position, 0))
+            )
         end
     end
 
@@ -888,8 +884,8 @@ local function BreakSegment(seg, npc)
         local hazards = Isaac.FindByType(REVEL.ENT.ICE_HAZARD_GAPER.id, -1, -1, false, false)
         for _, ent in ipairs(hazards) do
             if breakingGrids[REVEL.room:GetGridIndex(ent.Position)] then
-                REVEL.SetEntityAirMovement(ent, {
-                    ZPosition = 80,
+                REVEL.ZPos.SetData(ent, {
+                    ZPosition = 120,
                     ZVelocity = 10, 
                     Gravity = 1,
                     Bounce = 0,
@@ -903,7 +899,7 @@ local function BreakSegment(seg, npc)
                 ent.EntityCollisionClass = EntityCollisionClass.ENTCOLL_NONE
                 ent.GridCollisionClass = EntityGridCollisionClass.GRIDCOLL_NONE
 
-                REVEL.UpdateEntityAirMovement(ent)
+                REVEL.ZPos.UpdateEntity(ent)
             end
         end
 
@@ -955,7 +951,7 @@ end
 local function RefreezeRoom(verifyState, force, segments, playSound)
     if playSound == nil then playSound = true end
 
-    for _, segment in ipairs(segments or roomSegments) do
+    for _, segment in ipairs(segments or RoomSegments) do
         if not segment.NoFreeze or force then
             if segment.Broken then
                 FreezeSegment(segment)
@@ -977,7 +973,7 @@ local function RefreezeRoom(verifyState, force, segments, playSound)
 end
 
 local function BreakAllSnowBridges()
-    for segIndex, _ in ipairs(roomSegments) do
+    for segIndex, _ in ipairs(RoomSegments) do
         BreakSnowBridgesInSegment(segIndex)
     end
     local currentRoom = StageAPI.GetCurrentRoom()
@@ -996,7 +992,7 @@ local function SetSegmentPositions()
     local tl = REVEL.room:GetTopLeftPos()
     local tlInd = REVEL.room:GetGridIndex(tl)
     local tlX, tlY = REVEL.GridToVector(tlInd, width)
-    for _, segment in ipairs(roomSegments) do
+    for _, segment in ipairs(RoomSegments) do
         segment.RoomTL = segment.TL + Vector(tlX, tlY)
         segment.RoomTLPos = tl + segment.TL * 40
         segment.CenterPos = segment.RoomTLPos + segment.Center
@@ -1013,7 +1009,7 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_STAGEAPI_NEW_ROOM_WRAPPER,
         SetSegmentPositions()
         RefreezeRoom(true, nil, nil, false)
     else
-        for _, segment in ipairs(roomSegments) do
+        for _, segment in ipairs(RoomSegments) do
             segment.CrackEffect = nil
         end
     end
@@ -1025,7 +1021,7 @@ end)
 
 local function GetNumUnbroken(segments)
     local numUnbroken = 0
-    for _, seg in ipairs(segments or roomSegments) do
+    for _, seg in ipairs(segments or RoomSegments) do
         if not seg.Broken then
             numUnbroken = numUnbroken + 1
         end
@@ -1110,7 +1106,7 @@ local function JumpPosition(npc, segments, attack)
 end
 
 local function IsInSegment(entityOrPos, seg)
-    if type(seg) == "number" then seg = roomSegments[seg] end
+    if type(seg) == "number" then seg = RoomSegments[seg] end
 
     return REVEL.IsPositionInRect(entityOrPos.Position or entityOrPos,
         seg.RoomTLPos,
@@ -1119,7 +1115,7 @@ local function IsInSegment(entityOrPos, seg)
 end
 
 local function GetSegmentAtPos(pos)
-    for segIndex, seg in ipairs(roomSegments) do
+    for segIndex, seg in ipairs(RoomSegments) do
         if IsInSegment(pos, seg) then
             return segIndex
         end
@@ -1133,7 +1129,7 @@ local function GetCurrentSegment(entity)
         if IsInSegment(entity, data.CurrentPositionSegment) then
             return data.CurrentPositionSegment
         end
-        for _, adjSeg in ipairs(roomSegments[data.CurrentPositionSegment].Adjacent) do
+        for _, adjSeg in ipairs(RoomSegments[data.CurrentPositionSegment].Adjacent) do
             if IsInSegment(entity, adjSeg) then
                 return adjSeg
             end
@@ -1162,21 +1158,21 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
         REVEL.SetScaledBossHP(npc)
 
         if not data.IsChampion then
-            for _, roomSegment in ipairs(roomSegments) do
+            for _, roomSegment in ipairs(RoomSegments) do
                 roomSegment.Broken = false
             end
 
-            roomSegments[9].Broken = true
+            RoomSegments[9].Broken = true
         else
-            for i, roomSegment in ipairs(roomSegments) do
-                roomSegment.Broken = REVEL.includes(corners, i)
+            for i, roomSegment in ipairs(RoomSegments) do
+                roomSegment.Broken = REVEL.includes(Corners, i)
                 roomSegment.NoFreeze = roomSegment.Broken
             end
 
-            roomSegments[9].NoFreeze = false
+            RoomSegments[9].NoFreeze = false
         end
 
-        data.RoomSegments = roomSegments
+        data.RoomSegments = RoomSegments
 
         if data.bal.Sprite ~= "" then
             sprite:Load(data.bal.Sprite, true)
@@ -1201,7 +1197,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
         end
 
         -- if REVEL.room:GetGridCollisionAtPos(npc.Position) ~= GridCollisionClass.COLLISION_PIT then
-            JumpPosition(npc, roomSegments)
+            JumpPosition(npc, RoomSegments)
         -- end
 
         data.Init = true
@@ -1376,6 +1372,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
                         data.Phase = i
                         if data.bal.Phases[i].TriggerSubCycle then
                             data.FlopAndCrackPath = nil
+                            data.FlopCrackContinuingSegment = nil
                             phaseShifting = true
                             REVEL.JumpToCycle(data, 1, data.bal.Phases[i].TriggerSubCycle, 1, nil, nil, true)
                         end
@@ -1385,18 +1382,13 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 
             local curCycleSegment, isAttacking, attack, cooldown, changedCycleSegment
 
-            if data.ForceFlopCrackNum then
-                curCycleSegment = data.ForceFlopCrackCycleSegment
+            if data.FlopCrackContinuingSegment and data.FlopAndCrackPath then
+                curCycleSegment = data.FlopCrackContinuingSegment
                 isAttacking = true
                 attack = "FlopAndCrack"
                 cooldown = 0
                 changedCycleSegment = false
-
-                data.ForceFlopCrackNum = data.ForceFlopCrackNum - 1
-                if data.ForceFlopCrackNum <= 0 then
-                    data.ForceFlopCrackNum = nil
-                    data.ForceFlopCrackCycleSegment = nil
-                end
+                REVEL.DebugToString("Prong | Continuing flop and crack:", data.FlopAndCrackPath)
             elseif not phaseShifting and REVEL.room:GetGridCollisionAtPos(npc:GetPlayerTarget().Position) ~= GridCollisionClass.COLLISION_NONE then
                 isAttacking = true
                 attack = "EmperorsHail"
@@ -1409,7 +1401,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
             if isAttacking then
                 data.State = attack
 
-                JumpPosition(npc, roomSegments, attack)
+                JumpPosition(npc, RoomSegments, attack)
 
                 if attack == "CoolFriend" then
                     sprite:Play("Spawn", true)
@@ -1422,7 +1414,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
                     sprite:Play("StalactiteStart", true)
                 elseif attack == "FlopAndCrack" then
                     data.AllowKebab = data.bal.FlopAndCrackAllowKebab
-                    if curCycleSegment.ResetFlopPath then
+                    if curCycleSegment.ResetFlopPath and not data.FlopCrackContinuingSegment then
                         data.FlopAndCrackPath = nil
                     end
 
@@ -1430,15 +1422,15 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
                         local path = {}
                         local direction = math.random(0, 1)
 
-                        local validCorners = corners
+                        local validCorners = Corners
                         if curCycleSegment.Safety then -- in order to ensure that the choice won't force the player to pick a random safe line, don't split the map
                             validCorners = {}
-                            for _, corner in ipairs(corners) do
-                                local seg = roomSegments[corner]
+                            for _, corner in ipairs(Corners) do
+                                local seg = RoomSegments[corner]
                                 if not seg.Broken then
                                     local valid
                                     for _, segInd in ipairs(seg.Adjacent) do
-                                        if roomSegments[segInd].Broken then
+                                        if RoomSegments[segInd].Broken then
                                             valid = true
                                             break
                                         end
@@ -1453,12 +1445,12 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 
                         local corner = validCorners[math.random(1, #validCorners)]
                         path[#path + 1] = corner
-                        local cdata = roomSegments[corner]
+                        local cdata = RoomSegments[corner]
 
                         if curCycleSegment.Safety or curCycleSegment.CheckAdjacentUnbroken then
-                            if roomSegments[cdata.Opposites.Horizontal[1]].Broken then
+                            if RoomSegments[cdata.Opposites.Horizontal[1]].Broken then
                                 direction = 0
-                            elseif roomSegments[cdata.Opposites.Vertical[1]].Broken then
+                            elseif RoomSegments[cdata.Opposites.Vertical[1]].Broken then
                                 direction = 1
                             end
                         end
@@ -1473,41 +1465,40 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 
                         if curCycleSegment.UShapeIfMoreLeft and not doUShape then
                             local numUnbroken = 0
-                            for _, seg in ipairs(roomSegments) do
+                            for _, idx in ipairs(MiddleSegments) do
+                                local seg = RoomSegments[idx]
                                 if not seg.Broken then
                                     numUnbroken = numUnbroken + 1
                                 end
                             end
 
-                            if numUnbroken > 3 then
+                            if numUnbroken > 2 then
                                 doUShape = true
-                                data.ForceFlopCrackNum = 2
-                                data.ForceFlopCrackCycleSegment = curCycleSegment
                             end
                         end
 
                         if curCycleSegment.LShape or doUShape then
-                            local c2data = roomSegments[path[#path]]
+                            local c2data = RoomSegments[path[#path]]
                             if direction == 1 then segs = c2data.Opposites.Vertical else segs = c2data.Opposites.Horizontal end
                             for _, seg in ipairs(segs) do
                                 path[#path + 1] = seg
                             end
 
                             if doUShape then
-                                local c3data = roomSegments[path[#path]]
+                                local c3data = RoomSegments[path[#path]]
                                 if direction == 1 then segs = c3data.Opposites.Horizontal else segs = c3data.Opposites.Vertical end
                                 for _, seg in ipairs(segs) do
                                     path[#path + 1] = seg
                                 end
                             end
                         elseif curCycleSegment.IIShape then --remove two parallel lines of ice at room opposites
-                            local c2data = roomSegments[path[#path]]
+                            local c2data = RoomSegments[path[#path]]
                             local first
 
                             if direction == 1 then first = c2data.Opposites.Vertical[#c2data.Opposites.Vertical] else first = c2data.Opposites.Horizontal[#c2data.Opposites.Horizontal] end
                             path[#path + 1] = first
 
-                            local c3data = roomSegments[first]
+                            local c3data = RoomSegments[first]
                             local segs
                             if direction == 1 then segs = c3data.Opposites.Horizontal else segs = c3data.Opposites.Vertical end
                             for _, seg in ipairs(segs) do
@@ -1517,14 +1508,17 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
                             data.DoingIIShape = true
                         end
 
+                        REVEL.DebugToString("Prong | crack path:", path)
+
                         data.FlopAndCrackPath = path
+                        data.FlopCrackContinuingSegment = curCycleSegment
                     end
                 elseif attack == "Kebab" then
                     if curCycleSegment.Visible then
                         sprite:Play("Kebab", true)
                     elseif curCycleSegment.CrackKebab then
                         local intactSegments = {}
-                        for _, segment in ipairs(roomSegments) do
+                        for _, segment in ipairs(RoomSegments) do
                             if (not curCycleSegment.AvoidCorner or segment.Crack ~= "CornerCrack") and not segment.Broken then
                                 intactSegments[#intactSegments + 1] = segment
                             end
@@ -1542,7 +1536,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
                     if curCycleSegment.WindMoving then
                         data.WindMoving = true
 
-                        local currentSeg = roomSegments[data.CurrentPositionSegment]
+                        local currentSeg = RoomSegments[data.CurrentPositionSegment]
 
                         local valid = {}
                         local bestShootSide
@@ -1554,10 +1548,10 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 
                             local row = {data.CurrentPositionSegment}
 
-                            if currentSeg[checkDirStr] and roomSegments[currentSeg[checkDirStr]].Broken then
-                                local next = roomSegments[currentSeg[checkDirStr]]
+                            if currentSeg[checkDirStr] and RoomSegments[currentSeg[checkDirStr]].Broken then
+                                local next = RoomSegments[currentSeg[checkDirStr]]
                                 row[#row + 1] = currentSeg[checkDirStr]
-                                if next[checkDirStr] and roomSegments[next[checkDirStr]].Broken then
+                                if next[checkDirStr] and RoomSegments[next[checkDirStr]].Broken then
                                     row[#row + 1] = next[checkDirStr]
                                 end
                             end
@@ -1568,11 +1562,11 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 
                             if #row >= 3 then --full broken segment row
                                 for _, rowSeg in ipairs(row) do
-                                    local adjDir1, adjDir2 = roomSegments[rowSeg][REVEL.dirToString[perpDir1]], roomSegments[rowSeg][REVEL.dirToString[perpDir2]]
-                                    if adjDir1 and not roomSegments[adjDir1].Broken then
+                                    local adjDir1, adjDir2 = RoomSegments[rowSeg][REVEL.dirToString[perpDir1]], RoomSegments[rowSeg][REVEL.dirToString[perpDir2]]
+                                    if adjDir1 and not RoomSegments[adjDir1].Broken then
                                         numOneSide = numOneSide + 1
                                     end
-                                    if adjDir2 and not roomSegments[adjDir2].Broken then
+                                    if adjDir2 and not RoomSegments[adjDir2].Broken then
                                         numOtherSide = numOtherSide + 1
                                     end
                                 end
@@ -1671,13 +1665,13 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
             hazard.GridCollisionClass = EntityGridCollisionClass.GRIDCOLL_NONE
             hazard:GetData().NoBreak = true
 
-            REVEL.SetEntityAirMovement(hazard, {
-                ZPosition = 90, 
+            REVEL.ZPos.SetData(hazard, {
+                ZPosition = 125, 
                 ZVelocity = 5, 
                 Gravity = 0.5,
                 Bounce = 0,
             })
-            REVEL.UpdateEntityAirMovement(hazard)
+            REVEL.ZPos.UpdateEntity(hazard)
             data.IceHazard = hazard
         elseif sprite:WasEventTriggered("Catch") and not sprite:WasEventTriggered("Drop") then
             local hsprite = data.IceHazard:GetSprite()
@@ -1700,8 +1694,8 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
                 data.HazardWobbleIntensity = data.HazardWobbleIntensity * data.bal.HazardWobbleSlope
             end
 
-            REVEL.SetEntityAirMovement(data.IceHazard, {
-                ZPosition = 100, 
+            REVEL.ZPos.SetData(data.IceHazard, {
+                ZPosition = 160, 
                 ZVelocity = 0, 
                 Gravity = 0,
                 Bounce = 0,
@@ -1709,15 +1703,15 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
         elseif sprite:IsEventTriggered("Drop") then
             data.IceHazard:GetSprite().Rotation = 0
             data.HazardWobbleTime = nil
-            REVEL.SetEntityAirMovement(data.IceHazard, {
-                ZPosition = 100, 
+            REVEL.ZPos.SetData(data.IceHazard, {
+                ZPosition = 160, 
                 ZVelocity = 0, 
                 Gravity = 0.5,
                 Bounce = 0,
             })
         elseif sprite:IsEventTriggered("Spawn") then
-            REVEL.SetEntityAirMovement(data.IceHazard, {
-                ZPosition = 80, 
+            REVEL.ZPos.SetData(data.IceHazard, {
+                ZPosition = 120, 
                 ZVelocity = 10, 
                 Gravity = 1,
                 Bounce = 0,
@@ -1932,7 +1926,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
             data.State = "Idle"
         end
     elseif data.State == "FlopAndCrack" then
-        local first, second, third = roomSegments[data.FlopAndCrackPath[1]], roomSegments[data.FlopAndCrackPath[2]], roomSegments[data.FlopAndCrackPath[3]]
+        local first, second, third = RoomSegments[data.FlopAndCrackPath[1]], RoomSegments[data.FlopAndCrackPath[2]], RoomSegments[data.FlopAndCrackPath[3]]
         local firstPos, secondPos, thirdPos = first.CenterPos, second.CenterPos, third.CenterPos
 
         local kebabing
@@ -2019,12 +2013,18 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
             table.remove(data.FlopAndCrackPath, 1)
 
             if data.DoingIIShape then
+                -- landing point and starting point of next do not coincide, remove landing point too
                 table.remove(data.FlopAndCrackPath, 1)
                 data.DoingIIShape = nil
             end
 
             if #data.FlopAndCrackPath < 3 then
+                if #data.FlopAndCrackPath > 0 then
+                    REVEL.DebugToString(("Prong | Jump path left to do but less than 3 points (%d), stopping early")
+                        :format(#data.FlopAndCrackPath))
+                end
                 data.FlopAndCrackPath = nil
+                data.FlopCrackContinuingSegment = nil
             end
 
             data.Hopping = nil
@@ -2044,14 +2044,14 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 
             if data.RefreezeAll then
                 local curSeg
-                for _, segment in ipairs(roomSegments) do
+                for _, segment in ipairs(RoomSegments) do
                     if not segment.NoFreeze then
                         freezeSegs[#freezeSegs + 1] = segment
                     end
                 end
             else
                 local curSeg
-                for _, segment in ipairs(roomSegments) do
+                for _, segment in ipairs(RoomSegments) do
                     if segment.Crack and not segment.Broken then
                         curSeg = segment
                     end
@@ -2061,11 +2061,11 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
                     local closeCorners = {}
                     local closeCornersNoFreeze = {}
                     for _, segInd in ipairs(curSeg.Adjacent) do
-                        if roomSegments[segInd].Crack == "CornerCrack" then
-                            if not roomSegments[segInd].NoFreeze then
-                                closeCorners[#closeCorners + 1] = roomSegments[segInd]
+                        if RoomSegments[segInd].Crack == "CornerCrack" then
+                            if not RoomSegments[segInd].NoFreeze then
+                                closeCorners[#closeCorners + 1] = RoomSegments[segInd]
                             else
-                                closeCornersNoFreeze[#closeCornersNoFreeze + 1] = roomSegments[segInd]
+                                closeCornersNoFreeze[#closeCornersNoFreeze + 1] = RoomSegments[segInd]
                             end
                         end
                     end
@@ -2080,8 +2080,8 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 
                 for k, segInds in pairs(curSeg.Opposites) do
                     for _, segInd in ipairs(segInds) do
-                        if not roomSegments[segInd].NoFreeze then
-                            freezeSegs[#freezeSegs + 1] = roomSegments[segInd]
+                        if not RoomSegments[segInd].NoFreeze then
+                            freezeSegs[#freezeSegs + 1] = RoomSegments[segInd]
                         end
                     end
                 end
@@ -2134,9 +2134,9 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
             if not data.WindMoving then
                 --If prong stays still, affect an entire segment at once
                 local affectedSegments =  {}
-                for segIndex, seg in ipairs(roomSegments) do
-                    if data.BlowDir % 2 == 0 and seg.TL.Y == roomSegments[currentSeg].TL.Y
-                    or data.BlowDir % 2 == 1 and seg.TL.X == roomSegments[currentSeg].TL.X then
+                for segIndex, seg in ipairs(RoomSegments) do
+                    if data.BlowDir % 2 == 0 and seg.TL.Y == RoomSegments[currentSeg].TL.Y
+                    or data.BlowDir % 2 == 1 and seg.TL.X == RoomSegments[currentSeg].TL.X then
                         affectedSegments[segIndex] = true
                     end
                 end
@@ -2146,8 +2146,8 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
                 local lastSegInDirection
 
                 repeat
-                    if roomSegments[checkSegment][REVEL.dirToString[data.BlowDir]] then
-                        checkSegment = roomSegments[checkSegment][REVEL.dirToString[data.BlowDir]]
+                    if RoomSegments[checkSegment][REVEL.dirToString[data.BlowDir]] then
+                        checkSegment = RoomSegments[checkSegment][REVEL.dirToString[data.BlowDir]]
                     else
                         lastSegInDirection = checkSegment
                     end
@@ -2162,9 +2162,9 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
                     then
                         REVEL.Glacier.TotalFreezePlayer(player, data.BlowDir, 8, nil, true, false, true)
 
-                        for _, adjSeg in pairs(roomSegments[lastSegInDirection].Adjacent) do
+                        for _, adjSeg in pairs(RoomSegments[lastSegInDirection].Adjacent) do
                             if not affectedSegments[adjSeg] then
-                                player:GetData().PitfallForceResurfacePosition = REVEL.Lerp(roomSegments[adjSeg].CenterPos, roomSegments[playerSeg].CenterPos, 0.33)
+                                player:GetData().PitfallForceResurfacePosition = REVEL.Lerp(RoomSegments[adjSeg].CenterPos, RoomSegments[playerSeg].CenterPos, 0.33)
                                 break
                             end
                         end
@@ -2191,7 +2191,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
                         ended = true
                     else
                         local checkSeg = GetSegmentAtPos(checkCollPos)
-                        if checkSeg and not roomSegments[checkSeg].Broken then
+                        if checkSeg and not RoomSegments[checkSeg].Broken then
                             ended = true
                         end
 
@@ -2429,7 +2429,7 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_INGAME_RELOAD, 1, function
 
     if #prongs > 0 then
         local npc = prongs[1]:ToNPC()
-        roomSegments = npc:GetData().RoomSegments
+        RoomSegments = npc:GetData().RoomSegments
         npc:GetData().bal = REVEL.GetBossBalance(prongBalance, npc:GetData().IsChampion and "Prongerina" or "Default")
     end
 end)

@@ -179,9 +179,10 @@ function REVEL.GetFromMinMax(valueOrTable, rng)
 end
 
 ---@param min integer
----@param max? integer
+---@param max integer inclusive
 ---@param step? integer = 1
 ---@return integer[]
+---@overload fun(max: integer): integer[] min = 1
 function REVEL.Range(min, max, step)
     local out = {}
   

@@ -40,8 +40,6 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
         REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
     end
 
-    data.UsePlayerMap = true
-
     if sprite:IsFinished("Appear") then
         npc.Velocity = npc.Velocity * 0
         sprite:Play("Idle", true)

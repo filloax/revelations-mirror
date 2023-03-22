@@ -1,6 +1,7 @@
 local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 local shared            = require("lua.revelcommon.dante.shared")
+local PlayerVariant     = require("lua.revelcommon.enums.PlayerVariant")
 
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
@@ -384,7 +385,8 @@ StageAPI.AddCallback("Revelations", RevCallbacks.EARLY_POST_NEW_ROOM, 15, functi
 end)
 
 revel:AddCallback(ModCallbacks.MC_USE_ITEM, function(_, itemID, itemRNG, player)
-    if not PhylacteryAddCharge and not PhylacterySwitch then
+    if not PhylacteryAddCharge and not PhylacterySwitch
+    and player.Variant == PlayerVariant.PLAYER then
         local isGivingItem = (REVEL.IsDanteCharon(player) and player:IsHoldingItem() and player.QueuedItem)
         if not revel.data.run.dante.IsCombined and not isGivingItem then
             if not REVEL.room:IsAmbushActive() then
@@ -409,8 +411,10 @@ function REVEL.Dante.GetMovingCharacterDirection(player)
 end
 
 local phylacteryIncubusSwitching = nil
-revel:AddCallback(ModCallbacks.MC_USE_ITEM, function()
-    local player = REVEL.player
+revel:AddCallback(ModCallbacks.MC_USE_ITEM, function(_, idemId, itemRNG, player)
+    -- only work for player 1
+    if GetPtrHash(player) ~= GetPtrHash(REVEL.player) then return end
+
     if not phylacteryIncubusSwitching then
         local isGivingItem = (REVEL.IsDanteCharon(player) and player:IsHoldingItem() and player.QueuedItem)
         if not isGivingItem then

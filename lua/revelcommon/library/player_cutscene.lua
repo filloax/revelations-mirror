@@ -1,3 +1,5 @@
+local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
+
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
 --Valid table keys:
@@ -49,6 +51,6 @@ local function playerCutscenePostPlayerUpdate(_, player)
     end
 end
 
-revel:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, playerCutscenePostPlayerUpdate)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, playerCutscenePostPlayerUpdate)
 
 end

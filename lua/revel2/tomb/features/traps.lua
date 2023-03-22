@@ -131,7 +131,7 @@ StageAPI.AddCallback("Revelations", "POST_ROOM_INIT", 1, function(newRoom, fromS
     if newRoom.PersistentData.Traps 
     and not REVEL.isEmpty(newRoom.PersistentData.Traps) 
     and REVEL.IsShrineEffectActive(ShrineTypes.PARANOIA) then
-        local fakeTraps = REVEL.AddParanoiaTiles(newRoom)
+        local fakeTraps = REVEL.AddParanoiaTiles(newRoom, newRoom.PersistentData.Traps)
         for strindex, trapData in pairs(fakeTraps) do
             newRoom.PersistentData.Traps[strindex] = trapData
         end
@@ -299,7 +299,10 @@ function REVEL.SelectTrapsRandomly(newRoom)
     return traps
 end
 
-function REVEL.AddParanoiaTiles(newRoom)
+---@param newRoom any
+---@param existentTraps table<string, table>
+---@return table<string, table>
+function REVEL.AddParanoiaTiles(newRoom, existentTraps)
     REVEL.ParanoiaTileRNG:SetSeed(newRoom.Seed, 0)
 
     local fakeTraps = {}
@@ -320,7 +323,9 @@ function REVEL.AddParanoiaTiles(newRoom)
                 end
             end
 
-            if not nearDoor then
+            if not nearDoor
+            and not existentTraps[tostring(i)] 
+            then
                 validTiles[#validTiles + 1] = i
             end
         end
@@ -457,9 +462,10 @@ function REVEL.TriggerTrap(tile, player, isPositiveEffect)
 
     REVEL.DebugStringMinor("Triggering trap:", REVEL.room:GetGridIndex(tile.Position), data.TrapName)
 
-    if not REVEL.sfx:IsPlaying(REVEL.SFX.ACTIVATE_TRAP) then
-        REVEL.sfx:Play(REVEL.SFX.ACTIVATE_TRAP, 1, 0, false, 1)
-    end
+    -- Looks like sfx:IsPlaying return true even after the sound has ended while in the current room?
+    -- if not REVEL.sfx:IsPlaying(REVEL.SFX.ACTIVATE_TRAP) then
+        REVEL.sfx:Play(REVEL.SFX.ACTIVATE_TRAP)
+    -- end
 
     data.TrapTriggered = true
     data.TrapIsPositiveEffect = isPositiveEffect

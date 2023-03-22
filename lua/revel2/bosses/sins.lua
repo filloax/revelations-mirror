@@ -195,11 +195,8 @@ local function tombGluttony_PreUpdate(_, npc)
             end
         end
     elseif npc.State == NpcState.STATE_MOVE then
-        if not REVEL.IsUsingPathMap(REVEL.GenericChaserPathMap, npc) then
-            REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
-        end    
-        data.UsePlayerMap = true
-        
+        REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
+    
         data.OnPathUpdate = REVEL.BonyPathUpdate
 
         if data.Path then

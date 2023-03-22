@@ -312,20 +312,26 @@ local UserDataToString = {
 
     BitSet128 = function(v)
         local out = "["
-        for i = 1, 126 do
-            if HasBit(v, Bit128(i)) then
-                if out ~= "[" then
-                    out = out .. ", "
-                end
-                out = out .. (i - 1)
-            end
-        end
+        -- for i = 1, 126 do
+        --     if HasBit(v, Bit128(i)) then
+        --         if out ~= "[" then
+        --             out = out .. ", "
+        --         end
+        --         out = out .. (i - 1)
+        --     end
+        -- end
+        out = out .. tostring(v.h) .. ", " .. tostring(v.l)
         out = out .. "]"
         return out
     end,
 
+    ---@param v Sprite
     Sprite = function(v)
-        return "(" .. v:GetFilename() .. ": " .. v:GetAnimation() .. "[" .. v:GetFrame() .. "])"
+        local baseFinished = v:IsFinished(v:GetAnimation())
+        local ovFinished = v:IsOverlayFinished(v:GetOverlayAnimation())
+        local base = v:GetFilename() .. ": " .. v:GetAnimation() .. "[" .. v:GetFrame() .. (baseFinished and "*" or "") .. "]"
+        local overlay = v:GetOverlayAnimation() ~= "" and (" | " .. v:GetOverlayAnimation() .. "[" .. v:GetOverlayFrame() .. (ovFinished and "*" or "") .. "]") or ""
+        return "(" .. base .. overlay .. ")"
     end,
 
     ---@param v GridEntity
@@ -373,6 +379,10 @@ function REVEL.ToString(v)
         else
             v = table_tostring(v) 
         end
+    end
+    -- approximate floats
+    if type(v) == "number" and v % 1 ~= 0 then
+        v = shortenFloatsToString(v)
     end
 
     return tostring(v)
@@ -597,11 +607,11 @@ function REVEL.every(list, pred)
 end
 
 ---Returns total of agg ran on every element, starting from init as total
----@generic K, V
+---@generic K, V, R
 ---@param list table<K, V>
----@param agg fun(total: V, val: V, key: K, list: table): V
----@param init V
----@return V
+---@param agg fun(total: R, val: V, key: K, list: table): R
+---@param init R
+---@return R
 function REVEL.reduce(list, agg, init)
     if list == nil then
         error("attempt to use reduce on a nil table", 2)

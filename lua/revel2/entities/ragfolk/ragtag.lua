@@ -118,10 +118,7 @@ local function ragTag_NpcUpdate(_, npc)
                 sprite:Play("Head" .. animAppend, true)
             end
 
-            if not REVEL.IsUsingPathMap(REVEL.GenericFlyingChaserPathMap, npc) then
-                REVEL.UsePathMap(REVEL.GenericFlyingChaserPathMap, npc)
-            end
-            data.UsePlayerFlyingMap = true
+            REVEL.UsePathMap(REVEL.GenericFlyingChaserPathMap, npc)
             
             if data.Path then
                 REVEL.FollowPath(npc, 0.2 * speedmult, data.Path, true, 0.9, false, true)

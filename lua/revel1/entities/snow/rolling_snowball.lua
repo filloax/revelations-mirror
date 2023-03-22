@@ -44,11 +44,7 @@ local function rolling_NpcUpdate(_, npc)
         local player = npc:GetPlayerTarget()
         local data = npc:GetData()
 
-        if not REVEL.IsUsingPathMap(REVEL.GenericChaserPathMap, npc) then
-            REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
-        end
-
-        data.UsePlayerMap = true
+        REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
 
         if npc:IsDead() and not data.Died then
             if data.SnotVariant then

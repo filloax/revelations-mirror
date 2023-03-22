@@ -282,4 +282,137 @@ function REVEL.InMineshaft()
         )
 end
 
+---@alias ListIndex integer
+---@alias Rev.RoomMap table<integer, table<integer, ListIndex>>
+
+-- returns an x and y based grid table with listindices signifying rooms
+---@return Rev.RoomMap
+function REVEL.MapRooms()
+    local rooms = REVEL.level:GetRooms()
+    local roomsMap = {}
+    
+    for x=0, 14 do
+        roomsMap[x] = {}
+    end
+    
+    for i = 0, rooms.Size - 1 do
+        local room = rooms:Get(i)
+        local shape = room.Data.Shape
+        local x,y = room.GridIndex%13 + 1, math.floor(room.GridIndex/13) + 1
+        
+        if shape == RoomShape.ROOMSHAPE_1x2 or shape == RoomShape.ROOMSHAPE_IIV then
+            roomsMap[x][y] = room.ListIndex
+            roomsMap[x][y + 1] = room.ListIndex
+            
+        elseif shape == RoomShape.ROOMSHAPE_2x1 or shape == RoomShape.ROOMSHAPE_IIH then
+            roomsMap[x][y] = room.ListIndex
+            roomsMap[x + 1][y] = room.ListIndex
+            
+        elseif shape == RoomShape.ROOMSHAPE_2x2 then
+            roomsMap[x][y] = room.ListIndex
+            roomsMap[x][y + 1] = room.ListIndex
+            roomsMap[x + 1][y] = room.ListIndex
+            roomsMap[x + 1][y + 1] = room.ListIndex
+            
+        elseif shape == RoomShape.ROOMSHAPE_LTL then
+            roomsMap[x][y + 1] = room.ListIndex
+            roomsMap[x + 1][y] = room.ListIndex
+            roomsMap[x + 1][y + 1] = room.ListIndex
+            
+        elseif shape == RoomShape.ROOMSHAPE_LTR then
+            roomsMap[x][y] = room.ListIndex
+            roomsMap[x][y + 1] = room.ListIndex
+            roomsMap[x + 1][y + 1] = room.ListIndex
+            
+        elseif shape == RoomShape.ROOMSHAPE_LBL then
+            roomsMap[x][y] = room.ListIndex
+            roomsMap[x + 1][y] = room.ListIndex
+            roomsMap[x + 1][y + 1] = room.ListIndex
+            
+        elseif shape == RoomShape.ROOMSHAPE_LBR then
+            roomsMap[x][y] = room.ListIndex
+            roomsMap[x][y + 1] = room.ListIndex
+            roomsMap[x + 1][y] = room.ListIndex
+            
+        else
+            roomsMap[x][y] = room.ListIndex
+        end
+    end
+    
+    return roomsMap
+end
+
+---@alias Rev.RoomConnectionsMap table<ListIndex, ListIndex[]>
+
+-- returns a lookup table that gives a list of all list indices connected to each room by list index
+---@param roomsMap Rev.RoomMap
+---@return Rev.RoomConnectionsMap
+function REVEL.GetRoomConnections(roomsMap)
+    local roomConnections = {}
+    
+    for x=1, 13 do
+        for y=1, 13 do
+            local listIndex = roomsMap[x][y]
+            
+            if listIndex then
+                roomConnections[listIndex] = roomConnections[listIndex] or {}
+                
+                local checkIndices = {{X=x-1,Y=y}, {X=x,Y=y-1}, {X=x+1,Y=y}, {X=x,Y=y+1}}
+                for i=1, 4 do
+                    local connectedListIndex = roomsMap[checkIndices[i].X][checkIndices[i].Y]
+                    
+                    if connectedListIndex and connectedListIndex ~= listIndex then
+                        table.insert(roomConnections[listIndex], connectedListIndex)
+                    end
+                end
+            end
+        end
+    end
+    
+    return roomConnections
+end
+
+-- returns a lookup table that gives a distance in rooms for each list index
+---@param roomConnections Rev.RoomConnectionsMap
+---@param targetListIndex ListIndex
+---@param listIndicesToIgnore? ListIndex[]
+---@return table<ListIndex, integer>
+function REVEL.GetRoomPathingDistances(roomConnections, targetListIndex, listIndicesToIgnore)
+    local roomDistances = {[targetListIndex] = 0}
+    local currentCheckListIndices = {targetListIndex}
+    
+    local distance = 0
+    while currentCheckListIndices[1] do
+        distance = distance + 1
+        
+        local nextCheckListIndices = {}
+        for _,listIndex in ipairs(currentCheckListIndices) do
+            for _,connectedListIndex in ipairs(roomConnections[listIndex]) do
+                
+                if not roomDistances[connectedListIndex] then
+                    local shouldIgnore = false
+                    if listIndicesToIgnore then
+                        for _,ignoredListIndex in ipairs(listIndicesToIgnore) do
+                            if connectedListIndex == ignoredListIndex then
+                                shouldIgnore = true
+                                break
+                            end
+                        end
+                    end
+                    
+                    if not shouldIgnore then
+                        roomDistances[connectedListIndex] = distance
+                        table.insert(nextCheckListIndices, connectedListIndex)
+                    end
+                end
+            end
+        end
+        
+        currentCheckListIndices = nextCheckListIndices
+    end
+    
+    return roomDistances
+end
+
+
 end

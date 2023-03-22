@@ -29,7 +29,10 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
             sprite:IsPlaying("SubmergedIdle", true)
         end
 
-        npc.Velocity = Vector.Zero
+        if not data.SandstormPulled then
+            npc.Velocity = Vector.Zero
+        end
+
         npc.EntityCollisionClass = EntityCollisionClass.ENTCOLL_PLAYERONLY
 
         local sandcastles = StageAPI.GetCustomGrids(nil, REVEL.GRIDENT.SAND_CASTLE.Name)
@@ -91,7 +94,9 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 
             sprite.FlipX = npc.Velocity.X > 0
         else
-            npc.Velocity = Vector.Zero
+            if not data.SandstormPulled then
+                npc.Velocity = Vector.Zero
+            end
         end
     elseif data.State == "Chase" then
         if sprite:IsFinished("Impale") then
@@ -110,6 +115,8 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 
         sprite.FlipX = npc.Velocity.X > 0
     end
+
+    data.SandstormPulled = false
 end, REVEL.ENT.TRENCHBIP.id)
 
 revel:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, function(_, npc)

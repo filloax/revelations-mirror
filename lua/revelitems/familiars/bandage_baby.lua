@@ -20,7 +20,7 @@ revel:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function(_, player, flag)
     end
 end)
 
-revel:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, function(_, player)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, player)
     local data = player:GetData()
     if data.UpdateBandageBabyAmount and data.UpdateBandageBabyAmount > 0 then
         data.UpdateBandageBabyAmount = data.UpdateBandageBabyAmount -1
@@ -157,26 +157,27 @@ revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, effect)
     local data = effect:GetData()
 
     if not data.Init then
-    if not data.OnGround then
-        REVEL.SetEntityAirMovement(effect, {
-        ZVelocity = 5,
-        ZPosition = 10,
-        Gravity = 0.25,
-        Bounce = 0,
-        DoRotation = true,
-        RotationOffset = 56,
-        DisableCollision = false,
-        BounceFromGrid = false,
-        LandFromGrid = false
-        })
-        REVEL.UpdateEntityAirMovement(effect)
-    end
-    data.Init = true
+        if not data.OnGround then
+            REVEL.ZPos.SetData(effect, {
+                ZVelocity = 5,
+                ZPosition = 10,
+                Gravity = 0.25,
+                Bounce = 0,
+                DoRotation = true,
+                RotationOffset = 56,
+                DisableCollision = false,
+                EntityCollisionMode = REVEL.ZPos.EntityCollisionMode.DONT_HANDLE,
+                BounceFromGrid = false,
+                LandFromGrid = false
+            })
+            REVEL.ZPos.UpdateEntity(effect)
+        end
+        data.Init = true
     end
 
-    if data.OnGround and REVEL.GetEntityZPosition(effect) > 0 then
-    REVEL.SetEntityZPosition(effect, 0)
-    REVEL.UpdateEntityAirMovement(effect)
+    if data.OnGround and REVEL.ZPos.GetPosition(effect) > 0 then
+        REVEL.ZPos.SetPosition(effect, 0)
+        REVEL.ZPos.UpdateEntity(effect)
     end
 
     if not data.OnGround then
@@ -204,7 +205,7 @@ revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, effect)
 
     for _, enemy in ipairs(REVEL.roomEnemies) do
         if enemy:IsActiveEnemy(false) and enemy:IsVulnerableEnemy() and not (enemy:HasEntityFlags(EntityFlag.FLAG_SLOW) or enemy:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) or enemy:HasEntityFlags(EntityFlag.FLAG_NO_TARGET)) then
-            if effect.Position:Distance(enemy.Position) <= (enemy.Size * 2) and (data.OnGround or REVEL.GetEntityZPosition(effect) <= 20 + (enemy.Size * 2)) then
+            if effect.Position:Distance(enemy.Position) <= (enemy.Size * 2) and (data.OnGround or REVEL.ZPos.GetPosition(effect) <= 20 + (enemy.Size * 2)) then
             local enemyData = enemy:GetData()
             enemyData.LastBandageSlowFrame = enemyData.LastBandageSlowFrame or 0
             local doSlow = false
@@ -234,7 +235,7 @@ revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, effect)
     end
 end, REVEL.ENT.BANDAGE_BABY_BALL.variant)
 
-StageAPI.AddCallback("Revelations", RevCallbacks.POST_ENTITY_AIR_MOVEMENT_LAND, 2, function(ent, airMovementData, fromPit)
+revel:AddCallback(RevCallbacks.POST_ENTITY_ZPOS_LAND, function(_, ent, airMovementData, fromPit)
     if ent.Variant == REVEL.ENT.BANDAGE_BABY_BALL.variant then
         ent:GetData().OnGround = true
         ent:GetSprite():Play("Rags", true)

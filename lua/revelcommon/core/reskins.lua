@@ -132,6 +132,7 @@ do
 		end
 	end
 
+	---@param npc EntityNPC
 	function REVEL.CheckReplacements(npc, onUpdate, overrideStage, skipSin)
 		local data = npc:GetData()
 		local success = false
@@ -177,10 +178,10 @@ do
 
 					--anm2 replacement
 					if replacementData.ANM2 and (not onUpdate or overrideStage) then --dont replace anm2 in update just in case the entity does special coding in the game's first update, generally more compatible
-
 						local sprite = npc:GetSprite()
 
-						local wasAppearing = sprite:IsPlaying("Appear") --be sure to maintain the appear animation
+						local anim = sprite:GetAnimation()
+						local ovAnim = sprite:GetOverlayAnimation()
 
 						if npc:IsBoss() then
 							sprite:Load(stageTable.BossPath .. replacementData.ANM2 .. ".anm2", true)
@@ -192,12 +193,10 @@ do
 							:format(npc.Type, npc.Variant, sprite:GetFilename())
 						)
 
-						if wasAppearing then
-							sprite:Play("Appear", false)
-						else
-							sprite:Play(sprite:GetDefaultAnimationName(), false)
+						sprite:Play(anim, true)
+						if ovAnim ~= "" then
+							sprite:PlayOverlay(ovAnim, true)
 						end
-
 					end
 
 					--spritesheet replacement
@@ -219,11 +218,17 @@ do
 										end
 									end
 								end
-								REVEL.ReplaceEnemySpritesheet(npc, stageTable.BossPath .. spritesheetToUse, layerIndex)
-								REVEL.DebugStringMinor(("Replaced boss %d.%d sprite to %s")
-									:format(npc.Type, npc.Variant, stageTable.BossPath .. spritesheetToUse)
-								)
-								data.__RevReplacedSpritesheet = true
+								if spritesheetToUse then
+									REVEL.ReplaceEnemySpritesheet(npc, stageTable.BossPath .. spritesheetToUse, layerIndex)
+									REVEL.DebugStringMinor(("Replaced boss %d.%d sprite to %s")
+										:format(npc.Type, npc.Variant, stageTable.BossPath .. spritesheetToUse)
+									)
+									data.__RevReplacedSpritesheet = true
+								else
+									REVEL.DebugStringMinor(("Reskins: boss %d.%d.%d spritesheetToUse nil! ForceSpriteVariant: %s")
+										:format(npc.Type, npc.Variant, npc.SubType, data.ForceSpriteVariant)
+									)
+								end
 							end
 						else
 							for layerIndex, spritesheet in pairs(replacementData.SPRITESHEET) do
@@ -235,11 +240,17 @@ do
 										spritesheetToUse = spritesheet[math.random(1, #spritesheet)]
 									end
 								end
-								REVEL.ReplaceEnemySpritesheet(npc, stageTable.MonsterPath .. spritesheetToUse, layerIndex)
-								REVEL.DebugStringMinor(("Replaced enemy %d.%d sprite to %s")
-									:format(npc.Type, npc.Variant, stageTable.MonsterPath .. spritesheetToUse)
-								)
-								data.__RevReplacedSpritesheet = true
+								if spritesheetToUse then
+									REVEL.ReplaceEnemySpritesheet(npc, stageTable.MonsterPath .. spritesheetToUse, layerIndex)
+									REVEL.DebugStringMinor(("Replaced enemy %d.%d sprite to %s")
+										:format(npc.Type, npc.Variant, stageTable.MonsterPath .. spritesheetToUse)
+									)
+									data.__RevReplacedSpritesheet = true
+								else
+									REVEL.DebugStringMinor(("Reskins: %d.%d.%d spritesheetToUse nil! ForceSpriteVariant: %s")
+										:format(npc.Type, npc.Variant, npc.SubType, data.ForceSpriteVariant)
+									)
+								end
 							end
 						end
 						sprite:LoadGraphics()

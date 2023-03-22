@@ -97,6 +97,12 @@ StageAPI.AddMetadataEntities{
         },
         [747] = {
             Name = "Vanity Statwheel Init Workaround",
+        },
+        [748] = {
+            Name = "Test - Airmovement Ground Level",
+            BitValues = {
+                GroundLevel = {ValueOffset = -32768, Length = 16},
+            },
         }
     }
 }

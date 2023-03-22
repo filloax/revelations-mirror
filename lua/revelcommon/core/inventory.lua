@@ -5,7 +5,13 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 -- ITEM PICKUP EVENT AND INVENTORY --
 -------------------------------------
 
-revel:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, function(_, p)
+-- Autocomplete stuff, false so it doesn't actually run
+if false then
+    ---@type table<integer, table<string, integer>> playerId: {string item id: amount}
+    revel.data.run.inventory = {}
+end
+
+revel:AddCallback(RevCallbacks.POST_BASE_PLAYER_INIT, function(_, p)
     -- no way to directly get playerID
     for i, v in ipairs(REVEL.players) do
         if not revel.data.run.itemCount[i] then

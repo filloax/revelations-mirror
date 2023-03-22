@@ -1,5 +1,6 @@
 local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
+local PlayerVariant     = require("lua.revelcommon.enums.PlayerVariant")
 
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 ---------------------
@@ -51,6 +52,11 @@ in this file:
         Runs after all post entity take damage callbacks, cannot 
         cancel it from here.
 
+    REV_POST_BASE_PEFFECT_UPDATE*(player)
+    REV_POST_BASE_PLAYER_INIT*(player)
+        Like base callbacks, but automatically excludes coop babies
+        and Found Soul
+
 in root/main.lua:
     REV_POST_INGAME_RELOAD(isReload) 
         isReload is always true, use it for functions used both in NEW_ROOM and this for example to distinguish the cases. 
@@ -73,10 +79,10 @@ in reflections.lua:
         specify type optionally
 
 in airmovement.lua: 
-    REV_PRE_ENTITY_AIR_MOVEMENT_UPDATE(entity, airMovementData)
-    REV_PRE_ENTITY_AIR_MOVEMENT_LAND(entity, airMovementData, landFromGrid)
-    REV_POST_ENTITY_AIR_MOVEMENT_UPDATE(entity, airMovementData, landFromGrid)
-    REV_POST_ENTITY_AIR_MOVEMENT_LAND(entity, airMovementData, landFromGrid)
+    REV_PRE_ENTITY_ZPOS_UPDATE*(entity, airMovementData)
+    REV_PRE_ENTITY_ZPOS_LAND*(entity, airMovementData, landFromGrid)
+    REV_POST_ENTITY_ZPOS_UPDATE*(entity, airMovementData, landFromGrid)
+    REV_POST_ENTITY_ZPOS_LAND*(entity, airMovementData, landFromGrid)
 
 in revelcommon/entities/machines/basic.lua:
     REV_POST_MACHINE_UPDATE(machine)
@@ -106,6 +112,8 @@ in tear_sounds.lua:
     REV_PRE_PROJIMPACTS_SOUND(projectile, data, sprite) -> boolean
         return false to not play sounds
         return a number to use multiply the volume by that
+
+*: uses the Repentance callback system
 
 deprecated as of Repentance:
     REV_POST_ITEM_USE(player, itemID, itemRNG, isCarBatteryUse): ItemID
@@ -911,7 +919,23 @@ do
         )
     end
 
-    REVEL.AddLowPriorityCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, postEntityTakeDmg_EntityTakeDmg)
+    revel:AddPriorityCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, CallbackPriority.LATE + 100, postEntityTakeDmg_EntityTakeDmg)
+end
+
+-- POST BASE PLAYER stuff
+do
+    local function basePlayer_PostPeffectUpdate(_, player)
+        if player.Variant == PlayerVariant.PLAYER then
+            Isaac.RunCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, player)
+        end
+    end
+    local function basePlayer_PostPlayerInit(_, player)
+        if player.Variant == PlayerVariant.PLAYER then
+            Isaac.RunCallback(RevCallbacks.POST_BASE_PLAYER_INIT, player)
+        end
+    end
+    revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, basePlayer_PostPeffectUpdate)
+    revel:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, basePlayer_PostPlayerInit)
 end
 
 -- Deprecated callbacks warning

@@ -17,7 +17,7 @@ revel:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function(_, player, cacheflag)
     end
 end)
 
-revel:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, function(_, player)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, player)
     if REVEL.ITEM.NOT_A_BULLET:PlayerHasCollectible(player) then
         local data = player:GetData()
         if not data.NotABulletPrevShotSpeed or data.NotABulletPrevShotSpeed ~= player.ShotSpeed then

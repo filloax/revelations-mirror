@@ -1,5 +1,6 @@
 local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
+local PlayerVariant     = require("lua.revelcommon.enums.PlayerVariant")
 
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 -------------------
@@ -57,8 +58,9 @@ end)
 revel:AddCallback(ModCallbacks.MC_USE_ITEM,
                     function(_, itemID, itemRNG, player, useFlags, activeSlot,
                             customVarData)
-    if player:GetActiveItem() == itemID and
-        not HasBit(useFlags, UseFlag.USE_CARBATTERY) then
+    if player:GetActiveItem() == itemID
+    and player.Variant == PlayerVariant.PLAYER
+    and not HasBit(useFlags, UseFlag.USE_CARBATTERY) then
         local data = player:GetData()
 
         if not data.gutState then

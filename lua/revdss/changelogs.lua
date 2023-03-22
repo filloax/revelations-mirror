@@ -1,4 +1,50 @@
 -- Keep lines at max 40 characters, can use for that https://www.gillmeister-software.com/online-tools/text/add-line-breaks_change-line-length.aspx
+REVEL.AddChangelog("Vanity (4.2.0)", "Mar 4 2023", [[- Add enemy: Sandstorm 
+- Add enemy: Juniaugr 
+- New rooms, including community ones 
+
+Tweaks 
+- Update Rev MinimapAPI to 2.42 (
+workshop 05.03.2023) 
+- Vanity shop items can be duplicate 
+with Diplopia 
+- Willo buffed: aura grants homing 
+tears, taking damage shoots a burst of 
+tears instead of one 
+- Addict changes: skitterpills have 
+less HP, but more stage HP, dropped 
+pills disappear after a while, more 
+skitterpills possible, using a pill in 
+a room with skitterpills will kill all 
+of them, gold and good pills are less 
+common 
+- Improve save data behavior and 
+performance 
+- Added POST_REVELATIONS_LOAD callback 
+for mod compatibility 
+- More Encyclopedia compatibility 
+- Clear cache now disabled by default 
+as not needed since latest Repentance 
+patch 
+- Improve Fecal Freak + Anti-Gravity 
+
+Fixes 
+- Fix Pact of Paranoia replacing 
+existing traps 
+- Fix Addict skitterpills dropping the 
+wrong pill 
+- Fix Perseverance crash 
+- Fix all spiders HP being changed due 
+to Raging Long Legs code 
+- Fix Birthday candle lowering range 
+- Fix Cardboard robot visibility 
+- Fix Ragtime and Prong being 
+broken/softlocked by killing too fast 
+- Fix some Birth Control synergyes 
+applying to all familiars 
+- Fix Prong breaking the wrong ice 
+tiles sometimes 
+- Fix Narc locking controls sometimes]])
 REVEL.AddChangelog("Vanity (4.1.2)", "Dec 3 2022", [[- Community rooms! 
 - Tomb Prank now has sand attack
 - Nerf igloo firerate 

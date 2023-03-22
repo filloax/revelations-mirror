@@ -70,7 +70,7 @@ function REVEL.Glacier.RemoveSnowTile(index)
             numIndex = math.floor(index)
             strIndex = tostring(index)
         end
-        REVEL.DebugLog("RemoveSnowTile", index, strIndex, currentRoom.PersistentData.SnowedTiles[strIndex])
+        -- REVEL.DebugLog("RemoveSnowTile", index, strIndex, currentRoom.PersistentData.SnowedTiles[strIndex])
 
         if currentRoom.PersistentData.SnowedTiles[strIndex] then 
             if currentRoom.PersistentData.SnowedTiles[strIndex] == SNOW_TILE_PIT then

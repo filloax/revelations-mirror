@@ -151,7 +151,6 @@ revel:AddCallback(ModCallbacks.MC_POST_NPC_RENDER, function(_, npc)
             npc:Remove()
             return
         end
-        return true
     end
 end, REVEL.ENT.CRYO_FLY.id)
 

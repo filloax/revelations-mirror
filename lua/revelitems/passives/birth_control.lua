@@ -468,25 +468,17 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_ITEM_PICKUP, 1, function(p
 
                     if BirthControl.FamToStat[id] then
                         if BirthControl.FamToStat[id][3] == "mult" then
-                            runStats.mult[BirthControl.FamToStat[id][1]] =
-                                runStats.mult[BirthControl.FamToStat[id][1]] *
-                                    BirthControl.FamToStat[id][2]
+                            runStats.mult[BirthControl.FamToStat[id][1]] = runStats.mult[BirthControl.FamToStat[id][1]] * BirthControl.FamToStat[id][2]
                         else
-                            runStats[BirthControl.FamToStat[id][1]] =
-                                runStats[BirthControl.FamToStat[id][1]] +
-                                    BirthControl.FamToStat[id][2]
+                            runStats[BirthControl.FamToStat[id][1]] = runStats[BirthControl.FamToStat[id][1]] + BirthControl.FamToStat[id][2]
                         end
                     end
 
                     if BirthControl.FamToStatSecondary[id] then
                         if BirthControl.FamToStatSecondary[id][3] == "mult" then
-                            runStats.mult[BirthControl.FamToStatSecondary[id][1]] =
-                                runStats.mult[BirthControl.FamToStatSecondary[id][1]] *
-                                    BirthControl.FamToStatSecondary[id][2]
+                            runStats.mult[BirthControl.FamToStatSecondary[id][1]] = runStats.mult[BirthControl.FamToStatSecondary[id][1]] * BirthControl.FamToStatSecondary[id][2]
                         else
-                            runStats[BirthControl.FamToStatSecondary[id][1]] =
-                                runStats[BirthControl.FamToStatSecondary[id][1]] +
-                                    BirthControl.FamToStatSecondary[id][2]
+                            runStats[BirthControl.FamToStatSecondary[id][1]] = runStats[BirthControl.FamToStatSecondary[id][1]] + BirthControl.FamToStatSecondary[id][2]
                         end
                     end
 
@@ -595,11 +587,13 @@ end, REVEL.ENT.WILLO.variant)
 
 revel:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, function(_, e)
     local player = e.Player
-    if REVEL.ITEM.BCONTROL:PlayerHasCollectible(player) and
-        not (player:HasWeaponType(WeaponType.WEAPON_BRIMSTONE) or
-            player:HasWeaponType(WeaponType.WEAPON_LUDOVICO_TECHNIQUE) or
-            player:HasWeaponType(WeaponType.WEAPON_LASER) or
-            player:HasWeaponType(WeaponType.WEAPON_ROCKETS)) then
+    if REVEL.ITEM.BCONTROL:PlayerHasCollectible(player) 
+    and not (
+        player:HasWeaponType(WeaponType.WEAPON_BRIMSTONE) 
+        or player:HasWeaponType(WeaponType.WEAPON_LUDOVICO_TECHNIQUE)
+        or player:HasWeaponType(WeaponType.WEAPON_LASER) 
+        or player:HasWeaponType(WeaponType.WEAPON_ROCKETS)
+    ) then
         if not e:GetData().BirthControlled then
             e.Visible = false
             e.OrbitDistance = Vector.Zero
@@ -624,7 +618,7 @@ if REVEL.FiendFolioCompatLoaded then
     
             e.Position = e.Player.Position
         end
-    end, FamiliarVariant.LIL_LAMB)
+    end, FiendFolio.ITEM.FAMILIAR.LIL_LAMB)
 
     revel:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, function(_, e)
         if REVEL.ITEM.BCONTROL:PlayerHasCollectible(e.Player) then
@@ -637,7 +631,7 @@ if REVEL.FiendFolioCompatLoaded then
     
             e.Position = e.Player.Position
         end
-    end, FamiliarVariant.CRATER_FACE)
+    end, FiendFolio.ITEM.FAMILIAR.BABY_CRATER)
 
     revel:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, function(_, e)
         if REVEL.ITEM.BCONTROL:PlayerHasCollectible(e.Player) then
@@ -650,7 +644,7 @@ if REVEL.FiendFolioCompatLoaded then
     
             e.Position = e.Player.Position
         end
-    end, FamiliarVariant.DEIMOS)
+    end, FiendFolio.ITEM.FAMILIAR.DEIMOS)
 end
 
 revel:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function(_, player, flag)
@@ -705,13 +699,13 @@ revel:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function(_, player, flag)
                 player.TearFlags = player.TearFlags | TearFlags.TEAR_HOMING
             end
         elseif flag == CacheFlag.CACHE_FIREDELAY then
-            if player:HasCollectible(
-                CollectibleType.COLLECTIBLE_ANGELIC_PRISM) and
-                not (player:HasWeaponType(WeaponType.WEAPON_BRIMSTONE) or
-                    player:HasWeaponType(
-                        WeaponType.WEAPON_LUDOVICO_TECHNIQUE) or
-                    player:HasWeaponType(WeaponType.WEAPON_LASER) or
-                    player:HasWeaponType(WeaponType.WEAPON_ROCKETS)) then
+            if player:HasCollectible(CollectibleType.COLLECTIBLE_ANGELIC_PRISM) 
+            and not (
+                player:HasWeaponType(WeaponType.WEAPON_BRIMSTONE) 
+                or player:HasWeaponType(WeaponType.WEAPON_LUDOVICO_TECHNIQUE)
+                or player:HasWeaponType(WeaponType.WEAPON_LASER) 
+                or player:HasWeaponType(WeaponType.WEAPON_ROCKETS)
+            ) then
                 player.MaxFireDelay = math.ceil(player.MaxFireDelay * 1.75)
             end
 
@@ -721,8 +715,7 @@ revel:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function(_, player, flag)
                 end
             end
         elseif flag == CacheFlag.CACHE_DAMAGE then
-            if revel.data.run.bcSynergyes[tostring(
-                REVEL.ITEM.ENVYS_ENMITY.id)] > 0 then
+            if revel.data.run.bcSynergyes[tostring(REVEL.ITEM.ENVYS_ENMITY.id)] > 0 then
                 local data = player:GetData()
                 data.bcEnvyEnmnitySplits = data.bcEnvyEnmnitySplits or 0
                 if data.bcEnvyEnmnitySplits > 0 then
@@ -730,11 +723,8 @@ revel:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function(_, player, flag)
                     for i = 1, data.bcEnvyEnmnitySplits do
                         damageToAdd = damageToAdd * 2
                     end
-                    damageToAdd = (damageToAdd *
-                                        revel.data.run.bcSynergyes[tostring(
-                                            REVEL.ITEM.ENVYS_ENMITY.id)]) -
-                                        revel.data.run.bcSynergyes[tostring(
-                                            REVEL.ITEM.ENVYS_ENMITY.id)]
+                    damageToAdd = (damageToAdd * revel.data.run.bcSynergyes[tostring(REVEL.ITEM.ENVYS_ENMITY.id)]) 
+                        - revel.data.run.bcSynergyes[tostring(REVEL.ITEM.ENVYS_ENMITY.id)]
                     damageToAdd = damageToAdd * 0.2
                     player.Damage = player.Damage + damageToAdd
                 end
@@ -803,8 +793,7 @@ end, EntityType.ENTITY_PLAYER)
 StageAPI.AddCallback("Revelations", RevCallbacks.EARLY_POST_NEW_ROOM, 1, function()
     for _, player in ipairs(REVEL.players) do
         if REVEL.ITEM.BCONTROL:PlayerHasCollectible(player) then
-            if revel.data.run.bcSynergyes[tostring(
-                REVEL.ITEM.ENVYS_ENMITY.id)] > 0 then
+            if revel.data.run.bcSynergyes[tostring(REVEL.ITEM.ENVYS_ENMITY.id)] > 0 then
                 local data = player:GetData()
                 data.bcEnvyEnmnitySplits = 0
                 player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
@@ -823,39 +812,28 @@ end)
 StageAPI.AddCallback("Revelations", RevCallbacks.ON_TEAR, 2,
                         function(tear, data, sprite, player)
     if player and REVEL.ITEM.BCONTROL:PlayerHasCollectible(player) then
-        if revel.data.run.bcSynergyes[tostring(REVEL.ITEM.BANDAGE_BABY.id)] > 0 then
+        local bandageBabyNum = revel.data.run.bcSynergyes[tostring(REVEL.ITEM.BANDAGE_BABY.id)]
+        if bandageBabyNum > 0 then
             local data = player:GetData()
 
-            local startingShotsTilBandageBall = 10 -
-                                                    ((revel.data.run
-                                                        .bcSynergyes[tostring(
-                                                        REVEL.ITEM
-                                                            .BANDAGE_BABY.id)] -
-                                                        1) * 2)
-            data.ShotsTilBandageBall =
-                data.ShotsTilBandageBall or startingShotsTilBandageBall
-            data.LastBandageBallShotTime =
-                data.LastBandageBallShotTime or Isaac.GetFrameCount()
+            local startingShotsTilBandageBall = 10 - ((bandageBabyNum - 1) * 2)
+            data.ShotsTilBandageBall = data.ShotsTilBandageBall or startingShotsTilBandageBall
+            data.LastBandageBallShotTime = data.LastBandageBallShotTime or Isaac.GetFrameCount()
 
-            if (Isaac.CountEntities(nil, REVEL.ENT.BANDAGE_BABY_BALL.id,
-                                    REVEL.ENT.BANDAGE_BABY_BALL.variant, -1) or
-                0) < 3 then
+            if Isaac.CountEntities(nil, REVEL.ENT.BANDAGE_BABY_BALL.id, REVEL.ENT.BANDAGE_BABY_BALL.variant) < 3 then
                 data.ShotsTilBandageBall = data.ShotsTilBandageBall - 1
 
-                if data.ShotsTilBandageBall <= 0 and Isaac.GetFrameCount() >
-                    data.LastBandageBallShotTime + 90 then
+                if data.ShotsTilBandageBall <= 0 and Isaac.GetFrameCount() > data.LastBandageBallShotTime + 90 then
                     data.ShotsTilBandageBall = startingShotsTilBandageBall
                     data.LastBandageBallShotTime = Isaac.GetFrameCount()
 
-                    local ball = Isaac.Spawn(REVEL.ENT.BANDAGE_BABY_BALL.id,
-                                                REVEL.ENT.BANDAGE_BABY_BALL
-                                                    .variant, 0,
-                                                player.Position, tear.Velocity,
-                                                player)
-                    REVEL.sfx:Play(SoundEffect.SOUND_FETUS_JUMP, 0.9, 0,
-                                    false, 1)
+                    local ball = REVEL.ENT.BANDAGE_BABY_BALL:spawn(
+                        player.Position, tear.Velocity,
+                        player
+                    )
+                    REVEL.sfx:Play(SoundEffect.SOUND_FETUS_JUMP, 0.9)
 
-                    REVEL.SetEntityAirMovement(ball, {
+                    REVEL.ZPos.SetData(ball, {
                         ZVelocity = 2,
                         ZPosition = 10,
                         Gravity = 0.1,
@@ -863,10 +841,11 @@ StageAPI.AddCallback("Revelations", RevCallbacks.ON_TEAR, 2,
                         DoRotation = true,
                         RotationOffset = 56,
                         DisableCollision = false,
+                        EntityCollisionMode = REVEL.ZPos.EntityCollisionMode.DONT_HANDLE,
                         BounceFromGrid = false,
                         LandFromGrid = false
                     })
-                    REVEL.UpdateEntityAirMovement(ball)
+                    REVEL.ZPos.UpdateEntity(ball)
                     ball:GetData().Init = true
 
                     tear:Remove()
@@ -876,12 +855,12 @@ StageAPI.AddCallback("Revelations", RevCallbacks.ON_TEAR, 2,
             end
         end
 
-        if revel.data.run.bcSynergyes[tostring(REVEL.ITEM.WILLO.id)] > 0 then
-            if math.random(1,10) <= math.max(1,math.min(5,(player.Luck/2))) then
-                tear:AddTearFlags(TearFlags.TEAR_HOMING)
-                tear:GetSprite().Color = player.TearColor * REVEL.HOMING_COLOR
-            end
-        end
+        -- if revel.data.run.bcSynergyes[tostring(REVEL.ITEM.WILLO.id)] > 0 then
+        --     if math.random(1,10) <= math.max(1,math.min(5,(player.Luck/2))) then
+        --         tear:AddTearFlags(TearFlags.TEAR_HOMING)
+        --         tear:GetSprite().Color = player.TearColor * REVEL.HOMING_COLOR
+        --     end
+        -- end
 
         if revel.data.run.bcSynergyes[tostring(CollectibleType.COLLECTIBLE_FRUITY_PLUM)] > 0 then
             tear.Scale = tear.Scale * math.random(8,12)/10
@@ -909,19 +888,16 @@ revel:AddCallback(ModCallbacks.MC_PRE_TEAR_COLLISION, function(_, tear, collider
 end)
 
 local extensionCordColor = Color(0, 0, 0, 1, conv255ToFloat(200, 150, 20))
-revel:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, function(_, player)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, player)
     if REVEL.ITEM.BCONTROL:PlayerHasCollectible(player) then
         local data = player:GetData()
 
         if data.bcHadBabyBender == nil then
             data.bcHadBabyBender = false
         end
-        if data.bcHadBabyBender ~=
-            player:HasTrinket(TrinketType.TRINKET_BABY_BENDER) then
-            data.bcHadBabyBender = player:HasTrinket(
-                                        TrinketType.TRINKET_BABY_BENDER)
-            player:AddCacheFlags(CacheFlag.CACHE_TEARFLAG |
-                                        CacheFlag.CACHE_TEARCOLOR)
+        if data.bcHadBabyBender ~= player:HasTrinket(TrinketType.TRINKET_BABY_BENDER) then
+            data.bcHadBabyBender = player:HasTrinket(TrinketType.TRINKET_BABY_BENDER)
+            player:AddCacheFlags(CacheFlag.CACHE_TEARFLAG | CacheFlag.CACHE_TEARCOLOR)
             player:EvaluateItems()
         end
 
@@ -936,30 +912,26 @@ revel:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, function(_, player)
         end
         if data.bcHadChildLeash ~=
             player:HasTrinket(TrinketType.TRINKET_CHILD_LEASH) then
-            data.bcHadChildLeash = player:HasTrinket(
-                                        TrinketType.TRINKET_CHILD_LEASH)
+            data.bcHadChildLeash = player:HasTrinket(TrinketType.TRINKET_CHILD_LEASH)
             player:AddCacheFlags(CacheFlag.CACHE_SPEED)
             player:EvaluateItems()
         end
 
         if player:HasTrinket(TrinketType.TRINKET_EXTENSION_CORD) then
-            data.bcExtensionCordLaserFireCountdown =
-                data.bcExtensionCordLaserFireCountdown or
-                    math.random(30, 120)
-            data.bcExtensionCordLaserFireCountdown =
-                data.bcExtensionCordLaserFireCountdown - 1
+            data.bcExtensionCordLaserFireCountdown = data.bcExtensionCordLaserFireCountdown 
+                or math.random(30, 120)
+            data.bcExtensionCordLaserFireCountdown = data.bcExtensionCordLaserFireCountdown - 1
 
             if data.bcExtensionCordLaserFireCountdown <= 0 then
                 data.bcExtensionCordLaserFireCountdown = nil
 
-                local closeEnemy = REVEL.getClosestEnemy(player, false,
-                                                            true, true, true)
+                local closeEnemy = REVEL.getClosestEnemy(player, false, true, true, true)
                 if closeEnemy then
-                    local laser = player:FireTechLaser(player.Position,
-                                                        LaserOffset.LASER_TECH5_OFFSET,
-                                                        closeEnemy.Position -
-                                                            player.Position,
-                                                        false, true)
+                    local laser = player:FireTechLaser(
+                        player.Position, LaserOffset.LASER_TECH5_OFFSET, 
+                        closeEnemy.Position - player.Position,
+                        false, true
+                    )
                     laser:GetSprite().Color = extensionCordColor
                 end
             end

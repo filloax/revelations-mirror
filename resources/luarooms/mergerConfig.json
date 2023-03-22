@@ -1,0 +1,14 @@
+{
+    "files": [
+        {
+            "outputFile": "glacier_merged.xml",
+            "paths": [ "./revel1/" ],
+            "startingId": 0
+        },
+       	{
+            "outputFile": "tomb_merged.xml",
+            "paths": [ "./revel2/" ],
+            "startingId": 0
+        }
+    ]
+}

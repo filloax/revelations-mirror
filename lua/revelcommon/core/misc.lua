@@ -1096,6 +1096,7 @@ do
 
     local brokenCallbacks = {}
 
+    ---@deprecated No longer needed
     function REVEL.AddBrokenCallback(callbackId, fn, arg)
         if not brokenCallbacks[callbackId] then
           brokenCallbacks[callbackId] = {}
@@ -1452,8 +1453,8 @@ do
         end
     end
 
-    revel:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, chargeWheelPlayerInit)
-    revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, chargeWheelPlayerUpdate)
+    revel:AddCallback(RevCallbacks.POST_BASE_PLAYER_INIT, chargeWheelPlayerInit)
+    revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, chargeWheelPlayerUpdate)
     revel:AddCallback(ModCallbacks.MC_POST_PLAYER_RENDER, chargeWheelPlayerRender)
 end
 

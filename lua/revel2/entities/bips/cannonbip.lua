@@ -42,7 +42,9 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
     local data, sprite, player = npc:GetData(), npc:GetSprite(), npc:GetPlayerTarget()
 
     if npc.SubType ~= 10 then
-        npc.Velocity = npc.Velocity * 0
+        if not data.SandstormPulled then
+            npc.Velocity = Vector.Zero
+        end
 
         if not data.Init then
             npc.SplatColor = REVEL.SandSplatColor
@@ -78,7 +80,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
                 pbip:AddEntityFlags(EntityFlag.FLAG_NO_KNOCKBACK | EntityFlag.FLAG_NO_STATUS_EFFECTS | EntityFlag.FLAG_NO_PHYSICS_KNOCKBACK)
                 pbip.GridCollisionClass = EntityGridCollisionClass.GRIDCOLL_BULLET
                 pbip.EntityCollisionClass = EntityCollisionClass.ENTCOLL_PLAYERONLY
-                REVEL.SetEntityAirMovement(pbip, {
+                REVEL.ZPos.SetData(pbip, {
                     ZVelocity = 10,
                     ZPosition = 10,
                     Gravity = 0.25,
@@ -138,7 +140,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
             npc:AddEntityFlags(EntityFlag.FLAG_NO_KNOCKBACK | EntityFlag.FLAG_NO_STATUS_EFFECTS | EntityFlag.FLAG_NO_PHYSICS_KNOCKBACK)
             npc.GridCollisionClass = EntityGridCollisionClass.GRIDCOLL_BULLET
             npc.EntityCollisionClass = EntityCollisionClass.ENTCOLL_PLAYERONLY
-            REVEL.SetEntityAirMovement(npc, {
+            REVEL.ZPos.SetData(npc, {
                 Gravity = 0.25,
                 TerminalVelocity = 0,
                 Bounce = 0,
@@ -159,16 +161,15 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 
         if data.Origin and data.Target then
             if not REVEL.LerpEntityPosition(npc, data.Origin, data.Target, 40) then
-                npc.Position = data.Target
-                npc.Velocity = Vector.Zero
                 data.Origin = nil
                 data.Target = nil
             end
         end
     end
+    data.SandstormPulled = false
 end, REVEL.ENT.CANNONBIP.id)
 
-StageAPI.AddCallback("Revelations", RevCallbacks.POST_ENTITY_AIR_MOVEMENT_LAND, 0, function(entity, airMovementData, fromPit)
+revel:AddCallback(RevCallbacks.POST_ENTITY_ZPOS_LAND, function(_, entity, airMovementData, fromPit)
     if not REVEL.ENT.CANNONBIP_PROJECTILE:isEnt(entity, true) and not (fromPit and fromPit.CollisionClass == GridCollisionClass.COLLISION_PIT) then
         return
     end

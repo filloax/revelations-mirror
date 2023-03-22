@@ -221,18 +221,19 @@ local function spitSandyWar(sandy, position, velocity, animation, noHorse)
 
 	warData.SandyParent = sandy
 
-	REVEL.SetEntityAirMovement(war, {
+	REVEL.ZPos.SetData(war, {
 		ZVelocity = 3,
-		ZPosition = 40,
+		ZPosition = 65,
 		Gravity = 0.08,
 		DoRotation = false,
 		DisableCollision = false,
+		EntityCollisionMode = REVEL.ZPos.EntityCollisionMode.DONT_HANDLE,
 		BounceFromGrid = false,
 		LandFromGrid = false,
 		PoofInPits = false,
 		DisableAI = true
 	})
-	REVEL.UpdateEntityAirMovement(war)
+	REVEL.ZPos.UpdateEntity(war)
 
 	if noHorse then
 		warSprite:Load("gfx/bosses/revel2/sandy/sandy_war_without_horse.anm2", true)
@@ -865,12 +866,12 @@ local function sandy_Sandy_NpcUpdate(_, npc)
 					data.AttacksAfterWarSpawn = 0
 
 					local war = spitSandyWar(npc, npc.Position, spawnWarVelocity, "InAir", spawnWithoutHorse)
-					REVEL.SetEntityAirMovement(war, {
-						ZVelocity = 4,
+					REVEL.ZPos.SetData(war, {
+						ZVelocity = 6,
 						ZPosition = 120,
 						Gravity = 0.12,
 					})
-					REVEL.UpdateEntityAirMovement(war)
+					REVEL.ZPos.UpdateEntity(war)
 
 					if spawnWithoutHorse then
 						war:ClearEntityFlags(EntityFlag.FLAG_DONT_COUNT_BOSS_HP | EntityFlag.FLAG_HIDE_HP_BAR)
@@ -1037,7 +1038,7 @@ local function sandy_Sandy_NpcUpdate(_, npc)
 						data.AteWar = false
 						local attackAnimation = data.SandholeWarAttack or math.random(1,2)
 						local war = spitSandyWar(npc, npc.Position, Vector.Zero, "InAir Attack" .. attackAnimation)
-						REVEL.SetEntityAirMovement(war, {DisableAI = false})
+						REVEL.ZPos.SetData(war, {DisableAI = false})
 						data.SandholeWarAttack = nil
 					end
 				end
@@ -1237,11 +1238,8 @@ local function sandy_Sandy_EntityTakeDmg(_, ent, amount, flags, source, cooldown
 
 		-- REVEL.DebugStringMinor(("sandy damage | hp %.2f damage %.2f buffer %f")
 		-- 	:format(ent.HitPoints, amount, REVEL.GetDamageBuffer(ent)))
-
-		local flashRed, flashDuration = Color(1,0.5,0.5,1,150,0,0), 3
-
 		if data.State == "Death" or (sprite:IsPlaying("Death Revive") and ent.HitPoints < ent.MaxHitPoints*0.4) then
-			ent:SetColor(flashRed, flashDuration, 1, false, false)
+			REVEL.DamageFlash(ent)
 			return false
 		elseif sprite:IsPlaying("Death Revive") then
 			damageMod = 0.2
@@ -1275,14 +1273,14 @@ local function sandy_Sandy_EntityTakeDmg(_, ent, amount, flags, source, cooldown
 			ent:RemoveStatusEffects()
 
 			-- REVEL.DebugStringMinor(("Deadly damage: %f minus %f + %f"):format(ent.HitPoints, amount, REVEL.GetDamageBuffer(ent)))
-			ent:SetColor(flashRed, flashDuration, 1, false, false)
+			REVEL.DamageFlash(ent)
 			return false
 		elseif not data.StartedFight then
 			damageMod = 0.2
 			data.StartFightCounter = data.StartFightCounter - math.max(1, math.floor(amount / ent.MaxHitPoints * 50)) --counter decreases by 1 every 2 percent
 		elseif data.IsRevived then
 			if data.RemainingRevivalHealth and data.RemainingRevivalHealth > 0 and amount >= ent.HitPoints then
-				ent:SetColor(flashRed, flashDuration, 1, false, false)
+				REVEL.DamageFlash(ent)
 				return false
 			end
 		end
@@ -1902,7 +1900,7 @@ local function spawnRandomBombAroundPosition(pos, minDist, maxDist, velocity, pa
 	return Isaac.Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_TROLL, 0, REVEL.room:FindFreePickupSpawnPosition(pos+(vec*dist), 0, true), velocity or Vector.Zero, parent):ToBomb()
 end
 
-StageAPI.AddCallback("Revelations", RevCallbacks.PRE_ENTITY_AIR_MOVEMENT_UPDATE, 0, function(ent, airMovementData)
+revel:AddCallback(RevCallbacks.PRE_ENTITY_ZPOS_UPDATE, function(_, ent, airMovementData)
 	local data, sprite = ent:GetData(), ent:GetSprite()
 	if ent.Variant ~= 10 and data.SandyParent then
 		if sprite:IsPlaying("InAir Cry") or sprite:IsPlaying("InAir Attack1") or sprite:IsPlaying("InAir Attack2") then
@@ -1923,7 +1921,7 @@ StageAPI.AddCallback("Revelations", RevCallbacks.PRE_ENTITY_AIR_MOVEMENT_UPDATE,
 	end
 end, EntityType.ENTITY_WAR)
 
-StageAPI.AddCallback("Revelations", RevCallbacks.POST_ENTITY_AIR_MOVEMENT_LAND, 0, function(ent, airMovementData, fromPit)
+revel:AddCallback(RevCallbacks.POST_ENTITY_ZPOS_LAND, function(_, ent, airMovementData, fromPit)
 	local data, sprite = ent:GetData(), ent:GetSprite()
 	if data.SandyParent then
 		ent.EntityCollisionClass = EntityCollisionClass.ENTCOLL_PLAYEROBJECTS
@@ -1972,7 +1970,7 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_ENTITY_AIR_MOVEMENT_LAND, 
 	end
 end, EntityType.ENTITY_WAR)
 
-REVEL.AddBrokenCallback(ModCallbacks.MC_PRE_NPC_UPDATE, function(_, npc)
+revel:AddCallback(ModCallbacks.MC_PRE_NPC_UPDATE, function(_, npc)
 	local data, sprite = npc:GetData(), npc:GetSprite()
 	if npc.Variant ~= 10 and data.SandyParent then
 		if sprite:IsFinished("InAir Attack1") or sprite:IsFinished("InAir Attack2") then

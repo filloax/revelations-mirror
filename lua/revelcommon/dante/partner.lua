@@ -63,10 +63,7 @@ local function MergeRoomCharacterUpdate(effect, data, sprite, player, pdata)
             gotoPos = rightPos
         end
 
-        if not REVEL.IsUsingPathMap(REVEL.GenericChaserPathMap, effect) then
-            REVEL.UsePathMap(REVEL.GenericChaserPathMap, effect)
-        end
-        data.UsePlayerMap = true
+        REVEL.UsePathMap(REVEL.GenericChaserPathMap, effect)
         data.TargetIndex = REVEL.room:GetGridIndex(gotoPos)
 
         if not data.Path or data.IsAngry then

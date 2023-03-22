@@ -37,7 +37,7 @@ revel:AddCallback(ModCallbacks.MC_EVALUATE_CACHE , function(_, player, cacheFlag
             elseif cacheFlag == CacheFlag.CACHE_SPEED then
                 player.MoveSpeed = player.MoveSpeed*(1.1^stats)
             elseif cacheFlag == CacheFlag.CACHE_RANGE then
-                player.TearRange = player.TearRange/(1.1^stats)
+                player.TearRange = player.TearRange*(1.1^stats)
             end
         end
     end

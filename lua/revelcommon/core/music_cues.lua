@@ -445,10 +445,10 @@ local function musicCues_PostRender()
 end
 
 --Music is usually played on POST_RENDER (at least in StageAPI)
-REVEL.AddLowPriorityCallback(ModCallbacks.MC_POST_UPDATE, function()
+revel:AddPriorityCallback(ModCallbacks.MC_POST_UPDATE, CallbackPriority.LATE, function()
     for k, _ in pairs(trackData.cuesetsTriggeredThisUpdate) do trackData.cuesetsTriggeredThisUpdate[k] = nil end
     for k, _ in pairs(trackData.allCuesTriggeredThisUpdate) do trackData.allCuesTriggeredThisUpdate[k] = nil end
 end)
-REVEL.AddLowPriorityCallback(ModCallbacks.MC_POST_RENDER, musicCues_PostRender)
+revel:AddPriorityCallback(ModCallbacks.MC_POST_RENDER, CallbackPriority.LATE, musicCues_PostRender)
 
 end

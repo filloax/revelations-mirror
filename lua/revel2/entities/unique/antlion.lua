@@ -39,10 +39,10 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
         end
     end
 
-    if data.UsePlayerFlyingMap and data.State ~= "Fly" then
+    if REVEL.IsUsingPathMap(REVEL.GenericFlyingChaserPathMap, npc) and data.State ~= "Fly" then
         data.Path = nil
         data.PathIndex = nil
-        data.UsePlayerFlyingMap = nil
+        REVEL.StopUsingPathMap(REVEL.GenericFlyingChaserPathMap, npc)
     end
 
     if data.State == "Appear" then
@@ -225,10 +225,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
             sprite:Play("DigIn", true)
         end
     elseif data.State == "Fly" then
-        if not REVEL.IsUsingPathMap(REVEL.GenericFlyingChaserPathMap, npc) then
-            REVEL.UsePathMap(REVEL.GenericFlyingChaserPathMap, npc)
-        end
-        data.UsePlayerFlyingMap = true
+        REVEL.UsePathMap(REVEL.GenericFlyingChaserPathMap, npc)
         
         if not sprite:IsPlaying("Emerge") and not sprite:IsPlaying("Appear Fly") and not sprite:IsPlaying("Idle Fly") then
             sprite:Play("Idle Fly", true)

@@ -69,11 +69,8 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 
     local data, sprite, target = npc:GetData(), npc:GetSprite(), npc:GetPlayerTarget()
 
-    if not REVEL.IsUsingPathMap(REVEL.GenericChaserPathMap, npc) then
-        REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
-    end
-    data.UsePlayerMap = true
-    
+    REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
+
     data.revelFrostEnemy = true
 
     npc.SplatColor = REVEL.WaterSplatColor

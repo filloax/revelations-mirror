@@ -379,5 +379,5 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
     revel:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, custompillsPostPickupUpdate, PickupVariant.PICKUP_PILL)
     StageAPI.AddCallback("Revelations", RevCallbacks.POST_PICKUP_COLLECT, 1, custompillsPostPickupCollect)
     StageAPI.AddCallback("Revelations", RevCallbacks.EARLY_POST_NEW_ROOM, 1, custompillsNewRoom)
-    revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, custompillsPostPeffectUpdate)
+    revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, custompillsPostPeffectUpdate)
 end

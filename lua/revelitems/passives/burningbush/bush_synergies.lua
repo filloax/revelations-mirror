@@ -242,7 +242,10 @@ end
 
 revel:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, function(_, e)
     local player = e:GetData().__player
-    if not player or e:GetData().BurningBush or not (REVEL.ITEM.BURNBUSH:PlayerHasCollectible(player) and player:HasCollectible(149) and e.Type == 2 and e.SpawnerType == 1) then return end
+    if not player 
+    or e:GetData().BurningBush 
+    or not (REVEL.ITEM.BURNBUSH:PlayerHasCollectible(player) and player:HasCollectible(CollectibleType.COLLECTIBLE_IPECAC) and e.SpawnerType == 1) 
+    then return end
     local stats = player:GetData().BushStats
 
     local r = 5 + math.floor(stats.FiresPerUpdate * 2)
@@ -250,7 +253,7 @@ revel:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, function(_, e)
         local fire = REVEL.ShootFireTear(player, e.Position, RandomVector()*10, 1, false, 0.65, nil, 0.5)
         fire:GetData().CustomColor = Color(0.5, 1, 0.5, 1,conv255ToFloat( 0, 25, 0))
     end
-end)
+end, EntityType.ENTITY_TEAR)
 
 --Monstros lung
 

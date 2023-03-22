@@ -281,13 +281,13 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
             ent:GetData().ShotByHuffpuffVel = vel
             ent:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
             ent:GetSprite():Play(ent:GetSprite():GetDefaultAnimationName(), true)
-            REVEL.SetEntityAirMovement(ent, {
+            REVEL.ZPos.SetData(ent, {
                 ZPosition = 15, 
                 ZVelocity = 0, 
                 Gravity = 0.005, 
                 FloatOnPits = true
             })
-            REVEL.UpdateEntityAirMovement(ent)
+            REVEL.ZPos.UpdateEntity(ent)
             ent:GetSprite().Rotation = REVEL.dirToAngle[data.SpitDir] + 90
 
             table.remove(data.HeldEntities, 1)
@@ -314,12 +314,12 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
             ent:GetData().ShotByHuffpuff = true
             ent:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
             ent:GetSprite():Play(ent:GetSprite():GetDefaultAnimationName(), true)
-            REVEL.SetEntityAirMovement(ent, {
+            REVEL.ZPos.SetData(ent, {
                 ZPosition = 20 * REVEL.SCREEN_TO_WORLD_RATIO, 
                 ZVelocity = 3, 
                 Gravity = 0.25
             })
-            REVEL.UpdateEntityAirMovement(ent)
+            REVEL.ZPos.UpdateEntity(ent)
         end
 
         if sprite:IsFinished("HatTrick") then
@@ -352,7 +352,7 @@ local function huffpuff_Snowball_NpcUpdate(_, npc)
     npc:AddEntityFlags(EntityFlag.FLAG_NO_SPIKE_DAMAGE)
 
     if npc:CollidesWithGrid() then
-        REVEL.SetEntityAirMovement(npc, {Gravity = 0.3})
+        REVEL.ZPos.SetData(npc, {Gravity = 0.3})
         npc:GetData().ShotByHuffpuff = nil
         npc:GetSprite().Rotation = 0
         npc.GridCollisionClass = EntityGridCollisionClass.GRIDCOLL_GROUND
@@ -361,7 +361,7 @@ local function huffpuff_Snowball_NpcUpdate(_, npc)
         REVEL.sfx:Play(SoundEffect.SOUND_MEAT_IMPACTS, 0.8, 0, false, 1)
 
         for i = 1, math.random(1, 4) do
-            local eff = Isaac.Spawn(1000, EffectVariant.POOP_PARTICLE, 0, npc.Position + Vector(0, REVEL.GetEntityZPosition(npc)), RandomVector() * math.random(1,5), npc)
+            local eff = Isaac.Spawn(1000, EffectVariant.POOP_PARTICLE, 0, npc.Position + Vector(0, REVEL.ZPos.GetPosition(npc)), RandomVector() * math.random(1,5), npc)
             eff:GetData().NoGibOverride = true
             if REVEL.ENT.YELLOW_SNOWBALL:isEnt(npc) then
                 eff.Color = Color(1, 1, 0, 1,conv255ToFloat( 0, 0, 0))
@@ -410,8 +410,8 @@ local function huffpuff_Snowball_PostEntityAirMovementLand(npc, airMovementData,
     end
 end
 
-StageAPI.AddCallback("Revelations", RevCallbacks.POST_ENTITY_AIR_MOVEMENT_LAND, 2, huffpuff_Snowball_PostEntityAirMovementLand, REVEL.ENT.SNOWBALL.id)
-StageAPI.AddCallback("Revelations", RevCallbacks.POST_ENTITY_AIR_MOVEMENT_LAND, 2, huffpuff_Snowball_PostEntityAirMovementLand, REVEL.ENT.YELLOW_SNOWBALL.id)
+revel:AddCallback(RevCallbacks.POST_ENTITY_ZPOS_LAND, huffpuff_Snowball_PostEntityAirMovementLand, REVEL.ENT.SNOWBALL.id)
+revel:AddCallback(RevCallbacks.POST_ENTITY_ZPOS_LAND, huffpuff_Snowball_PostEntityAirMovementLand, REVEL.ENT.YELLOW_SNOWBALL.id)
 
 revel:AddCallback(ModCallbacks.MC_POST_NPC_RENDER, function(_, npc, renderOffset)
     if not REVEL.ENT.HUFFPUFF:isEnt(npc) or npc:IsDead() then return end

@@ -23,11 +23,7 @@ local function cloudy_NpcUpdate(_, npc)
         if npc.State == NpcState.STATE_MOVE then
             local data = npc:GetData()
 
-            if not REVEL.IsUsingPathMap(REVEL.GenericFlyingChaserPathMap, npc) then
-                REVEL.UsePathMap(REVEL.GenericFlyingChaserPathMap, npc)
-            end    
-
-            data.UsePlayerFlyingMap = true
+            REVEL.UsePathMap(REVEL.GenericFlyingChaserPathMap, npc)
             
             if not npc:GetSprite():IsPlaying("Idle") then
                 npc:GetSprite():Play("Idle", true)

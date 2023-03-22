@@ -37,7 +37,7 @@ StageAPI.AddCallback("Revelations", RevCallbacks.EARLY_POST_NEW_ROOM, 1, functio
 end)
 
 local prevBombs, prevKeys, prevCoins
-revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, function(_, player)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, player)
     if not player:HasTrinket(REVEL.ITEM.TELESCOPE.id) then
         prevBombs, prevKeys, prevCoins = nil, nil, nil
         return

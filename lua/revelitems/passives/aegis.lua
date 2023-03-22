@@ -1,3 +1,5 @@
+local RevCallbacks = require("lua.revelcommon.enums.RevCallbacks")
+
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 -----------
 -- AEGIS --
@@ -23,7 +25,7 @@ revel:AddCallback(ModCallbacks.MC_POST_PLAYER_RENDER, function(_, player)
     end
 end)
 
-revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, function(_, player)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, player)
     local data = player:GetData()
     if REVEL.ITEM.AEGIS:PlayerHasCollectible(player) then
         if not data.AegisShield or not data.AegisShield:Exists() then

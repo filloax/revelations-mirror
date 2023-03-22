@@ -1,3 +1,5 @@
+local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
+
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 -------------------
 -- SLOTHS SADDLE --
@@ -26,7 +28,7 @@ local function IsGoodEnemy(e)
                 not e:IsInvincible()
 end
 
-revel:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, function(_, p)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, p)
     local data = p:GetData()
     if REVEL.ITEM.SLOTHS_SADDLE:PlayerHasCollectible(p) then
         if not data.slothState then

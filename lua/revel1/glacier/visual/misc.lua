@@ -60,17 +60,22 @@ local function footprintPostPeffectUpdate(_, player)
 end
 
 StageAPI.AddCallback("Revelations", RevCallbacks.EARLY_POST_NEW_ROOM, 1, footprintPostNewRoom)
-revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, footprintPostPeffectUpdate)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, footprintPostPeffectUpdate)
 
     
 
-function REVEL.SpawnLandingDust(entity, airMovementData, fromPit, rtint, gtint, btint)
+function REVEL.SpawnLandingDust(entity, oldZVelocity, fromPit, rtint, gtint, btint)
     if fromPit and not (fromPit and fromPit.CollisionClass == GridCollisionClass.GRIDCOLL_NONE) then
         return
     end
 
+    -- temp, debug a weird issue
+    if type(oldZVelocity) == "table" then
+        REVEL.DebugLog("error: oldZVelocity is table:", REVEL.ShallowTableToString(oldZVelocity))
+    end
+
     local origDustVelocity = Vector(10,0)
-    local velocity = math.ceil(math.abs(airMovementData.OldZVelocity))
+    local velocity = math.ceil(math.abs(oldZVelocity))
     local dustAmount = math.min(14, math.max(8, (velocity+2)))
     local dustSize = math.min(150, math.max(80, (velocity+2)*10))
     for i=1, dustAmount do
@@ -89,11 +94,11 @@ function REVEL.SpawnLandingDust(entity, airMovementData, fromPit, rtint, gtint, 
     end
 end
 
-StageAPI.AddCallback("Revelations", RevCallbacks.POST_ENTITY_AIR_MOVEMENT_LAND, 2, function(entity, airMovementData, fromPit)
+revel:AddCallback(RevCallbacks.POST_ENTITY_ZPOS_LAND, function(_, entity, airMovementData, fromPit, oldZVelocity)
     if REVEL.STAGE.Glacier:IsStage() then
         local currentRoomType = StageAPI.GetCurrentRoomType()
         if REVEL.includes(REVEL.SnowFloorRoomTypes, currentRoomType) then
-            REVEL.SpawnLandingDust(entity, airMovementData, fromPit, 110, 110, 200)
+            REVEL.SpawnLandingDust(entity, oldZVelocity, fromPit, 110, 110, 200)
         end
     end
 end, EntityType.ENTITY_PLAYER)

@@ -1,3 +1,5 @@
+local PlayerVariant     = require("lua.revelcommon.enums.PlayerVariant")
+
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 ---------------
 -- WAKA WAKA --
@@ -49,7 +51,7 @@ local WakaWakaBlinkStartTime = 60
 local gamekid = REVEL.config:GetCollectible(CollectibleType.COLLECTIBLE_GAMEKID)
 
 revel:AddCallback(ModCallbacks.MC_USE_ITEM, function(_, itemID, itemRNG, player, useFlags, activeSlot, customVarData)
-    if not HasBit(useFlags, UseFlag.USE_CARBATTERY) then
+    if not HasBit(useFlags, UseFlag.USE_CARBATTERY) and player.Variant == PlayerVariant.PLAYER then
         for _,t in ipairs(REVEL.roomProjectiles) do
             if REVEL.room:IsPositionInRoom(t.Position, 0) then
                 local fruit = Isaac.Spawn(REVEL.ENT.WAKAWAKA_FRUIT.id, REVEL.ENT.WAKAWAKA_FRUIT.variant, 0, t.Position, Vector.Zero, nil)

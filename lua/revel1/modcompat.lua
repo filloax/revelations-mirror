@@ -129,15 +129,23 @@ local function LoadFiendFolioCompat(typeLoaded)
 
     --Glacier Rooms
     local ffRooms = {}
+    local ffSRooms = {}
     for _, name in ipairs(REVEL.RoomEditors) do
         local rooms = REVEL.GetRoomsIfExistent("revel1.ff.glacier_"..name)
+        local SRooms = REVEL.GetRoomsIfExistent("revel1.ff.glacier_special_"..name)
         if rooms then
             table.insert(ffRooms,{Name = name.."(FF)", Rooms = rooms})
+        end
+        if SRooms then
+            table.insert(ffSRooms,{Name = name.."(FF)", Rooms = rooms})
         end
     end
 
     for _, roomName in ipairs(ffRooms) do
-        REVEL.RoomLists["Glacier"]:AddRooms(roomName)
+        REVEL.RoomLists.Glacier:AddRooms(roomName)
+    end
+    for _, roomName in ipairs(ffSRooms) do
+        REVEL.RoomLists.GlacierSpecial:AddRooms(roomName)
     end
 
     --Glacier Reskins

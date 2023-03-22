@@ -883,7 +883,7 @@ revel:AddCallback(ModCallbacks.MC_PRE_FAMILIAR_COLLISION, chill_wisps_PreFamilia
 revel:AddCallback(ModCallbacks.MC_PRE_FAMILIAR_COLLISION, chill_wisps_PreFamiliarCollision, FamiliarVariant.ITEM_WISP)
 StageAPI.AddCallback("Revelations", RevCallbacks.POST_INGAME_RELOAD, 1, CheckBrazierAuras)
 StageAPI.AddCallback("Revelations", StageAPICallbacks.POST_STAGEAPI_NEW_ROOM, 1, chill_PostNewRoom)
-revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, chillPlayerUpdate)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, chillPlayerUpdate)
 revel:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, chillIncubusPostUpdate, FamiliarVariant.INCUBUS)
 revel:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, chillEvaluateCache)
 revel:AddCallback(ModCallbacks.MC_POST_PLAYER_RENDER, chillPostPlayerRender)

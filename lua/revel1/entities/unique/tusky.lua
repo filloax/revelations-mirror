@@ -27,7 +27,7 @@ REVEL.ENT.TUSKY.Balance = {
     PinkChance = 0.05,
 }
 
-REVEL.AddBrokenCallback(ModCallbacks.MC_PRE_NPC_COLLISION, function(_, npc, ent)
+revel:AddCallback(ModCallbacks.MC_PRE_NPC_COLLISION, function(_, npc, ent)
     if not REVEL.ENT.TUSKY:isEnt(npc) then return end
 
     local data = npc:GetData()
@@ -59,7 +59,7 @@ local function SpawnRider(npc, data, velocity)
     data.Rider = nil
 end
 
-REVEL.AddBrokenCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, npc, amt, flags, src, frames)
+revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, npc, amt, flags, src, frames)
     if not REVEL.ENT.TUSKY:isEnt(npc) then return end
 
     local data = npc:GetData()

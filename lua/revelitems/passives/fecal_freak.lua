@@ -6,39 +6,62 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 -- FECAL FREAK --
 -----------------
 
-revel.fecalfreak = {}
+---@param tear EntityTear
+revel:AddCallback(ModCallbacks.MC_POST_TEAR_INIT, function(_, tear)
+    local player = tear.SpawnerEntity:ToPlayer()
+    if not player then return end
 
-StageAPI.AddCallback("Revelations", RevCallbacks.ON_TEAR, 1, function(e, data, spr, player)
+    local data, sprite = tear:GetData(), tear:GetSprite()
+
     -- gives tears the fecal freak sprite
     if REVEL.ITEM.FECAL_FREAK:PlayerHasCollectible(player) 
-    and e.SpawnerType == 1 then
+    and tear.SpawnerType == 1 then
         if not player:GetData().FiringFireTear then
-            spr:Load("gfx/effects/revelcommon/fecal_freak_tear.anm2", true)
-            spr:Play("Rotate", true)
+            sprite:Load("gfx/effects/revelcommon/fecal_freak_tear.anm2", true)
+            sprite:Play("Rotate", true)
             -- to fix this + items with big sprite resolution (and so small ingame scale), without this with ffreak and like mysterious liquid or fire mind you get very small tears
             -- so basically in the first frame it set the size normal then it gets smaller, soo we set it after
-            if REVEL.IsHDTearSprite(e) then
+            if REVEL.IsHDTearSprite(tear) then
                 data.scaleFix = e.SpriteScale * 2
             end
             REVEL.sfx:Play(REVEL.SFX.FECAL_FREAK_FART, 0.9, 0, false,
                                 0.8 + math.random() * 0.2)
         end
         data.ffreak = true
-        REVEL.FFInvertTear(e, player)
+
+        if tear.WaitFrames == 0 then
+            REVEL.FFInvertTear(tear, player)
+        else
+            data.PlayerVelocityAtFire = player.Velocity
+        end
     end
 end)
 
-function REVEL.FFInvertTear(e, player)
+---@param tear EntityTear
+revel:AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, function(_, tear)
+    local data = tear:GetData()
+    if data.ffreak
+    and not data.ffreakInverted
+    then
+        if tear.WaitFrames == 0 and data.WasWaiting then
+            REVEL.FFInvertTear(tear, tear.SpawnerEntity)
+            data.WasWaiting = nil
+        elseif tear.WaitFrames > 0 then
+            data.WasWaiting = true
+        end
+    end
+end)
+
+function REVEL.FFInvertTear(e, parent)
     local data = e:GetData()
-    local dir = REVEL.GetDirectionFromVelocity(e.Velocity)
-    -- if dir == Direction.LEFT or dir == Direction.RIGHT then
-    --     e.Velocity = Vector(-e.Velocity.X + e.Parent.Velocity.X * 2, e.Velocity.Y)
-    -- else
-    --     e.Velocity = Vector(e.Velocity.X, -e.Velocity.Y + e.Parent.Velocity.Y * 2)
-    -- end
-    e.Velocity = -e.Velocity + e.Parent.Velocity * 2
+    data.ffreakInverted = true
+
+    parent = parent or e.SpawnerEntity
+
+    local parentVel = data.PlayerVelocityAtFire or parent.Velocity
+    e.Velocity = -e.Velocity + parentVel * 2
     if data.vel then data.vel = e.Velocity end
-    e.Position = e.Position + e.Velocity:Resized(player.Size)
+    e.Position = e.Position + e.Velocity:Resized(parent.Size)
 end
 
 revel:AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, function(_, e)
@@ -70,7 +93,7 @@ REVEL.AddEffectInitCallback(function(e)
     end
 end, EffectVariant.PLAYER_CREEP_GREEN)
 
-revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, function(_, player)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, player)
     if REVEL.ITEM.FECAL_FREAK:PlayerHasCollectible(player) then
         -- making sure the shotspeed is a negative number
         -- spawns poop particles when the player is walking

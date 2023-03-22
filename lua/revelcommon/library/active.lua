@@ -1,3 +1,5 @@
+local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
+
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
 local playerAnims = {
@@ -70,6 +72,6 @@ function REVEL.GetShowingActive(player)
     return REVEL.IsShowingItem(player) and player:GetData().LastShownItem
 end
   
-revel:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, showActivePlayerUpdate)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, showActivePlayerUpdate)
 
 end

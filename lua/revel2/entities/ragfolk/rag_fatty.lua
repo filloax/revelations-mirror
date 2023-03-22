@@ -13,7 +13,6 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
     npc.SplatColor = REVEL.PurpleRagSplatColor
 
     local sprite, data = npc:GetSprite(), npc:GetData()
-    data.UsePlayerMap = true
 
     if not data.State then
         data.State = "Idle"

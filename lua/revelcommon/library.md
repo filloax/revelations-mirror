@@ -128,6 +128,8 @@ REVEL.OnePlayerHasTrinket(id)
 REVEL.GetCollectibleSum(id)
 REVEL.GetRandomPlayerWithItem(id)
 REVEL.GetRandomPlayerWithItems(...)
+REVEL.GetRandomPlayerWithTrinket(id)
+REVEL.GetRandomPlayerWithTrinkets(...)
 REVEL.HasWeaponTypeInList(player, list)
 REVEL.HasCollectibleInList(player, list)
 REVEL.GetCollectibleNameFromID(itemID)
@@ -199,6 +201,12 @@ REVEL.MeltEntity(e)
 REVEL.IsNpcChampionRegenerating(npc)
 REVEL.GetDamageBuffer(entity)
 REVEL.WillHaveMortalDamage(entity, newDamage)
+REVEL.LockEntityVisibility(entity, lockId)
+REVEL.UnlockEntityVisibility(entity, lockId)
+REVEL.DamageFlash(entity)
+
+**ENTITY_DATA**:
+REVEL.GetData(entity)
 
 **FAKE_ANIMATION**:
 REVEL.CreateFakeAnimation(name, frames)
@@ -248,6 +256,7 @@ REVEL.CanGridBeDestroyed(gridEntity)
 REVEL.IsGridBroken(gridEntity)
 REVEL.GetPoopDamagePct(grid)
 REVEL.GetCustomDoorBySlot(slot)
+REVEL.GetGridIdxInDirection(fromIndex, direction)
 
 **INPUT**:
 REVEL.IsShooting(player, ignoreEffects, onlyActiveShooting)
@@ -298,6 +307,9 @@ REVEL.GetRoomDescByListIdx(listIndex)
 REVEL.GetRoomDimensionByListIdx(listIndex)
 REVEL.RoomHasMinesButton(roomDesc)
 REVEL.InMineshaft()
+REVEL.MapRooms()
+REVEL.GetRoomConnections(roomsMap)
+REVEL.GetRoomPathingDistances(roomConnections, targetListIndex, listIndicesToIgnore)
 
 **MATH**:
 REVEL.GetAngleDifference(a1, a2)
@@ -357,6 +369,7 @@ REVEL.RemoveExtraPlayer(player)
 REVEL.PlayerIsLost(player)
 REVEL.LockPlayerControls(player, lockId)
 REVEL.UnlockPlayerControls(player, lockId)
+REVEL.IsValidPlayer(player)
 
 **PLAYER_CUTSCENE**:
 REVEL.DoPlayerCutscene(player, tbl)
@@ -515,6 +528,7 @@ REVEL.FadeOut(length, aboveHud, r, g, b)
 REVEL.FadeIn(length)
 REVEL.IsFullyFaded()
 REVEL.DoingScreenFade()
+REVEL.SpawnDustParticles(position, numParticles, spawner, color, velMin, velMax, scaleMin, scaleMax)
 
 **WAS_CHANGED**:
 REVEL.WasChanged(name, ...)

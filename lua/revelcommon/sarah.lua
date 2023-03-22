@@ -114,7 +114,7 @@ do -- Broken Wings
         end
     end)
 
-    revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, function(_, player)
+    revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, player)
         if REVEL.IsSarah(player) then
             local data = player:GetData()
             local wingState = revel.data.run.brokenWingsState[REVEL.GetPlayerID(player)]
@@ -131,11 +131,11 @@ do -- Broken Wings
 
                     local blacklist
                     if REVEL.MultiPlayingCheck(player:GetSprite(), table.unpack(animBlacklist)) then
-                      blacklist = true
+                        blacklist = true
                     end
 
-                    if data.springHeight then
-                      blacklist = true
+                    if REVEL.ZPos.GetPosition(player) > 0 then
+                        blacklist = true
                     end
 
                     if anim and not blacklist then
@@ -933,7 +933,7 @@ do -- Penance and Sarah shared
         end
     end
 
-	revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, function(_, player)
+	revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, player)
 		if REVEL.HasPenanceEffect(player) then
 			local data = player:GetData()
             if REVEL.room:IsCurrentRoomLastBoss() and REVEL.room:IsClear() and revel.data.run.level.penanceHealState == 0 then
@@ -1038,7 +1038,7 @@ do -- Penance and Sarah shared
 	end)
 
 	local movedToRedHealth
-	REVEL.AddLowPriorityCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, player, amount, flags, source, iframes)
+    StageAPI.AddCallback("Revelations", RevCallbacks.POST_ENTITY_TAKE_DMG, 0, function(player, amount, flags, source, iframes)
 		player = player:ToPlayer()
 		if REVEL.HasPenanceEffect(player) then
 			if not HasBit(flags, DamageFlag.DAMAGE_FAKE) and not movedToRedHealth and not REVEL.room:IsClear() 
@@ -1053,7 +1053,7 @@ do -- Penance and Sarah shared
 				end
 			end
 		end
-	end, EntityType.ENTITY_PLAYER)
+    end, EntityType.ENTITY_PLAYER)
 
     -- Dogma boss handling
 

@@ -196,12 +196,12 @@ end)
 -- on pickup
 REVEL.ITEM.SPONGE:addPickupCallback(function(player) player:AddBombs(5) end)
 
-REVEL.AddBrokenCallback(ModCallbacks.MC_PRE_TEAR_COLLISION,
+revel:AddCallback(ModCallbacks.MC_PRE_TEAR_COLLISION,
                         function(_, ent, coll, low)
     if revel.sponge.bombs[coll.InitSeed] then return false end
 end)
 
-REVEL.AddBrokenCallback(ModCallbacks.MC_PRE_PROJECTILE_COLLISION,
+revel:AddCallback(ModCallbacks.MC_PRE_PROJECTILE_COLLISION,
                         function(_, ent, coll, low)
     if revel.sponge.bombs[coll.InitSeed] then return false end
 end)
@@ -303,7 +303,7 @@ function revel.sponge.Absorb(tear, bomb, dmgMult)
     end
 end
 
-REVEL.AddBrokenCallback(ModCallbacks.MC_PRE_BOMB_COLLISION,
+revel:AddCallback(ModCallbacks.MC_PRE_BOMB_COLLISION,
                         function(_, bomb, coll, low)
     if not revel.sponge.bombs[bomb.InitSeed] then return end
     if coll.Velocity:Length() >= 3 then

@@ -242,7 +242,7 @@ local function rewardUpdate(e, data, spr)
 			if p.Position:Distance(e.Position) < p.Size + 20 then
 				spr:Play("Collect", true)
 				data.collected = true
-                REVEL.AnimateAchievement("gfx/truecoop/versusscreen/playernames_ghost/soul.png")
+                REVEL.AnimateAchievement("gfx/ui/misc/soul.png")
                 showing = true
             end
 		end

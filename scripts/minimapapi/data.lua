@@ -179,7 +179,7 @@ MinimapAPI.RoomTypeIconIDs = {
     [RoomType.ROOM_BLACK_MARKET] = nil,
     [RoomType.ROOM_GREED_EXIT] = nil,
 }
-if REPENTANCE then
+if MinimapAPI.isRepentance then
 	MinimapAPI.RoomTypeIconIDs[RoomType.ROOM_PLANETARIUM] = "Planetarium"
 	MinimapAPI.RoomTypeIconIDs[RoomType.ROOM_TELEPORTER] = "TeleporterRoom"
 	MinimapAPI.RoomTypeIconIDs[RoomType.ROOM_TELEPORTER_EXIT] = "TeleporterRoom"
@@ -198,7 +198,7 @@ MinimapAPI.UnknownRoomTypeIconIDs = {
     [RoomType.ROOM_CHEST] = "LockedRoom",
     [RoomType.ROOM_DICE] = "LockedRoom",
 }
-if REPENTANCE then
+if MinimapAPI.isRepentance then
 	MinimapAPI.UnknownRoomTypeIconIDs[RoomType.ROOM_ULTRASECRET] = "UltraSecretRoom"
 end
 
@@ -214,93 +214,102 @@ MinimapAPI.RoomTypeDisplayFlagsAdjacent = {
 	[RoomType.ROOM_CHEST] = 3,
 	[RoomType.ROOM_DICE] = 3,
 }
-if REPENTANCE then
+if MinimapAPI.isRepentance then
 	MinimapAPI.RoomTypeDisplayFlagsAdjacent[RoomType.ROOM_ULTRASECRET] = 0
 end
 
 local function notCollected(pickup) return not pickup:GetSprite():IsPlaying("Collect") end
 local function chestNotCollected(pickup) return pickup.SubType ~= 0 end
-local function slotNotDead(pickup) return not (pickup:GetSprite():IsPlaying("Death") or pickup:GetSprite():IsPlaying("Broken")) end
-local function dresserNotDead(pickup) return not (pickup:GetSprite():IsFinished("Broken")) end
+local function slotNotDead(pickup) 
+	local sprite = pickup:GetSprite()
+	local animations = {"Death", "Broken", "CoinJam", "CoinJam2", "CoinJam3", "CoinJam4"}
+	for _,anim in ipairs(animations) do
+		if sprite:IsPlaying(anim) or sprite:IsFinished(anim) then
+			return false
+		end
+	end
+	return true
+end
 
 MinimapAPI.PickupNotCollected = notCollected
 MinimapAPI.PickupChestNotCollected = chestNotCollected
 MinimapAPI.PickupSlotMachineNotBroken = slotNotDead
-MinimapAPI.PickupDresserNotDead = dresserNotDead
 
 MinimapAPI.PickupList = {
-	["RottenHeart"] = {IconID="RottenHeart",Type=5,Variant=10,SubType=12,Call=notCollected,IconGroup="hearts",Priority=11000},
-	["WhiteHeart"] = {IconID="WhiteHeart",Type=5,Variant=10,SubType=4,Call=notCollected,IconGroup="hearts",Priority=10900},
-	["GoldHeart"] = {IconID="GoldHeart",Type=5,Variant=10,SubType=7,Call=notCollected,IconGroup="hearts",Priority=10800},
-	["BoneHeart"] = {IconID="BoneHeart",Type=5,Variant=10,SubType=11,Call=notCollected,IconGroup="hearts",Priority=10700},
-	["BlackHeart"] = {IconID="BlackHeart",Type=5,Variant=10,SubType=6,Call=notCollected,IconGroup="hearts",Priority=10600},
-	["BlueHeart"] = {IconID="BlueHeart",Type=5,Variant=10,SubType=3,Call=notCollected,IconGroup="hearts",Priority=10500},
-	["BlendedHeart"] = {IconID="BlendedHeart",Type=5,Variant=10,SubType=10,Call=notCollected,IconGroup="hearts",Priority=10400},
-	["HalfBlueHeart"] = {IconID="HalfBlueHeart",Type=5,Variant=10,SubType=8,Call=notCollected,IconGroup="hearts",Priority=10300},
-	["ScaredHeart"] = {IconID="Heart",Type=5,Variant=10,SubType=9,Call=notCollected,IconGroup="hearts",Priority=10100},
-	["DoubleHeart"] = {IconID="Heart",Type=5,Variant=10,SubType=5,Call=notCollected,IconGroup="hearts",Priority=10100},
-	["Heart"] = {IconID="Heart",Type=5,Variant=10,SubType=1,Call=notCollected,IconGroup="hearts",Priority=10100},
-	["HalfHeart"] = {IconID="HalfHeart",Type=5,Variant=10,SubType=2,Call=notCollected,IconGroup="hearts",Priority=10000},
-	
-	["Item"] = {IconID="Item",Type=5,Variant=100,SubType=-1,Call=function(pickup) return pickup.SubType ~= 0 end,IconGroup="collectibles",Priority=9000},
-	["Trinket"] = {IconID="Trinket",Type=5,Variant=350,SubType=-1,IconGroup="collectibles",Priority=8000},
-	
-	["BlackGrabBag"] = {IconID="BlackSack",Type=5,Variant=69,SubType=2,Call=notCollected,IconGroup="chests",Priority=6600},
-	["GrabBag"] = {IconID="Sack",Type=5,Variant=69,SubType=1,Call=notCollected,IconGroup="chests",Priority=6500},
-	["MegaChest"] = {IconID="MegaChest",Type=5,Variant=57,SubType=-1,Call=chestNotCollected,IconGroup="chests",Priority=7800},
-	["WoodenChest"] = {IconID="WoodenChest",Type=5,Variant=56,SubType=-1,Call=chestNotCollected,IconGroup="chests",Priority=7700},
-	["EternalChest"] = {IconID="EternalChest",Type=5,Variant=53,SubType=-1,Call=chestNotCollected,IconGroup="chests",Priority=7600},
-	["GoldChest"] = {IconID="GoldChest",Type=5,Variant=60,SubType=-1,Call=chestNotCollected,IconGroup="chests",Priority=7500},
-	["RedChest"] = {IconID="RedChest",Type=5,Variant=360,SubType=-1,Call=chestNotCollected,IconGroup="chests",Priority=7400},
-	["Chest"] = {IconID="Chest",Type=5,Variant=50,SubType=-1,Call=chestNotCollected,IconGroup="chests",Priority=7300},
-	["StoneChest"] = {IconID="StoneChest",Type=5,Variant=51,Call=chestNotCollected,SubType=-1,IconGroup="chests",Priority=7200},
-	["SpikedChest"] = {IconID="SpikedChest",Type=5,Variant=52,Call=chestNotCollected,SubType=-1,IconGroup="chests",Priority=7100},
-	["HauntedChest"] = {IconID="SpikedChest",Type=5,Variant=58,Call=chestNotCollected,SubType=-1,IconGroup="chests",Priority=7100},
-	["MimicChest"] = {IconID="SpikedChest",Type=5,Variant=54,Call=chestNotCollected,SubType=-1,IconGroup="chests",Priority=7000},
-	
-	["GoldenPill"] = {IconID="GoldenPill",Type=5,Variant=70,SubType=14,Call=notCollected,IconGroup="pills",Priority=6200},
-	["Pill"] = {IconID="Pill",Type=5,Variant=70,SubType=-1,Call=notCollected,IconGroup="pills",Priority=6000},
-	["GoldenKey"] = {IconID="GoldenKey",Type=5,Variant=30,SubType=2,Call=notCollected,IconGroup="keys",Priority=5300},
-	["ChargedKey"] = {IconID="ChargedKey",Type=5,Variant=30,SubType=4,Call=notCollected,IconGroup="keys",Priority=5200},
-	["Key"] = {IconID="Key",Type=5,Variant=30,SubType=1,Call=notCollected,IconGroup="keys",Priority=5000},
-	["GoldenBomb"] = {IconID="GoldenBomb",Type=5,Variant=40,SubType=4,Call=notCollected,IconGroup="bombs",Priority=4200},
-	["Bomb"] = {IconID="Bomb",Type=5,Variant=40,SubType=1,Call=notCollected,IconGroup="bombs",Priority=4000},
-	["GoldenCoin"] = {IconID="GoldenCoin",Type=5,Variant=20,SubType=7,Call=notCollected,IconGroup="coins",Priority=3200},
-	["Coin"] = {IconID="Coin",Type=5,Variant=20,SubType=-1,Call=notCollected,IconGroup="coins",Priority=3000},
-	["GoldenBattery"] = {IconID="GoldenBattery",Type=5,Variant=90,SubType=4,Call=notCollected,IconGroup="batteries",Priority=2200},
-	["Battery"] = {IconID="Battery",Type=5,Variant=90,SubType=-1,Call=notCollected,IconGroup="batteries",Priority=2000},
-	["Card"] = {IconID="Card",Type=5,Variant=300,SubType=-1,Call=notCollected,IconGroup="cards",Priority=1000},
-	["RuneShard"] = {IconID="Rune",Type=5,Variant=300,SubType=55,Call=notCollected,IconGroup="runes",Priority=1100},
-	["Poop"] = {IconID="Poop",Type=5,Variant=42,SubType=0,Call=notCollected,IconGroup="bombs",Priority=1200},
-	
-	["Confessional"] = {IconID="Confessional",Type=6,Variant=17,SubType=-1,Call=slotNotDead,IconGroup="slots",Priority=700},
-	["CraneGame"] = {IconID="CraneGame",Type=6,Variant=16,SubType=-1,Call=slotNotDead,IconGroup="slots",Priority=600},
-	["RestockMachine"] = {IconID="RestockMachine",Type=6,Variant=10,SubType=-1,Call=slotNotDead,IconGroup="slots",Priority=500},
-	["DressingTable"] = {IconID="DressingTable",Type=6,Variant=12,SubType=-1,Call=slotNotDead,IconGroup="slots",Priority=400},
-	["DonationMachine"] = {IconID="DonationMachine",Type=6,Variant=8,SubType=-1,Call=slotNotDead,IconGroup="slots",Priority=300},
-	["FortuneMachine"] = {IconID="FortuneMachine",Type=6,Variant=3,SubType=-1,Call=slotNotDead,IconGroup="slots",Priority=200},
-	["BloodDonationMachine"] = {IconID="BloodDonationMachine",Type=6,Variant=2,SubType=-1,Call=slotNotDead,IconGroup="slots",Priority=100},
-	["Slot"] = {IconID="Slot",Type=6,Variant=1,SubType=-1,Call=slotNotDead,IconGroup="slots",Priority=0},
+	["WhiteHeart"] = {IconID="WhiteHeart",Type=5,Variant=10,SubType=4,Call=notCollected,IconGroup="hearts",Priority=14900},
+	["GoldHeart"] = {IconID="GoldHeart",Type=5,Variant=10,SubType=7,Call=notCollected,IconGroup="hearts",Priority=14800},
+	["BoneHeart"] = {IconID="BoneHeart",Type=5,Variant=10,SubType=11,Call=notCollected,IconGroup="hearts",Priority=14700},
+	["BlackHeart"] = {IconID="BlackHeart",Type=5,Variant=10,SubType=6,Call=notCollected,IconGroup="hearts",Priority=14600},
+	["BlueHeart"] = {IconID="BlueHeart",Type=5,Variant=10,SubType=3,Call=notCollected,IconGroup="hearts",Priority=14500},
+	["BlendedHeart"] = {IconID="BlendedHeart",Type=5,Variant=10,SubType=10,Call=notCollected,IconGroup="hearts",Priority=14400},
+	["HalfBlueHeart"] = {IconID="HalfBlueHeart",Type=5,Variant=10,SubType=8,Call=notCollected,IconGroup="hearts",Priority=14300},
+	["RottenHeart"] = {IconID="RottenHeart",Type=5,Variant=10,SubType=12,Call=notCollected,IconGroup="hearts",Priority=14200},
+	["ScaredHeart"] = {IconID="Heart",Type=5,Variant=10,SubType=9,Call=notCollected,IconGroup="hearts",Priority=14100},
+	["DoubleHeart"] = {IconID="Heart",Type=5,Variant=10,SubType=5,Call=notCollected,IconGroup="hearts",Priority=14100},
+	["Heart"] = {IconID="Heart",Type=5,Variant=10,SubType=1,Call=notCollected,IconGroup="hearts",Priority=14100},
+	["HalfHeart"] = {IconID="HalfHeart",Type=5,Variant=10,SubType=2,Call=notCollected,IconGroup="hearts",Priority=14000},
 
-	["ChargeBeggar"] = {IconID="ChargeBeggar",Type=6,Variant=13,SubType=-1,Call=slotNotDead,IconGroup="slots",Priority=700},
-	["RottenBeggar"] = {IconID="RottenBeggar",Type=6,Variant=18,SubType=-1,Call=slotNotDead,IconGroup="slots",Priority=600},
-	["BombBeggar"] = {IconID="BombBeggar",Type=6,Variant=9,SubType=-1,Call=slotNotDead,IconGroup="slots",Priority=500},
-	["KeyBeggar"] = {IconID="KeyBeggar",Type=6,Variant=7,SubType=-1,Call=slotNotDead,IconGroup="slots",Priority=400},
-	["HellGame"] = {IconID="DemonBeggar",Type=6,Variant=15,SubType=-1,Call=slotNotDead,IconGroup="slots",Priority=300},
-	["DemonBeggar"] = {IconID="DemonBeggar",Type=6,Variant=5,SubType=-1,Call=slotNotDead,IconGroup="slots",Priority=200},
-	["ShellGame"] = {IconID="Beggar",Type=6,Variant=6,SubType=-1,Call=slotNotDead,IconGroup="slots",Priority=100},
-	["Beggar"] = {IconID="Beggar",Type=6,Variant=4,SubType=-1,Call=slotNotDead,IconGroup="slots",Priority=0},
+	["Item"] = {IconID="Item",Type=5,Variant=100,SubType=-1,Call=function(pickup) return pickup.SubType ~= 0 end,IconGroup="collectibles",Priority=13000},
+
+	["Trinket"] = {IconID="Trinket",Type=5,Variant=350,SubType=-1,IconGroup="trinkets",Priority=12000},
+
+	["MegaChest"] = {IconID="MegaChest",Type=5,Variant=57,SubType=-1,Call=chestNotCollected,IconGroup="chests",Priority=11900},
+	["GoldChest"] = {IconID="GoldChest",Type=5,Variant=60,SubType=-1,Call=chestNotCollected,IconGroup="chests",Priority=11800},
+	["EternalChest"] = {IconID="EternalChest",Type=5,Variant=53,SubType=-1,Call=chestNotCollected,IconGroup="chests",Priority=11700},
+	["WoodenChest"] = {IconID="WoodenChest",Type=5,Variant=56,SubType=-1,Call=chestNotCollected,IconGroup="chests",Priority=11600},
+	["RedChest"] = {IconID="RedChest",Type=5,Variant=360,SubType=-1,Call=chestNotCollected,IconGroup="chests",Priority=11500},
+	["Chest"] = {IconID="Chest",Type=5,Variant=50,SubType=-1,Call=chestNotCollected,IconGroup="chests",Priority=11400},
+	["BlackGrabBag"] = {IconID="BlackSack",Type=5,Variant=69,SubType=2,Call=notCollected,IconGroup="chests",Priority=11300},
+	["GrabBag"] = {IconID="Sack",Type=5,Variant=69,SubType=1,Call=notCollected,IconGroup="chests",Priority=11200},
+	["StoneChest"] = {IconID="StoneChest",Type=5,Variant=51,Call=chestNotCollected,SubType=-1,IconGroup="chests",Priority=11100},
+	["SpikedChest"] = {IconID="SpikedChest",Type=5,Variant=52,Call=chestNotCollected,SubType=-1,IconGroup="chests",Priority=11000},
+	["HauntedChest"] = {IconID="SpikedChest",Type=5,Variant=58,Call=chestNotCollected,SubType=-1,IconGroup="chests",Priority=11000},
+	["MimicChest"] = {IconID="SpikedChest",Type=5,Variant=54,Call=chestNotCollected,SubType=-1,IconGroup="chests",Priority=11000},
+	
+	["Rune"] = {IconID="Rune",Type=5,Variant=300,SubType=-1,Call=notCollected,IconGroup="runes",Priority=10000,Condition=function(pickup) return MinimapAPI.isRepentance and Isaac.GetItemConfig():GetCard(pickup.SubType):IsRune() or (pickup.SubType > 31 and pickup.SubType < 42) end},
+
+	["Card"] = {IconID="Card",Type=5,Variant=300,SubType=-1,Call=notCollected,IconGroup="cards",Priority=9000},
+
+	["GoldenPill"] = {IconID="GoldenPill",Type=5,Variant=70,SubType=14,Call=notCollected,IconGroup="pills",Priority=8100},
+	["Pill"] = {IconID="Pill",Type=5,Variant=70,SubType=-1,Call=notCollected,IconGroup="pills",Priority=8000},
+
+	["ChargedKey"] = {IconID="ChargedKey",Type=5,Variant=30,SubType=4,Call=notCollected,IconGroup="keys",Priority=7200},
+	["GoldenKey"] = {IconID="GoldenKey",Type=5,Variant=30,SubType=2,Call=notCollected,IconGroup="keys",Priority=7100},
+	["Key"] = {IconID="Key",Type=5,Variant=30,SubType=-1,Call=notCollected,IconGroup="keys",Priority=7000},
+
+	["GoldenBomb"] = {IconID="GoldenBomb",Type=5,Variant=40,SubType=4,Call=notCollected,IconGroup="bombs",Priority=6100},
+	["Bomb"] = {IconID="Bomb",Type=5,Variant=40,SubType=-1,Call=notCollected,IconGroup="bombs",Priority=6000},
+
+	["Poop"] = {IconID="Poop",Type=5,Variant=42,SubType=-1,Call=notCollected,IconGroup="poops",Priority=5000},
+
+	["GoldenCoin"] = {IconID="GoldenCoin",Type=5,Variant=20,SubType=7,Call=notCollected,IconGroup="coins",Priority=4100},
+	["Coin"] = {IconID="Coin",Type=5,Variant=20,SubType=-1,Call=notCollected,IconGroup="coins",Priority=4000},
+
+	["GoldenBattery"] = {IconID="GoldenBattery",Type=5,Variant=90,SubType=4,Call=notCollected,IconGroup="batteries",Priority=3100},
+	["Battery"] = {IconID="Battery",Type=5,Variant=90,SubType=-1,Call=notCollected,IconGroup="batteries",Priority=3000},
+
+	["ChargeBeggar"] = {IconID="ChargeBeggar",Type=6,Variant=13,SubType=-1,Call=slotNotDead,IconGroup="beggars",Priority=2500},
+	["BombBeggar"] = {IconID="BombBeggar",Type=6,Variant=9,SubType=-1,Call=slotNotDead,IconGroup="beggars",Priority=2400},
+	["KeyBeggar"] = {IconID="KeyBeggar",Type=6,Variant=7,SubType=-1,Call=slotNotDead,IconGroup="beggars",Priority=2300},
+	["HellGame"] = {IconID="DemonBeggar",Type=6,Variant=15,SubType=-1,Call=slotNotDead,IconGroup="beggars",Priority=2200},
+	["DemonBeggar"] = {IconID="DemonBeggar",Type=6,Variant=5,SubType=-1,Call=slotNotDead,IconGroup="beggars",Priority=2200},
+	["RottenBeggar"] = {IconID="RottenBeggar",Type=6,Variant=18,SubType=-1,Call=slotNotDead,IconGroup="beggars",Priority=2100},
+	["ShellGame"] = {IconID="Beggar",Type=6,Variant=6,SubType=-1,Call=slotNotDead,IconGroup="beggars",Priority=2000},
+	["Beggar"] = {IconID="Beggar",Type=6,Variant=4,SubType=-1,Call=slotNotDead,IconGroup="beggars",Priority=2000},
+
+	["Confessional"] = {IconID="Confessional",Type=6,Variant=17,SubType=-1,Call=slotNotDead,IconGroup="slots",Priority=1700},
+	["RestockMachine"] = {IconID="RestockMachine",Type=6,Variant=10,SubType=-1,Call=slotNotDead,IconGroup="slots",Priority=1600},
+	["CraneGame"] = {IconID="CraneGame",Type=6,Variant=16,SubType=-1,Call=slotNotDead,IconGroup="slots",Priority=1500},
+	["FortuneMachine"] = {IconID="FortuneMachine",Type=6,Variant=3,SubType=-1,Call=slotNotDead,IconGroup="slots",Priority=1400},
+	["BloodDonationMachine"] = {IconID="BloodDonationMachine",Type=6,Variant=2,SubType=-1,Call=slotNotDead,IconGroup="slots",Priority=1300},
+	["Slot"] = {IconID="Slot",Type=6,Variant=1,SubType=-1,Call=slotNotDead,IconGroup="slots",Priority=1200},
+	["DonationMachine"] = {IconID="DonationMachine",Type=6,Variant=8,SubType=-1,Call=slotNotDead,IconGroup="slots",Priority=1100},
+	["DressingTable"] = {IconID="DressingTable",Type=6,Variant=12,SubType=-1,Call=slotNotDead,IconGroup="slots",Priority=1000},
 }
-for i=32,41 do -- These can be better once the api has more stuff in ItemConfig_Card
-	MinimapAPI.PickupList["Rune"..i] = {IconID="Rune",Type=5,Variant=300,SubType=i,Call=notCollected,IconGroup="runes",Priority=1100}
-end
-for i=81,97 do
-	MinimapAPI.PickupList["Soul"..i] = {IconID="Rune",Type=5,Variant=300,SubType=i,Call=notCollected,IconGroup="runes",Priority=1100}
-end
 
--- IsPrespawnObject is used for grid entities that exist on room creation. These objects are mostly defined by very big Type IDs
-MinimapAPI.GridEntityList = {	
-	["Ladder"] = {IconID="Ladder",Type=18,Variant=-1,Priority=12000},
+-- IsPrespawnObject can be used for grid entities that exist on room creation. These objects are mostly defined by very big Type IDs
+MinimapAPI.GridEntityList = {
+	["Ladder"] = {IconID="Ladder",Type=18,Variant=-1,Priority=0},
 }
 
 MinimapAPI.IconList = {
@@ -361,7 +370,7 @@ MinimapAPI.IconList = {
 	{ID="Rune",anim="IconRune",frame=0},
 	{ID="Poop",anim="IconPoop",frame=0},
 	--Chests
-	
+
 	{ID="MegaChest",anim="IconChest",frame=9},
 	{ID="WoodenChest",anim="IconChest",frame=6},
 	{ID="EternalChest",anim="IconChest",frame=7},
@@ -393,58 +402,58 @@ MinimapAPI.IconList = {
 
 MinimapAPI.RoomShapeAdjacentCoords = {
 
-	{Vector(-1, 0), Vector(0, -1), Vector(1, 0), Vector(0, 1)}, -- ROOMSHAPE_1x1 
-	{Vector(-1, 0),Vector(1, 0)}, -- ROOMSHAPE_IH  
-	{Vector(0, -1),Vector(0, 1)}, -- ROOMSHAPE_IV  
-	{Vector(-1, 0), Vector(0, -1), Vector(1, 0), Vector(0, 2), Vector(-1, 1), Vector(1, 1)}, -- ROOMSHAPE_1x2  
-	{Vector(0, -1), Vector(0, 2)}, -- ROOMSHAPE_IIV  
-	{Vector(-1, 0),Vector(0, -1),Vector(2, 0),Vector(0, 1),Vector(-1, 0),Vector(1, -1),Vector(2, 0),Vector(1, 1)}, -- ROOMSHAPE_2x1  
-	{Vector(-1, 0),Vector(2,0)}, -- ROOMSHAPE_IIH  
-	{Vector(-1,0),Vector(0,-1),Vector(2,0),Vector(0,2),Vector(-1,1),Vector(1,-1),Vector(2,1),Vector(1,2)}, -- ROOMSHAPE_2x2  
+	{Vector(-1, 0), Vector(0, -1), Vector(1, 0), Vector(0, 1)}, -- ROOMSHAPE_1x1
+	{Vector(-1, 0),Vector(1, 0)}, -- ROOMSHAPE_IH
+	{Vector(0, -1),Vector(0, 1)}, -- ROOMSHAPE_IV
+	{Vector(-1, 0), Vector(0, -1), Vector(1, 0), Vector(0, 2), Vector(-1, 1), Vector(1, 1)}, -- ROOMSHAPE_1x2
+	{Vector(0, -1), Vector(0, 2)}, -- ROOMSHAPE_IIV
+	{Vector(-1, 0),Vector(0, -1),Vector(2, 0),Vector(0, 1),Vector(-1, 0),Vector(1, -1),Vector(2, 0),Vector(1, 1)}, -- ROOMSHAPE_2x1
+	{Vector(-1, 0),Vector(2,0)}, -- ROOMSHAPE_IIH
+	{Vector(-1,0),Vector(0,-1),Vector(2,0),Vector(0,2),Vector(-1,1),Vector(1,-1),Vector(2,1),Vector(1,2)}, -- ROOMSHAPE_2x2
 	{Vector(-1,0),Vector(1,0),Vector(-1,2),Vector(-2,1),Vector(0,-1),Vector(1,1),Vector(0,2)}, -- ROOMSHAPE_LTL
-	{Vector(-1,0),Vector(0,-1),Vector(1,0),Vector(0,2),Vector(-1,1),Vector(1,0),Vector(2,1),Vector(1,2)}, -- ROOMSHAPE_LTR  
-	{Vector(-1,0),Vector(0,-1),Vector(2,0),Vector(0,1),Vector(0,1),Vector(1,-1),Vector(2,1),Vector(1,2)}, -- ROOMSHAPE_LBL  
-	{Vector(-1,0),Vector(0,-1),Vector(2,0),Vector(0,2),Vector(-1,1),Vector(1,-1),Vector(1,1),Vector(1,1)} -- ROOMSHAPE_LBR  
+	{Vector(-1,0),Vector(0,-1),Vector(1,0),Vector(0,2),Vector(-1,1),Vector(1,0),Vector(2,1),Vector(1,2)}, -- ROOMSHAPE_LTR
+	{Vector(-1,0),Vector(0,-1),Vector(2,0),Vector(0,1),Vector(0,1),Vector(1,-1),Vector(2,1),Vector(1,2)}, -- ROOMSHAPE_LBL
+	{Vector(-1,0),Vector(0,-1),Vector(2,0),Vector(0,2),Vector(-1,1),Vector(1,-1),Vector(1,1),Vector(1,1)} -- ROOMSHAPE_LBR
 
 }
 
 MinimapAPI.RoomShapeDoorCoords = {
 
 -- L0 		UP0		R0		D0		L1		UP1		R1		D1
-	{Vector(-1, 0), Vector(0, -1), Vector(1, 0), Vector(0, 1),nil,nil,nil,nil}, -- ROOMSHAPE_1x1 
-	{Vector(-1, 0),nil,Vector(1, 0),nil,nil,nil,nil,nil}, -- ROOMSHAPE_IH  
-	{nil,Vector(0, -1),nil,Vector(0, 1),nil,nil,nil,nil}, -- ROOMSHAPE_IV  
-	{Vector(-1, 0), Vector(0, -1), Vector(1, 0), Vector(0, 2), Vector(-1, 1),nil, Vector(1, 1),nil}, -- ROOMSHAPE_1x2  
-	{nil,Vector(0, -1),nil, Vector(0, 2),nil,nil,nil,nil}, -- ROOMSHAPE_IIV  
-	{Vector(-1, 0),Vector(0, -1),Vector(2, 0),Vector(0, 1),Vector(-1, 0),Vector(1, -1),Vector(2, 0),Vector(1, 1)}, -- ROOMSHAPE_2x1  
-	{Vector(-1, 0),nil,Vector(2,0),nil,nil,nil,nil,nil}, -- ROOMSHAPE_IIH  
-	{Vector(-1,0),Vector(0,-1),Vector(2,0),Vector(0,2),Vector(-1,1),Vector(1,-1),Vector(2,1),Vector(1,2)}, -- ROOMSHAPE_2x2  
+	{Vector(-1, 0), Vector(0, -1), Vector(1, 0), Vector(0, 1),nil,nil,nil,nil}, -- ROOMSHAPE_1x1
+	{Vector(-1, 0),nil,Vector(1, 0),nil,nil,nil,nil,nil}, -- ROOMSHAPE_IH
+	{nil,Vector(0, -1),nil,Vector(0, 1),nil,nil,nil,nil}, -- ROOMSHAPE_IV
+	{Vector(-1, 0), Vector(0, -1), Vector(1, 0), Vector(0, 2), Vector(-1, 1),nil, Vector(1, 1),nil}, -- ROOMSHAPE_1x2
+	{nil,Vector(0, -1),nil, Vector(0, 2),nil,nil,nil,nil}, -- ROOMSHAPE_IIV
+	{Vector(-1, 0),Vector(0, -1),Vector(2, 0),Vector(0, 1),Vector(-1, 0),Vector(1, -1),Vector(2, 0),Vector(1, 1)}, -- ROOMSHAPE_2x1
+	{Vector(-1, 0),nil,Vector(2,0),nil,nil,nil,nil,nil}, -- ROOMSHAPE_IIH
+	{Vector(-1,0),Vector(0,-1),Vector(2,0),Vector(0,2),Vector(-1,1),Vector(1,-1),Vector(2,1),Vector(1,2)}, -- ROOMSHAPE_2x2
 	{Vector(-1,0),Vector(-1,0),Vector(1,0),Vector(-1,2),Vector(-2,1),Vector(0,-1),Vector(1,1),Vector(0,2)}, -- ROOMSHAPE_LTL
-	{Vector(-1,0),Vector(0,-1),Vector(1,0),Vector(0,2),Vector(-1,1),Vector(1,0),Vector(2,1),Vector(1,2)}, -- ROOMSHAPE_LTR  
-	{Vector(-1,0),Vector(0,-1),Vector(2,0),Vector(0,1),Vector(0,1),Vector(1,-1),Vector(2,1),Vector(1,2)}, -- ROOMSHAPE_LBL  
-	{Vector(-1,0),Vector(0,-1),Vector(2,0),Vector(0,2),Vector(-1,1),Vector(1,-1),Vector(1,1),Vector(1,1)} -- ROOMSHAPE_LBR  
+	{Vector(-1,0),Vector(0,-1),Vector(1,0),Vector(0,2),Vector(-1,1),Vector(1,0),Vector(2,1),Vector(1,2)}, -- ROOMSHAPE_LTR
+	{Vector(-1,0),Vector(0,-1),Vector(2,0),Vector(0,1),Vector(0,1),Vector(1,-1),Vector(2,1),Vector(1,2)}, -- ROOMSHAPE_LBL
+	{Vector(-1,0),Vector(0,-1),Vector(2,0),Vector(0,2),Vector(-1,1),Vector(1,-1),Vector(1,1),Vector(1,1)} -- ROOMSHAPE_LBR
 
 }
 
 -- Available doorslot ids per roomshape
 MinimapAPI.RoomShapeDoorSlots ={
-	{0,1,2,3}, -- ROOMSHAPE_1x1 
-	{0,2}, -- ROOMSHAPE_IH  
-	{1,3}, -- ROOMSHAPE_IV  
-	{0,1,2,3,4,6}, -- ROOMSHAPE_1x2  
-	{1,3}, -- ROOMSHAPE_IIV  
-	{0,1,2,3,5,7}, -- ROOMSHAPE_2x1  
-	{0,2}, -- ROOMSHAPE_IIH  
-	{0,1,2,3,4,5,6,7}, -- ROOMSHAPE_2x2  
-	{0,1,2,3,4,5,6,7}, -- ROOMSHAPE_LTL  
-	{0,1,2,3,4,5,6,7}, -- ROOMSHAPE_LTR  
-	{0,1,2,3,4,5,6,7}, -- ROOMSHAPE_LBL  
-	{0,1,2,3,4,5,6,7} -- ROOMSHAPE_LBR  
+	{0,1,2,3}, -- ROOMSHAPE_1x1
+	{0,2}, -- ROOMSHAPE_IH
+	{1,3}, -- ROOMSHAPE_IV
+	{0,1,2,3,4,6}, -- ROOMSHAPE_1x2
+	{1,3}, -- ROOMSHAPE_IIV
+	{0,1,2,3,5,7}, -- ROOMSHAPE_2x1
+	{0,2}, -- ROOMSHAPE_IIH
+	{0,1,2,3,4,5,6,7}, -- ROOMSHAPE_2x2
+	{0,1,2,3,4,5,6,7}, -- ROOMSHAPE_LTL
+	{0,1,2,3,4,5,6,7}, -- ROOMSHAPE_LTR
+	{0,1,2,3,4,5,6,7}, -- ROOMSHAPE_LBL
+	{0,1,2,3,4,5,6,7} -- ROOMSHAPE_LBR
 }
 
 -- Map indicators, Added each flag from custom_mapflags.lua
 MinimapAPI.MapFlags = {
-	--[[ 
+	--[[
 	id: used to identify the flag
 	condition: return true to render the indicator
 	sprite: Mods should supply their own Sprite object where they load a custom anm2

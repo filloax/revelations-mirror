@@ -8,7 +8,7 @@ revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, entity, amount, f
         local entityData = entity:GetData()
         if not entityData.TakingPerseveranceDamage and source and source.Entity then
             local player = REVEL.GetPlayerFromDmgSrc(source)
-            if player and player:ToPlayer() and REVEL.ITEM.PERSEVERANCE:PlayerHasCollectible(player) then
+            if player and REVEL.ITEM.PERSEVERANCE:PlayerHasCollectible(player) then
 
                 local playerData = player:GetData()
 

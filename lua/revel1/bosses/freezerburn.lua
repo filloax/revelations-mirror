@@ -502,8 +502,6 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
     
             data.AttackCooldown = data.bal.StartCooldown
 
-            REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
-
             -- Spawning / Initializing White Fires
             local fireEntities = REVEL.ENT.LIGHTABLE_FIRE:getInRoom()
             if #fireEntities == 0 then
@@ -1000,7 +998,11 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
             return
         end
 
-        data.UsePlayerMap = doChase
+        if doChase then
+            REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
+        else
+            REVEL.StopUsingPathMap(REVEL.GenericChaserPathMap, npc)
+        end
 
         if doChase and data.Path then
             local friction, accel, walkAnims

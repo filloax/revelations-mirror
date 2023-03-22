@@ -1,4 +1,5 @@
 local SpikeState = require "lua.revelcommon.enums.SpikeState"
+local PlayerVariant     = require("lua.revelcommon.enums.PlayerVariant")
 
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
@@ -61,7 +62,7 @@ revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, ent)
 end)
 
 revel:AddCallback(ModCallbacks.MC_USE_ITEM, function(_, itemID, itemRNG, player, useFlags, activeSlot, customVarData)
-    if not HasBit(useFlags, UseFlag.USE_CARBATTERY) then
+    if not HasBit(useFlags, UseFlag.USE_CARBATTERY) and player.Variant == PlayerVariant.PLAYER then
         local oopsTriggered = false
         for i = 0, REVEL.room:GetGridSize() do
             local grid = REVEL.room:GetGridEntity(i)
@@ -184,6 +185,8 @@ revel:AddCallback(ModCallbacks.MC_USE_ITEM, function(_, itemID, itemRNG, player,
                     end, 0, nil, false, true)
                 end
                 REVEL.sfx:Play(SoundEffect.SOUND_BOSS2INTRO_ERRORBUZZ, 0.75, 0, false, 1)
+                --[[local explode = Isaac.Spawn(1000, EffectVariant.BOMB_EXPLOSION, 1, player.Position, Vector.Zero, player)
+                explode.SpriteScale = Vector(0.5,0.5)]]
             end
         else
             d.oopsTriggerCount = 0

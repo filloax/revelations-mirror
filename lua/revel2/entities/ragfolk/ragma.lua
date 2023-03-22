@@ -423,7 +423,7 @@ revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, e, dmg, flag, src
         e:TakeDamage(dmg * 0.2, DamageFlag.DAMAGE_CLONES, src, invuln)
         return false
     
-    elseif e:GetData().ragNumber <= 0
+    elseif data.ragNumber and data.ragNumber <= 0
     and flag ~= flag | DamageFlag.DAMAGE_CLONES then
         e:TakeDamage(dmg * 2, DamageFlag.DAMAGE_CLONES, src, invuln)
         return false

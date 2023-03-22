@@ -18,7 +18,6 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
         REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
     end
 
-    data.UsePlayerMap = true
     if data.State == "Idle" and not sprite:IsPlaying("Appear") then
         if not data.Buffed and not sprite:IsOverlayPlaying("Head") then
             sprite:PlayOverlay("Head", true)

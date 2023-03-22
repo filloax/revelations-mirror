@@ -179,7 +179,7 @@ revel:AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, function(_, tear)
     end
 end)
 
-REVEL.AddBrokenCallback(ModCallbacks.MC_PRE_TEAR_COLLISION, function(_, tear, collider, low)
+revel:AddCallback(ModCallbacks.MC_PRE_TEAR_COLLISION, function(_, tear, collider, low)
     if tear:GetData().IsDramamineTear then
         if collider and collider.Type == EntityType.ENTITY_BOMBDROP then
             return false

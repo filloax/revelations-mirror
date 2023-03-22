@@ -457,10 +457,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
             end
 
             if not data.Leader and not data.LocustsLeading and not data.Dashing then
-                if not REVEL.IsUsingPathMap(REVEL.GenericFlyingChaserPathMap, npc) then
-                    REVEL.UsePathMap(REVEL.GenericFlyingChaserPathMap, npc)
-                end
-                data.UsePlayerFlyingMap = true
+                REVEL.UsePathMap(REVEL.GenericFlyingChaserPathMap, npc)
                 
                 if not sprite:IsPlaying("Fly") then
                     sprite:Play("Fly", true)
@@ -475,10 +472,10 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
                     REVEL.FollowPath(npc, 0.55, data.Path, true, 0.95, false, true)
                 end
             else
-                data.UsePlayerFlyingMap = nil
+                REVEL.StopUsingPathMap(REVEL.GenericFlyingChaserPathMap, npc)
             end
         else
-            data.UsePlayerFlyingMap = nil
+            REVEL.StopUsingPathMap(REVEL.GenericFlyingChaserPathMap, npc)
             if not data.Leader:Exists() or data.Leader:IsDead() or data.Leader:HasEntityFlags(EntityFlag.FLAG_ICE_FROZEN) or not data.Leader:GetData().LocustsLeading or (npc:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) and not data.Leader:HasEntityFlags(EntityFlag.FLAG_FRIENDLY)) then
                 data.Leader = nil
             end

@@ -29,10 +29,7 @@ local function brainfreeze_NpcUpdate(_, npc)
                 npc:GetSprite():Play("Idle", true)
             end
 
-            if not REVEL.IsUsingPathMap(REVEL.GenericFlyingChaserPathMap, npc) then
-                REVEL.UsePathMap(REVEL.GenericFlyingChaserPathMap, npc)
-            end
-            npc:GetData().UsePlayerFlyingMap = true
+            REVEL.UsePathMap(REVEL.GenericFlyingChaserPathMap, npc)
             if npc:GetData().Path then
                 REVEL.FollowPath(npc, 0.6, npc:GetData().Path, true, 0.7, false, true)
             end

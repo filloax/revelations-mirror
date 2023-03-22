@@ -373,12 +373,8 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
     end
 
     if data.State == "Idle" then
-        data.UsePlayerMap = nil
-
-        if not REVEL.IsUsingPathMap(REVEL.GenericFlyingChaserPathMap, npc) then
-            REVEL.UsePathMap(REVEL.GenericFlyingChaserPathMap, npc)
-        end
-        data.UsePlayerFlyingMap = true
+        REVEL.StopUsingPathMap(REVEL.GenericChaserPathMap, npc)
+        REVEL.UsePathMap(REVEL.GenericFlyingChaserPathMap, npc)
 
         npc.GridCollisionClass = EntityGridCollisionClass.GRIDCOLL_WALLS
         if not sprite:IsPlaying("Move") then
@@ -537,8 +533,8 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
             local poof = Isaac.Spawn(1000,16,1,npc.Position,Vector.Zero,npc)
             local poof2 = Isaac.Spawn(1000,16,2,npc.Position,Vector.Zero,npc)
             poof.SpriteScale = Vector(0.9,0.9)
-            poof.Color = REVEL.SandSplatColor
-            poof2.Color = REVEL.SandSplatColor
+            poof.Color = Color(0.8,0.8,0.65,1)
+            poof2.Color = Color(0.8,0.8,0.65,1)
             npc.Velocity = npc.Velocity * 0.5
             for i = 1,  REVEL.game:GetNumPlayers() do
                 local player = REVEL.game:GetPlayer(i)
@@ -550,13 +546,8 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
         end
 
     elseif data.State == "DigToCoffin" then
-        data.UsePlayerFlyingMap = nil
-
-        if not REVEL.IsUsingPathMap(REVEL.GenericChaserPathMap, npc) then
-            REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
-        end
-        data.UsePlayerMap = true
-
+        REVEL.StopUsingPathMap(REVEL.GenericFlyingChaserPathMap, npc)
+        REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
         if sprite:IsFinished("Submerge") then
             sprite:Play("Submerged", true)
         end
@@ -943,7 +934,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
         end
     end
 
-    data.UsePlayerFlyingMap = true
+    REVEL.UsePathMap(REVEL.GenericFlyingChaserPathMap, npc)
 
     if sprite:IsEventTriggered("Laugh") then
         --play laugh sfx

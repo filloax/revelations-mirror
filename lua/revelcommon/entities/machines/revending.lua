@@ -128,6 +128,19 @@ local function StageOneRemoval(npc)
     end
 end
 
+local function SetEIDDescription(machine)
+    local itemConfig = Isaac:GetItemConfig():GetCollectible(machine.SubType)
+    if EID then
+        if not EID.effectList[REVEL.ENT.REVENDING_MACHINE.variant] then
+            EID.effectList[REVEL.ENT.REVENDING_MACHINE.variant] = true
+        end
+        machine:GetData().EID_Description = REVEL.GetEidItemDesc(machine.SubType)
+        if not machine:GetData().EID_Description.Name then
+            machine:GetData().EID_Description.Name = itemConfig.Name
+        end
+    end
+end
+
 -- Choose type
 function REVEL.InitializeRevendingMachine(machine, data)
     -- StageOneRemoval(machine)
@@ -159,17 +172,9 @@ function REVEL.InitializeRevendingMachine(machine, data)
     SetRunData(machine, "Type", data.Type)
 
     REVEL.ChooseRevelShopItem(machine, data)
+    SetEIDDescription(machine)
 
     local itemConfig = Isaac:GetItemConfig():GetCollectible(machine.SubType)
-    if EID then
-        if not EID.effectList[REVEL.ENT.REVENDING_MACHINE.variant] then
-            EID.effectList[REVEL.ENT.REVENDING_MACHINE.variant] = true
-        end
-        machine:GetData().EID_Description = REVEL.GetEidItemDesc(machine.SubType)
-        if not machine:GetData().EID_Description.Name then
-            machine:GetData().EID_Description.Name = itemConfig.Name
-        end
-    end
 
     if not data.Price then
         data.Price = GetRunData(machine, "Price")
@@ -271,6 +276,7 @@ end
 
 function REVEL.RerollRevendingMachine(machine)
     REVEL.ChooseRevelShopItem(machine, REVEL.GetMachineData(machine))
+    SetEIDDescription(machine)
 end
 
 local function revendingMachineInit(machine, data)

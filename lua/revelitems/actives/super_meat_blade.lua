@@ -2,6 +2,7 @@
 
 local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
+local PlayerVariant     = require("lua.revelcommon.enums.PlayerVariant")
 
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
@@ -28,7 +29,7 @@ local SMBladeBalance = {
 }
 
 local function SMBladeItemUse(_, itemID, itemRNG, player, useFlags, activeSlot, customVarData)
-    if not HasBit(useFlags, UseFlag.USE_CARBATTERY) then
+    if not HasBit(useFlags, UseFlag.USE_CARBATTERY) and player.Variant == PlayerVariant.PLAYER then
         if itemID == REVEL.ITEM.SMBLADE_UNUSED.id or REVEL.GetCharge(player) >= REVEL.GetMaxCharge(player, true) then
             if REVEL.ToggleShowActive(player, true) then --toggle holding the item and fling meat blades when holding up the item too
                 REVEL.FlingMeatBlades(player)
@@ -128,7 +129,7 @@ local function playBladeLevelSfx(level)
     end
 end
 
-revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, function(_, player)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, player)
     local sprite, data = player:GetSprite(), player:GetData()
     if REVEL.ITEM.SMBLADE:PlayerHasCollectible(player) or REVEL.ITEM.SMBLADE_UNUSED:PlayerHasCollectible(player) then
 

@@ -271,7 +271,7 @@ REVEL.DEFAULT_MODDATA = {
     cLightSetting = 2,
     particlesOn = 2, --0= off, 1=reduced, 2=on
     volumeMult = 0.75,
-    clearCacheMode = 1, --0=off, 1=every level/X minutes, 2=every room, see clearcache.lua
+    clearCacheMode = 0, --0=off, 1=every level/X minutes, 2=every room, see clearcache.lua
     enableStartHub = false,
 }
 

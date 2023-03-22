@@ -162,6 +162,7 @@ end
 
 function REVEL.AddBossRooms(bossKey, floorPrefix, prefix, editors)
     if not REVEL.UnsplitBosses then
+        ---@type table<string, table[]>
         REVEL.UnsplitBosses = {}
     end
 

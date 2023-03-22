@@ -88,17 +88,14 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 
     sprite.Rotation = sprite.Rotation + (data.CurrentMoveSpeed * 1.5)
 
-    if data.UsePlayerFlyingMap and data.MoveState ~= "TargetPlayer" then
+    if REVEL.IsUsingPathMap(REVEL.GenericFlyingChaserPathMap, npc) and data.MoveState ~= "TargetPlayer" then
         data.Path = nil
         data.PathIndex = nil
-        data.UsePlayerFlyingMap = nil
+        REVEL.StopUsingPathMap(REVEL.GenericFlyingChaserPathMap, npc)
     end
 
     if data.MoveState == "TargetPlayer" then
-        if not REVEL.IsUsingPathMap(REVEL.GenericFlyingChaserPathMap, npc) then
-            REVEL.UsePathMap(REVEL.GenericFlyingChaserPathMap, npc)
-        end
-        data.UsePlayerFlyingMap = true
+        REVEL.UsePathMap(REVEL.GenericFlyingChaserPathMap, npc)
 
         if data.Path then
             REVEL.FollowPath(npc, data.CurrentMoveSpeed, data.Path, true, 0.7, false, true)

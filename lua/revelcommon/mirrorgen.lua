@@ -201,6 +201,8 @@ function REVEL.MirrorRoom.PlaceInLevel()
             local exitSlot = (slot + 2) % 4
             local dir = StageAPI.DoorToDirection[exitSlot]
 
+            -- TODO: make revelaed by blue map when minimapapi is fixed
+
             --Reminder for displayflags: 3 bits "xyz", x:show icon, y:show room shadow, z:show room shape
             local mirrorRoomArgs = {
                 ID = "Mirror",
@@ -231,8 +233,8 @@ function REVEL.MirrorRoom.PlaceInLevel()
                 LockedIcons = {"Mirror Room Locked"},--A list of strings like above, but this is only shown when the player does not know the room's type (eg locked shop, dice room)
                 DisplayFlags = RoomDescriptor.DISPLAY_NONE,
                 AdjacentDisplayFlags = RoomDescriptor.DISPLAY_NONE, --The display flags that this room will take on if seen from an adjacent room. This is usually 0 for secret rooms, 3 for locked rooms and 5 for all others.
-                Hidden = true, --This room is secret. It will not be revealed by the compass or the treasure map, and it WILL be revealed by the blue map.
-                Color = Color(0.9, 1.15, 1.25)
+                Color = Color(0.9, 1.15, 1.25),
+                Secret = true,
             }
 
             local mirrorMRoom = MinimapAPI:GetRoomAtPosition(pos)
@@ -250,7 +252,7 @@ function REVEL.MirrorRoom.PlaceInLevel()
                 local entranceMRoom = MinimapAPI:GetRoomAtPosition(doorPos)
                 if entranceMRoom then
                     table.insert(entranceMRoom.PermanentIcons, "Mirror Entrance")
-                end    
+                end
             end
         end
     end

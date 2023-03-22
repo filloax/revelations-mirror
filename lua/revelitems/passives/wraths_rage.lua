@@ -72,7 +72,7 @@ StageAPI.AddCallback("Revelations", RevCallbacks.BOMB_UPDATE_INIT, 1, function(b
     end
 end)
 
-revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, function(_, player)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, player)
     if REVEL.ITEM.WRATHS_RAGE:PlayerHasCollectible(player) and
         player:GetData().TimesUsedWrathsRage then
         if player:GetData().TimesUsedWrathsRage >= 3 then

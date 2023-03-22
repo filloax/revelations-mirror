@@ -1,3 +1,4 @@
+local RevCallbacks = require "lua.revelcommon.enums.RevCallbacks"
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
 --Find entities around pos in radius from partitions (EntityPartitions enum) except ones whose type is in blacklist table
@@ -216,6 +217,8 @@ function REVEL.GetEntFromConst(constEnt)
     return REVEL.getClosestInTableFromPos(matching, constEnt.Position, nil, true)
 end
 
+---@param entRef EntityRef
+---@return Entity?
 function REVEL.GetEntFromRef(entRef)
     if entRef.Entity then
         return REVEL.GetEntFromConst(entRef.Entity)
@@ -273,7 +276,7 @@ local function trackDamageBuffer_Early_EntityTakeDmg(_, entity, damage)
     end
 end
 
-local function trackDamageBuffer_EntityTakeDmg(_, entity, damage)
+local function trackDamageBuffer_EntityTakeDmg(entity, damage)
     local eid = GetPtrHash(entity)
     local entry = TrackedDamageBufferEntities[eid]
     if not entry then
@@ -290,9 +293,49 @@ local function trackDamageBuffer_PostNewRoom()
     TrackedDamageBufferEntities = {}
 end
 
+---Meant for entities like players where a lot of different things
+-- might try to change .Visible near each other, interfering;
+-- this will try (at least for rev) to avoid interference in that
+---@param entity Entity
+---@param lockId any
+function REVEL.LockEntityVisibility(entity, lockId)
+    local data = REVEL.GetData(entity)
+    data.EntityVisibleLock = data.EntityVisibleLock or {}
+    if not data.EntityVisibleLock[lockId] then
+        data.EntityVisibleLockNum = (data.EntityVisibleLockNum or 0) + 1
+
+        if data.EntityVisibleLockNum == 1 then
+            entity.Visible = false
+        end
+    end
+    data.EntityVisibleLock[lockId] = true
+end
+
+---See `REVEL.LockEntityVisibility`
+---@param entity Entity
+---@param lockId any
+function REVEL.UnlockEntityVisibility(entity, lockId)
+    local data = REVEL.GetData(entity)
+    if data.EntityVisibleLock and data.EntityVisibleLock[lockId] then
+        data.EntityVisibleLockNum = data.EntityVisibleLockNum - 1
+        data.EntityVisibleLock[lockId] = nil
+        
+        if data.EntityVisibleLockNum == 0 then
+            entity.Visible = true
+        end
+    end
+end
+
+---@param entity Entity
+function REVEL.DamageFlash(entity)
+    local flashRed, flashDuration = Color(1,0.5,0.5,1,150,0,0), 3
+    entity:SetColor(flashRed, flashDuration, 1, false, false)
+end
+
+
 -- Add at low priority
-REVEL.EarlyCallbacks.trackDamageBuffer_Early_EntityTakeDmg = trackDamageBuffer_Early_EntityTakeDmg
-REVEL.AddLowPriorityCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, trackDamageBuffer_EntityTakeDmg)
+revel:AddPriorityCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, CallbackPriority.IMPORTANT, trackDamageBuffer_Early_EntityTakeDmg)
+StageAPI.AddCallback("Revelations", RevCallbacks.POST_ENTITY_TAKE_DMG, 0, trackDamageBuffer_EntityTakeDmg)
 revel:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, trackDamageBuffer_PostNewRoom)
 
 end

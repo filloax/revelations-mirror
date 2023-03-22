@@ -413,7 +413,7 @@ local function BurningbushShooterUpdate(entity, data, stats, player, useCostume,
     end
 
     if REVEL.IsShooting(player)
-    and not data.springHeight
+    and REVEL.ZPos.GetPosition(player) <= 0
     and not data.DisableBurningBush
     then
         --costume frames managed in post entity render due to costumes messing with head dir
@@ -497,7 +497,7 @@ local function BurningbushShooterUpdate(entity, data, stats, player, useCostume,
     -- REVEL.DebugToConsole("Player update took "..(Isaac.GetTime() - debugTime).."ms")
 end
 
-revel:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, function(_, player)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, player)
 
     if not REVEL.ITEM.BURNBUSH:PlayerHasCollectible(player) then return end
 
@@ -862,6 +862,8 @@ function spawnPermaFire(pos, vel, spawnerFire, sizeMult, lifeMult, noHeight, ran
 
     sizeMult = sizeMult or 1
     lifeMult = lifeMult or 1
+
+    if not REVEL.IsValidPlayer(player) then return end
 
     local permaFire = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.HOT_BOMB_FIRE, 0, pos, vel, player):ToEffect()
     local data, sprite = permaFire:GetData(), permaFire:GetSprite()

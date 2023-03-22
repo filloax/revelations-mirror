@@ -1,3 +1,5 @@
+local RevCallbacks = require("lua.revelcommon.enums.RevCallbacks")
+
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
 local CharacterUnlocks = {}
@@ -58,6 +60,6 @@ local function characterUnlockPlayerUpdate(_, player)
     end
 end
 
-revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, characterUnlockPlayerUpdate)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, characterUnlockPlayerUpdate)
 
 end

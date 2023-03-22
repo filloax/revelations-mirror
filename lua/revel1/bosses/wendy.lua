@@ -1429,7 +1429,7 @@ local function StalagmiteUpdate(npc)
 			sprite:Play("FlyingBreak", true)
 			SFXManager():Play(REVEL.SFX.MINT_GUM_BREAK, 1, 0, false, 0.9+math.random()*0.1)
 			for i = 1, math.random(1, 8) do
-				local eff = Isaac.Spawn(1000, EffectVariant.POOP_PARTICLE, 0, npc.Position + Vector(0, REVEL.GetEntityZPosition(npc)), RandomVector() * math.random(1,5), npc)
+				local eff = Isaac.Spawn(1000, EffectVariant.POOP_PARTICLE, 0, npc.Position + Vector(0, REVEL.ZPos.GetPosition(npc)), RandomVector() * math.random(1,5), npc)
 				eff:GetData().NoGibOverride = true
 				eff:GetSprite():ReplaceSpritesheet(0, "gfx/effects/revel1/snow_gibs.png")
 				eff:GetSprite():LoadGraphics()
@@ -1675,7 +1675,7 @@ revel:AddCallback(ModCallbacks.MC_POST_PROJECTILE_UPDATE, function(_, proj)
 	end
 end)
 
-REVEL.AddBrokenCallback(ModCallbacks.MC_PRE_PROJECTILE_COLLISION, function(_, proj, coll, low)
+revel:AddCallback(ModCallbacks.MC_PRE_PROJECTILE_COLLISION, function(_, proj, coll, low)
 	if proj:GetData().IgnoreHitOnSpawn and proj.FrameCount <= 5 then
 		return false
 	end

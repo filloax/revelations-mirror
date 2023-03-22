@@ -156,6 +156,7 @@
         <entity ID="487" Image="revelations/grill o wisp.png" Name="Grill O' Wisp" Subtype="0" Variant="333" />
         <entity ID="487" Image="revelations/small grill o wisp.png" Name="Small Grill O' Wisp" Subtype="1" Variant="333" />
         <entity ID="487" Image="revelations/chill o wisp.png" Name="Chill O' Wisp" Subtype="0" Variant="334" />
+        <entity ID="487" Image="revelations/small chill o wisp.png" Name="Small Chill O' Wisp" Subtype="1" Variant="334" />
         <entity ID="483" Image="revelations/brainfreeze.png" Name="Brainfreeze" Subtype="0" Variant="541" />
         <group Name="(Rev) Glacier Draugr" />
         <entity ID="462" Image="revelations/coal_heater.png" Name="Coal Heater" Subtype="0" Variant="542" />
@@ -195,7 +196,6 @@
 		<entity Name="Frowning Gaper"/>
 		<entity Name="Pacer"/>
 		<entity Name="Gusher"/>
-		<entity Name="Fatty"/>
 		<entity Name="Hopper"/>
 		<entity Name="Horf"/>
 		<entity Name="Brother Bloody"/>
@@ -203,11 +203,8 @@
 		<entity Name="Round Worm"/>
 		<entity Name="Clotty"/>
 		<entity Name="I.Blob"/>
-		<entity Name="Dip"/>
-		<entity Name="Squirt"/>
 		<entity Name="Pooter"/>
 		<entity Name="Spider"/>
-		<entity Name="Wall Creep"/>
 		<entity Name="Trite"/>
 		<entity Name="Poky"/>
 		<entity Name="Slide"/>
@@ -237,8 +234,8 @@
     <entity ID="735" Image="revelations/draugr.png" Name="Draugr" Variant="541" />
     <entity ID="735" Image="revelations/haugr.png" Name="Haugr" Variant="542" />
     <entity ID="735" Image="revelations/jaugr.png" Name="Jaugr" Variant="543" />
+    <entity ID="735" Image="revelations/juniaugr.png" Name="Juniaugr" Variant="544" />
 </group>
-
 
 
 <group Name="(Rev) Glacier Grids" Label="Grids">
@@ -331,6 +328,7 @@
         <entity ID="503" Image="revelations/sandbob.png" Name="Sandbob" Subtype="0" Variant="541" />
         <entity ID="503" Image="revelations/sandbip.png" Name="Sandbip" Subtype="0" Variant="542" />
         <entity ID="766" Image="revelations/slambip.png" Name="Slambip" Subtype="0" Variant="541" />
+        <entity ID="707" Image="revelations/sandstorm.png" Name="Sandstorm" Subtype="0" Variant="541" />
     </group>
     <group name="(Rev) Tomb Unique" Label="Unique">
         <entity ID="506" Image="revelations/pyramidhead.png" Name="Pyramid Head" Subtype="0" Variant="541" />
@@ -388,8 +386,6 @@
 		<entity Name="Walking Sack"/>
 		<entity Name="Lil' Haunt"/>
 		<entity Name="Boom Fly"/>
-		<entity Name="Hopper"/>
-		<entity Name="Flaming Hopper"/>
 		<entity Name="Leaper"/>
 		<entity Name="Dip"/>
 		<entity Name="Squirt"/>
@@ -522,6 +518,13 @@
 <entity Metadata="1" ID="199" Image="revelations/disable_special_block_drops.png" Name="Disable Special Rock Spawns (Ice spawning encased spiders, etc.)(Rev only)" 
     Subtype="0" Variant="745" InEmptyRooms="1" />
 <entity Metadata="1" ID="199" Image="revelations/vanity_shop.png" Name="Vanity Shop Item" Subtype="0" Variant="746" />
+<entity Metadata="1" ID="199" Image="revelations/test_zpos_ground.png" Name="Test - Airmovement Ground Level" Subtype="32768" Variant="748">
+    <bitfield Key="Subtype">
+        <spinner Name="Ground Level" Length="16" ValueOffset="-32768">
+            <tooltip>Placeholder until BR layers exist, associate with other dance metaentities with the same ID</tooltip>
+        </spinner>
+    </bitfield>
+</entity>
 
 <group Name="(Rev) Common Grids">
     <entity ID="750" Image="revelations/cursed_shrine.png" Name="Cursed Shrine" Subtype="0" Variant="541" />
@@ -556,6 +559,7 @@
             <entity Name="Extra Item Spawn Point" />
             <entity Name="Disable Special Rock Spawns (Ice spawning encased spiders, etc.)(Rev only)"/>
             <entity Name="Vanity Shop Item" />
+            <entity Name="Test - Airmovement Ground Level" />
         </group>
         <group Name="Rev Tab Bosses" Label="Bosses">
             <group Name="(Rev) Boss Modifiers"/>
@@ -598,6 +602,7 @@
         <entity Name="Extra Item Spawn Point" />
         <entity Name="Disable Special Rock Spawns (Ice spawning encased spiders, etc.)(Rev only)"/>
         <entity Name="Vanity Shop Item" />
+        <entity Name="Test - Airmovement Ground Level" />
     </group>
 </group>
 
@@ -637,9 +642,9 @@
 
 <group Name="Chapter 2 (Main Path) Enemies">
     <entity Name="Brother Bloody"/>
-    <entity Name="Pucker" />
+    <entity Name="Drifty" />
     <entity Name="Smolycephalus" />
-    <entity Name="Brother Bloody" />
+    <entity Name="Chicken" />
 </group>
 
 <group Name="Chapter 3 (Main Path) Enemies">

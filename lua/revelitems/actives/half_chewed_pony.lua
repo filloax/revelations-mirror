@@ -224,7 +224,7 @@ revel:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function(_, player, flag)
     end
 end)
 
-revel:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, function(_, player)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, player)
     local data = player:GetData()
     if REVEL.ITEM.HALF_CHEWED_PONY:PlayerHasCollectible(player) then
         if not data.HasChewedPony then

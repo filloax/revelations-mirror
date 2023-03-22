@@ -383,6 +383,13 @@ function REVEL.GetCustomDoorBySlot(slot)
     end
 end
 
+function REVEL.GetGridIdxInDirection(fromIndex, direction)
+    local vec = REVEL.dirToVel[direction]
+    local w = REVEL.room:GetGridWidth()
+    local x, y = REVEL.GridToVector(fromIndex, w)
+    return REVEL.VectorToGrid(x + vec.X, y + vec.Y, w)
+end
+
 -- CALLBACKS
 
 StageAPI.AddCallback("Revelations", RevCallbacks.EARLY_POST_NEW_ROOM, 1, lockgridindexPostNewRoom)

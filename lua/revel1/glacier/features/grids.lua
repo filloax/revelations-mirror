@@ -77,20 +77,18 @@ local function IsIceRockRoom()
 end
 
 ---@param grid GridEntity
-StageAPI.AddCallback("Revelations", StageAPICallbacks.POST_OVERRIDDEN_GRID_BREAK, 1, function(grindex, grid, shroomData)
+StageAPI.AddCallback("Revelations", "POST_OVERRIDDEN_ALT_ROCK_BREAK", 1, function(gridpos, gridvar, shroomData, customGrid)
     if IsIceRockRoom() then
         local currentRoom = StageAPI.GetCurrentRoom()
 
-        if not noSoundGrids[grindex] then
-            if grid:GetType() == GridEntityType.GRID_ROCK_ALT then
-                REVEL.sfx:Stop(SoundEffect.SOUND_MUSHROOM_POOF)
-                REVEL.sfx:Stop(SoundEffect.SOUND_MUSHROOM_POOF_2)
-                REVEL.sfx:Play(SoundEffect.SOUND_FREEZE_SHATTER, 0.75, 0, false, 0.95)
-                REVEL.sfx:Play(SoundEffect.SOUND_ROCK_CRUMBLE, 0.7, 0, false, 1.05)
-                -- REVEL.sfx:Play(REVEL.SFX.MINT_GUM_BREAK, 1, 0, false, 1)
-            end
-        else
-            noSoundGrids[grindex] = nil
+        if not (customGrid.GridEntity and noSoundGrids[customGrid.GridEntity:GetGridIndex()]) then
+            REVEL.sfx:Stop(SoundEffect.SOUND_MUSHROOM_POOF_2)
+            REVEL.DelayFunction(0, function() REVEL.sfx:Stop(SoundEffect.SOUND_MUSHROOM_POOF_2) end, {}, false, true)
+            REVEL.sfx:Play(SoundEffect.SOUND_FREEZE_SHATTER, 0.75, 0, false, 0.95)
+            REVEL.sfx:Play(SoundEffect.SOUND_ROCK_CRUMBLE, 0.7, 0, false, 1.05)
+            -- REVEL.sfx:Play(REVEL.SFX.MINT_GUM_BREAK, 1, 0, false, 1)
+        elseif customGrid.GridEntity then
+            noSoundGrids[customGrid.GridEntity:GetGridIndex()] = nil
         end
 
         local spawnedItem, spawnedFart
@@ -114,22 +112,25 @@ StageAPI.AddCallback("Revelations", StageAPICallbacks.POST_OVERRIDDEN_GRID_BREAK
         end
 
         if not disableRockSpawn then
-            if spawnedItem and not noItemGrids[grindex] then
+            if spawnedItem and not (customGrid.GridEntity and noItemGrids[customGrid.GridEntity:GetGridIndex()]) then
                 if REVEL.IsAchievementUnlocked("ICETRAY") and math.random(1,2) == 1 then
-                    Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, REVEL.ITEM.ICETRAY.id, REVEL.room:GetGridPosition(grindex), Vector.Zero, nil)
+                    Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, REVEL.ITEM.ICETRAY.id, gridpos, Vector.Zero, nil)
                 else
-                    Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, CollectibleType.COLLECTIBLE_SHARD_OF_GLASS, REVEL.room:GetGridPosition(grindex), Vector.Zero, nil)
+                    Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, CollectibleType.COLLECTIBLE_SHARD_OF_GLASS, gridpos, Vector.Zero, nil)
                 end
-            elseif spawnedFart and not noPoofGrids[grindex] then
-                REVEL.ENT.FROZEN_SPIDER:spawn(REVEL.room:GetGridPosition(grindex), Vector.Zero, nil)
+            elseif spawnedFart and not (customGrid.GridEntity and noItemGrids[customGrid.GridEntity:GetGridIndex()]) then
+                REVEL.ENT.FROZEN_SPIDER:spawn(gridpos, Vector.Zero, nil)
             end
         end
 
-        if noItemGrids[grindex] then
-            noItemGrids[grindex] = nil
-        end
-        if noPoofGrids[grindex] then
-            noPoofGrids[grindex] = nil
+        if customGrid.GridEntity then
+            local grindex = customGrid.GridEntity:GetGridIndex()
+            if noItemGrids[grindex] then
+                noItemGrids[grindex] = nil
+            end
+            if noPoofGrids[grindex] then
+                noPoofGrids[grindex] = nil
+            end
         end
     end
 end)

@@ -82,10 +82,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
         REVEL.sfx:NpcPlay(npc, REVEL.SFX.BOB_CRY, 0.6, 0, false, 1)
     end
 
-    if not REVEL.IsUsingPathMap(REVEL.GenericChaserPathMap, npc) then
-        REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
-    end
-    data.UsePlayerMap = true
+    REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
 
     if not data.Init then
         npc:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
@@ -178,11 +175,8 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
         end
     end
 
-    if not REVEL.IsUsingPathMap(REVEL.GenericChaserPathMap, npc) then
-        REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
-    end
-    data.UsePlayerMap = true
-    
+    REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
+
     if not data.Init then
         data.State = "Appear"
         sprite:Play('Appear', true)
@@ -285,10 +279,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 
     npc.SplatColor = REVEL.SandSplatColor
 
-    if not REVEL.IsUsingPathMap(REVEL.GenericChaserPathMap, npc) then
-        REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
-    end
-    data.UsePlayerMap = true
+    REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
 
     if not data.Init then
         data.Init = true
@@ -311,7 +302,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 
     local target = npc:GetPlayerTarget()
     if npc:IsDead() or target.Position:DistanceSquared(npc.Position) < (target.Size + npc.Size + 4) ^ 2 then
-        Isaac.Explode(npc.Position, npc, 60)
+        Isaac.Explode(npc.Position, npc, 10)
         if not npc:IsDead() then
             npc:Remove()
         end
@@ -327,10 +318,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 
     npc.SplatColor = REVEL.SandSplatColor
 
-    if not REVEL.IsUsingPathMap(REVEL.GenericChaserPathMap, npc) then
-        REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
-    end
-    data.UsePlayerMap = true
+    REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
 
     if not data.Init then
         data.Init = true

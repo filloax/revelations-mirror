@@ -29,7 +29,7 @@ end
 
 function MenuProvider.SaveSaveData()
     if not REVEL.FAILED_LOAD then
-        revel:saveData()
+        REVEL.SaveModData()
     end
 end
 

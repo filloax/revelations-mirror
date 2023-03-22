@@ -237,7 +237,6 @@ REVEL.STAGE.Tomb:SetSpots(
     "gfx/ui/stage/revel2/tomb_player_spot.png",
     Color(25/255, 15/255, 5/255, 1, 0, 0, 0)
 )
-REVEL.STAGE.Tomb:SetTrueCoopSpots("gfx/truecoop/versusscreen/playerspots/tomb_2.png", "gfx/truecoop/versusscreen/playerspots/tomb_3-4.png")
 REVEL.STAGE.Tomb:SetBosses(REVEL.TombBosses)
 
 REVEL.STAGE.Tomb:OverrideRockAltEffects(true)

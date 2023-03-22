@@ -80,7 +80,7 @@ revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, npc)
     end
 end)
 
-revel:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, function(_, npc)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, npc)
     if npc:GetData().MemoryCapped then
         if npc:GetData().MemoryCapped.Timer > 0 then
             npc:GetData().MemoryCapped.Timer = npc:GetData().MemoryCapped.Timer - 1

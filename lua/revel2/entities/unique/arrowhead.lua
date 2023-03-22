@@ -10,10 +10,7 @@ local function arrowhead_NpcUpdate(_, npc)
         npc.SplatColor = REVEL.PurpleRagSplatColor
         local data, sprite, player = npc:GetData(), npc:GetSprite(), npc:GetPlayerTarget()
         
-        if not REVEL.IsUsingPathMap(REVEL.GenericChaserPathMap, npc) then
-            REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
-        end
-        data.UsePlayerMap = true
+        REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
 
         if sprite:IsFinished("Appear") or sprite:IsFinished("Rotate2") or not data.Init then --last 2 are for maxwell spawns, that disable appear anim
             data.Angle = Vector.FromAngle(math.random(1, 360))

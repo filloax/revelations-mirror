@@ -28,8 +28,6 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
         REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
     end
 
-    data.UsePlayerMap = true
-
     if data.State == "Burrowing" then
         if data.SlamPos then
             sprite.FlipX = npc.Position.X < data.SlamPos.X

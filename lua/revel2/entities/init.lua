@@ -135,11 +135,8 @@ do
 			and not REVEL.room:IsClear() then
                 data.RevivalTear = true
 
-				if not REVEL.IsUsingPathMap(REVEL.GenericChaserPathMap, npc) then
-					REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
-				end
-				data.UsePlayerMap = true
-				
+				REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
+					
                 sprite:PlayOverlay("RevivalBall", true)
             end
         end

@@ -1,4 +1,5 @@
 local PitState = require("lua.revelcommon.enums.PitState")
+local RevCallbacks = require("lua.revelcommon.enums.RevCallbacks")
 
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
     
@@ -116,13 +117,13 @@ function REVEL.Glacier.TotalFreezePlayer(player, direction, speed, forceGrid, re
 end
 
 --Can't use collision class if we want pickups to work
-REVEL.AddBrokenCallback(ModCallbacks.MC_PRE_NPC_COLLISION, function(_, npc, collider)
+revel:AddCallback(ModCallbacks.MC_PRE_NPC_COLLISION, function(_, npc, collider)
     if collider.Type == 1 and npc.Type ~= REVEL.ENT.ICE_HAZARD_GAPER.id and collider:GetData().TotalFrozen then
         return true
     end
 end)
 
-REVEL.AddBrokenCallback(ModCallbacks.MC_PRE_PLAYER_COLLISION, function(_, player, collider)
+revel:AddCallback(ModCallbacks.MC_PRE_PLAYER_COLLISION, function(_, player, collider)
     if not (collider.Type == 5 or collider.Type == REVEL.ENT.ICE_HAZARD_GAPER.id) and player:GetData().TotalFrozen then
         return true
     end
@@ -198,7 +199,7 @@ function REVEL.Glacier.GridBreaksTotalFreeze(gridIndex, requireIce, player)
     return requireIce and not isIce, false
 end
 
-revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, function(_, player)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, player)
     local data = player:GetData()
 
     if data.NoFreezeGrid and REVEL.room:GetGridIndex(player.Position) ~= data.NoFreezeGrid then

@@ -41,7 +41,7 @@ for _, name in ipairs(potentialYarnCats) do
     }
 end
 
-revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, function(_, player)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, player)
     local data = player:GetData()
 
     if REVEL.GetShowingActive(player) == REVEL.ITEM.MOXIE_YARN.id then

@@ -2648,7 +2648,7 @@ do -- Narcissus 2
 		end
 	end, REVEL.ENT.MEGASHARD.id)
 
-    revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, function(_, player)
+    revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, player)
         if player:GetData().PoundedByNarcissus then
             local data = player:GetData()
             if data.PoundedByNarcissus < 0 then
@@ -2974,8 +2974,7 @@ do -- Narcissus 2
             end
 
             if e:GetData().Destroyed then
-                local flashRed, flashDuration = Color(1,0.5,0.5,1,150,0,0), 3
-			    e:SetColor(flashRed, flashDuration, 1, false, false)
+                REVEL.DamageFlash(e)
                 return false
             end
         end

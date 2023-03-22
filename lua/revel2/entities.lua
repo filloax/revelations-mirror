@@ -4,6 +4,7 @@ local SubModules = {
 	'lua.revel2.entities.bips.basic',
 	'lua.revel2.entities.bips.cannonbip',
 	'lua.revel2.entities.bips.sandshaper',
+	'lua.revel2.entities.bips.sandstorm',
 	'lua.revel2.entities.bips.slambip',
 	'lua.revel2.entities.bips.snipebip',
 	'lua.revel2.entities.bips.trenchbip',

@@ -20,7 +20,7 @@ end
 
 ---@param force? boolean
 ---@param continuedRun? boolean
-function revel:loadModdata(force, continuedRun)
+function REVEL.LoadModData(force, continuedRun)
     if not LoadedData or force then --if moddata wasn't properly loaded yet
         local readTime, decodeTime
         local t1 = Isaac.GetTime()
@@ -104,7 +104,7 @@ function revel:loadModdata(force, continuedRun)
 			hub2.LoadSaveData(revel.data.hub2)
 		end
 
-        revel:saveData()
+        REVEL.SaveModData()
 
         StageAPI.CallCallbacks(RevCallbacks.POST_SAVEDATA_LOAD)
 
@@ -116,8 +116,8 @@ function REVEL.ResetSaveData()
     REVEL.DebugLog("[REVEL] Resetting mod data...")
 
     DoResetSaveData = true
-    revel:loadModdata(true)
-    revel:saveData()
+    REVEL.LoadModData(true)
+    REVEL.SaveModData()
 end
 
 setmetatable(revel,
@@ -125,7 +125,7 @@ setmetatable(revel,
 	__index = function(t, k)
 		if k == "data" then
             error("[REVEL] Tried to access unloaded mod data, this shouldn't really happen" .. REVEL.TryGetTraceback(false, true))
-			-- revel:loadModdata()
+			-- REVEL.LoadModData()
 			-- return revel.data
 		end
 	end
@@ -148,7 +148,7 @@ local function CheckSavingData(data)
     CheckDataTable(data)
 end
 
-function revel:saveData(menuExit)
+function REVEL.SaveModData(menuExit)
     local data = revel.data
 
     if REVEL.UsingIntegratedMinimapAPI() then
@@ -173,14 +173,10 @@ function revel:saveData(menuExit)
     end
 end
 
-revel:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
-    if REVEL.game:GetFrameCount() % 200 == 0 then
-        revel:saveData()
-    end
-end)
+-- Loading + run reset
 
 revel:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, function()
-    revel:loadModdata(false)
+    REVEL.LoadModData(false)
 
     if REVEL.game:GetFrameCount() == 0 then 
         REVEL.DebugToString("[REVEL] Resetting run save data")
@@ -188,21 +184,41 @@ revel:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, function()
     end
 end)
 revel:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function()
-    revel:loadModdata(false)
+    REVEL.LoadModData(false)
 end)
 StageAPI.AddCallback("Revelations", StageAPICallbacks.PRE_STAGEAPI_LOAD_SAVE, 1, function()
-    revel:loadModdata(false)
+    REVEL.LoadModData(false)
 end)
 
+-- saving
+
+local wasPaused = false
+revel:AddCallback(ModCallbacks.MC_POST_RENDER, function()
+    if REVEL.game:IsPaused() and not wasPaused and LoadedData then
+        REVEL.SaveModData()
+    end
+    wasPaused = REVEL.game:IsPaused()
+end)
+revel:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
+    REVEL.SaveModData()
+end)
 revel:AddCallback(ModCallbacks.MC_PRE_GAME_EXIT, function(_, menuExit)
     if LoadedData then
-        revel:saveData(menuExit)
+        REVEL.SaveModData(menuExit)
         --reset data so it will be loaded correctly in case the save is switched
         revel.data = {}
         LoadedData = false
         REVEL.DebugToString("[REVEL] Run exit, unloaded data")
     end
 end)
+revel:AddCallback(ModCallbacks.MC_PRE_MOD_UNLOAD, function(_, mod)
+    if mod == revel and LoadedData then
+        REVEL.DebugToString("[REVEL] Unloading, saving data...")
+        REVEL.SaveModData()
+    end
+end)
+
+-- other resetting
 
 StageAPI.AddCallback("Revelations", RevCallbacks.EARLY_POST_NEW_ROOM, -100, function()
     if REVEL.room:IsFirstVisit() and REVEL.level:GetCurrentRoomIndex() == REVEL.level:GetStartingRoomIndex() then

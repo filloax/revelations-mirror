@@ -20,6 +20,7 @@ REVEL.RoomEditors = {
     "creeps",
     "grynn",
     "Sin",
+    "guwah",
     "chillmunity",
     "comummyty",
     "vanilla",

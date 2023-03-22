@@ -653,8 +653,8 @@ local MaxwellBalance = {
     TrapdoorRadius = 30,
     TrapdoorRadiusRaised = 56,
     TrapdoorPitfallRadius = 20,
-    TrapdoorRaisedHeight = -23,
-    TrapdoorRaisedTriggerHeight = -33,
+    TrapdoorRaisedHeight = 23,
+    TrapdoorRaisedTriggerHeight = 33,
     TrapdoorCenterOffset = 120,
     TrapdoorPushedSpringCooldown = 10,
 
@@ -1320,11 +1320,11 @@ local function shootBigBall(npc, spr, data, target, jumprope, height, notClampAn
 end
 
 local function springBomb(bomb, height, fallingSpeed, gravity)
-    REVEL.SetEntityAirMovement(bomb, {
+    REVEL.ZPos.SetData(bomb, {
         ZPosition = -height,
         Gravity = gravity
     })
-    REVEL.AddEntityZVelocity(bomb, -fallingSpeed)
+    REVEL.ZPos.AddVelocity(bomb, -fallingSpeed)
 end
 
 ---@param npc EntityNPC
@@ -3305,8 +3305,9 @@ local function maxwell_NpcUpdate(_, npc)
         if sprite:IsEventTriggered("Dunk") then
             REVEL.sfx:Play(SoundEffect.SOUND_MUSHROOM_POOF, 1, 0, false, 1.1)
             for _, dunking in ipairs(data.Dunking) do
-                dunking:GetData().springFallingSpeed = 2.5
-                dunking:GetData().springFallingAccel = 0.75
+                REVEL.ZPos.SetData(dunking, {
+                    ZVelocity = -5,
+                })
                 dunking:GetData().gotDunkedOn = true
                 dunking:GetData().dunker = EntityPtr(npc)
                 dunking:GetData().maxwellDunking = nil
@@ -3338,8 +3339,9 @@ local function maxwell_NpcUpdate(_, npc)
             local dunking = {}
             local y = npc.SpriteOffset.Y
             for _, player in ipairs(REVEL.players) do
-                local playerY = player:GetData().springHeight
-                if playerY and math.abs(playerY - y) <= data.bal.SlamDunkHitboxY and npc.Position:DistanceSquared(player.Position) < (npc.Size + 35) ^ 2 then
+                local playerY = REVEL.ZPos.GetPosition(player)
+                if playerY > 0 and math.abs(-playerY - y) <= data.bal.SlamDunkHitboxY 
+                and npc.Position:DistanceSquared(player.Position) < (npc.Size + 35) ^ 2 then
                     dunking[#dunking + 1] = player
                 end
             end
@@ -3421,7 +3423,7 @@ end, REVEL.ENT.MAXWELL.id)
 
 ---@param npc EntityNPC
 ---@param collider Entity
-REVEL.AddBrokenCallback(ModCallbacks.MC_PRE_NPC_COLLISION, function(_, npc, collider)
+revel:AddCallback(ModCallbacks.MC_PRE_NPC_COLLISION, function(_, npc, collider)
     if npc.Type ~= REVEL.ENT.MAXWELL.id or npc.Variant ~= REVEL.ENT.MAXWELL.variant then return end
     if collider:ToPlayer() then
         local sprite = npc:GetSprite()
@@ -3569,13 +3571,13 @@ end
 
 ---@param e Entity
 local function springBoulder(e)
-    if REVEL.GetEntityZPosition(e) > 0 then return end
+    if REVEL.ZPos.GetPosition(e) > 0 then return end
 
-    REVEL.SetEntityAirMovement(e, {
+    REVEL.ZPos.SetData(e, {
         ZPosition = 15,
         Gravity = 0.23
     })
-    REVEL.AddEntityZVelocity(e, 4)
+    REVEL.ZPos.AddVelocity(e, 4)
 end
 
 ---@param effect EntityEffect
@@ -3608,13 +3610,14 @@ local function maxwell_Trapdoor_PostEffectUpdate(_, effect)
             if collPoint then --if colliding
                 local shouldCollide = true
                 if collidable.Type == EntityType.ENTITY_PLAYER and data.Collision == "Unless Jumping" then
-                    local springHeight = collidable:GetData().springHeight
-                    if springHeight then
-                        if springHeight <= data.bal.TrapdoorRaisedHeight or not collidable:GetData().SpringPeaked then
+                    local zPos = REVEL.ZPos.GetPosition(collidable)
+                    local zVel = REVEL.ZPos.GetVelocity(collidable)
+                    if zPos > 0 then
+                        if zPos >= data.bal.TrapdoorRaisedHeight or zVel > 0 then
                             shouldCollide = false
                         end
 
-                        if springHeight >= data.bal.TrapdoorRaisedTriggerHeight and collidable:GetData().SpringPeaked then
+                        if zPos <= data.bal.TrapdoorRaisedTriggerHeight and zVel <= 0 then
                             playerOverRaised = true
                         end
                     end
@@ -3705,7 +3708,7 @@ local function maxwell_Trapdoor_PostEffectUpdate(_, effect)
 
     if data.SpringCollidingPlayers then
         for _, player in ipairs(REVEL.players) do
-            if not player:GetData().springHeight and not player:GetSprite():IsPlaying("Jump") then
+            if REVEL.ZPos.GetPosition(player) <= 0 and not player:GetSprite():IsPlaying("Jump") then
                 local collPoint = REVEL.GetCollisionCircleSquare(player.Position + player.Velocity, effect.Position, player.Size, data.bal.TrapdoorRadius+15)
                 if collPoint then
                     data.WaitForStepOff = true
@@ -3742,7 +3745,7 @@ local function maxwell_Trapdoor_PostEffectUpdate(_, effect)
             sprite:SetFrame("Trap Spring", 1)
         else
             for _, player in ipairs(REVEL.players) do
-                if not player:GetData().springHeight and not player:GetSprite():IsPlaying("Jump") then
+                if REVEL.ZPos.GetPosition(player) <= 0 and not player:GetSprite():IsPlaying("Jump") then
                     local collPoint = REVEL.GetCollisionCircleSquare(player.Position + player.Velocity, effect.Position, player.Size, data.bal.TrapdoorRadius+15)
                     if collPoint then
                         if not data.WaitForStepOff then
@@ -3842,19 +3845,22 @@ local function maxwell_Trapdoor_PostEffectUpdate(_, effect)
         end
 
         for _, player in ipairs(REVEL.players) do
-            if not player:GetData().springPitfalling and REVEL.GetCollisionCircleSquare(player.Position, effect.Position, 1, data.bal.TrapdoorRadius + 15) and not player:GetData().springHeight and not player:GetSprite():IsPlaying("Jump") then --if player is completely inside pit
+            if not REVEL.GetData(player).ZposPitfalling
+            and REVEL.GetCollisionCircleSquare(player.Position, effect.Position, 1, data.bal.TrapdoorRadius + 15) 
+            and REVEL.ZPos.GetPosition(player) <= 0 
+            and not player:GetSprite():IsPlaying("Jump") 
+            then --if player is completely inside pit
                 local maxwells = REVEL.ENT.MAXWELL:getInRoom()
 
                 for _, maxwell in ipairs(maxwells) do
                     maxwell:GetData().PlayerFellInto = effect
                 end
 
-                player:PlayExtraAnimation("FallIn")
                 local pos = (player.Position - effect.Position):Clamped(-data.bal.TrapdoorPitfallRadius, -data.bal.TrapdoorPitfallRadius, data.bal.TrapdoorPitfallRadius, data.bal.TrapdoorPitfallRadius)
-                player:GetData().pitfallPos = effect.Position + pos
+                REVEL.ZPos.StartPlayerPitfall(player:ToPlayer(), nil, 
+                    REVEL.room:GetGridIndex(effect.Position + RandomVector() * (data.bal.TrapdoorRadius + 60))
+                )
                 player.Position = effect.Position + pos
-                player:GetData().springPitfalling = maxwells[1]
-                REVEL.LockPlayerControls(player, "Spring")
                 player.Velocity = Vector.Zero
             end
         end
@@ -3895,13 +3901,13 @@ local function maxwell_Trapdoor_PostEffectUpdate(_, effect)
             local steppedOn
             local collidables = Isaac.FindByType(EntityType.ENTITY_BOMBDROP, -1, -1, false, false)
             for _, player in ipairs(REVEL.players) do
-                if not player:GetSprite():IsPlaying("Jump") and not player:GetData().springHeight then
+                if not player:GetSprite():IsPlaying("Jump") and REVEL.ZPos.GetPosition(player) <= 0 then
                     collidables[#collidables + 1] = player
                 end
             end
 
             for _, collidable in ipairs(collidables) do
-                if REVEL.GetEntityZPosition(collidable) == 0 and not collidable:GetData().springHeight then
+                if REVEL.ZPos.GetPosition(collidable) == 0 and REVEL.ZPos.GetPosition(collidable) <= 0 then
                     local collPoint = REVEL.GetCollisionCircleSquare(collidable.Position + collidable.Velocity, effect.Position, collidable.Size, data.bal.TrapdoorRadius+15)
                     if collPoint then
                         steppedOn = true
@@ -3929,7 +3935,7 @@ local function maxwell_Trapdoor_PostEffectUpdate(_, effect)
     elseif data.State == "Occupied" then
         if not sprite:IsPlaying("Trap Door Bomb Trigger") then
             for _, player in ipairs(REVEL.players) do
-                if not player:GetData().springHeight and not player:GetSprite():IsPlaying("Jump") then
+                if REVEL.ZPos.GetPosition(player) <= 0 and not player:GetSprite():IsPlaying("Jump") then
                     local collPoint = REVEL.GetCollisionCircleSquare(player.Position + player.Velocity, effect.Position, player.Size, data.bal.TrapdoorRadius+15)
                     if collPoint then
                         local fromMaxSide = (data.LeftTrapdoor and player.Position.X > effect.Position.X + data.bal.TrapdoorRadius) or (not data.LeftTrapdoor and player.Position.X < effect.Position.X - data.bal.TrapdoorRadius)
@@ -3946,7 +3952,7 @@ local function maxwell_Trapdoor_PostEffectUpdate(_, effect)
         elseif sprite:IsEventTriggered("Bounce") then
             sprite.Color = Color.Default
             for _, player in ipairs(REVEL.players) do
-                if not player:GetData().springHeight then
+                if REVEL.ZPos.GetPosition(player) <= 0 then
                     local collPoint = REVEL.GetCollisionCircleSquare(player.Position + player.Velocity, effect.Position, player.Size, data.bal.TrapdoorRadius+15)
                     if collPoint then
                         REVEL.SpringPlayer(player)
@@ -4243,6 +4249,39 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_BOULDER_IMPACT, 2, functio
 
     return false
 end)
+
+revel:AddCallback(RevCallbacks.PRE_ENTITY_ZPOS_UPDATE, function(_, entity, airMovementData, fromPit, oldZSpeed)
+    local data = entity:GetData()
+
+    if Isaac.CountEntities(nil, REVEL.ENT.MAXWELL.id, REVEL.ENT.MAXWELL.variant, -1) < 1 then
+        data.gotDunkedOn = nil
+        data.maxwellDunking = nil
+    end
+
+    if data.gotDunkedOn then
+        entity.Velocity = entity.Velocity * 0.2
+    end
+
+    if data.maxwellDunking then
+        entity.Velocity = Vector.Zero
+        return false
+    end
+end, EntityType.ENTITY_PLAYER)
+
+revel:AddPriorityCallback(RevCallbacks.POST_ENTITY_ZPOS_LAND, CallbackPriority.LATE, function(_, entity, airMovementData, fromPit, oldZSpeed)
+    local data = entity:GetData()
+    if data.gotDunkedOn then
+        local dunker = data.dunker and data.dunker.Ref
+
+        REVEL.SpawnDustParticles(entity.Position, 12, entity)
+
+        data.gotDunkedOn = nil
+        data.dunker = nil
+        
+        REVEL.PlaySound(REVEL.MaxwellBalance.Sounds.SlamDunkImpact)
+        entity:TakeDamage(1, 0, dunker and EntityRef(dunker), 15)
+    end
+end, EntityType.ENTITY_PLAYER)
 
 REVEL.MaxwellBalance = MaxwellBalance
 

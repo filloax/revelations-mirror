@@ -165,8 +165,8 @@ REVEL.WilliwawBalance = {
 	SnowflakeDeathPctDmg = 0.01,
 	SnowflakeHitPoints = 1,
 
-	HpPctPhase1 = 0.60,
-	HpPctPhase2 = 0.25,
+	HpPctPhase1 = 0.65,
+	HpPctPhase2 = 0.30,
 
 	-- IdleWaitMin = 0,
 	-- IdleWaitMax = 0,
@@ -299,7 +299,7 @@ REVEL.WilliwawBalance = {
 	SteamOutNumClonesPhase2 = 1,
 	SteamOutNumClonesPhase3 = 5,
 	
-	CloneCorralMaxOrbittingSpeed = 7.2,
+	CloneCorralMaxOrbittingSpeed = 4,
 	CloneCorralMaxRadius = 220,
 	CloneCorralMinRadius = 140,
 	CloneCorralShrinkTime = 60,

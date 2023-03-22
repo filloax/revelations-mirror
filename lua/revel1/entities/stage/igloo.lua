@@ -2,8 +2,8 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
 --Grimice / Igloo
 local ProjectileOffset = Vector.Zero
-local ProjectileSpeed = 12
-local FireDelay = 24
+local ProjectileSpeed = 11
+local FireDelay = 30
 local MaxRange = 800
 local MaxRangeSquared = MaxRange ^ 2
 

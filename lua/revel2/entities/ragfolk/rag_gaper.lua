@@ -45,13 +45,6 @@ local function ragGaperUpdate(_, npc)
         REVEL.EmitBuffedParticles(npc, Anm2GlowNull1)
     end
 
-    -- Separate from the first check as they can be spawned
-    -- with a state already (example: homing_gusher.lua)
-    if not data.RegisteredPathMap then
-        data.RegisteredPathMap = true
-        REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
-    end
-
     if sprite:IsFinished("TripHori") or sprite:IsFinished("TripVert") then
         npc:Morph(REVEL.ENT.RAG_GUSHER.id, REVEL.ENT.RAG_GUSHER.variant, 0, -1)
         return
@@ -65,7 +58,7 @@ local function ragGaperUpdate(_, npc)
         return
     end
 
-    data.UsePlayerMap = true
+    REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
 
     if data.State == "Moving" then
         if not data.RearedHead and data.Path then

@@ -502,7 +502,7 @@ end
 
 -- StageAPI.AddCallback("Revelations", StageAPICallbacks.POST_ROOM_LOAD, 1, loadBlowyDirections)
 revel:AddCallback(ModCallbacks.MC_PRE_NPC_UPDATE, bigblowyUpdate, REVEL.ENT.BIG_BLOWY.id)
-REVEL.AddBrokenCallback(ModCallbacks.MC_PRE_TEAR_COLLISION, bigblowyEuthanasiaPreTearCollision)
+revel:AddCallback(ModCallbacks.MC_PRE_TEAR_COLLISION, bigblowyEuthanasiaPreTearCollision)
 revel:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, bigblowyPostEntityRemove, REVEL.ENT.BIG_BLOWY.id)
 
 revel:AddCallback(ModCallbacks.MC_POST_NPC_RENDER, bigblowyRender, REVEL.ENT.BIG_BLOWY.id)

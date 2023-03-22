@@ -174,10 +174,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 				data.Init = true
 			end
 
-			if not REVEL.IsUsingPathMap(REVEL.GenericChaserPathMap, npc) then
-				REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
-			end
-			data.UsePlayerMap = true
+			REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
 
 			if data.LegsState == "Idle" then
 				-- sprite.FlipX = npc.Position.X > target.Position.X
@@ -1005,9 +1002,9 @@ local function flamingSpiderUpdate(_, npc)
 		end
 		if data.IsFlamingSpider then
 			npc.MaxHitPoints = npc.MaxHitPoints*0.5
+			npc.HitPoints = npc.MaxHitPoints
 		end
 
-		npc.HitPoints = npc.MaxHitPoints
 		data.FlamingSpiderInit = true
 	end
 	if data.IsFlamingSpider then
@@ -1037,7 +1034,7 @@ for i=1, #flamableSpiders do
 	revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, flamingSpiderUpdate, flamableSpiders[i])
 end
 
-REVEL.AddBrokenCallback(ModCallbacks.MC_PRE_NPC_UPDATE, function(_, npc)
+revel:AddCallback(ModCallbacks.MC_PRE_NPC_UPDATE, function(_, npc)
 	local data, sprite = npc:GetData(), npc:GetSprite()
 	if data.IsFlamingSpider and data.InAir then
 		if sprite:WasEventTriggered("Land") then
@@ -1107,7 +1104,7 @@ local function isClearExceptBombSacksAndSpiders()
 	return isClearExceptBombSacksAndSpiders
 end
 
-REVEL.AddBrokenCallback(ModCallbacks.MC_PRE_NPC_UPDATE, function(_, npc)
+revel:AddCallback(ModCallbacks.MC_PRE_NPC_UPDATE, function(_, npc)
 	if npc.Variant == REVEL.ENT.BOMB_SACK.variant then
 		local data = npc:GetData()
 
@@ -1199,7 +1196,7 @@ revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, entity, amount, f
 	end
 end, REVEL.ENT.BOMB_SACK.id)
 
-REVEL.AddBrokenCallback(ModCallbacks.MC_PRE_NPC_COLLISION, function(_, npc, collider)
+revel:AddCallback(ModCallbacks.MC_PRE_NPC_COLLISION, function(_, npc, collider)
 	if collider then
 		local data = npc:GetData()
 		if not data.Ignited and not data.Exploded then

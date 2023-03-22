@@ -55,10 +55,7 @@ do -- Antlion Baby
                     if npc.CollisionDamage < 1 then
                         npc.CollisionDamage = 1
                     end
-                    if not REVEL.IsUsingPathMap(REVEL.GenericChaserPathMap, npc) then
-                        REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
-                    end
-                    data.UsePlayerMap = true
+                    REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
                     if data.Path then
                         REVEL.FollowPath(npc, 0.5, data.Path, true, 0.9)
                     end

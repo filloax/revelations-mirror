@@ -143,7 +143,7 @@ function REVEL.ShootStabstackSegment(npc, dir, parent, remove)
     local zSpeed = 8
     local rollingPart = REVEL.ENT.STABSTACK_ROLLING:spawn(npc.Position, dir * horiSpeed, parent)
     rollingPart:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
-    REVEL.SetEntityAirMovement(rollingPart, {
+    REVEL.ZPos.SetData(rollingPart, {
         ZPosition = -offset,
         ZVelocity = zSpeed,
         Bounce = 0.75,
@@ -395,7 +395,7 @@ local function StabstackRollingUpdate(npc)
     else
         local sprite, data = npc:GetSprite(), npc:GetData()
 
-        if REVEL.GetEntityZPosition(npc) <= 0 then
+        if REVEL.ZPos.GetPosition(npc) <= 0 then
             npc.Velocity = npc.Velocity * 0.98
         end
 
@@ -517,6 +517,6 @@ revel:AddCallback(ModCallbacks.MC_POST_NPC_INIT, stabstack_Init, REVEL.ENT.STABS
 revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, stabstack_NpcUpdate, REVEL.ENT.STABSTACK.id)
 revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, stabstack_EntityTakeDmg, REVEL.ENT.STABSTACK.id)
 StageAPI.AddCallback("Revelations", RevCallbacks.POST_PROJ_POOF_INIT, 1, stabstack_BulletPoof)
-StageAPI.AddCallback("Revelations", RevCallbacks.POST_ENTITY_AIR_MOVEMENT_LAND, 1, stabstack_EntityAirMovementLand)
+revel:AddCallback(RevCallbacks.POST_ENTITY_ZPOS_LAND, stabstack_EntityAirMovementLand)
 
 end

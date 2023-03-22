@@ -1,3 +1,5 @@
+local RevCallbacks = require("lua.revelcommon.enums.RevCallbacks")
+
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 ----------------
 -- Death Mask --
@@ -16,7 +18,7 @@ local deathMaskBonuses = {
     CollectibleType.COLLECTIBLE_BOOK_OF_THE_DEAD --counts twice so it removes 2
 }
 
-revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, function(_, player)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, player)
     if REVEL.ITEM.DEATH_MASK:PlayerHasCollectible(player) then
         local neededCharge = 10
         for _, coll in ipairs(deathMaskBonuses) do

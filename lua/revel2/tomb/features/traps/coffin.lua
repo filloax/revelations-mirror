@@ -170,6 +170,7 @@ end)
 
 local coffinSpawns = {}
 revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, eff)
+    eff.DepthOffset = -8000
     local sprite, data = eff:GetSprite(), eff:GetData()
     local rotation = eff:GetSprite().Rotation
     for _, player in ipairs(REVEL.players) do

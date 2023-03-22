@@ -156,7 +156,7 @@ local function chilloWisp_NpcUpdate(_, npc)
                 end
                 data.radius = REVEL.GetChillWarmRadius()
                 if npc.SubType == 1 then
-                    data.radius = data.radius * 0.5
+                    data.radius = data.radius * 0.6
                 end
 
                 REVEL.SpawnLightAtEnt(npc, lightColor, 2.5, Vector(0, -15))
@@ -173,7 +173,17 @@ local function chilloWisp_NpcUpdate(_, npc)
         --CHILL INIT
         else
             if not data.Init then
+                if not data.SpriteChanged and npc.SubType == 1 then
+                    local spritesheet = "gfx/monsters/revel1/chill_o_wisp_small.png"
+                    npc:GetSprite():ReplaceSpritesheet(0, spritesheet)
+                    npc:GetSprite():ReplaceSpritesheet(1, spritesheet)
+                    npc:GetSprite():LoadGraphics()
+                end
+
                 data.radius = REVEL.GetChillFreezeRadius()
+                if npc.SubType == 1 then
+                    data.radius = data.radius * 0.7
+                end
                 REVEL.SetChillAura(npc, data.radius)
                 REVEL.SpawnLightAtEnt(npc, lightColor, 2.5, Vector(0, -15))
                 REVEL.SpawnLightAtEnt(npc, Color.Default, 2.5, Vector(0, -15), false, false, 1000, EffectVariant.BLUE_FLAME, 0)
@@ -279,7 +289,12 @@ local function chilloWisp_NpcUpdate(_, npc)
                 end
             else
                 local target = npc:GetPlayerTarget()
-                local speed = 0.08
+                local speed
+                if npc.SubType == 1 then
+                    speed = 0.12
+                else
+                    speed = 0.08
+                end
                 if REVEL.IsShrineEffectActive(ShrineTypes.FROST) then
                     speed = speed * 1.5
                 end
@@ -297,10 +312,7 @@ local function chilloWisp_NpcUpdate(_, npc)
                 local stayStill = data.StayStill or DeadSeaScrollsMenu.IsOpen()
 
                 if not stayStill and not data.ChillCooldown then
-                    if not REVEL.IsUsingPathMap(REVEL.GenericFlyingChaserPathMap, npc) then
-                        REVEL.UsePathMap(REVEL.GenericFlyingChaserPathMap, npc)
-                    end
-                    data.UsePlayerFlyingMap = true
+                    REVEL.UsePathMap(REVEL.GenericFlyingChaserPathMap, npc)
                     if data.Path then
                         REVEL.FollowPath(npc, speed, data.Path, true, friction, false, true)
                     else

@@ -160,6 +160,7 @@ REVEL.mixin(REVEL.ENT, {
     DRAUGR = REVEL.ent("Draugr"),
     HAUGR = REVEL.ent("Haugr"),
     JAUGR = REVEL.ent("Jaugr"),
+    JUNIAUGR = REVEL.ent("Juniaugr"),
     SASQUATCH = REVEL.ent("Sasquatch"),
     ICE_BLOCK = REVEL.ent("Ice Block", {
         NoChampion = true,

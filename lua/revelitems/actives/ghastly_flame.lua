@@ -1,5 +1,6 @@
 local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
+local PlayerVariant     = require("lua.revelcommon.enums.PlayerVariant")
 
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
@@ -32,14 +33,15 @@ revel.gflame = {
 revel:AddCallback(ModCallbacks.MC_USE_ITEM,
                     function(_, itemID, itemRNG, player, useFlags, activeSlot,
                             customVarData)
-    if not HasBit(useFlags, UseFlag.USE_CARBATTERY) and
-        player:GetActiveItem() == itemID and
-        (itemID == REVEL.ITEM.GFLAME.id or itemID == REVEL.ITEM.GFLAME2.id) then
+    if not HasBit(useFlags, UseFlag.USE_CARBATTERY) 
+    and player.Variant == PlayerVariant.PLAYER 
+    and player:GetActiveItem() == itemID 
+    and (itemID == REVEL.ITEM.GFLAME.id or itemID == REVEL.ITEM.GFLAME2.id) then
         REVEL.ToggleShowActive(player, true)
     end
 end)
 
-revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, function(_, p)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, p)
     local data = p:GetData()
     local id = REVEL.GetShowingActive(p)
 

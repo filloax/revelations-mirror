@@ -1509,7 +1509,7 @@ end, REVEL.ENT.SARCGUT.id)
 -- TARGUTS --
 -------------
 
-REVEL.AddBrokenCallback(ModCallbacks.MC_PRE_NPC_COLLISION, function(_, npc, collider)
+revel:AddCallback(ModCallbacks.MC_PRE_NPC_COLLISION, function(_, npc, collider)
     if not collider then return end
 
     if collider.Type == EntityType.ENTITY_GUTS then

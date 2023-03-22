@@ -694,6 +694,6 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
     StageAPI.AddCallback("Revelations", RevCallbacks.PRE_RENDER_ENTITY_REFLECTION, 1, playerPreReflection, 1)
     StageAPI.AddCallback("Revelations", RevCallbacks.POST_RENDER_ENTITY_REFLECTION, 1, playerPostReflection, 1)
-    revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, reflectionPostPlayerUpdate)
+    revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, reflectionPostPlayerUpdate)
 
 end

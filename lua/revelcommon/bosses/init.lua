@@ -25,7 +25,7 @@ REVEL.BossTargetTimeTable = {
         [REVEL.ENT.FREEZER_BURN.variant] = {TargetLength = 45, Vulnerability = 0.5}
     },
     [REVEL.ENT.STALAGMITE.id] = {
-        [REVEL.ENT.STALAGMITE.variant] = {TargetLength = 45, Vulnerability = 0.5}
+        [REVEL.ENT.STALAGMITE.variant] = {TargetLength = 50, Vulnerability = 0.5}
     },
 	[REVEL.ENT.WENDY.id] = {
         [REVEL.ENT.WENDY.variant] = {TargetLength = 60, Vulnerability = 0.42}
@@ -91,6 +91,9 @@ do
       ["Freezer Burn"] = "FreezerBurn"
     }
 
+
+    -- LayoutFilter contains a filter for the boss affected by the achievements, to be used with StageAPI.DoesLayoutContainEntities
+    ---@type table<string, {Name: string, Bosses: table, LayoutFilter: EntityDef[]}>
     local champAchievements = {
         Glacier = { Name = "GLACIER_CHAMPIONS", Bosses = REVEL.copy(REVEL.Bosses.ChapterOne) },
         Tomb    = { Name = "TOMB_CHAMPIONS",    Bosses = REVEL.copy(REVEL.Bosses.ChapterTwo) }
@@ -151,7 +154,7 @@ do
     REVEL.ForceNextChampion = nil
     REVEL.ForceNextRuthless = nil
     
-    StageAPI.AddCallback("Revelations", "POST_CHECK_VALID_ROOM", 10, function(layout) -- high priority because it should run later to stop rooms from spawning
+    StageAPI.AddCallback("Revelations", StageAPICallbacks.POST_CHECK_VALID_ROOM, 10, function(layout) -- high priority because it should run later to stop rooms from spawning
         local championizers = StageAPI.CountLayoutEntities(layout, {{Type = 789, Variant = 91}})
         local noChampions = StageAPI.CountLayoutEntities(layout, {{Type = 789, Variant = 92}})
         if championizers == 0 and noChampions == 0 then return end
@@ -175,7 +178,8 @@ do
                 return false
             end
 
-            if not REVEL.IsAchievementUnlocked(champAchievement.Name) then
+            if not REVEL.IsAchievementUnlocked(champAchievement.Name)
+            and championizers > 0 then
                 local champBosses = StageAPI.CountLayoutEntities(layout, champAchievement.LayoutFilter)
                 if champBosses > 0 then
                     return false

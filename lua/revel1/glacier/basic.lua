@@ -276,7 +276,6 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
     )
     REVEL.STAGE.Glacier:SetRenderStartingRoomControls(true)
     REVEL.STAGE.Glacier:SetFloorTextColor(Color(0,0,0,1,conv255ToFloat(85,120,155)))
-    REVEL.STAGE.Glacier:SetTrueCoopSpots("gfx/truecoop/versusscreen/playerspots/glacier_2.png", "gfx/truecoop/versusscreen/playerspots/glacier_4.png", "gfx/truecoop/versusscreen/playerspots/glacier_3.png")
     REVEL.STAGE.Glacier:OverrideRockAltEffects({RoomType.ROOM_DEFAULT, RevRoomType.CHILL, RoomType.ROOM_BOSS, RoomType.ROOM_TREASURE, RoomType.ROOM_MINIBOSS, RoomType.ROOM_SECRET}) --, "ChillSecret"
     REVEL.STAGE.Glacier:OverrideTrapdoors()
     REVEL.STAGE.Glacier:SetTransitionIcon(

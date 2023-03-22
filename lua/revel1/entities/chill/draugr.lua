@@ -3,17 +3,19 @@ local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
--- Draugr / Haugr / Jaugr
+-- Draugr / Haugr / Jaugr / Juniaugr
 local draugrBalance = {
     Champions = {Haugr = "Default", Jaugr = "Default"},
     Speed = {
         Default = 0.65,
         Haugr = 0.35,
         Jaugr = 0.45,
+        Juniaugr = 1,
     },
     GrilloEmptySpeed = {
         Default = 0.75,
         Haugr = 0.4,
+        Juniaugr = 1,
     },
     DashSpeed = {
         Default = -1,
@@ -63,7 +65,8 @@ local draugrBalance = {
         Haugr = {
         },
         Jaugr = {
-            {},
+        },
+        Juniaugr = {
         },
     },
     ChilloSkin = {
@@ -78,6 +81,9 @@ local draugrBalance = {
         },
         Jaugr = {
         },
+        Juniaugr = {
+            {[0] = "gfx/monsters/revel1/draugr/juniaugr_chillo.png"}
+        },
     },
     GrilloSkin = { --add quartz draugr
         Default = {
@@ -90,6 +96,9 @@ local draugrBalance = {
         Haugr = {
         },
         Jaugr = {
+        },
+        Juniaugr = {
+            {[0] = "gfx/monsters/revel1/draugr/juniaugr_grillo.png"}
         },
     },
     ChilloGlow = {
@@ -231,7 +240,7 @@ local function draugrAvoidsFire(draugr)
 end
 
 local function ShouldRunAway(draugr)
-    return REVEL.ENT.DRAUGR:isEnt(draugr) and isDraugrHolding(draugr, REVEL.ENT.GRILL_O_WISP)
+    return (REVEL.ENT.DRAUGR:isEnt(draugr) or REVEL.ENT.JUNIAUGR:isEnt(draugr)) and isDraugrHolding(draugr, REVEL.ENT.GRILL_O_WISP)
 end
 
 --Used by draugr and haugr
@@ -239,11 +248,11 @@ local DraugrIgnoreFireMap = REVEL.NewPathMapFromTable("DraugrIgnoreFire", {
     GetTargetSets = function()
         local targetSets = {}
         local grillosAndFires, chillos
-        local draugrs, haugrs = REVEL.ENT.DRAUGR:getInRoom(), REVEL.ENT.HAUGR:getInRoom()
+        local draugrs, haugrs, juniaugrs = REVEL.ENT.DRAUGR:getInRoom(), REVEL.ENT.HAUGR:getInRoom(), REVEL.ENT.JUNIAUGR:getInRoom()
 
-        for i, draugr, _ in REVEL.MultiTableIterate(draugrs, haugrs) do
+        for i, draugr, _ in REVEL.MultiTableIterate(draugrs, haugrs, juniaugrs) do
             if not draugrAvoidsFire(draugr) then
-                local rgrillosAndFires, rchillos = processDraugrTargetsForMap(draugr, targetSets, grillosAndFires, chillos, draugrs, haugrs)
+                local rgrillosAndFires, rchillos = processDraugrTargetsForMap(draugr, targetSets, grillosAndFires, chillos, draugrs, haugrs, juniaugrs)
                 grillosAndFires = rgrillosAndFires
                 chillos = rchillos
                 draugr:GetData().UsingAvoidFireMap = false
@@ -290,11 +299,11 @@ local DraugrAvoidFireMap = REVEL.NewPathMapFromTable("DraugrAvoidFire", {
     GetTargetSets = function()
         local targetSets = {}
         local grillosAndFires, chillos
-        local draugrs, haugrs, jaugrs = REVEL.ENT.DRAUGR:getInRoom(), REVEL.ENT.HAUGR:getInRoom(), REVEL.ENT.JAUGR:getInRoom()
+        local draugrs, haugrs, jaugrs, juniaugrs = REVEL.ENT.DRAUGR:getInRoom(), REVEL.ENT.HAUGR:getInRoom(), REVEL.ENT.JAUGR:getInRoom(), REVEL.ENT.JUNIAUGR:getInRoom()
 
-        for i, draugr, _ in REVEL.MultiTableIterate(draugrs, haugrs, jaugrs) do
+        for i, draugr, _ in REVEL.MultiTableIterate(draugrs, haugrs, jaugrs, juniaugrs) do
             if draugrAvoidsFire(draugr) then
-                local rgrillosAndFires, rchillos = processDraugrTargetsForMap(draugr, targetSets, grillosAndFires, chillos, draugrs, haugrs)
+                local rgrillosAndFires, rchillos = processDraugrTargetsForMap(draugr, targetSets, grillosAndFires, chillos, draugrs, haugrs, juniaugrs)
                 grillosAndFires = rgrillosAndFires
                 chillos = rchillos
                 draugr:GetData().UsingAvoidFireMap = true
@@ -309,9 +318,9 @@ local DraugrAvoidFireMap = REVEL.NewPathMapFromTable("DraugrAvoidFire", {
     end,
 
     OnPathUpdate = function(map)
-        local draugrs, jaugrs = REVEL.ENT.DRAUGR:getInRoom(), REVEL.ENT.JAUGR:getInRoom()
+        local draugrs, jaugrs, juniaugrs = REVEL.ENT.DRAUGR:getInRoom(), REVEL.ENT.JAUGR:getInRoom(), REVEL.ENT.JUNIAUGR:getInRoom()
 
-        for _, draugr in REVEL.MultiTableIterate(draugrs, jaugrs) do
+        for _, draugr in REVEL.MultiTableIterate(draugrs, jaugrs, juniaugrs) do
             local data = draugr:GetData()
 
             if data.UsingAvoidFireMap then
@@ -337,7 +346,7 @@ local DraugrAvoidFireMap = REVEL.NewPathMapFromTable("DraugrAvoidFire", {
 })
 
 local function draugrPathMapFireplaceEntityTakeDmg(_, ent, dmg)
-    if ent.HitPoints - dmg <= 1 and REVEL.ENT.DRAUGR:countInRoom() + REVEL.ENT.HAUGR:countInRoom() > 0 then
+    if ent.HitPoints - dmg <= 1 and REVEL.ENT.DRAUGR:countInRoom() + REVEL.ENT.HAUGR:countInRoom() + REVEL.ENT.JUNIAUGR:countInRoom() > 0 then
         REVEL.UpdatePathMap(DraugrIgnoreFireMap, true)
         REVEL.UpdatePathMap(DraugrAvoidFireMap, true)
     end
@@ -354,6 +363,8 @@ local function getBalanceByVariant(npcOrVariant)
         return REVEL.GetBossBalance(draugrBalance, "Haugr")
     elseif variant == REVEL.ENT.JAUGR.variant then
         return REVEL.GetBossBalance(draugrBalance, "Jaugr")
+    elseif variant == REVEL.ENT.JUNIAUGR.variant then
+        return REVEL.GetBossBalance(draugrBalance, "Juniaugr")
     end
     return REVEL.GetBossBalance(draugrBalance, "Default")
 end
@@ -371,7 +382,7 @@ local function loadSkin(npc, headSkin, glowSkin)
         data.HeadSprite:LoadGraphics()
     end
 
-    if glowSkin and glowSkin[data.Variant] and not data.NoReplaceGlowSpritesheet then
+    if glowSkin and data.GlowSprite and glowSkin[data.Variant] and not data.NoReplaceGlowSpritesheet then
         data.GlowSprite:ReplaceSpritesheet(0, glowSkin[data.Variant])
         data.GlowSprite:LoadGraphics()
         data.GlowSpriteOn = true
@@ -388,7 +399,11 @@ local function eat(npc, entity)
 
     data.Holding = data.Holding or {}
     local index = #data.Holding + 1
-    data.Holding[index] = {Type = data.Eating.Type, Variant = data.Eating.Variant,  SubType = data.Eating.SubType}
+    if REVEL.ENT.JUNIAUGR:isEnt(npc) then
+        data.Holding[index] = {Type = data.Eating.Type, Variant = data.Eating.Variant,  SubType = 1}
+    else
+        data.Holding[index] = {Type = data.Eating.Type, Variant = data.Eating.Variant,  SubType = data.Eating.SubType}
+    end
     local ateGrillo, ateChillo
 
     if entity.Type == 33 then
@@ -430,6 +445,9 @@ local function eat(npc, entity)
             if data.bal.GrilloRadiusMult > 0 then
                 eatenAuraData.Radius = eatenAuraData.Radius * data.bal.GrilloRadiusMult
             end
+            if REVEL.ENT.JUNIAUGR:isEnt(npc) and data.Eating.SubType == 0 then 
+                eatenAuraData.Radius = eatenAuraData.Radius * 0.6
+            end
             local auraData = REVEL.SetWarmAura(npc, eatenAuraData)
             if data.Aura and auraData.Aura.Ref then
                 data.Aura:Remove()
@@ -444,6 +462,9 @@ local function eat(npc, entity)
             local eatenAuraData = REVEL.GetChillAuraData(entity)
             if eatenAuraData then
                 eatenAuraData.Radius = eatenAuraData.Radius * data.bal.ChillRadiusMult
+                if REVEL.ENT.JUNIAUGR:isEnt(npc) and data.Eating.SubType == 0 then 
+                    eatenAuraData.Radius = eatenAuraData.Radius * 0.7
+                end
                 local auraData = REVEL.SetChillAura(npc, eatenAuraData)
 
                 if data.Aura and auraData.Aura.Ref then
@@ -452,10 +473,14 @@ local function eat(npc, entity)
                 data.Aura = auraData.Aura.Ref
                 REVEL.UpdateAuraRadius(data.Aura, auraData.Radius)
             else
+                local radius = entity:GetData().radius or REVEL.GetChillFreezeRadius()
+                radius = radius * data.bal.ChillRadiusMult
+                if REVEL.ENT.JUNIAUGR:isEnt(npc) and data.Eating.SubType == 0 then 
+                    radius = radius * 0.7
+                end
                 local auraData = REVEL.SetChillAura(
                     npc, 
-                    (entity:GetData().radius or REVEL.GetChillFreezeRadius()) 
-                        * data.bal.ChillRadiusMult,
+                    radius,
                     not not data.Aura
                 )
                 if data.Aura and auraData.Aura.Ref then
@@ -492,7 +517,7 @@ end
 --Draugr and Haugr update
 local function draugrHaugrNpcUpdate(_, npc)
 
-    if not (REVEL.ENT.DRAUGR:isEnt(npc) or REVEL.ENT.HAUGR:isEnt(npc)) then return end
+    if not (REVEL.ENT.DRAUGR:isEnt(npc) or REVEL.ENT.HAUGR:isEnt(npc) or REVEL.ENT.JUNIAUGR:isEnt(npc)) then return end
 
     npc.SplatColor = REVEL.CoalSplatColor
 
@@ -509,10 +534,19 @@ local function draugrHaugrNpcUpdate(_, npc)
     if data.GlowSprite then
         data.GlowSprite:Update()
         data.GlowSprite.Color = npc.Color
-        data.GlowSprite.Scale = npc.SpriteScale
     end
 
-    REVEL.AnimateWalkFrameSpeed(sprite, npc.Velocity, data.bal.WalkAnims)
+    if REVEL.ENT.JUNIAUGR:isEnt(npc) then
+        if data.HeadSprite:IsPlaying("Eat") then
+            sprite:Play("Empty", true)
+        elseif data.HeadSprite:IsFinished("Eat") then
+            sprite:SetFrame("WalkVert", 0)
+        else
+            REVEL.AnimateWalkFrameSpeed(sprite, npc.Velocity, data.bal.WalkAnims)
+        end
+    else
+        REVEL.AnimateWalkFrameSpeed(sprite, npc.Velocity, data.bal.WalkAnims)
+    end
 
     local speed = data.bal.Speed
 
@@ -561,11 +595,17 @@ local function draugrHaugrNpcUpdate(_, npc)
     if data.Holding and #data.Holding > 0 then
         data.RenderOnTopParticles = data.RenderOnTopParticles or {}
         local part
+        local height = -35
+        local dist = 20
+        if REVEL.ENT.JUNIAUGR:isEnt(npc) then
+            height = -20
+            dist = 10
+        end
 
         if isDraugrHolding(npc, REVEL.ENT.GRILL_O_WISP) then
-            part = REVEL.SpawnFireParticles(npc, -35, 20)
+            part = REVEL.SpawnFireParticles(npc, height, dist)
         elseif isDraugrHolding(npc, REVEL.ENT.CHILL_O_WISP) then
-            part = REVEL.SpawnFireParticles(npc, -35, 20, nil, REVEL.EmberParticleBlue.Spritesheet)
+            part = REVEL.SpawnFireParticles(npc, height, dist, nil, REVEL.EmberParticleBlue.Spritesheet)
         end
 
         if part then
@@ -587,7 +627,7 @@ local function draugrHaugrNpcUpdate(_, npc)
         end
     end
 
-    if not data.Eating and not data.HeadSprite:IsPlaying("Eat") and not (REVEL.ENT.DRAUGR:isEnt(npc) and data.Holding and #data.Holding > 0) then
+    if not data.Eating and not data.HeadSprite:IsPlaying("Eat") and not ((REVEL.ENT.DRAUGR:isEnt(npc) or REVEL.ENT.JUNIAUGR:isEnt(npc)) and data.Holding and #data.Holding > 0) then
         local eatable = {}
         if data.bal.CanEatChillo then
             eatable = REVEL.ENT.CHILL_O_WISP:getInRoom()
@@ -611,7 +651,7 @@ local function draugrHaugrNpcUpdate(_, npc)
         for _, entity in ipairs(eatable) do
             if not entity:GetData().BeingEaten and npc.Position:DistanceSquared(entity.Position) < (entity.Size + data.bal.EatDistance) ^ 2 then
                 -- sprite:Play("Eat", true)
-                data.HeadSprite:Play("Eat")
+                data.HeadSprite:Play("Eat", true)
                 data.Eating = entity
                 REVEL.sfx:NpcPlay(npc, REVEL.SFX.ICE_MUNCH, 1, 0, false, 0.9+(math.random()*0.2))
                 data.Eating:GetData().StayStill = true
@@ -651,22 +691,27 @@ local SoundCooldown = {Min = 80, Max = 100}
 local currentSoundCooldown = REVEL.GetFromMinMax(SoundCooldown)
 
 local function draugrPostNewRoom()
-    local numd, numh = REVEL.ENT.DRAUGR:countInRoom(), REVEL.ENT.HAUGR:countInRoom()
-    local tot = numd + numh
+    local numd, numh, numj = REVEL.ENT.DRAUGR:countInRoom(), REVEL.ENT.HAUGR:countInRoom(), REVEL.ENT.JUNIAUGR:countInRoom()
+    local tot = numd + numh + numj
     if tot > 0 then
         currentSoundCooldown = REVEL.GetFromMinMax(SoundCooldown) * REVEL.Lerp2Clamp(0.35, 1, tot, 6, 2)
     end
 end
 
 local function draugrPostUpdate()
-    local numd, numh = REVEL.ENT.DRAUGR:countInRoom(), REVEL.ENT.HAUGR:countInRoom()
-    local tot = numd + numh
+    local numd, numh, numj = REVEL.ENT.DRAUGR:countInRoom(), REVEL.ENT.HAUGR:countInRoom(), REVEL.ENT.JUNIAUGR:countInRoom()
+    local tot = numd + numh + numj
     if tot > 0 then
         if currentSoundCooldown <= 0 then
-            local draugrs, haugrs = REVEL.ENT.DRAUGR:getInRoom(), REVEL.ENT.HAUGR:getInRoom()
+            local draugrs, haugrs, juniaugrs = REVEL.ENT.DRAUGR:getInRoom(), REVEL.ENT.HAUGR:getInRoom(), REVEL.ENT.JUNIAUGR:getInRoom()
             local i = math.random(tot)
-            local soundSource = (i > #draugrs) and haugrs[i - #draugrs] or draugrs[i]
-            REVEL.sfx:NpcPlay(soundSource:ToNPC(), REVEL.SFX.DRAUGR, 1.25, 0, false, REVEL.ENT.HAUGR:isEnt(soundSource) and 0.95 or 1)
+            local pitch = 1
+            if i > #haugrs then
+                pitch = 1.5
+            elseif i > #draugrs then
+                pitch = 0.8
+            end
+            REVEL.sfx:Play(REVEL.SFX.DRAUGR, 1.25, 0, false, pitch)
 
             currentSoundCooldown = REVEL.GetFromMinMax(SoundCooldown) * REVEL.Lerp2Clamp(0.55, 1, tot, 6, 2)
         else
@@ -1044,7 +1089,7 @@ local function draugrPreSelectEntityList(entityList, spawnIndex, entityMeta)
     if chilloIndex or grilloIndex then
         local remove = {}
         for _, entityInfo in ripairs(entityList) do
-            if REVEL.ENT.DRAUGR:isEnt(entityInfo) or REVEL.ENT.JAUGR:isEnt(entityInfo) or REVEL.ENT.HAUGR:isEnt(entityInfo) then
+            if REVEL.ENT.DRAUGR:isEnt(entityInfo) or REVEL.ENT.JAUGR:isEnt(entityInfo) or REVEL.ENT.HAUGR:isEnt(entityInfo) or REVEL.ENT.JUNIAUGR:isEnt(entityInfo) then
                 local bal = getBalanceByVariant(entityInfo.Variant)
                 --set some flags to spawn the draugr initialized
                 if bal.CanEatChillo and chilloIndex then
@@ -1067,7 +1112,7 @@ local function draugrPreSelectEntityList(entityList, spawnIndex, entityMeta)
 end
 
 local function draugrPostNpcInit(_, npc)
-    if not (REVEL.ENT.DRAUGR:isEnt(npc) or REVEL.ENT.HAUGR:isEnt(npc) or REVEL.ENT.JAUGR:isEnt(npc)) then return end
+    if not (REVEL.ENT.DRAUGR:isEnt(npc) or REVEL.ENT.HAUGR:isEnt(npc) or REVEL.ENT.JAUGR:isEnt(npc) or REVEL.ENT.JUNIAUGR:isEnt(npc)) then return end
 
     local sprite, data = npc:GetSprite(), npc:GetData()
 
@@ -1094,6 +1139,10 @@ local function draugrPostNpcInit(_, npc)
     elseif REVEL.ENT.JAUGR:isEnt(npc) then
         data.HeadSprite:Load("gfx/monsters/revel1/draugr/jaugr.anm2", false)
         -- data.GlowSprite:Load("gfx/monsters/revel1/draugr/draugr_glow.anm2", false)
+    elseif REVEL.ENT.JUNIAUGR:isEnt(npc) then
+        data.HeadSprite:Load("gfx/monsters/revel1/draugr/juniaugr.anm2", false)
+        --[[data.GlowSprite = Sprite()
+        data.GlowSprite:Load("gfx/monsters/revel1/draugr/draugr_glow.anm2", false)]]
     end
 
     data.Variant = #data.bal.Variants > 0 and math.random(#data.bal.Variants) or 1
@@ -1115,14 +1164,21 @@ local function draugrPostNpcInit(_, npc)
     if npc.SubType == StartChilledSubtype then
         local useAura = not REVEL.ENT.JAUGR:isEnt(npc)
         data.Holding = {{Type = REVEL.ENT.CHILL_O_WISP.id, Variant = REVEL.ENT.CHILL_O_WISP.variant}}
+        if npc.SubType == StartGrilledSmallSubType or REVEL.ENT.JUNIAUGR:isEnt(npc) then
+            data.Holding[1].SubType = 1
+        end
         if useAura then
-            local auraData = REVEL.SetChillAura(npc, REVEL.GetChillFreezeRadius() * data.bal.ChillRadiusMult)
+            radius = REVEL.GetChillFreezeRadius() * data.bal.ChillRadiusMult
+            if REVEL.ENT.JUNIAUGR:isEnt(npc) then
+                radius = radius * 0.6
+            end
+            local auraData = REVEL.SetChillAura(npc, radius)
             data.Aura = auraData.Aura.Ref
         end
     elseif npc.SubType == StartGrilledSubtype or npc.SubType == StartGrilledSmallSubType then
         data.Holding = {{Type = REVEL.ENT.GRILL_O_WISP.id, Variant = REVEL.ENT.GRILL_O_WISP.variant}}
         local radius = REVEL.GetChillWarmRadius()
-        if npc.SubType == StartGrilledSmallSubType then
+        if npc.SubType == StartGrilledSmallSubType or REVEL.ENT.JUNIAUGR:isEnt(npc) then
             radius = radius * 0.6
             data.Holding[1].SubType = 1
         end
@@ -1207,8 +1263,8 @@ local function SpawnBonyDustClouds(entity)
 end
 
 local function draugrPostEntityKill(_, entity)
-    REVEL.sfx:Stop(SoundEffect.SOUND_DEATH_BURST_SMALL)
-    REVEL.sfx:Play(SoundEffect.SOUND_DEATH_BURST_BONE)
+    --[[REVEL.sfx:Stop(SoundEffect.SOUND_DEATH_BURST_SMALL)
+    REVEL.sfx:Play(SoundEffect.SOUND_DEATH_BURST_BONE)]]
     SpawnBonyDustClouds(entity)
 end
 
@@ -1228,7 +1284,7 @@ local function draugrPostEntityRemove(_, entity)
 end
 
 local function draugrEntityTakeDmg(_, entity, dmg, flag, src, count)
-    if (REVEL.ENT.DRAUGR:isEnt(entity) or REVEL.ENT.HAUGR:isEnt(entity)) and src and src.Entity and src.Entity.Type == 33 then
+    if (REVEL.ENT.DRAUGR:isEnt(entity) or REVEL.ENT.HAUGR:isEnt(entity) or REVEL.ENT.JUNIAUGR:isEnt(entity)) and src and src.Entity and src.Entity.Type == 33 then
         return false
     end
 end

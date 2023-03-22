@@ -760,7 +760,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
                 self.Data = data
                 self.Boss = boss
                 self.Dancers = {}
-                self.bossbal = boss:GetData().bal
+                self.bossbal = REVEL.GetData(boss).bal
                 self.bal = bal
                 if not loop then
                     self.Loop = bal.Loop
@@ -813,7 +813,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
                     self:HandleBeat(GetTriggeredBeatSets())
                 end   
                 
-                if self.Leaded and self.Boss:GetData().LeadingDance ~= self then
+                if self.Leaded and REVEL.GetData(self.Boss).LeadingDance ~= self then
                     REVEL.DebugLog("Warn: ragtime dance set as leaded with the dance not being actually leaded by him")
                 end
             end,
@@ -966,7 +966,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
                 if self.Leaded then
                     self.Boss.Position = REVEL.room:GetGridPosition(startPoint.Index)
-                    self.Boss:GetData().BoxDanceIndex = startPoint.Index
+                    REVEL.GetData(self.Boss).BoxDanceIndex = startPoint.Index
                 end
             end,
 
@@ -1006,7 +1006,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
                 local nextAction = self.bal.BeatPattern[self.BeatProgress]
 
                 if nextAction == "Move" and self.NextPoint then
-                    local phase = self.Boss:GetData().Phase
+                    local phase = REVEL.GetData(self.Boss).Phase
                     local decoDefinition = REVEL.GetRelativeDarkness() > 0.1 and TargetGlowDeco or TargetDeco
 
                     decoDefinition.Color = decoDefinition["Color" .. phase]
@@ -1170,7 +1170,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
             end,
 
             UpdateRagtimeLeader = function(self)
-                local data, sprite = self.Boss:GetData(), self.Boss:GetSprite()
+                local data, sprite = REVEL.GetData(self.Boss), self.Boss:GetSprite()
 
                 local nextCues = GetNextBeats(self.bossbal.MusicMapSetDefault, #self.bal.BeatPattern)
                 local beatsUntilJump -- 1 = next beat
@@ -1350,7 +1350,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
                 if self.Leaded then
                     self.Boss.Position = REVEL.room:GetGridPosition(self.Path[numDancers + 1])
-                    self.Boss:GetData().ChangeAnimTimer = nil
+                    REVEL.GetData(self.Boss).ChangeAnimTimer = nil
                     self.BossPathIndex = numDancers + 1
                 end
             end,
@@ -1409,7 +1409,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
                 if doMove and self.Leaded 
                 and (
                     (self.Done or self.DoneCountdown) 
-                    or self.Boss:GetData().State == States.TIRED
+                    or REVEL.GetData(self.Boss).State == States.TIRED
                 )
                 then
                     doMove = false
@@ -1490,7 +1490,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
             end,
 
             UpdateRagtimeLeader = function(self)
-                local data, sprite = self.Boss:GetData(), self.Boss:GetSprite()
+                local data, sprite = REVEL.GetData(self.Boss), self.Boss:GetSprite()
                 
                 local numAvgPoints = 3
 
@@ -1587,7 +1587,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
                 end
 
                 if self.Leaded then
-                    self.Boss:GetData().CongaLastTargIndex = nil
+                    REVEL.GetData(self.Boss).CongaLastTargIndex = nil
                 end
             end,
 
@@ -1630,13 +1630,13 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
     -- Npc logic
 
     local function LeadDance(npc, dance)
-        npc:GetData().LeadingDance = dance
+        REVEL.GetData(npc).LeadingDance = dance
         dance.Leaded = true
     end
 
     local function StopLeadingDance(npc)
-        npc:GetData().LeadingDance.Leaded = false
-        npc:GetData().LeadingDance = nil
+        REVEL.GetData(npc).LeadingDance.Leaded = false
+        REVEL.GetData(npc).LeadingDance = nil
     end
 
     local function StartDance(npc, phase, forceLoop)
@@ -1644,7 +1644,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
             error("Ragtime.StartDance | called before RoomDances initialized", 2)
         end
 
-        local sprite, data = npc:GetSprite(), npc:GetData()
+        local sprite, data = npc:GetSprite(), REVEL.GetData(npc)
         local currentIds = REVEL.map(data.CurrentDances, function(dance) return dance.Data.ID end)
 
         local chosenDanceData = RoomDances:GetRandom(currentIds)
@@ -1829,7 +1829,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
             local ragtimes = REVEL.ENT.RAGTIME:getInRoom()
 
             for _, npc in ipairs(ragtimes) do
-                local data = npc:GetData()
+                local data = REVEL.GetData(npc)
 
                 if data.Phase == 2 then
                     data.Path = REVEL.GeneratePathAStar(REVEL.room:GetGridIndex(npc.Position), map.TargetMapSets[1].FarthestIndex)
@@ -2154,7 +2154,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
     revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
         if not REVEL.ENT.RAGTIME:isEnt(npc) then return end
 
-        local sprite, data = npc:GetSprite(), npc:GetData()
+        local sprite, data = npc:GetSprite(), REVEL.GetData(npc)
 
         npc.Mass = 150
 
@@ -2562,7 +2562,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
     revel:AddCallback(ModCallbacks.MC_POST_NPC_RENDER, function(_, npc)
         if not REVEL.ENT.RAGTIME:isEnt(npc) then return end
 
-        local sprite, data = npc:GetSprite(), npc:GetData()
+        local sprite, data = npc:GetSprite(), REVEL.GetData(npc)
 
         if npc.State == NpcState.STATE_DEATH and StageAPI.IsOddRenderFrame then
             if data.LightsOutTimer then
@@ -2579,10 +2579,12 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
         end
     end, REVEL.ENT.RAGTIME.id)
 
-    revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, npc, dmg)
-        if not REVEL.ENT.RAGTIME:isEnt(npc) then return end
+    local DoingChangedDamage = false
 
-        local sprite, data = npc:GetSprite(), npc:GetData()
+    revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, npc, dmg, ...)
+        if not REVEL.ENT.RAGTIME:isEnt(npc) or DoingChangedDamage then return end
+
+        local sprite, data = npc:GetSprite(), REVEL.GetData(npc)
 
         local lbal = data.bal.LightsOut
         local lightsOutPhaseStartTime = math.floor(lbal.Duration * lbal.PhaseStartTime)
@@ -2595,12 +2597,19 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
         end
 
         if npc.HitPoints - dmg - REVEL.GetDamageBuffer(npc) <= 0 then
-            npc.HitPoints = dmg + REVEL.GetDamageBuffer(npc) + 1
             if data.Phase ~= 1 and not data.NextFinale and data.State == States.DANCE_OFF then
                 data.NextFinale = true
                 data.State = States.LIGHTS_OUT
                 sprite:Play("Tired", true)
             end
+            if npc.HitPoints - REVEL.GetDamageBuffer(npc) > 1 then
+                DoingChangedDamage = true
+                npc:TakeDamage(npc.HitPoints - REVEL.GetDamageBuffer(npc) - 1, ...)
+                DoingChangedDamage = false
+            else
+                REVEL.DamageFlash(npc)
+            end
+            return false
         end
     end, REVEL.ENT.RAGTIME.id)
 
@@ -2622,7 +2631,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
     revel:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, function(_, entity)
         if not REVEL.ENT.RAGTIME:isEnt(entity) then return end
 
-        local data = entity:GetData()
+        local data = REVEL.GetData(entity)
 
         REVEL.sfx:Stop(data.bal.Sounds.Spin.Sound)
 
@@ -2642,7 +2651,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
         if REVEL.IsEliteRoom("Ragtime") then
             local ragtimes = REVEL.ENT.RAGTIME:getInRoom()
             if #ragtimes > 0 and REVEL.every(ragtimes, function(ent)
-                return not ent:IsDead() and ent:GetData().NoMusic
+                return not ent:IsDead() and REVEL.GetData(ent).NoMusic
             end) then
                 return REVEL.SFX.BLANK_MUSIC
             end
@@ -2653,7 +2662,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
         local ragtimes = REVEL.ENT.RAGTIME:getInRoom()
         local alpha = 0
         for _, npc in ipairs(ragtimes) do
-            local thisAlpha = npc:GetData().DarkScreenAlpha or 0
+            local thisAlpha = REVEL.GetData(npc).DarkScreenAlpha or 0
             alpha = math.max(alpha, thisAlpha)
         end
 
@@ -2674,7 +2683,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
         local sprite, data = dancer:GetSprite(), dancer:GetData()
 
-        data.Phase = dance.Boss:GetData().Phase
+        data.Phase = REVEL.GetData(dance.Boss).Phase
 
         if data.Phase == 2 then
             -- mainly change tint when shooting
@@ -2685,7 +2694,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
         data.DanceType = dance.DanceType
         data.AnimType = math.random(1, 3)
         data.Boss = dance.Boss
-        data.bal = data.Boss:GetData().bal.Dancers
+        data.bal = REVEL.GetData(data.Boss).bal.Dancers
         data.Suffix = "Blind"
         if shooter then
             data.Suffix = "Shooter"
@@ -2729,7 +2738,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
             return
         end
 
-        if REVEL.includes(data.Boss:GetData().bal.DancerNoCollAnims, sprite:GetAnimation()) then
+        if REVEL.includes(REVEL.GetData(data.Boss).bal.DancerNoCollAnims, sprite:GetAnimation()) then
             npc.EntityCollisionClass = EntityCollisionClass.ENTCOLL_NONE
         else
             npc.EntityCollisionClass = EntityCollisionClass.ENTCOLL_PLAYEROBJECTS
@@ -2876,7 +2885,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
         data.FromPos = npc.Position
         data.Index = toIndex
         data.State = "Hop_Index"
-        data.JumpDuration = duration or data.Boss:GetData().bal.DancerHopAnimDuration
+        data.JumpDuration = duration or REVEL.GetData(data.Boss).bal.DancerHopAnimDuration
         data.LastShoot = shoot
         data.DoOnLand = doOnLand
 
@@ -2890,7 +2899,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
     function DancerShootWarning(npc, duration)
         local data = npc:GetData()
         if data.IsShooter or data.IsLeader then
-            data.WarningCounter = duration or data.Boss:GetData().bal.DancerHopAnimDuration
+            data.WarningCounter = duration or REVEL.GetData(data.Boss).bal.DancerHopAnimDuration
             data.WarningCounterDuration = data.WarningCounter
         end
     end

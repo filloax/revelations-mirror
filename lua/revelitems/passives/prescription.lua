@@ -117,7 +117,7 @@ StageAPI.AddCallback("Revelations", RevCallbacks.EARLY_POST_NEW_ROOM, 1, functio
     end
 end)
 
-revel:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, function(_, player)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, player)
     local data = player:GetData()
     if data.PrescriptionSprite and player.FrameCount%2 == 0 then
         data.PrescriptionSprite:Update()

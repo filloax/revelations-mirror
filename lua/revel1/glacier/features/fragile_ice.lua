@@ -377,6 +377,6 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_ROOM_CLEAR, 1, fragileiceP
 
 StageAPI.AddCallback("Revelations", RevCallbacks.EARLY_POST_NEW_ROOM, 1, fragileicePostNewRoom)
 revel:AddCallback(ModCallbacks.MC_POST_UPDATE, fragileicePostUpdate)
-revel:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, fragileicePostPlayerUpdate)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, fragileicePostPlayerUpdate)
 
 end

@@ -311,6 +311,7 @@ REVEL.mixin(REVEL.ENT, {
     }),
     RAGMA = REVEL.ent("Ragma"),
     DUNE = REVEL.ent("Dune"),
+    SANDSTORM = REVEL.ent("Sandstorm"),
 
     --Effects
     REVIVAL_RAG = REVEL.ent("Revival Rag"),

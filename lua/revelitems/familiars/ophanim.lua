@@ -3,7 +3,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
 -- Ophanim
 
-revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, function(_, player)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, player)
     local data = player:GetData()
     if not REVEL.ITEM.OPHANIM:PlayerHasCollectible(player) then
         if data.Ophanim then

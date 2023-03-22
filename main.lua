@@ -5,7 +5,7 @@ _G.REVEL = {
     DEBUG = false,
     Testmode = false,
   
-    VERSION = "4.0.0",
+    VERSION = "4.2.0",
   
     MODID = "2880387531", --steam workshop id
 
@@ -35,15 +35,13 @@ PatchMod_TrackAddedCallbacks(revel)
 -- PERFORMANCE DIAGNOSTICS
 --------------------------
 
-REVEL.DO_DEBUG_METRICS = false
--- can be set from console before reloading
-REVEL.DO_DEBUG_METRICS = REVEL.DO_DEBUG_METRICS or REV_FORCE_DEBUG_METRICS
+-- moved to own file with new callbacks system
 
-local PatchMod_PerformanceMetrics = include("lua.revelcommon.patches.performance_metrics")
+-- local PatchMod_PerformanceMetrics = include("lua.revelcommon.patches.performance_metrics")
 
-if REVEL.DO_DEBUG_METRICS then
-    PatchMod_PerformanceMetrics(revel)
-end
+-- if REVEL.DO_DEBUG_METRICS then
+--     PatchMod_PerformanceMetrics(revel)
+-- end
 
 -----------------------
 -- SHADERS CRASH FIX --
@@ -83,6 +81,8 @@ REVEL.LoadFunctions = {}
     If LoadFunctions is already non-empty at the start, it means this was called when loading another 
     module; it saves those in a temp table, does the loading, then restores LoadFunctions to previous state
 ]] 
+---@param modules string[]
+---@return fun()[]
 function REVEL.LoadModulesFromTable(modules)
     local isMainLoad = #REVEL.LoadFunctions == 0
 
@@ -131,6 +131,7 @@ end
 
 local MainLoadFunctions = REVEL.LoadModulesFromTable(REVEL.Modules)
 
+---@param funcs fun()[]
 function REVEL.RunLoadFunctions(funcs)
     for _, fn in ipairs(funcs) do
         local success, err = pcall(fn)
@@ -210,7 +211,7 @@ function REVEL.LoadRevel()
     ------------------------------------------------------
 
     if Isaac.GetPlayer(0) then
-        revel:loadModdata()
+        REVEL.LoadModData()
 
         StageAPI.CallCallbacks(RevCallbacks.POST_INGAME_RELOAD, false, true)
 

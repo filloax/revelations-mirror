@@ -1,5 +1,6 @@
 local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
+local PlayerVariant     = require("lua.revelcommon.enums.PlayerVariant")
 
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
@@ -100,6 +101,9 @@ if false then
 
     ---@type EntityPlayer[]
     REVEL.players = {Isaac.GetPlayer(0)}
+
+    ---@type EntityPlayer[]
+    REVEL.playersAndBabies = {Isaac.GetPlayer(0)}
 end
 
 REVEL.IndexFunctions = {}
@@ -109,6 +113,7 @@ REVEL.IndexFunctions = {}
 ---@field SubType integer
 ---@field NoChampion boolean
 ---@field NoHurtWisps boolean
+---@field Height number Used by Airmovement/ZPos code
 
 ---@param name string
 ---@param subtype? integer
@@ -135,7 +140,7 @@ function REVEL.ent(name, subtype, params)
         name = name,
         id = Isaac.GetEntityTypeByName(name),
         variant = Isaac.GetEntityVariantByName(name),
-        subtype = subtype
+        subtype = subtype,
     }
 
     if inst.id == -1 then error("Tried to register entity with id -1!") end
@@ -204,6 +209,9 @@ function REVEL.ent(name, subtype, params)
         end
         if params.NoChampion then
             REVEL.BlacklistChampionNpc(inst)
+        end
+        if params.Height then
+            REVEL.RegisterEntityHeight(inst.id, inst.variant, params.Height)
         end
     end
 
@@ -298,6 +306,7 @@ function REVEL.registerItem(softId, name, costume, exclusive, power, disable)
     
     -- Used in rev's item callbacks, to check whether to apply the items' effect
     function inst:PlayerHasCollectible(player, ignoreBlacklist)
+        if not REVEL.IsValidPlayer(player) then return false end
         return player:HasCollectible(self.id) and (ignoreBlacklist or self:CanPlayerUseItem(player))
     end
 
@@ -440,6 +449,56 @@ REVEL.level = nil
 ---@type Room
 REVEL.room = nil
 
+-- true: p1 is > p2
+-- In this case: place normal players before coop players
+local function playersComp(p1, p2)
+    return p1.Variant == PlayerVariant.PLAYER and p2.Variant ~= PlayerVariant.PLAYER
+end
+
+local function GetPlayersAndSetIDs(includeCoopBabies)
+    local allPlayers = {}
+    for i = 1, REVEL.game:GetNumPlayers() do
+        allPlayers[i] = Isaac.GetPlayer(i - 1)
+    end
+
+    -- Place babies after normal players
+    table.sort(allPlayers, playersComp)
+
+    local players = {}
+    local numNormalPlayers = 0
+    for i, player in ipairs(allPlayers) do
+        local isNormal = player.Variant == PlayerVariant.PLAYER
+        if isNormal then
+            numNormalPlayers = numNormalPlayers + 1
+        end
+        if isNormal or includeCoopBabies then
+            local playerId = i
+            if not isNormal and numNormalPlayers < 4 then
+                playerId = playerId + (4 - numNormalPlayers)
+            end
+            players[playerId] = player
+            REVEL.GetData(player).playerID = playerId
+            if players[playerId]:GetSubPlayer() then
+                REVEL.GetData(players[playerId]:GetSubPlayer()).playerID = playerId
+            end
+
+            if players[playerId]:GetPlayerType() == PlayerType.PLAYER_THEFORGOTTEN and REVEL.roomKnives then
+                for j,v in ipairs(REVEL.roomKnives) do
+                    if v and v.Variant == 1 and v.Parent then
+                        if v.Parent.InitSeed == players[playerId].InitSeed then
+                        players[playerId]:GetData().Bone = v
+                        v:GetData().__player = players[playerId]
+                        v:GetData().ForgottenThrownBone = true
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    return players
+end
+
 -- FOR STABILITY WE SHOULD NO LONGER STORE THE PLAYER AT ALL, AS THIS CAN LEAD TO ADVERSE EFFECTS WITH CO-OP PLAYERS, 
 -- WHO CAN JOIN OUT AT ANY TIME AND CAUSE A GAME CRASH WHEN USED.
 -- player and players are still used, just always mapping to a function.
@@ -456,29 +515,9 @@ setmetatable(REVEL,
             return player
 
         elseif k == "players" then
-            local players = {}
-            for i = 1, REVEL.game:GetNumPlayers() do
-                players[i] = Isaac.GetPlayer(i - 1)
-                players[i]:GetData().playerID = i
-				if players[i]:GetSubPlayer() then
-					players[i]:GetSubPlayer():GetData().playerID = i
-				end
-
-				if players[i]:GetPlayerType() == PlayerType.PLAYER_THEFORGOTTEN and REVEL.roomKnives then
-					for j,v in ipairs(REVEL.roomKnives) do
-						if v and v.Variant == 1 and v.Parent then
-						    if v.Parent.InitSeed == players[i].InitSeed then
-							players[i]:GetData().Bone = v
-							v:GetData().__player = players[i]
-							v:GetData().ForgottenThrownBone = true
-						    end
-						end
-					end
-				end
-            end
-
-            return players
-
+            return GetPlayersAndSetIDs(false)
+        elseif k == "playersAndBabies" then
+            return GetPlayersAndSetIDs(true)
         elseif k == "alivePlayers" then
             local players = self.players -- calls "players" metaindex defined above
 
@@ -660,33 +699,6 @@ function REVEL.CustomPill(colorId, anm2)
     return entry
 end
 
--- Low priority callback
--- Cannot use for stuff that has to run at game start
-do
-    local lowPriorityCallbacks = {}
-
-    ---@param callback ModCallbacks
-    ---@param func function
-    ---@param arg? any
-    function REVEL.AddLowPriorityCallback(callback, func, arg)
-        lowPriorityCallbacks[#lowPriorityCallbacks + 1] = {
-            Callback = callback,
-            Function = func,
-            Arg = arg,
-        }
-    end
-
-    local function registerLowPriorityCallbacks()
-        for i, callback in ipairs(lowPriorityCallbacks) do
-            revel:AddCallback(callback.Callback, callback.Function, callback.Arg)
-        end
-        lowPriorityCallbacks = {}
-    end
-
-    revel:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, registerLowPriorityCallbacks)
-    StageAPI.AddCallback("Revelations", RevCallbacks.POST_INGAME_RELOAD, 90, registerLowPriorityCallbacks)
-end
-
 -- RNG class Wrapper
 -- Currently only checks if seed is 0, in which case it
 -- warns and uses 1
@@ -823,6 +835,53 @@ end
 
 revel:AddCallback(ModCallbacks.MC_PRE_FAMILIAR_COLLISION, wispImmunity_PreFamiliarCollision, FamiliarVariant.WISP)
 revel:AddCallback(ModCallbacks.MC_PRE_FAMILIAR_COLLISION, wispImmunity_PreFamiliarCollision, FamiliarVariant.ITEM_WISP)
+
+--#endregion
+
+--#region Height
+--Entity height, used by Airmovement/Zpos
+
+---@type table<integer, table<integer, table<integer, number>>>
+local EntityHeight = {}
+
+---@param etype integer
+---@param evariant integer
+---@param esubtype integer
+---@param height number
+---@overload fun(etype: integer, evariant: integer, height: number)
+---@overload fun(etype: integer, height: number)
+function REVEL.RegisterEntityHeight(etype, evariant, esubtype, height)
+    if not height then
+        if esubtype then
+            height = esubtype
+            esubtype = -1
+        elseif evariant then
+            height = evariant
+            evariant = -1
+            esubtype = -1
+        else
+            error("RegisterEntityHeight | needs to specify at least 2 values", 2)
+        end
+    end
+
+    EntityHeight[etype] = EntityHeight[etype] or {}
+    EntityHeight[etype][evariant] = EntityHeight[etype][evariant] or {}
+    EntityHeight[etype][evariant][esubtype] = height
+end
+
+---@param entity Entity
+--@return number
+function REVEL.GetEntityHeight(entity)
+    local varTable = EntityHeight[entity.Type] and (
+        EntityHeight[entity.Type][entity.Variant]
+        or EntityHeight[entity.Type][-1]
+    )
+    if varTable and (varTable[entity.SubType] or varTable[-1]) then
+        return varTable[entity.SubType] or varTable[-1]
+    end
+    -- default to Size
+    return entity.Size
+end
 
 --#endregion
 

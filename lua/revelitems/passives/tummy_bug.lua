@@ -1,3 +1,5 @@
+local RevCallbacks = require("lua.revelcommon.enums.RevCallbacks")
+
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 ---------------
 -- Tummy Bug --
@@ -106,7 +108,7 @@ local ShootActions = {
     ButtonAction.ACTION_SHOOTDOWN,
 }
 
-revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, function(_, player)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, player)
     local spr, data = player:GetSprite(), player:GetData()
 
     if not REVEL.ITEM.TBUG:PlayerHasCollectible(player) then

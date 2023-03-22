@@ -1,3 +1,5 @@
+local RevCallbacks = require("lua.revelcommon.enums.RevCallbacks")
+
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
 ------------------------
@@ -12,7 +14,7 @@ revel.patience = {
     delMult = 1.2 -- mult of maxfiredelay from the player's
 }
 
-revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, function(_, player)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, player)
     if REVEL.ITEM.PATIENCE:PlayerHasCollectible(player) then
         local data = player:GetData()
         if not data.patienceCnt then

@@ -57,9 +57,7 @@ REVEL.StopForceUsingPathMap(pathMap, forceUseID)
 Common use path maps:
     REVEL.PathToPlayerMap
     REVEL.GenericChaserPathMap
-        Set data.UsePlayerMap to use
     REVEL.GenericFlyingChaserPathMap
-        Set data.UsePlayerFlyingMap to use
 
 REVEL.GetPathToZero(startIndex, map, width, collisionMap)
 -- only startIndex and map are necessary, but collisionMap allows you to clarify exactly the path you want your entity to be able to take
@@ -80,19 +78,24 @@ local UpdatePathMap
 -- extends for convenience as they have same things mostly
 ---@class PathMap : PathMapArgs
 ---@field Name string
+---@field Collisions table<integer, integer>
+---@field InverseCollisions table<integer, boolean>
+---@field InverseCriticalCollisions table<integer, boolean>
+---@field SideCollisions table<integer, table<Direction, boolean>>?
 ---@field TargetMapSets TargetSet[]
+---@field RecalcCollisions boolean
 
 ---@class PathMapArgs
----@field GetTargetSets fun(): TargetSet[]
----@field GetTargetIndices fun(): integer[], boolean
----@field GetCollisions fun(): table<integer, integer>
----@field GetInverseCollisions fun(): table<integer, boolean>
----@field GetInverseCriticalCollisions fun(): table<integer, boolean>
----@field GetSideCollisions fun(): table<integer, table<Direction, boolean>>
+---@field GetTargetSets fun(map: PathMap): TargetSet[]
+---@field GetTargetIndices fun(map: PathMap): integer[], boolean?
+---@field GetCollisions fun(map: PathMap): table<integer, integer>
+---@field GetInverseCollisions fun(map: PathMap): table<integer, boolean>?
+---@field GetInverseCriticalCollisions fun(map: PathMap): table<integer, boolean>
+---@field GetSideCollisions fun(map: PathMap): (table<integer, table<Direction, boolean>>?)
 ---@field OnPathUpdate fun(map: PathMap)
 ---@field NoAutoHandle boolean
 ---@field Width integer
----@field GetWidth fun(): integer
+---@field GetWidth fun(map: PathMap): integer
 ---@field UsesDividedGridsInCollision boolean
 ---@field PrintUpdateDebugInfo boolean
 ---@field CacheCollisionsBetweenGridUpdates boolean
@@ -101,6 +104,7 @@ local UpdatePathMap
 ---@field Targets integer[]
 ---@field Force boolean
 ---@field Map table<integer, integer>
+---@field FarthestIndex integer
 
 ---@param name string
 ---@param tbl PathMapArgs
@@ -282,13 +286,13 @@ function UpdatePathMap(map, force)
     local targetSets
 
     if map.GetTargetSets then
-        targetSets = map.GetTargetSets()
+        targetSets = map:GetTargetSets()
     else
         targetSets = {}
     end
 
     if map.GetTargetIndices then
-        local targets, forceUpdate = map.GetTargetIndices()
+        local targets, forceUpdate = map:GetTargetIndices()
         targetSets[#targetSets + 1] = {Targets = targets, Force = forceUpdate}
     end
 
@@ -358,14 +362,14 @@ function UpdatePathMap(map, force)
     if #setsNeedingUpdating > 0 or force then
         -- REVEL.DebugStringMinor("Updating map:", map.Name)
 
-        local width = (map.GetWidth and map.GetWidth()) or map.Width or REVEL.room:GetGridWidth()
+        local width = (map.GetWidth and map:GetWidth()) or map.Width or REVEL.room:GetGridWidth()
 
         local collisions
         if map.GetCollisions then
             if map.Collisions and map.CacheCollisionsBetweenGridUpdates and not map.RecalcCollisions then
                 collisions = map.Collisions
             else
-                collisions = map.GetCollisions()
+                collisions = map:GetCollisions()
             end
         end
 
@@ -374,8 +378,8 @@ function UpdatePathMap(map, force)
             if map.InverseCollisions and map.CacheCollisionsBetweenGridUpdates and not map.RecalcCollisions then
                 inverseCollisions = map.InverseCollisions
             else
-            inverseCollisions = map.GetInverseCollisions()
-        end
+                inverseCollisions = map:GetInverseCollisions()
+            end
         end
 
         local inverseCriticalCollisions
@@ -383,8 +387,8 @@ function UpdatePathMap(map, force)
             if map.InverseCriticalCollisions and map.CacheCollisionsBetweenGridUpdates and not map.RecalcCollisions then
                 inverseCriticalCollisions = map.InverseCriticalCollisions
             else
-            inverseCriticalCollisions = map.GetInverseCriticalCollisions()
-        end
+                inverseCriticalCollisions = map:GetInverseCriticalCollisions()
+            end
         end
 
         local sideCollisions
@@ -392,7 +396,7 @@ function UpdatePathMap(map, force)
             if map.SideCollisions and map.CacheCollisionsBetweenGridUpdates and not map.RecalcCollisions then
                 sideCollisions = map.SideCollisions
             else
-                sideCollisions = map.GetSideCollisions()
+                sideCollisions = map:GetSideCollisions()
             end
         end
 
@@ -409,9 +413,9 @@ function UpdatePathMap(map, force)
 
         if map.OnPathUpdate then
             if map.GetTargetIndices and not map.GetTargetSets then
-                map.OnPathUpdate(map)
+                map:OnPathUpdate()
             else
-                map.OnPathUpdate(map)
+                map:OnPathUpdate()
             end
         end
 
@@ -469,6 +473,8 @@ function RadiateMapGeneration(targets, collisions, inverseCollisions, width, inv
                     local isSideBlocked = sideCollisions and (sideCollisions[adjacent] and sideCollisions[adjacent][oppDir]
                         or sideCollisions[index] and sideCollisions[index][dir])
 
+                    -- REVEL.DebugLog(index, adjacent, "side blocked:", isSideBlocked)
+
                     local noCollision = (not collisions or not collisions[adjacent] or collisions[adjacent] == 0) 
                         and (not inverseCollisions or inverseCollisions[adjacent])
                         and not isSideBlocked
@@ -480,6 +486,8 @@ function RadiateMapGeneration(targets, collisions, inverseCollisions, width, inv
 
                     if (not map[adjacent] or map[adjacent] > map[index] + moveCost) then
                         map[adjacent] = map[index] + moveCost
+
+                        -- REVEL.DebugLog(index, "assigned cost", map[adjacent], "to", adjacent)
 
                         if not map[adjacent] then
                             error((
@@ -525,7 +533,7 @@ end
 ---@param map table<integer, integer>
 ---@param width? integer
 ---@param collisionMap? table<integer, integer>
----@param blockingSides? table<integer, table<Direction, integer>>
+---@param blockingSides? table<integer, table<Direction, boolean>>
 ---@return integer[]? path
 ---@return boolean success
 function GetPathToZero(start, map, width, collisionMap, blockingSides)
@@ -649,7 +657,7 @@ do
 
 -- Can be used on POST_NEW_ROOM to check if a non-flying player can reach a point
 REVEL.PathToPlayerMap = REVEL.NewPathMapFromTable("PathToPlayerMap", {
-    GetTargetIndices = function()
+    GetTargetIndices = function(map)
         local indices = {}
         local obtainedIndices = {}
         for _, player in ipairs(REVEL.players) do
@@ -662,7 +670,7 @@ REVEL.PathToPlayerMap = REVEL.NewPathMapFromTable("PathToPlayerMap", {
 
         return indices
     end,
-    GetInverseCollisions = function()
+    GetInverseCollisions = function(map)
         local inverseCollisions = {}
         for i = 0, REVEL.room:GetGridSize() do
             if REVEL.room:IsPositionInRoom(REVEL.room:GetGridPosition(i), 0) then
@@ -830,12 +838,12 @@ function REVEL.GetInsideGrids()
 
     return insideGrids
 end
-
-function REVEL.GetMinimumTargetSetsFromData(dataKey, entityTable)
+    
+local function GetMinimumTargetSetsFromMatch(pred, entityTable)
     local chaserEnemies = {}
     for _, ent in ipairs(entityTable or REVEL.roomEntities) do
         local data = ent:GetData()
-        if not dataKey or data[dataKey] then
+        if not pred or pred(ent) then
             chaserEnemies[#chaserEnemies + 1] = ent
         end
     end
@@ -843,56 +851,97 @@ function REVEL.GetMinimumTargetSetsFromData(dataKey, entityTable)
     return REVEL.GetMinimumTargetSets(chaserEnemies)
 end
 
-function REVEL.SetPathOnMatchingEntsWithData(dataKey, entityTable, map, sets)
+
+function REVEL.GetMinimumTargetSetsFromMap(map, entityTable)
+    return GetMinimumTargetSetsFromMatch(function(ent) return REVEL.IsUsingPathMap(map, ent) end, entityTable)
+end
+
+function REVEL.GetMinimumTargetSetsFromData(dataKey, entityTable)
+    return GetMinimumTargetSetsFromMatch(dataKey and function(ent) return ent:GetData()[dataKey] end, entityTable)
+end
+
+---@param pred fun(ent: Entity): boolean
+---@param entityTable Entity[]
+---@param map PathMap
+---@param sets? TargetSet[]
+local function SetPathOnMatchingEnts(pred, entityTable, map, sets)
     sets = sets or map.TargetMapSets
     for _, ent in ipairs(entityTable or REVEL.roomEntities) do
         local data = ent:GetData()
-        if not dataKey or data[dataKey] then
-                local matchingSet = REVEL.GetTargetSetMatchingEntity(ent, sets, data)
-                if matchingSet then
-                    if data.OnPathUpdate then
-                        data.OnPathUpdate(matchingSet, ent, map)
-                    else
-                        data.Path = nil
-                        data.PathIndex = nil
-                        local path, isComplete = REVEL.GetPathToZero(REVEL.room:GetGridIndex(ent.Position), matchingSet.Map, nil, map, map.SideCollisions)
-                        if isComplete or data.UseIncompleteMap then
-                            data.Path = path
-                        end
+        if not pred or pred(ent) then
+            local matchingSet = REVEL.GetTargetSetMatchingEntity(ent, sets, data)
+            if matchingSet then
+                if data.OnPathUpdate then
+                    data.OnPathUpdate(matchingSet, ent, map)
+                else
+                    data.Path = nil
+                    data.PathIndex = nil
+                    local path, isComplete = GetPathToZero(
+                        REVEL.room:GetGridIndex(ent.Position), 
+                        matchingSet.Map, 
+                        nil, 
+                        map, 
+                        map.SideCollisions
+                    )
+                    if isComplete or data.UseIncompleteMap then
+                        data.Path = path
                     end
                 end
             end
         end
     end
+end
 
-REVEL.GenericChaserPathMap = REVEL.NewPathMapFromTable("GenericChaserPathMap", { -- Manages generic chaser enemy movement
-    GetTargetSets = function()
-        return REVEL.GetMinimumTargetSetsFromData("UsePlayerMap")
-    end,
-    GetInverseCollisions = function()
-        return REVEL.GetPassableGrids(true, true)
-    end,
-    GetInverseCriticalCollisions = function()
-        return REVEL.GetInsideGrids()
+---@param dataKey any
+---@param entityTable Entity[]
+---@param map PathMap
+---@param sets? TargetSet[]
+function REVEL.SetPathOnMatchingEntsWithData(dataKey, entityTable, map, sets)
+    return SetPathOnMatchingEnts(
+        dataKey and function(ent) return ent:GetData()[dataKey] end, 
+        entityTable, map, sets
+    )
+end
+
+---@param entityTable Entity[]
+---@param map PathMap
+---@param sets? TargetSet[]
+function REVEL.SetPathOnMatchingEntsUsingPathmap(entityTable, map, sets)
+    return SetPathOnMatchingEnts(
+        function(ent) return REVEL.IsUsingPathMap(map, ent) end, 
+        entityTable, map, sets
+    )
+end
+
+local BasicMapFunctions = {
+    GetTargetSets = function(map)
+        return REVEL.GetMinimumTargetSetsFromMap(map)
     end,
     OnPathUpdate = function(map)
-        REVEL.SetPathOnMatchingEntsWithData("UsePlayerMap", nil, map)
-            end
+        return REVEL.SetPathOnMatchingEntsUsingPathmap(nil, map)
+    end,
+}
+
+REVEL.GenericChaserPathMap = REVEL.NewPathMapFromTable("GenericChaserPathMap", { -- Manages generic chaser enemy movement
+    GetTargetSets = BasicMapFunctions.GetTargetSets,
+    GetInverseCollisions = function(map)
+        return REVEL.GetPassableGrids(true, true)
+    end,
+    GetInverseCriticalCollisions = function(map)
+        return REVEL.GetInsideGrids()
+    end,
+    OnPathUpdate = BasicMapFunctions.OnPathUpdate,
 })
 
 REVEL.GenericFlyingChaserPathMap = REVEL.NewPathMapFromTable("GenericFlyingChaserPathMap", { -- Flying chasers collide with walls, fires, spike rocks, and tall rocks, so they still need pathfinding
-    GetTargetSets = function()
-        return REVEL.GetMinimumTargetSetsFromData("UsePlayerFlyingMap")
-    end,
-    GetInverseCollisions = function()
+    GetTargetSets = BasicMapFunctions.GetTargetSets,
+    GetInverseCollisions = function(map)
         return REVEL.GetPassableGrids(false, true)
     end,
-    GetInverseCriticalCollisions = function()
+    GetInverseCriticalCollisions = function(map)
         return REVEL.GetInsideGrids()
     end,
-    OnPathUpdate = function(map)
-        REVEL.SetPathOnMatchingEntsWithData("UsePlayerFlyingMap", nil, map)
-    end
+    OnPathUpdate = BasicMapFunctions.OnPathUpdate,
 })
 
 end
@@ -1204,7 +1253,7 @@ end
 do
     REVEL.LevelPathfindingIndices = {}
     REVEL.LevelPathMapNoSecret = REVEL.NewPathMapFromTable("LevelPathMapNoSecret", {
-        GetTargetSets = function()
+        GetTargetSets = function(map)
             local targetSets = {}
             for _, roomGrid in ipairs(REVEL.LevelPathfindingIndices) do
                 targetSets[#targetSets + 1] = {Targets = {roomGrid}}
@@ -1212,7 +1261,7 @@ do
 
             return targetSets
         end,
-        GetInverseCollisions = function()
+        GetInverseCollisions = function(map)
             local valid = {}
             local roomsList = REVEL.level:GetRooms()
             for i = 0, roomsList.Size - 1 do
@@ -1256,7 +1305,7 @@ do
     })
 
     REVEL.LevelPathMapWithSecret = REVEL.NewPathMapFromTable("LevelPathMapWithSecret", {
-        GetTargetSets = function()
+        GetTargetSets = function(map)
             local targetSets = {}
             for _, roomGrid in ipairs(REVEL.LevelPathfindingIndices) do
                 targetSets[#targetSets + 1] = {Targets = {roomGrid}}
@@ -1264,7 +1313,7 @@ do
 
             return targetSets
         end,
-        GetInverseCollisions = function()
+        GetInverseCollisions = function(map)
             local valid = {}
             local roomsList = REVEL.level:GetRooms()
             for i = 0, roomsList.Size - 1 do

@@ -96,10 +96,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 
     local data, sprite = npc:GetData(), npc:GetSprite()
     
-    if not REVEL.IsUsingPathMap(REVEL.GenericChaserPathMap, npc) then
-        REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
-    end
-    data.UsePlayerMap = true
+    REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
     data.OnPathUpdate = REVEL.BonyPathUpdate
 
     if data.Buffed and not data.BuffedInit then

@@ -459,12 +459,17 @@ REVEL.AddCommonShrine {
     end,
     PreTrigger = function(shrine)
         for _, player in ipairs(REVEL.players) do
+
             if player.CanFly then
+                player.Position = REVEL.room:FindFreeTilePosition(shrine.Position+Vector(0,16), 30)
+                player.Velocity = Vector.Zero
                 return false
             end
 
             for _, item in ipairs(TempFlightCollectibles) do
                 if player:HasCollectible(item) then
+                    player.Position = REVEL.room:FindFreeTilePosition(shrine.Position+Vector(0,16), 30)
+                    player.Velocity = Vector.Zero
                     return false
                 end
             end
@@ -840,6 +845,9 @@ local MitosisEntityBlacklist = {
         [REVEL.ENT.GEICER.variant] = true,
         [REVEL.ENT.COAL_HEATER.variant] = true,
     },
+    [REVEL.ENT.AVALANCHE.id] = {
+        [REVEL.ENT.AVALANCHE.variant] = true,
+    },
     [REVEL.ENT.PINE.id] = {
         [REVEL.ENT.PINE.variant] = true,
         [REVEL.ENT.PINECONE.variant] = true,
@@ -852,6 +860,12 @@ local MitosisEntityBlacklist = {
     },
     [REVEL.ENT.GLASS_SPIKE.id] = {
         [REVEL.ENT.GLASS_SPIKE.variant] = true,
+    },
+    [REVEL.ENT.ANTLION.id] = {
+        [REVEL.ENT.ANTLION.variant] = true,
+    },
+    [REVEL.ENT.TILE_MONGER.id] = {
+        [REVEL.ENT.TILE_MONGER.variant] = true,
     }
 }
 
@@ -908,17 +922,16 @@ end
 -- Callbacks
 
 revel:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, scarcity_PostPickupInit)
-revel:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, grounding_PostPlayerUpdate)
-revel:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, bleeding_PostPlayerUpdate)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, grounding_PostPlayerUpdate)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, bleeding_PostPlayerUpdate)
 revel:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, purgatory_PostEntityKill)
 revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, purgatory_soul_NpcUpdate, REVEL.ENT.PURGATORY_ENEMY.id)
 revel:AddCallback(ModCallbacks.MC_POST_NPC_RENDER, purgatory_soul_PostNpcRender, REVEL.ENT.PURGATORY_ENEMY.id)
 StageAPI.AddCallback("Revelations", RevCallbacks.NPC_UPDATE_INIT, 90, mitosis_PostNpcInit)
 -- StageAPI.AddCallback("Revelations", "POST_STAGEAPI_NEW_ROOM_WRAPPER", 1, grounding_PostNewRoom)
 
--- call early in earlycallbacks.lua, to avoid running other callbacks more
--- than necessary
-REVEL.EarlyCallbacks.masochism_EntityTakeDmg_Player = masochism_EntityTakeDmg_Player
+-- call early to avoid running other callbacks more than necessary
+revel:AddPriorityCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, CallbackPriority.EARLY, masochism_EntityTakeDmg_Player, EntityType.ENTITY_PLAYER)
 
 
 

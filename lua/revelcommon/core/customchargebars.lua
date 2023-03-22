@@ -112,17 +112,17 @@ local function initPlayer(p)
     local playerID = REVEL.GetPlayerID(p)
     if not revel.data.run.customActiveCharge[playerID] then
         revel.data.run.customActiveCharge[playerID] = {}
-        revel:saveData()
+        REVEL.SaveModData()
     end
 end
 
-revel:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, function(_, p)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, p)
     if not p:GetData().__chargeMax then
         initPlayer(p) --fallback
     end
 end)
 
-revel:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, function(_, p)
+revel:AddCallback(RevCallbacks.POST_BASE_PLAYER_INIT, function(_, p)
     initPlayer(p)
 end)
 
@@ -265,7 +265,7 @@ function REVEL.ChargeYellowBlink(player) -- do every peffect update frame
     yellowBlink[REVEL.GetPlayerID(player)] = true
 end
 
-revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, function(_, p)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, p)
     local data = p:GetData()
     local playerID = REVEL.GetPlayerID(p)
 

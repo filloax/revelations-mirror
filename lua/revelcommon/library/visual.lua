@@ -497,6 +497,27 @@ function REVEL.DoingScreenFade()
 end
 
 --#region FadeToColor
+    
+function REVEL.SpawnDustParticles(position, numParticles, spawner, color, velMin, velMax, scaleMin, scaleMax)
+    local offset = math.random(0, 359)
+    velMin = velMin or 500
+    velMax = velMax or 800
+    scaleMin = scaleMin or 100
+    scaleMax = scaleMax or 150
+    color = color or Color(1, 1, 1, 1,conv255ToFloat( 110, 90, 60))
+    for i = 1, numParticles do
+        local dustVelocity = Vector.FromAngle(offset + i * (360 / numParticles)) * math.random(velMin, velMax) * 0.01
+        local dust = Isaac.Spawn(1000, EffectVariant.DARK_BALL_SMOKE_PARTICLE, 0, position, dustVelocity, spawner)
+        dust.Color = color
+        dust.SpriteScale = Vector(1, 1) * (math.random(scaleMin, scaleMax) * 0.01)
+        local extraUpdates = math.random(0,2)
+        if extraUpdates > 0 then
+            for i=1, extraUpdates do
+                dust:Update()
+            end
+        end
+    end
+end
 
 -- Callbacks
 

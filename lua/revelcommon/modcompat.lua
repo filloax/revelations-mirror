@@ -54,7 +54,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
         EID:addCollectible(REVEL.ITEM.MIRROR_BOMBS.id, "{{Bomb}} +5 Bombs#Bombs have new unique effects based on the backdrop of the current room")
         EID:addCollectible(REVEL.ITEM.CHARONS_OAR.id, "Tears are replaced with a spread of tears of varying size and damage")
         EID:addCollectible(REVEL.ITEM.PERSEVERANCE.id, "Enemies take up to 2x more damage with consecutive hits#1.5x for bosses")
-        EID:addCollectible(REVEL.ITEM.ADDICT.id, "Every room entered without holding a pill will have a pill enemy#Spider pills spawn a bad pill when killed#Angel pills spawn a good pill when killed")
+        EID:addCollectible(REVEL.ITEM.ADDICT.id, "Pill enemies will start spawning in rooms#These enemies will continue to increment until a pill is used#Angel pills drop good pills#Spider pills drop bad pills")
         EID:addCollectible(REVEL.ITEM.OPHANIM.id, "Grants a golden ring around the player that fires orbiting tears#Taking damage will make the ring bounce around the room until it rejoins you")
         EID:addCollectible(REVEL.ITEM.PILGRIMS_WARD.id, "A beam of light appears in uncleared rooms#Walking into the light will spawn a homing laser ring")
         EID:addCollectible(REVEL.ITEM.WRATHS_RAGE.id, "Bombs dropped by Isaac explode instantly#You don't take damage from your bomb explosions#Dropping bombs grants a damage bonus per room#")
@@ -65,11 +65,11 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
         EID:addCollectible(REVEL.ITEM.CHUM.id, "Enemies spawn piles of meat when killed#When used, all piles of meat fire tears at enemies")
         EID:addCollectible(REVEL.ITEM.ROBOT.id, "Gives the player a cardboard robot suit for a short time#The player fires a large amount of short range lasers#Isaac absorbs damage while in the suit")
         EID:addCollectible(REVEL.ITEM.GFLAME.id, "Fires a purple flame#If the flame kills an enemy, using the item again will summon a ghost friend.")
-        EID:addCollectible(REVEL.ITEM.WAKA_WAKA.id, "When used, all tears in the room become fruits and can be eaten#Cherries increase damage#Lemons increase range#Oranges increase shot speed#Bananas increase speed")
-        EID:addCollectible(REVEL.ITEM.OOPS.id, "Disables traps and hazards when used#Blows up any explosives in the room#Handle with care")
+        EID:addCollectible(REVEL.ITEM.WAKA_WAKA.id, "Enemy tears transform into fruits that can be eaten#Cherries increase damage#Lemons increase range#Oranges increase shot speed#Bananas increase speed")
+        EID:addCollectible(REVEL.ITEM.OOPS.id, "Disables traps and hazards#Blows up anything explosive in the room#May explode when spammed")
         EID:addCollectible(REVEL.ITEM.MOXIE.id, "Short-ranged swipe attack#Deals damage with high knockback")
         EID:addCollectible(REVEL.ITEM.MUSIC_BOX.id, "Spawns a music box which plays a random song#Lullaby: Enemies become sleepy#Hymn: Isaac gains speed and damage#Samba: Isaac gains tears and piercing shots#Metal: Enemies randomly attack each other")
-        EID:addCollectible(REVEL.ITEM.HALF_CHEWED_PONY.id, "Pony item, grants flight when held#Spawns a friendly submerged antlion that sucks in and chomps on enemies#Has a small chance to consume the pony and makes the antlion emerge from the ground")
+        EID:addCollectible(REVEL.ITEM.HALF_CHEWED_PONY.id, "Pony item, grants flight when held#Spawns a friendly submerged antlion that sucks in and chomps on enemies#Has a small chance to consume the pony and turn the antlion into a permanent familiar")
         EID:addCollectible(REVEL.ITEM.MOXIE_YARN.id, "Throws a ball of yarn that summons a friendly Catastrophe cat.")
         EID:addCollectible(REVEL.ITEM.GUT.id, "Consumes nearby enemies and projectiles.#Throws a projectile that scales based on how many things you consumed.#Alternatively, You may swallow to heal a full heart.")
 
@@ -167,7 +167,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
             EID:addCollectible(REVEL.ITEM.MIRROR_BOMBS.id, "+5 Bombs#Bombs have new unique effects based on the backdrop of the current room", nil, "it")
             EID:addCollectible(REVEL.ITEM.CHARONS_OAR.id, "Tears are replaced with a spread of tears", nil, "it")
             EID:addCollectible(REVEL.ITEM.PERSEVERANCE.id, "Enemies take more damage with consecutive hits", nil, "it")
-            EID:addCollectible(REVEL.ITEM.ADDICT.id, "Every room entered without holding a pill will have a pill enemy#Bad pills are spider-like, have a black/red coloration, and spawn a bad pill when killed#Good pills fly using angel wings, have a white/yellow coloration, and spawn a good pill when killed", nil, "it")
+            EID:addCollectible(REVEL.ITEM.ADDICT.id, "Pill enemies will start spawning in rooms#These enemies will continue to increment until a pill is used#Angel pills drop good pills#Spider pills drop bad pills", nil, "it")
             EID:addCollectible(REVEL.ITEM.OPHANIM.id, "A ring around the player will fire swerving tears in the four cardinal directions as the player fire tears#When damaged, the ring detaches from the player and travels across the room while firing tears", nil, "it")
             EID:addCollectible(REVEL.ITEM.PILGRIMS_WARD.id, "A beam of light appears in uncleared rooms#Walking into the light will spawn a laser ring around it and will move the light to a different location", nil, "it")
             EID:addCollectible(REVEL.ITEM.WRATHS_RAGE.id, "Attempting to place a bomb will immediately spawn the explosion without hurting the player#Every time an explosion is spawned this way the player's damage increases", nil, "it")
@@ -178,8 +178,8 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
             EID:addCollectible(REVEL.ITEM.CHUM.id, "Enemies spawn piles of meat when killed#When used, all piles of meat fire tears at enemies", nil, "it")
             EID:addCollectible(REVEL.ITEM.ROBOT.id, "When used, gives the player a cardboard robot suit for a short time#The player fires a large amount of short range lasers#The suit absorbs damage but decreases the amount of time in the suit#Clearing rooms increases the amount of time in the suit", nil, "it")
             EID:addCollectible(REVEL.ITEM.GFLAME.id, "Candle item which fires a purple flame#If the flame kills an enemy, the next time this item is used it will spawn a ghost familiar which chases enemies and spawns flames.", nil, "it")
-            EID:addCollectible(REVEL.ITEM.WAKA_WAKA.id, "When used, all tears in the room become fruits and can be eaten#Cherries increase damage#Lemons increase range#Oranges increase shot speed#Bananas increase speed", nil, "it")
-            EID:addCollectible(REVEL.ITEM.OOPS.id, "Disables traps and hazards when used", nil, "it")
+            EID:addCollectible(REVEL.ITEM.WAKA_WAKA.id, "Enemy tears transform into fruits that can be eaten#Cherries increase damage#Lemons increase range#Oranges increase shot speed#Bananas increase speed", nil, "it")
+            EID:addCollectible(REVEL.ITEM.OOPS.id, "Disables traps and hazards#Blows up anything explosive in the room#May explode when spammed", nil, "it")
             EID:addCollectible(REVEL.ITEM.MOXIE.id, "When used, bandages appear and swipes any nearby enemies and projectiles away, dealing damage to enemies", nil, "it")
             EID:addCollectible(REVEL.ITEM.MUSIC_BOX.id, "When used, spawns a music box which will play a random song out of four#Lullaby: Enemies slow down and fall asleep. Damaging enemies in this state will wake them up#Hymn: The player gains +1 speed and +2 damage#Samba: The player's tear delay decreases by 2 and gains piercing and spectral tears#Metal: Enemies randomly attack each other", nil, "it")
             EID:addCollectible(REVEL.ITEM.HALF_CHEWED_PONY.id, "Pony item, grants flight when held#When used, spawns a friendly submerged antlion which sucks in and eats nearby enemies#There is a small chance for this antlion to suck in the player's pony instead#After sucking in the pony, the antlion emerges from the ground and follows the player while attacking enemies#The emerged antlion returns every floor, even if it was killed", nil, "it")
@@ -481,6 +481,88 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
                 },
                 { -- Synergies
                     {str = "Synergies", fsize = 2, clr = 3, halign = 0},
+                    {str = "Rotten Baby: Grants the Mulligan"},
+                    {str = "Bob's Brain: Grants Ipecac"},
+                    {str = "GB Bug: Grants Missing No."},
+                    {str = "Farting Baby: Grants The Black Bean"},
+                    {str = "Dry Baby: Grants Missing Page 2"},
+                    {str = "Lil Loki: Grants Loki's Horns"},
+                    {str = "Depression: Grants Aquarius"},
+                    {str = "Robo Baby: Grants Technology"},
+                    {str = "Robo Baby 2.0: Grants Technology 2"},
+                    {str = "Harlequin Baby: Grants The Wiz"},
+                    {str = "Fate's Reward: Grants Fate"},
+                    {str = "Lil Monstro: Grants Monstro's Lung"},
+                    {str = "Lil Brimstone, Grants Brimstone"},
+                    {str = "Seraphim: Grants Sacred Heart"},
+                    {str = "Rainbow Baby: Grants 3 Dollar Bill"},
+                    {str = "Lil Delirium: Grants Fruit Cake"},
+                    {str = "Lil Abaddon: Grants Maw of the Void"},
+                    {str = "Bot Fly: Grants Lost Contact"},
+                    {str = "Psy Fly: Grants Spoon Bender"},
+                    {str = "Incubus: Grants 20/20"},
+                    {str = "Twisted Pair: Grants 20/20"},
+                    {str = "Intruder: Grants Mutant Spider"},
+                    {str = "Bloodshot Eye: Grants Eye Sore"},
+                    {str = "Big Fan: Grants Bucket of Lard"},
+                    {str = "Mom's Razor: Grants Backstabber"},
+                    {str = "Freezer Baby: Grants Uranus"},
+                    {str = "Lil Michael: Grants Spirit Sword"},
+                    {str = "Big Fan: Grants Bucket of Lard"},
+                    {str = "Lil Frost Rider: Grants Ice Tray"},
+                    {str = "Brother Bobby: +1 Fire rate up"},
+                    {str = "Milk: +1 Fire rate up"},
+                    {str = "Paschal Candle: +1 Fire rate up"},
+                    {str = "Sister Maggy: +0.8 Damage"},
+                    {str = "Sacrificial Dagger: +0.8 Damage"},
+                    {str = "Guardian Angel: +0.2 Speed"},
+                    {str = "Yo Listen!: +1 Luck"},
+                    {str = "Ghost Baby: Grants spectral"},
+                    {str = "Little Steven: Grants homing tears"},
+                    {str = "Little Gish: Grants slowing tears"},
+                    {str = "Multidimensional Baby: Effect is permanently applied on the player"},
+                    {str = "Succubus: Effect is permanently applied on the player"},
+                    {str = "Angelic Prism: Effect is permanently applied on the player"},
+                    {str = "Censer: Effect is permanently applied on the player"},
+                    {str = "Lil Dumpy: Effect is permanently applied on the player"},
+                    {str = "Willo: Effect is permanently applied on the player"},
+                    {str = "Bandage Baby: Effect is permanently applied on the player"},
+                    {str = "Holy Water: Effect may be randomly applied to tears"},
+                    {str = "Star of Bethlehem: Fire rate and damage is doubled in boss rooms"},
+                    {str = "Hallowed Ground: Holy poops may randomly appear in rooms"},
+                    {str = "Any Spider themed familiar: Grants blue spiders"},
+                    {str = "Any Fly themed familiar: Grants blue flies"},
+                    {str = "Fruity Plum: x2 Fire rate, x0.75 Shot speed, Tears become slightly less accurate"},
+                    {str = "Lost Soul: Turns you into The Lost, Grants Alabaster Box effect"},
+                    {str = "Strawman: Turns you into Keeper, Grants Greed's Gullet"},
+                    {str = "Sack of Pennies: Drops pennies"},
+                    {str = "Sack of Sacks: Drops sacks"},
+                    {str = "The Relic: Drops soul hearts"},
+                    {str = "Little Chad: Drops red hearts"},
+                    {str = "Mystery Sack: Drops random pickups"},
+                    {str = "Lil Chest: Drops random pickups"},
+                    {str = "Acid Baby: Drops pills"},
+                    {str = "Rune Bag: Drops runes"},
+                    {str = "Charged Baby: Drops batteries"},
+                    {str = "Bomb Bag: Drops bombs"},
+                    {str = "Dark Bum: Drops various dark bum related pickups"},
+                    {str = "Bum Friend: Drops random pickups"},
+                    {str = "Key Bum: Drops chests"},
+                    {str = "Worm Friend: Drops a red heart"},
+                    {str = "7 Seals: Drops 3 random locust trinkets, one of them gets automatically smelted"},
+                    {str = "Sworn Protector: Drops an eternal heart"},
+                    {str = "BBF: Smelts a Swallowed M80"},
+                    {str = "Baby Bender: Grants homing tears"},
+                    {str = "Child Leash: Speed is set to 1"},
+                    {str = "Duct Tape: The player no longer slides around while moving"},
+                    {str = "Extension Cord: A laser will fire at nearby enemies"},
+                    {str = "--Fiend Folio--"},
+                    {str = "Baby Crater: Effect is permanently applied on the player"},
+                    {str = "Lil Lamb: Effect is permanently applied on the player"},
+                    {str = "Deimos: Effect is permanently applied on the player"},
+                    {str = "Dice Bag: Drops random glass dice"},
+                    {str = "Greg the Egg: A new friend is automatically hatched"},
+                    {str = "Lil Fiend: Turns you into Fiend"},
                 },
                 Pools = {
                     Encyclopedia.ItemPools.POOL_SECRET,
@@ -1246,10 +1328,12 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
                 },
                 { -- Effects
                     {str = "Effects", fsize = 2, clr = 3, halign = 0},
-                    {str = "For each room the player doesn't take a pill, the next room will have a unique enemy called Skitterpills. An additional Skitterpill is added for each extra pill not collected."},
+                    {str = "For each room the player doesn't take a pill, the next room will have a unique enemy called Skitterpills. An additional Skitterpill is added until a pill gets consumed."},
                     {str = "The Skitterpills are classified as good and bad, with good being depicted as a flying yellow pill, and bad being depicted by a red spider pill. Bad Skitterpills drop bad pills, while Good Skitterpills drop good/neutral pills (including Puberty)."},
                     {str = "All Skitterpills will disappear when the room is cleared or when all monsters go off screen (e.g. Mom's Hands lifting up). If they disappear in this way, they will not drop any pills."},
                     {str = "Taking a pill will reset the number of Skitterpills the player has to deal with per room."},
+                    {str = "Pills dropped by Skitterpills will disappear after a short time."},
+                    {str = "Using a pill in a room with active Skitterpills will kill them all and the pills that they drop won't disappear."},
                 },
                 Pools = {
                     Encyclopedia.ItemPools.POOL_SHOP,
@@ -1603,9 +1687,33 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
                     {str = "The player's bombs now have different effects based on the current room's appearance."},
                     {str = "This is room-based, not floor-based, so certain special rooms will have different effects regardless of the current floor. This is easily observable in Super Secret Rooms and The Void as most rooms there have varying appearances."},
                 },
-                { -- Notes
-                    {str = "Notes", fsize = 2, clr = 3, halign = 0},
-                    {str = "BUG: Bombs are invisible in I AM ERROR Rooms and Dice Rooms. They may also crash the game in these rooms."},
+                { -- Synergies
+                    {str = "Synergies", fsize = 2, clr = 3, halign = 0},
+                    {str = "Certain effects may become more powerful depending on the number of mirror shards in the players possession"},
+                    {str = "Glacier: Freezes all enemies in the room"},
+                    {str = "Tomb: A boulder falls to crush a random enemy"},
+                    {str = "Basement, Bedroom: Spawns blue flies"},
+                    {str = "Cellar, Shop, Secret: Spawns blue spiders"},
+                    {str = "Caves, Catacombs: Farts and poisons nearby enemies"},
+                    {str = "Depths, Necropolis: Shoots a burst of bones in random directions"},
+                    {str = "Womb, Utero, Scarred Womb, Blue Womb: Spawns damaging creep"},
+                    {str = "Sheol: Fires brimstone lasers in cardinal directions"},
+                    {str = "Dark Room: Damages all enemies in the room"},
+                    {str = "Cathedral: Bombs have a damaging aura"},
+                    {str = "Chest, Vault: Unlocks all chests in the room"},
+                    {str = "Burning Basement: Spawns a flame"},
+                    {str = "Flooded Caves: Randomly shoots tears in the cardinal, diagonal, or hexagonal directions"},
+                    {str = "Dank Depths: Spawns slowing creep"},
+                    {str = "Downpour, Dross: Shoots a burst of tears in random directions"},
+                    {str = "Mines, Ashpit: Spawns rock waves"},
+                    {str = "Mausoleum, Gehenna: Spawns homing flames that target and damage enemies"},
+                    {str = "Corpse: Spawns a poison gas cloud and randomly fires tears that split on contact"},
+                    {str = "Arcade: Has a chance to spawn a coin"},
+                    {str = "Library: Has a chance to spawn a card"},
+                    {str = "Sacrifice: Has a chance to spawn a heart"},
+                    {str = "Planetarium: Has a chance to spawn a rune"},
+                    {str = "Dice: Has a chance to activate a random dice room effect"},
+                    {str = "Error: Bombs get replaced by random entities, has a small chance to spawn a glitched item"},
                 },
                 Pools = {
                     Encyclopedia.ItemPools.POOL_TREASURE,

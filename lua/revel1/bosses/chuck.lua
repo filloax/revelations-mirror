@@ -201,13 +201,13 @@ local function spawnChuckEntity(index)
             end
 
             if entity.Type == REVEL.ENT.ICE_HAZARD_GAPER.id then
-                REVEL.SetEntityAirMovement(entity, {
+                REVEL.ZPos.SetData(entity, {
                     ZPosition = 500, 
                     ZVelocity = -5,
                     Gravity = 0.25,
                     Bounce = 0,
                 })
-                REVEL.UpdateEntityAirMovement(entity)
+                REVEL.ZPos.UpdateEntity(entity)
                 REVEL.AddSpikesToIceHazard(entity)
             end
             entity:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
@@ -305,7 +305,7 @@ local function chuckDeathDeco(npc, pos, anim, gigachuck, bal)
     deco:GetSprite().FlipX = npc:GetSprite().FlipX
 end
 
-StageAPI.AddCallback("Revelations", RevCallbacks.POST_ENTITY_AIR_MOVEMENT_LAND, 2, function(entity, airMovementData, fromPit)
+revel:AddCallback(RevCallbacks.POST_ENTITY_ZPOS_LAND, function(_, entity, airMovementData, fromPit)
     REVEL.SpawnDustParticles(entity.Position, 6, entity, Color(1, 1, 1, 1,conv255ToFloat( 97, 140, 181)))
     REVEL.sfx:Play(SoundEffect.SOUND_FETUS_LAND, 1, 0, false, 1)
 
@@ -928,7 +928,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
         end
 
         for _, icehazard in ipairs(icehazards) do
-            if icehazard.Position:DistanceSquared(npc.Position) < (icehazard.Size + npc.Size + data.bal.ExtraImpactDistance) ^ 2 and not icehazard:IsDead() and REVEL.GetEntityZPosition(icehazard) == 0 then
+            if icehazard.Position:DistanceSquared(npc.Position) < (icehazard.Size + npc.Size + data.bal.ExtraImpactDistance) ^ 2 and not icehazard:IsDead() and REVEL.ZPos.GetPosition(icehazard) == 0 then
                 local flingVel = (target.Position-npc.Position):Normalized() * data.bal.BlockPunchSpeed
 
                 data.State = "Hit"

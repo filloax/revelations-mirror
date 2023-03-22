@@ -10,11 +10,7 @@ local function snowbob_NpcUpdate(_, npc)
         local player = npc:GetPlayerTarget()
         local data = npc:GetData()
 
-        if not REVEL.IsUsingPathMap(REVEL.GenericChaserPathMap, npc) then
-            REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
-        end
-        data.UsePlayerMap = true
-        
+        REVEL.UsePathMap(REVEL.GenericChaserPathMap, npc)
         if data.MoanFrame == nil then data.MoanFrame = 0 end
 
         if npc.FrameCount <= 1 and not data.bobskin then

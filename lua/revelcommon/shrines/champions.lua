@@ -1,35 +1,5 @@
 local ShrineTypes = require "lua.revelcommon.enums.ShrineTypes"
 
--- defined outside so it's already loaded, as it's needed by earlycallbacks.lua when it loads
-local RevNPCs
-
-function REVEL.GetChampionableEntityIds()
-    if not RevNPCs then
-        RevNPCs = {}
-
-        local toCheck = {}
-        for _, v in pairs(REVEL.ENT) do
-            toCheck[#toCheck+1] = v
-        end
-
-        for _, entDef in ipairs(toCheck) do
-            -- sub-table
-            if not entDef.id and type(entDef) == "table" then
-                for __, v in pairs(entDef) do
-                    toCheck[#toCheck+1] = v
-                end
-                
-            elseif entDef.id >= 10 and entDef.id ~= 1000 then
-                if not RevNPCs[entDef.id] then
-                    RevNPCs[entDef.id] = {}
-                end
-                RevNPCs[entDef.id][entDef.variant] = 1
-            end
-        end
-    end
-    return RevNPCs
-end
-
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
 local function GetShrineActiveAmount()
@@ -118,13 +88,40 @@ local function CheckChampion(npc)
     end
 end
 
-REVEL.EarlyCallbacks.revNpcChampions_PostNpcInit = {}
-for type, varSet in pairs(REVEL.GetChampionableEntityIds()) do
-    REVEL.EarlyCallbacks.revNpcChampions_PostNpcInit[type] = function(_, npc)
-        if varSet[npc.Variant] then
-            CheckChampion(npc)
+local RevNPCs = {}
+
+do
+    -- init rev npcs table
+    local toCheck = {}
+    for _, v in pairs(REVEL.ENT) do
+        toCheck[#toCheck+1] = v
+    end
+
+    for _, entDef in ipairs(toCheck) do
+        -- sub-table
+        if not entDef.id and type(entDef) == "table" then
+            for __, v in pairs(entDef) do
+                toCheck[#toCheck+1] = v
+            end
+            
+        elseif entDef.id >= 10 and entDef.id ~= 1000 then
+            if not RevNPCs[entDef.id] then
+                RevNPCs[entDef.id] = {}
+            end
+            RevNPCs[entDef.id][entDef.variant] = 1
         end
     end
+end
+
+for type, varSet in pairs(RevNPCs) do
+    revel:AddPriorityCallback(ModCallbacks.MC_POST_NPC_INIT, CallbackPriority.EARLY,
+        function(_, npc)
+            if varSet[npc.Variant] then
+                CheckChampion(npc)
+            end
+        end,
+        type
+    )
 end
 
 local function championsExecuteCommand(_, cmd)

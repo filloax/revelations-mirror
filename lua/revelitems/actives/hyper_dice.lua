@@ -1,4 +1,6 @@
 local RevCallbacks = require "lua.revelcommon.enums.RevCallbacks"
+local PlayerVariant     = require("lua.revelcommon.enums.PlayerVariant")
+
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
 ----------------
@@ -26,7 +28,7 @@ revel:AddCallback(ModCallbacks.MC_POST_RENDER , function()
 end)
 
 revel:AddCallback(ModCallbacks.MC_USE_ITEM, function(_, itemID, itemRNG, player, useFlags, activeSlot, customVarData)
-    if not HasBit(useFlags, UseFlag.USE_CARBATTERY) then
+    if not HasBit(useFlags, UseFlag.USE_CARBATTERY) and player.Variant == PlayerVariant.PLAYER then
         -- deal with butter
         if player:HasTrinket(TrinketType.TRINKET_BUTTER) then
             SpawnItem = itemID

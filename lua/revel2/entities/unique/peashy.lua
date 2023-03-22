@@ -1,4 +1,6 @@
 local RevRoomType = require "lua.revelcommon.enums.RevRoomType"
+local RevCallbacks = require("lua.revelcommon.enums.RevCallbacks")
+
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
 -- Peashy
@@ -368,7 +370,7 @@ revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, e, amount, flag, 
     end
 end)
 
-revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, function(_, player)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, player)
     local puncturedTimer = player:GetData().PeashyPunctured
     if puncturedTimer then
         puncturedTimer = puncturedTimer - 1

@@ -2,6 +2,8 @@
 -- REVEL.RevCallbacks.SOMELONGCALLBACKNAME each time
 
 return {
+    POST_LOAD = "POST_REVELATIONS_LOAD",
+
     POST_SAVEDATA_LOAD = "REV_POST_SAVEDATA_LOAD", -- ()
     EARLY_POST_NEW_ROOM = "REV_EARLY_POST_NEW_ROOM", -- ()
     POST_ROOM_CLEAR = "REV_POST_ROOM_CLEAR", -- (room)
@@ -27,10 +29,16 @@ return {
     ITEM_CHECK = "REV_ITEM_CHECK", -- (item id, item table): ItemId -> boolean
     PRE_RENDER_ENTITY_REFLECTION = "REV_PRE_RENDER_ENTITY_REFLECTION", -- (entity, sprite, offset): Type -> boolean
     POST_RENDER_ENTITY_REFLECTION = "REV_POST_RENDER_ENTITY_REFLECTION", -- (entity, sprite, offset, didRender): Type
-    PRE_ENTITY_AIR_MOVEMENT_UPDATE = "REV_PRE_ENTITY_AIR_MOVEMENT_UPDATE", -- (entity, airMovementData)
-    PRE_ENTITY_AIR_MOVEMENT_LAND = "REV_PRE_ENTITY_AIR_MOVEMENT_LAND", -- (entity, airMovementData, landFromGrid)
-    POST_ENTITY_AIR_MOVEMENT_UPDATE = "REV_POST_ENTITY_AIR_MOVEMENT_UPDATE", -- (entity, airMovementData, landFromGrid)
-    POST_ENTITY_AIR_MOVEMENT_LAND = "REV_POST_ENTITY_AIR_MOVEMENT_LAND", -- (entity, airMovementData, landFromGrid, oldZVelocity)
+    PRE_ENTITY_ZPOS_UPDATE = "REV_PRE_ENTITY_ZPOS_UPDATE", -- (entity, airMovementData): return false to prevent update, return true to also prevent gfx update
+    PRE_ENTITY_ZPOS_LAND = "REV_PRE_ENTITY_ZPOS_LAND", -- (entity, airMovementData, landFromGrid): return false to prevent landing, always called even in repeat ground updates
+    POST_ENTITY_ZPOS_UPDATE = "REV_POST_ENTITY_ZPOS_UPDATE", -- (entity, airMovementData, landFromGrid)
+    POST_ENTITY_ZPOS_LAND = "REV_POST_ENTITY_ZPOS_LAND", -- (entity, airMovementData, landFromGrid, oldZVelocity)
+    PRE_ZPOS_COLLISION_CHECK = "REV_PRE_ZPOS_COLLISION_CHECK", -- (entity1, entity2, mode1, mode2, wouldCollide): Return true or false to replace result; true means it runs vanilla collision code (and continues vanilla callback stack), false means collision is prevented
+    PRE_ZPOS_UPDATE_GFX = "REV_PRE_ZPOS_UPDATE_GFX", -- (entity, airMovementData, zPos): return false to not run base update gfx code
+    POST_ZPOS_UPDATE_GFX = "REV_POST_ZPOS_UPDATE_GFX", -- (entity, airMovementData, zPos)
+    -- Hook into ground level logic, to add features that have a different ground level depending on position
+    -- (pos, entity?, currentLevel): Return number to replace ground level
+    ZPOS_GET_GROUND_LEVEL = "REV_ZPOS_GET_GROUND_LEVEL",
     POST_MACHINE_UPDATE = "REV_POST_MACHINE_UPDATE", -- (machine), data: MachineVariant [data is persistent across respawns, unlike normal :GetData()]
     POST_MACHINE_INIT = "REV_POST_MACHINE_INIT", -- (machine, data): MachineVariant [data is persistent across respawns, unlike normal :GetData()]
     POST_MACHINE_RENDER = "REV_POST_MACHINE_RENDER", -- (machine, data, renderOffset): MachineVariant [data is persistent across respawns, unlike normal :GetData()]
@@ -44,6 +52,8 @@ return {
     POST_SPAWN_CLEAR_AWARD = "REV_POST_SPAWN_CLEAR_AWARD", --(spawnPos, pickup)
     POST_ROCK_BREAK = "REV_POST_ROCK_BREAK", --(grid)
     POST_ENTITY_TAKE_DMG = "REV_POST_ENTITY_TAKE_DMG", --(entity, damage, flag, source, invuln): Type, Variant
+    POST_BASE_PEFFECT_UPDATE = "REV_POST_BASE_PEFFECT_UPDATE", --(player)
+    POST_BASE_PLAYER_INIT = "REV_POST_BASE_PLAYER_INIT", --(player)
 
     POST_STAGEAPI_NEW_ROOM_WRAPPER = "POST_STAGEAPI_NEW_ROOM_WRAPPER", --temporary
 }

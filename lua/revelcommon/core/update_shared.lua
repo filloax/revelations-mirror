@@ -15,6 +15,7 @@ end
 
 StageAPI.AddCallback("Revelations", StageAPICallbacks.PRE_STAGEAPI_LOAD_SAVE, -900, updateSharedVariables)
 StageAPI.AddCallback("Revelations", RevCallbacks.EARLY_POST_NEW_ROOM, -900, updateSharedVariables)
+revel:AddPriorityCallback(RevCallbacks.POST_BASE_PLAYER_INIT, -900, updateSharedVariables)
 if Isaac.GetPlayer(0) then --reloaded
     updateSharedVariables()
 end

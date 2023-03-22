@@ -19,7 +19,7 @@ local SubModules = {
     'lua.revelcommon.core.shaders',
     'lua.revelcommon.core.tear_sounds',
     'lua.revelcommon.core.custom_pill_colors',
-    'lua.revelcommon.core.spring_player',
+    -- 'lua.revelcommon.core.spring_player',
     'lua.revelcommon.core.music_cues',
     'lua.revelcommon.core.vanilla_music',
     'lua.revelcommon.core.rerollables',

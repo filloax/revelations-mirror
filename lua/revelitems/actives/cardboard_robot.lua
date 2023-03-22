@@ -1,5 +1,6 @@
 local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
+local PlayerVariant     = require("lua.revelcommon.enums.PlayerVariant")
 
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
@@ -34,7 +35,7 @@ local function spawnRobot(player, firstSpawn)
     robot:GetData().head = head
     --      data.robotTime = revel.robot.defTimeout
     data.renderRobot = true
-    REVEL.SetPlayerJumpSprites(player, data.robot:GetSprite(), head)
+    REVEL.ZPos.SetPlayerJumpSprites(player, data.robot:GetSprite(), head)
     robot:GetData().owner = player
     robot:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
     robot.Visible = false
@@ -48,9 +49,11 @@ local function spawnRobot(player, firstSpawn)
         if player:GetPlayerType() == PlayerType.PLAYER_THESOUL and not player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT) then
             REVEL.ForceInput(player, ButtonAction.ACTION_DROP, InputHook.IS_ACTION_TRIGGERED, true)
             local playerID = REVEL.GetPlayerID(player)
-            REVEL.players[playerID]:GetData().Bone.Visible = false
+            REVEL.LockEntityVisibility(REVEL.players[playerID]:GetData().Bone, "crobot")
         end
-        if data.Bone then data.Bone.Visible = false end
+        if data.Bone then 
+            REVEL.LockEntityVisibility(data.Bone, "crobot")
+        end
     else
         robot:GetData().State = "Default"
     end
@@ -67,26 +70,25 @@ local function startExplosion(robot, player)
     spr.PlaybackSpeed = 1
     spr.Color = Color.Default
     if player:GetData().Bone then
-        player:GetData().Bone.Visible = true
+        REVEL.UnlockEntityVisibility(player:GetData().Bone, "crobot")
     end
 end
 
 local function deattachRobot(robot, player)
     robot.GridCollisionClass = EntityGridCollisionClass.GRIDCOLL_WALLS
     robot.Velocity = robot.Velocity * 2.3
-    player.Visible = true
+    REVEL.UnlockEntityVisibility(player, "crobot")
     player.Color = player:GetData().origColor
     player:GetData().origColor = nil
     player:GetData().renderRobot = false
-    REVEL.ClearPlayerJumpSprites(player)
+    REVEL.ZPos.ClearPlayerJumpSprites(player)
     player:GetData().robot = nil
     robot.Visible = true
 end
 
-revel:AddCallback(ModCallbacks.MC_USE_ITEM,
-                    function(_, itemID, itemRNG, player, useFlags, activeSlot,
-                            customVarData)
-    if not HasBit(useFlags, UseFlag.USE_CARBATTERY) then
+revel:AddCallback(ModCallbacks.MC_USE_ITEM, function(_, itemID, itemRNG, player, useFlags, activeSlot, customVarData)
+    if not HasBit(useFlags, UseFlag.USE_CARBATTERY)
+    and player.Variant == PlayerVariant.PLAYER then
 
         local data = player:GetData()
 
@@ -108,7 +110,7 @@ end, REVEL.ITEM.ROBOT.id)
 revel:AddCallback(ModCallbacks.MC_USE_ITEM,
                     function(_, itemID, itemRNG, player, useFlags, activeSlot,
                             customVarData)
-    if not HasBit(useFlags, UseFlag.USE_CARBATTERY) then
+    if not HasBit(useFlags, UseFlag.USE_CARBATTERY) and player.Variant == PlayerVariant.PLAYER then
 
         local data = player:GetData()
 
@@ -131,7 +133,7 @@ StageAPI.AddCallback("Revelations", RevCallbacks.EARLY_POST_NEW_ROOM, 1, functio
             if not data.RobotExploding then
                 spawnRobot(player, false)
             else
-                player.Visible = true
+                REVEL.UnlockEntityVisibility(player, "crobot")
                 player.Color = data.origColor
                 data.robot = nil
             end
@@ -171,13 +173,15 @@ function revel.robot.AnimArmFrame(dir, spr, data)
     end
 end
 
-revel:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, function(_, p)
+revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, p)
     local data = p:GetData()
 
     if p:GetActiveItem() == REVEL.ITEM.ROBOT2.id then
         if data.robot then
             REVEL.ChargeYellowOn(p)
-            if data.Bone then data.Bone.Visible = false end
+            if data.Bone then             
+                REVEL.LockEntityVisibility(data.Bone, "crobot")
+            end
         else
             REVEL.SetCharge(REVEL.GetMaxCharge(p, false), p, false)
             if REVEL.ITEM.ROBOT2:PlayerHasCollectible(p) then
@@ -331,12 +335,8 @@ revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, e)
         end
 
         if spr:IsFinished("Spawn") then
-            --      data.owner.Visible = false
-            --      e.Visible = true
-            --      ownerdata.renderRobot = false
             REVEL.UnlockPlayerControls(data.owner, "Robot")
             data.State = "Default"
-            --      data.owner.SpriteOffset = Vector(data.owner.SpriteOffset.X, data.sY)
         end
 
     elseif data.State == "Default" then
