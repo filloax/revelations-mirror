@@ -711,6 +711,7 @@ local RandomFuncs = {
     "RandomInt",
 }
 
+local SHIFT_MAX = 80
 local C_INT_MAX = 2147483647
 
 
@@ -724,14 +725,19 @@ function REVEL.RNG()
     local customRNG = {
     }
 
-    function customRNG:SetSeed(seed, offset)
+    function customRNG:SetSeed(seed, shiftIdx)
         seed = seed % C_INT_MAX
+        shiftIdx = shiftIdx % SHIFT_MAX
         if seed == 0 then
-            REVEL.DebugToString("[REVEL] WARN: Tried to set RNG seed to 0, using 1..." .. REVEL.TryGetTraceback(nil, true))
+            if REVEL.PRINT_SEED_WARNING then
+                REVEL.DebugToString("[REVEL] WARN: Tried to set RNG seed to 0, using 1", REVEL.TryGetCallInfo(3))
+            end
             seed = 1
         end
-        base:SetSeed(seed, offset)
-        trackOffset = offset
+        if REVEL.PRINT_SEED then
+            REVEL.DebugToString("[REVEL] DEBUG: Setting new RNG seed to", seed, REVEL.TryGetCallInfo(3))
+        end
+        base:SetSeed(seed, shiftIdx)
     end
 
     function customRNG:GetRNG()

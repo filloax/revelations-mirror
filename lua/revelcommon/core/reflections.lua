@@ -29,8 +29,9 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
             refMan:GetData().refMngr = true
             refMan:GetData().RenderMirrorFloor = renderMirrorFloor
             refMan:GetData().RenderMirrorOverlays = renderMirrorOverlays
-
-            refMan:GetData().mirrorFloorSpritePosition = StageAPI.LoadBackdropSprite(mirrorFloorSprite, TransparentMirrorBackdrop, 2)
+            refMan:GetData().mirrorFloorSpritePosition = REVEL.room:GetTopLeftPos() --StageAPI.LoadBackdropSprite(mirrorFloorSprite, TransparentMirrorBackdrop, 2)
+            mirrorFloorSprite:Load("gfx/backdrop/revel1/mirror/MirrorAlpha_FloorBackdrop.anm2", true)
+            mirrorFloorSprite:Play(StageAPI.ShapeToName[REVEL.room:GetRoomShape()], true)
 
             roomHasReflections = true
         else
@@ -95,16 +96,16 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
         alpha = alpha or 1
         local data = ent:GetData()
         if not justCalled and not data.noReflection and (data.forceReflect or (not noReflectEntities[ent.Type] or (not noReflectEntities[ent.Type][-1] and not noReflectEntities[ent.Type][ent.Variant]))) then
-            local sprite = ent:GetSprite()
+            local sprite = data.CustomReflectionSprite or ent:GetSprite()
 
             data.reflectOffset = data.reflectOffset or Vector.Zero
 
             if not data.NoFlipReflectionY then
                 sprite.FlipY = not sprite.FlipY
             end
-            local colorOld = sprite.Color
+            local colorOld = REVEL.CloneColor(sprite.Color)
 
-            sprite.Color = Color(colorOld.R, colorOld.G, colorOld.B, colorOld.A * alpha, colorOld.RO, colorOld.GO, colorOld.BO) --apparently there were problems with "number has no integer representation" even if theys hould already be integers, whatevs
+            sprite.Color = REVEL.ChangeColorAlpha(sprite.Color, alpha)
 
             local doRender = true
             local ret = StageAPI.CallCallbacksWithParams(RevCallbacks.PRE_RENDER_ENTITY_REFLECTION, true, ent.Type, 
@@ -114,7 +115,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
             end
 
             if doRender then
-                if layerZeroEntities[ent.Type] and layerZeroEntities[ent.Type][ent.Variant] then
+                if not data.CustomReflectionSprite and layerZeroEntities[ent.Type] and layerZeroEntities[ent.Type][ent.Variant] then
                     sprite:RenderLayer(0, Isaac.WorldToRenderPosition(ent.Position) + data.reflectOffset + REVEL.room:GetRenderScrollOffset())
                 else
                     if not data.ReflectRenderLayer then
@@ -132,7 +133,6 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
                 sprite.FlipY = not sprite.FlipY
             end
             sprite.Color = colorOld
-            --    ent.Color = colorOld
         end
     end
 
@@ -205,16 +205,12 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
         return mirrorCrackedSprite
     end
 
-    local roomSizeX = 443
-    local roomSizeY = 288
     local horizontalShineSizeX = 280
+    local horizontalShineSizeY = 288
+    local verticalShineSizeX = 443
     local verticalShineSizeY = 286
     local horizontalShineX = 0
     local verticalShineY = 0
-    local horizontalShineMax = roomSizeX + horizontalShineSizeX
-    local horizontalShineMin = -horizontalShineSizeX
-    local verticalShineMax = roomSizeY + verticalShineSizeY
-    local verticalShineMin = -verticalShineSizeY
 
     local horizontalShineSprite = REVEL.LazyLoadRoomSprite{
         ID = "mirrorHorizontalShineSprite",
@@ -240,11 +236,29 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
     REVEL.MirrorRoomDead = false
     local oddMirrorFrame = false
 
+    local NoShineScaleShapes = {RoomShape.ROOMSHAPE_1x1, RoomShape.ROOMSHAPE_IH, RoomShape.ROOMSHAPE_IV}
+
     local function reflectionsManagerPostEffectRender(_, eff)
         local data = eff:GetData()
         if data.refMngr and not justCalled and REVEL.IsRenderPassFloor() then
             local floorRenderPosition = Isaac.WorldToRenderPosition(data.mirrorFloorSpritePosition) + REVEL.room:GetRenderScrollOffset()
             if data.RenderMirrorFloor then
+                local tl, br = REVEL.GetRoomCorners()
+                local roomSizeX = br.X - tl.X
+                local roomSizeY = br.Y - tl.Y
+                local horizontalShineMax = roomSizeX + horizontalShineSizeX
+                local horizontalShineMin = -horizontalShineSizeX
+                local verticalShineMax = roomSizeY + verticalShineSizeY
+                local verticalShineMin = -verticalShineSizeY
+
+                if not REVEL.includes(NoShineScaleShapes, REVEL.room:GetRoomShape()) then
+                    horizontalShineSprite.Scale = Vector(1, roomSizeY / horizontalShineSizeY)
+                    verticalShineSprite.Scale = Vector(roomSizeX / verticalShineSizeX, 1)
+                else
+                    horizontalShineSprite.Scale = Vector.One
+                    verticalShineSprite.Scale = Vector.One
+                end
+
                 if not REVEL.game:IsPaused() then
                     horizontalShineX = horizontalShineX + 1
                     verticalShineY = verticalShineY + 1
@@ -264,6 +278,8 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
                 verticalShineSprite:Render(floorRenderPosition, Vector.Zero, Vector.Zero)
             end
 
+            StageAPI.CallCallbacks(RevCallbacks.PRE_RENDER_REFLECTIONS, false)
+
             if REVEL.STAGE.Tomb:IsStage() then
                 REVEL.RenderReflectionsTomb(eff, data)
             else
@@ -279,6 +295,8 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
                     end
                 end
             end
+
+            StageAPI.CallCallbacks(RevCallbacks.POST_RENDER_REFLECTIONS, false)
 
             if data.RenderMirrorFloor then
                 mirrorFloorSprite:Render(floorRenderPosition, Vector.Zero, Vector.Zero)
@@ -307,6 +325,8 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
             if REVEL.STAGE.Tomb:IsStage() then
                 REVEL.RenderMirrorOverlaysTomb()
             end
+
+            StageAPI.CallCallbacks(RevCallbacks.POST_RENDER_MIRROR_OVERLAYS, false)
 
         --        renderReflectGrids() --no grids needed
         --        renderGrids()

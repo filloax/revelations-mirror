@@ -32,6 +32,9 @@ REVEL.SimpleAddRoomsSet("RevelationsHub", "RevelationsHub", nil, "revelcommon.hu
 REVEL.SimpleAddRoomsSet("RevelationsVanityShop", "RevelationsVanityShop", nil, "revelcommon.vanityshop_", REVEL.RoomEditors, {"Test"})
 REVEL.SimpleAddRoomsSet("RevelationsVanityCasino", "RevelationsVanityCasino", nil, "revelcommon.vanitycasino_", REVEL.RoomEditors, {"Test"})
 
+local getEntities2 = require("lua.revelcommon.entities2")
+StageAPI.AddEntities2Function(getEntities2)
+
 REVEL.Bosses = {
     Common = {
         {

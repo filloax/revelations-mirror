@@ -38,9 +38,9 @@
     <!-- Tomb Elite --><track name="Tomb Elite" path="revel2/Tomb Elite Boss.ogg" loop="true" />
     <!-- Tomb Elite Ragtime --><track name="Tomb Elite Ragtime" path="revel2/Tomb Elite Boss Ragtime.ogg" loop="true" />
 
-    <!-- Hub Room --><track name="Revelations Hub Room" path="revel2/The_Hub.ogg" loop="true" />
-	<!-- Hub Room 2 --><track name="Hub Room 2.0" path="hub2/The_Hub.ogg" loop="true" />
-    <!-- Hub Room Stinger --><track name="Revelations Hub Room Stinger" path="revel2/Hub_Room_Found_Stinger.ogg" loop="false" />
+    <!-- Hub Room --><track name="Revelations Hub Room" path="hub2/The_Hub.ogg" loop="true" />
+  	<!-- Hub Room 2 --><track name="Hub Room 2.0" path="hub2/The_Hub.ogg" loop="true" />
+	<!-- Hub Room Stinger --><track name="Revelations Hub Room Stinger" path="revelcommon/Hub_Room_Found_Stinger.ogg" loop="false" />
     <!-- Vanity Shop --><track name="Revelations Vanity Bazaar" path="revelcommon/Bazaar_Mischief.ogg" loop="true" />
     <!-- Vanity Casino --><track name="Revelations Vanity Casino" path="revelcommon/Prank_Shop_Casino_Version.ogg" loop="true" />
 

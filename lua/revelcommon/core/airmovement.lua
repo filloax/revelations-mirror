@@ -87,6 +87,7 @@ REVEL.ZPos = {
 ---@field RenderExp number -- exponential offset rendering
 ---@field LandEventMinDelay integer -- <default 5> minimum frames between land events, to prevent spam due to bounce
 ---@field PreviousState table
+---@field TargetSpriteOffset number?
 
 -- Makes sure the airMovementData table provided has the values it needs to work.
 ---@param entity Entity
@@ -97,6 +98,7 @@ function REVEL.ZPos.TryInitEntity(entity, airMovementData)
 		local data = REVEL.GetData(entity)
 		data.AirMovement = data.AirMovement or {}
 		airMovementData = data.AirMovement
+		Isaac.RunCallbackWithParam(RevCallbacks.POST_ENTITY_ZPOS_INIT, entity.Type, entity, airMovementData)
 	end
 	local groundLevel = REVEL.ZPos.GetGroundLevel(entity) or 0
 	airMovementData.Gravity = airMovementData.Gravity or math.min(0.5, math.max(0.1, 0.2 + (entity.Mass * 0.1)))

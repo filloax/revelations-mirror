@@ -45,25 +45,22 @@ local function isRevStage()
 end
 
 local function spawnRevTrapdoor(gridIndex)
-	local levelStage = REVEL.level:GetAbsoluteStage()
-	
-	if HasBit(REVEL.level:GetCurses(), LevelCurse.CURSE_OF_LABYRINTH) then
-		levelStage = levelStage + 1
-	end
-	
+	local currentStage = StageAPI.GetCurrentStage()
+	if not currentStage then REVEL.DebugToString("[WARN] spawnRevTrapdoor | not in stageapi stage, abort") return end
+
 	local stage
-	if levelStage%2 == 1 then
-		local stageName = StageAPI.GetCurrentStage().Name .. "Two"
+	if not currentStage.IsSecondStage then
+		local stageName = currentStage.Name .. "Two"
 		stage = REVEL.STAGE[stageName]
-		
 	else
-		if REVEL.STAGE.Tomb:IsStage() then -- since tomb is based on catacombs, the actual levelstage will have to be shifted up
-			levelStage = levelStage + 2
-		end
-		
+		local levelgenStage = currentStage.LevelgenStage
+		local levelStage = currentStage.StageNumber or (levelgenStage and levelgenStage.Stage or REVEL.level:GetAbsoluteStage())
+
+		local nextStage = currentStage.NextStage
+
 		stage = {
-			NormalStage = true,
-			Stage = levelStage,
+			NormalStage = nextStage.NormalStage,
+			Stage = nextStage.Stage,
 			StageType = REVEL.SimulateStageTransitionStageType(levelStage + 2 , false)
 		}
 	end
@@ -89,6 +86,16 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_STAGEAPI_NEW_ROOM_WRAPPER,
 				spawnRevTrapdoor(trapdoorData.GridIndex)
 			end
 		end
+	end
+end)
+
+revel:AddCallback(ModCallbacks.MC_POST_RENDER, function()
+	if REVEL.room:GetFrameCount() == 0
+	and StageAPI.GetCurrentRoomType() == hub2.ROOMTYPE_HUBCHAMBER 
+	and REVEL.room:IsFirstVisit()
+	and REVEL.music:GetCurrentMusicID() ~= REVEL.SFX.HUB_ROOM_STINGER
+	then
+		REVEL.music:Play(REVEL.SFX.HUB_ROOM_STINGER, Options.MusicVolume)
 	end
 end)
 

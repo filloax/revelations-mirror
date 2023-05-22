@@ -868,14 +868,16 @@ local function SetPathOnMatchingEnts(pred, entityTable, map, sets)
     sets = sets or map.TargetMapSets
     for _, ent in ipairs(entityTable or REVEL.roomEntities) do
         local data = ent:GetData()
+        local revData = REVEL.GetData(ent)
         if not pred or pred(ent) then
             local matchingSet = REVEL.GetTargetSetMatchingEntity(ent, sets, data)
             if matchingSet then
-                if data.OnPathUpdate then
-                    data.OnPathUpdate(matchingSet, ent, map)
+                if data.OnPathUpdate or revData.OnPathUpdate then
+                    (data.OnPathUpdate or revData.OnPathUpdate)(matchingSet, ent, map)
                 else
                     data.Path = nil
                     data.PathIndex = nil
+                    revData.Path = nil
                     local path, isComplete = GetPathToZero(
                         REVEL.room:GetGridIndex(ent.Position), 
                         matchingSet.Map, 
@@ -885,6 +887,7 @@ local function SetPathOnMatchingEnts(pred, entityTable, map, sets)
                     )
                     if isComplete or data.UseIncompleteMap then
                         data.Path = path
+                        revData.Path = path
                     end
                 end
             end

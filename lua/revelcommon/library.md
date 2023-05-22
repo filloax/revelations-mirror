@@ -59,8 +59,12 @@ REVEL.GetFolderName()
 REVEL.LoadCustomFont(font, revFolderPath)
 REVEL.BlacklistChampionNpc(entDef)
 REVEL.TryGetTraceback(noNewline, isntErrorFunction)
+REVEL.TryGetCallInfo(levelOrFunc)
 REVEL.IsReloading()
 REVEL.Assert(v, message, level)
+
+**ENTITY_DATA**:
+REVEL.GetData(entity)
 
 **ROOM_LOAD_HELPERS**:
 REVEL.AddRoomsTable(rooms, listKey, roomsKey, roomsGroupName, setWeight)
@@ -205,9 +209,6 @@ REVEL.LockEntityVisibility(entity, lockId)
 REVEL.UnlockEntityVisibility(entity, lockId)
 REVEL.DamageFlash(entity)
 
-**ENTITY_DATA**:
-REVEL.GetData(entity)
-
 **FAKE_ANIMATION**:
 REVEL.CreateFakeAnimation(name, frames)
 REVEL.AddFakeAnimationFrames(name, frames)
@@ -257,6 +258,7 @@ REVEL.IsGridBroken(gridEntity)
 REVEL.GetPoopDamagePct(grid)
 REVEL.GetCustomDoorBySlot(slot)
 REVEL.GetGridIdxInDirection(fromIndex, direction)
+REVEL.GetOppositeDoorSlot(slot)
 
 **INPUT**:
 REVEL.IsShooting(player, ignoreEffects, onlyActiveShooting)
@@ -310,6 +312,8 @@ REVEL.InMineshaft()
 REVEL.MapRooms()
 REVEL.GetRoomConnections(roomsMap)
 REVEL.GetRoomPathingDistances(roomConnections, targetListIndex, listIndicesToIgnore)
+REVEL.SplitCustomGenRoom(levelRoom, onlyL)
+REVEL.SplitAllCustomMapRooms()
 
 **MATH**:
 REVEL.GetAngleDifference(a1, a2)
@@ -324,20 +328,23 @@ REVEL.Round(x)
 REVEL.GetAccelFromFrictionSpeed(friction, maxSpeed)
 toBits(num)
 toBitString(num)
+REVEL.Xor(a, b)
 
 **NPC**:
 REVEL.ApplyKnockbackImmunity(npc, undoVelocityChanges)
+REVEL.UpdateStateFrame(npc)
 
 **NPC_MOVEMENT**:
 REVEL.MoveRandomly(npc, variance, reangleMinTime, reangleMaxTime, speed, reduce, tarPos, checkGridCollide)
 REVEL.GetMoveRandomlyAngle(npc, variance, reangleMinTime, reangleMaxTime, tarPos, checkGridCollide)
 REVEL.MoveRandomlyAxisAligned(npc, reangleMinTime, reangleMaxTime, speed, reduce, checkGridCollide)
+REVEL.MoveRandomlyAxisAlignedPausing(npc,
 REVEL.CurvedPathAngle(npc, data, pos, maxAngle, reangleTimeMax, reangleStep, friction, speed)
 REVEL.MoveAt(npc, pos, speed, reduce)
 REVEL.LerpEntityPositionSmooth(entity, pos, tar, time)
 
 **ORBIT**:
-REVEL.GetMultiOrbitAngle(i, numOrbiting, direction)
+REVEL.GetMultiOrbitAngle(orbitIndex, numOrbiting, direction)
 REVEL.GetOrbitOffset(angle, distance)
 REVEL.GetOrbitPosition(entity, angle, distance)
 REVEL.GetOrbitPositionEllipse(pos, angle, distX, distY)
@@ -523,7 +530,7 @@ REVEL.SpawnMeltEffect(pos, doSound, noCreep)
 REVEL.SpawnThunder(ent, color)
 REVEL.SpawnSandGibs(position, velocity, spawner)
 REVEL.SpawnBlurShockwave(position, big, noDelay)
-REVEL.BishopShieldEffect(npc, offset, scale, sfx)
+REVEL.BishopShieldEffect(npc, offset, scale, parent, sfx)
 REVEL.FadeOut(length, aboveHud, r, g, b)
 REVEL.FadeIn(length)
 REVEL.IsFullyFaded()

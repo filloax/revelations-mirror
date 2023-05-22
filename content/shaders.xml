@@ -1,15 +1,15 @@
 <shaders>
     <shader name="RevColorCorrection">
         <parameters>
-            <param name="ActiveIn" type="float" />
-            <param name="ShadRGB_Wgt" type="vec4" />
-            <param name="MidRGB_Wgt" type="vec4" />
-            <param name="HighRGB_Wgt" type="vec4" />
-            <param name="RGB" type="vec3" />
-            <param name="ContrLightSat_Legacy" type="vec4" />
-            <param name="Levels" type="vec3" />
-            <param name="ColBoostSelection" type="vec4" /> 
-            <param name="ColBoostRGBSat" type="vec4" />
+            <param name="ActiveIn" type="float"/>
+            <param name="ShadRGB_Wgt" type="vec4"/>
+            <param name="MidRGB_Wgt" type="vec4"/>
+            <param name="HighRGB_Wgt" type="vec4"/>
+            <param name="RGB" type="vec3"/>
+            <param name="ContrLightSat_Legacy" type="vec4"/>
+            <param name="Levels" type="vec3"/>
+            <param name="ColBoostSelection" type="vec4"/> 
+            <param name="ColBoostRGBSat" type="vec4"/>
         </parameters>
         <vertex><![CDATA[attribute vec3 Position;
 attribute vec4 Color;
@@ -303,11 +303,11 @@ void main()
 
     <shader name="RevEffects">
         <parameters>
-            <param name="ActiveIn" type="float" />
-            <param name="TypeVariantDebug" type="vec3" />
-            <param name="RGB" type="vec3" /> 
-            <param name="ContrLightSat" type="vec3" />
-            <param name="nTlBr" type="vec4" />
+            <param name="ActiveIn" type="float"/>
+            <param name="TypeVariantDebug" type="vec3"/>
+            <param name="RGB" type="vec3"/> 
+            <param name="ContrLightSat" type="vec3"/>
+            <param name="nTlBr" type="vec4"/>
         </parameters>
         <vertex><![CDATA[attribute vec3 Position;
 attribute vec4 Color;
@@ -613,9 +613,9 @@ float getTombMask(vec2 st, int IVariant, vec2 Br, vec2 Tl)
     </shader>
     <shader name="Snowflakes">
       <parameters>
-          <param name="ActiveIn" type="float" />
-          <param name="DirectionNoiseThresholdIn" type="vec4" />
-          <param name="AltDirectionsIn" type="vec4" />
+          <param name="ActiveIn" type="float"/>
+          <param name="DirectionNoiseThresholdIn" type="vec4"/>
+          <param name="AltDirectionsIn" type="vec4"/>
       </parameters>
       <vertex><![CDATA[attribute vec3 Position;
 attribute vec4 Color;

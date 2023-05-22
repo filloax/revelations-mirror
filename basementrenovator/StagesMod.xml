@@ -1,5 +1,5 @@
 <data>
-    <stage Name="Glacier" Stage="3" StageType="1"  Pattern="glacier">
+    <stage Name="Glacier" Stage="3" StageType="1" StageHPNum="1" Pattern="glacier">
         <Gfx BGPrefix="backdrops/glacier">
             <Entity ID="1000" Image="../resources/gfx/grid/revel1/glacier_rocks.png" />
             <Entity ID="1002" Image="revelations/1002.0.0 - Pot Glacier.png" />
@@ -12,7 +12,7 @@
 			<Entity ID="1900" Image="revelations/1900.0.0 - Block Glacier.png" />
         </Gfx>
     </stage>
-    <stage Name="Tomb"    Stage="3" StageType="1"  Pattern="tomb">
+    <stage Name="Tomb" Stage="3" StageType="1" StageHPNum="3" Pattern="tomb">
         <Gfx BGPrefix="backdrops/tomb">
             <Entity ID="3000" Image="../resources/gfx/grid/revel2/sand_pit.png" />
 			<Entity ID="1002" Image="revelations/1002.0.0 - Pot Tomb.png" />

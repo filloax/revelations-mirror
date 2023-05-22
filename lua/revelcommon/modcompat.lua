@@ -2127,7 +2127,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
     end
 
-    revel:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, loadCompatValues)
+    revel:AddPriorityCallback(ModCallbacks.MC_POST_GAME_STARTED, CallbackPriority.IMPORTANT, loadCompatValues)
 
     if Isaac.GetPlayer(0) then
         loadCompatValues()
@@ -2148,7 +2148,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
     if FiendFolio then
         LoadFiendFolioCompat(loadType)
     else
-        revel:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function()
+        revel:AddPriorityCallback(ModCallbacks.MC_POST_GAME_STARTED, CallbackPriority.IMPORTANT, function()
             if FiendFolio and not (REVEL.FiendFolioCompatLoaded or REVEL.FiendFolioCompatLoaded[loadType]) then
                 LoadFiendFolioCompat(loadType)
             end
@@ -2188,7 +2188,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
     if HPBars then
         LoadHPBars()
     else
-        revel:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function()
+        revel:AddPriorityCallback(ModCallbacks.MC_POST_GAME_STARTED, CallbackPriority.IMPORTANT, function()
             if HPBars and not REVEL.HPBarsCompatLoaded then
                 LoadHPBars()
             end

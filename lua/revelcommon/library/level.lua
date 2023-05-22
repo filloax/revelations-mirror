@@ -414,5 +414,48 @@ function REVEL.GetRoomPathingDistances(roomConnections, targetListIndex, listInd
     return roomDistances
 end
 
+function REVEL.SplitCustomGenRoom(levelRoom, onlyL)
+    if #levelRoom.MapSegments > 1 and (not onlyL or #levelRoom.MapSegments == 3) then
+        local topLeftIndex = (levelRoom.Shape == RoomShape.ROOMSHAPE_LBR) and levelRoom.SafeGridIndex - 1 or levelRoom.SafeGridIndex
+
+        local out = {}
+        for i, seg in ipairs(levelRoom.MapSegments) do
+            local grIndex = StageAPI.VectorToGrid(seg.X, seg.Y, 13)
+            local segRoom = {
+                X = seg.X,
+                Y = seg.Y,
+                StartingRoom = levelRoom.StartingRoom,
+                Shape = RoomShape.ROOMSHAPE_1x1,
+                GridIndex = grIndex,
+                SafeGridIndex = grIndex,
+                ExtraRoomName = levelRoom.ExtraRoomName,
+                --Doors = {}, --to be filled by StageAPI.SetLevelMapDoors
+            }
+
+            out[#out + 1] = segRoom
+        end
+
+        return out
+    else
+        return {levelRoom}
+    end
+end
+
+function REVEL.SplitAllCustomMapRooms()
+    local newLevelMap = {}
+    for _, levelRoom in ipairs(StageAPI.CurrentLevelMap) do
+        local split = REVEL.SplitCustomGenRoom(levelRoom, true)
+        for __, splitRoom in ipairs(split) do
+            --convert closets to 1x1
+            if REVEL.includes({RoomShape.ROOMSHAPE_IH, RoomShape.ROOMSHAPE_IV}, splitRoom.Shape) then
+                splitRoom.Shape = RoomShape.ROOMSHAPE_1x1
+            end
+
+            newLevelMap[#newLevelMap + 1] = splitRoom
+        end
+    end
+    StageAPI.UpdateLevelMap(newLevelMap, nil, true)
+end
+
 
 end

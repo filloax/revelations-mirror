@@ -25,6 +25,7 @@ def main(args):
     if len(crange) != 0:
         idranges.append(crange)
 
+    idranges.sort(key=lambda x: x[0])
     idrangesstr = list(map(lambda range: f"{range[0]} - {range[-1]}", idranges))
     print("Used id ranges:")
     for s in idrangesstr:
@@ -42,6 +43,7 @@ def main(args):
     if len(evar_crange) != 0:
         evar_ranges.append(evar_crange)
 
+    evar_ranges.sort(key=lambda x: x[0])
     evar_ranges_str = list(map(lambda range: f"{range[0]} - {range[-1]}" if len(range) > 1 else range[0], evar_ranges))
     print("Used effect variant ranges:")
     for s in evar_ranges_str:

@@ -219,10 +219,32 @@ hub2.RepDoors = {
 
 local CheckedOutDoorSlots = {}
 
+local function ShouldRemoveTransitionDoor()
+	if room:GetType() == RoomType.ROOM_BOSS and StageAPI.InOverriddenStage() then
+		local currentStage = StageAPI.GetCurrentStage()
+		return currentStage and not hub2.CustomStagesContainingHub2[currentStage.Name]
+	end
+
+	return false
+end
+
 function hub2.UpdateHub2Doors()
 	local room = game:GetRoom()
 	local level = game:GetLevel()
 	
+	-- Remove transition room door if custom stage without hub
+	if ShouldRemoveTransitionDoor() then
+		for slot=DoorSlot.LEFT0, DoorSlot.DOWN1 do
+			local door = room:GetDoor(slot)
+			if door and door.TargetRoomType == ROOMTYPE_TRANSITION then
+				room:RemoveDoor(slot)
+				hub2.LogMinor("Removed Door at slot ", slot)
+			end
+		end
+		return
+	end
+
+	-- Replace doors
 	if room:GetType() == RoomType.ROOM_BOSS or hub2.IsTransitionRoom() then
 		local levelStage = hub2.GetCorrectedLevelStage()
 		
@@ -315,12 +337,12 @@ local function generateHub2Layout(levelStage, entranceDoorSlot)
 						BossDoor = true
 					},
 					[(entranceDoorSlot+1)%4] = {
-						Quad = hub2.VanillaHub2Quads[levelStage + 1],
-						Trapdoor = "vanilla"
+						Quad = hub2.VanillaHub2Quads[levelStage + 1] or "closet",
+						Trapdoor = hub2.VanillaHub2Quads[levelStage + 1] and "vanilla"
 					},
 					[(entranceDoorSlot+3)%4] = {
-						Quad = hub2.RepHub2Quads[levelStage],
-						Trapdoor = "rep"
+						Quad = hub2.RepHub2Quads[levelStage] or "closet",
+						Trapdoor = hub2.RepHub2Quads[levelStage] and "rep"
 					}
 				}
 			}
@@ -525,11 +547,18 @@ function hub2.LoadHub2(room, levelRoom, isFirstLoad)
 			if trapdoor and (trapdoor.StageType == "rep" or trapdoor.StageType == "vanilla") then
 				stage = StageAPI.CallCallbacks("PRE_SELECT_NEXT_STAGE", true, StageAPI.GetCurrentStage(), trapdoor.StageType == "rep") or stage
 			end
+
+			local trapdoorAnm2 = currentHubChamber[slot].TrapdoorAnm2 or trapdoor and trapdoor.Anm2
+			if not trapdoorAnm2 and stage.NormalStage 
+			and (stage.Stage == LevelStage.STAGE4_1 or stage.Stage == LevelStage.STAGE4_2) 
+			then
+				trapdoorAnm2 = "gfx/grid/door_11_wombhole.anm2"
+			end
 			
 			local trapdoorEnt = StageAPI.SpawnCustomTrapdoor(
 				room:GetGridPosition(hub2.Hub2TrapdoorSpots[slot]), 
 				stage, 
-				currentHubChamber[slot].TrapdoorAnm2 or trapdoor and trapdoor.Anm2, 
+				trapdoorAnm2, 
 				currentHubChamber[slot].TrapdoorSize or trapdoor and trapdoor.Size or 24,
 				false
 			)
@@ -668,11 +697,17 @@ hub2:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
 	end
 end)
 
+local DoRemoveDoorSpawnsCheck = false
+
 hub2:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
 	local room = game:GetRoom()
-	if room:GetType() == RoomType.ROOM_BOSS
-	and room:IsClear() then
-		hub2.UpdateHub2Doors()
+	if room:GetType() == RoomType.ROOM_BOSS then
+		if room:IsClear() then
+			hub2.UpdateHub2Doors()
+		end
+		DoRemoveDoorSpawnsCheck = true
+	else
+		DoRemoveDoorSpawnsCheck = false
 	end
 end)
 
@@ -730,3 +765,29 @@ function hub2.SetUpHub2Background(hubChamber)
 	
 	eff:AddEntityFlags(hub2.BitOr(EntityFlag.FLAG_RENDER_FLOOR, EntityFlag.FLAG_RENDER_WALL))
 end
+
+hub2:AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, function(_, etype, variant, subtype, pos, vel, spawner, seed)
+    if DoRemoveDoorSpawnsCheck and etype == EntityType.ENTITY_EFFECT
+    and (variant == EffectVariant.WOOD_PARTICLE or variant == EffectVariant.DUST_CLOUD)
+	and ShouldRemoveTransitionDoor()
+    then
+		local room = game:GetRoom()
+
+        for i = 0, DoorSlot.NUM_DOOR_SLOTS - 1 do
+            local door = room:GetDoor(i)
+            if door and door.TargetRoomType == ROOMTYPE_TRANSITION then
+                local doorPos = room:GetGridPosition(door:GetGridIndex())
+                if doorPos:DistanceSquared(pos) < 60^2 then
+                    return {
+                        StageAPI.E.DeleteMeEffect.T,
+                        StageAPI.E.DeleteMeEffect.V,
+                        0,
+                        seed
+                    }
+                else
+                    return
+                end
+            end
+        end
+    end
+end)

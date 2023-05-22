@@ -54,11 +54,11 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
         end
     end
 
-    local isRespawn = false
+    local IsRespawn = false
 
     -- For init callbacks
     function REVEL.IsMachineRespawn()
-        return isRespawn
+        return IsRespawn
     end
 
     local function InitMachine(machine)
@@ -100,6 +100,33 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
             machine, data, renderOffset)
     end
 
+    local function RespawnMachine(machine, data)
+        local sprite = machine:GetSprite()
+        local anim, frame = sprite:GetAnimation(), sprite:GetFrame()
+
+        IsRespawn = true
+        local newMachine = Isaac.Spawn(machine.Type, machine.Variant, machine.SubType, machine.Position, Vector.Zero, nil)
+        IsRespawn = false
+
+        newMachine:GetData().RespawnedMachine = true
+        newMachine:GetData().Manager = machine:GetData().Manager
+        newMachine:GetData().Init = true -- do not call init again, use respawn if needed
+
+        local manager = machine:GetData().Manager.Ref
+        manager:GetData().ManagedMachine = EntityPtr(newMachine)
+        
+        StageAPI.CallCallbacksWithParams(RevCallbacks.POST_MACHINE_RESPAWN, false, machine.Variant, 
+            machine, newMachine, data)
+
+        newMachine:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
+        machine:Remove()
+
+        newMachine:GetSprite():Play(anim, true)
+        newMachine:GetSprite():SetFrame(frame)
+
+        REVEL.DebugStringMinor("Prevented machine explosion at", REVEL.room:GetGridIndex(newMachine.Position))
+    end
+
     local function MachineExplosionCheck(machine)
         local data = machine:GetData().Manager.Ref:GetData()
         local explosions = Isaac.FindByType(EntityType.ENTITY_EFFECT, EffectVariant.BOMB_EXPLOSION, -1, false, false)
@@ -118,24 +145,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
                 end
 
                 if keepAlive then
-                    isRespawn = true
-                    local newMachine = Isaac.Spawn(machine.Type, machine.Variant, machine.SubType, machine.Position, Vector.Zero, nil)
-                    isRespawn = false
-
-                    newMachine:GetData().RespawnedMachine = true
-                    newMachine:GetData().Manager = machine:GetData().Manager
-                    newMachine:GetData().Init = true -- do not call init again, use respawn if needed
-
-                    local manager = machine:GetData().Manager.Ref
-                    manager:GetData().ManagedMachine = EntityPtr(newMachine)
-                    
-                    StageAPI.CallCallbacksWithParams(RevCallbacks.POST_MACHINE_RESPAWN, false, machine.Variant, 
-                        machine, newMachine, data)
-
-                    newMachine:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
-                    machine:Remove()
-
-                    REVEL.DebugStringMinor("Prevented machine explosion at", REVEL.room:GetGridIndex(newMachine.Position))
+                    RespawnMachine(machine, data)
                 else
                     machine:GetData().Died = true
                     machine:GetData().Manager.Ref:Remove()

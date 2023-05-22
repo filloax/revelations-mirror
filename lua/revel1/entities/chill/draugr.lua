@@ -449,11 +449,16 @@ local function eat(npc, entity)
                 eatenAuraData.Radius = eatenAuraData.Radius * 0.6
             end
             local auraData = REVEL.SetWarmAura(npc, eatenAuraData)
-            if data.Aura and auraData.Aura.Ref then
-                data.Aura:Remove()
+            if auraData.Aura and auraData.Aura.Ref then
+                if data.Aura then
+                    data.Aura:Remove()
+                end
+                data.Aura = auraData.Aura.Ref
             end
-            data.Aura = auraData.Aura.Ref
-            REVEL.UpdateAuraRadius(data.Aura, auraData.Radius)
+            if data.Aura then
+                REVEL.UpdateAuraRadius(data.Aura, auraData.Radius)
+                data.Aura.Position = npc.Position
+            end
         end
 
         ateGrillo = true
@@ -1299,7 +1304,7 @@ revel:AddCallback(ModCallbacks.MC_POST_UPDATE, draugrPostUpdate)
 revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, jaugrNpcUpdate, REVEL.ENT.JAUGR.id)
 revel:AddCallback(ModCallbacks.MC_PRE_NPC_UPDATE, jaugrStunnedPreNpcUpdate)
 
-StageAPI.AddCallback("Revelations", "PRE_SELECT_ENTITY_LIST", 1, draugrPreSelectEntityList)
+StageAPI.AddCallback("Revelations", StageAPICallbacks.PRE_SELECT_ENTITY_LIST, 0, draugrPreSelectEntityList)
 revel:AddCallback(ModCallbacks.MC_POST_NPC_INIT, draugrPostNpcInit)
 revel:AddCallback(ModCallbacks.MC_POST_NPC_RENDER, draugrPostNpcRender, REVEL.ENT.DRAUGR.id)
 

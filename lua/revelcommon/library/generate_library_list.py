@@ -1,9 +1,16 @@
 from io import FileIO
 import os
 import re
+import sys
+
+no_stdout = len(sys.argv) > 1 and sys.argv[1] == '-s'
 
 OUT_NAME = 'library.md'
 EARLY_DIR_NAME = "early"
+
+def out(*args):
+    if not no_stdout:
+        print(*args)
 
 this_dir = os.path.dirname(os.path.realpath(__file__))
 
@@ -33,13 +40,13 @@ def check(name : str, f : FileIO):
             if match:
                 func_name = match.group(1).strip()
                 lists[name].append(func_name)
-                print(func_name)
+                out(func_name)
 
 for file in early_files:
     name = file.split('.')[0]
     lists[name] = []
 
-    print(f'\n\n\n{name.upper()}\n\n\n')
+    out(f'\n\n\n{name.upper()}\n\n\n')
 
     with open(os.path.join(early_dir, file), "r") as f:
         check(name, f)
@@ -48,7 +55,7 @@ for file in files:
     name = file.split('.')[0]
     lists[name] = []
 
-    print(f'\n\n\n{name.upper()}\n\n\n')
+    out(f'\n\n\n{name.upper()}\n\n\n')
 
     with open(os.path.join(this_dir, file), "r") as f:
         check(name, f)

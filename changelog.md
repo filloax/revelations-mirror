@@ -1,3 +1,17 @@
+## 4.2.1
+- Update MinimapAPI to 2.45
+- Readd stinger music to Hub 2
+- No longer handle tinted rocks as StageAPI does it
+- Fix Haugr errors
+- Remove redundant music files
+- Fix/improve avalanche AI
+- Hub 2 handles pre-womb floors
+
+Internal
+- Added build.py to assemble some mod files
+- Remove callback return check
+- Add StageAPI entity data
+
 ## 4.2.0
 
 - Add enemy: Sandstorm

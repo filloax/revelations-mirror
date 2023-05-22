@@ -114,7 +114,8 @@ end)
 revel:AddCallback(ModCallbacks.MC_POST_EFFECT_RENDER, function(_, eff, renderOffset)
     local data = eff:GetData()
     if data.IsAura then
-        if (data.Spawner and not data.Spawner:GetData().NoAuraRerender) or (data.ForceSourceSprite and data.SourceSpritePosition) then
+        if (data.Spawner and not data.Spawner:GetData().NoAuraRerender and data.Spawner.Visible and not REVEL.GetData(data.Spawner).NoExtraRenders)
+        or (data.ForceSourceSprite and data.SourceSpritePosition) then
             local sourceSprite = data.ForceSourceSprite or data.Spawner:GetData().AuraSourceSprite or data.Spawner:GetSprite()
             if type(sourceSprite) == "table" then
                 for _, sourceSprite in ipairs(sourceSprite) do
@@ -126,7 +127,9 @@ revel:AddCallback(ModCallbacks.MC_POST_EFFECT_RENDER, function(_, eff, renderOff
         end
         if data.RenderOnTop then
             for _, entity in pairs(data.RenderOnTop) do
-                entity:GetSprite():Render(Isaac.WorldToScreen(entity.Position) + renderOffset - REVEL.room:GetRenderScrollOffset(), Vector.Zero, Vector.Zero)
+                if entity.Visible then
+                    entity:GetSprite():Render(Isaac.WorldToScreen(entity.Position) + renderOffset - REVEL.room:GetRenderScrollOffset(), Vector.Zero, Vector.Zero)
+                end
             end
         end
     end

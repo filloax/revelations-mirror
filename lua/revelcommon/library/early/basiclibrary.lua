@@ -408,7 +408,7 @@ end
 
 function REVEL.DebugStringMinor(...)
     if REVEL.DEBUG then
-        REVEL.DebugToString(...)
+        REVEL.DebugToString("\t", ...)
     end
 end
 
@@ -958,6 +958,15 @@ end
 function REVEL.TryGetTraceback(noNewline, isntErrorFunction)
     if not REV_DEBUG_REPLACED_LUA_FUNCS or isntErrorFunction then
         return debug and debug.traceback((not noNewline) and "\n" or "", 2) or ""
+    else
+        return ""
+    end
+end
+
+function REVEL.TryGetCallInfo(levelOrFunc)
+    if debug and levelOrFunc then
+        local info = debug.getinfo(levelOrFunc)
+        return " at " .. info.short_src .. "@" .. tostring(info.linedefined)
     else
         return ""
     end

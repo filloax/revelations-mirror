@@ -1218,7 +1218,7 @@ local function catastrophe_EntTakeDamage(_, ent, dmg, flag, source)
         if ent.Variant == REVEL.ENT.CATASTROPHE_YARN.variant then
             REVEL.PlaySound(ent, ent:GetData().bal.Sounds.HitYarn)
         elseif not ent:GetData().ChampionGuppy then
-            REVEL.BishopShieldEffect(ent, Vector(0,-15), Vector(1,1))
+            REVEL.BishopShieldEffect(ent, Vector(0,-15), Vector.One * 1.1)
         end
 
         return false

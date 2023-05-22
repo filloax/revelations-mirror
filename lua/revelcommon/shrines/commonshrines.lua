@@ -584,13 +584,15 @@ REVEL.AddCommonShrine {
         if door then
             local pos = REVEL.room:FindFreePickupSpawnPosition(door.Position, 0, true)
 
+            local entity
+
             if REVEL.STAGE.Tomb:IsStage() then
-                e = Isaac.Spawn(REVEL.ENT.RAG_GAPER.id, REVEL.ENT.RAG_GAPER.variant, 0, pos, Vector.Zero, nil)
+                entity = Isaac.Spawn(REVEL.ENT.RAG_GAPER.id, REVEL.ENT.RAG_GAPER.variant, 0, pos, Vector.Zero, nil)
             else
-                e = Isaac.Spawn(EntityType.ENTITY_GAPER, 0, 0, pos, Vector.Zero, nil)
+                entity = Isaac.Spawn(EntityType.ENTITY_GAPER, 0, 0, pos, Vector.Zero, nil)
             end
 
-            e:GetData().ForcePurgatoryPactSpawn = true
+            entity:GetData().ForcePurgatoryPactSpawn = true
         end
     end,
     CanDoorsOpen = function()

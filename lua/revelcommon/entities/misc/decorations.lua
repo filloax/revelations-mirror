@@ -4,19 +4,21 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 -- MISC DECORATIONS EFFECT --
 -----------------------------
 
----@class DecorationConfig
+---@class DecorationConfig : GenericEffectConfig
 ---@field Anim string
----@field Sprite string
----@field Time integer
+---@field Sprite string Anm2 file
 ---@field FadeOut integer
----@field Finish fun(e: EntityEffect, data: table, spr: Sprite)
----@field Update fun(e: EntityEffect, data: table, spr: Sprite)
 ---@field SetFrame integer
 ---@field RemoveOnAnimEnd boolean
 ---@field Color Color
----@field Start fun(e: EntityEffect, data: table, spr: Sprite)
 ---@field SkipFrames integer
 ---@field Floor boolean
+
+---@class GenericEffectConfig
+---@field Time integer
+---@field Finish fun(e: EntityEffect, data: table, spr: Sprite)
+---@field Update fun(e: EntityEffect, data: table, spr: Sprite)
+---@field Start fun(e: EntityEffect, data: table, spr: Sprite)
 
 --[[
     Spawn an effect to play an anm2, that has no impact on the game (unless the func does something), until time runs out or Finish anm2 event is triggered
@@ -175,24 +177,38 @@ end)
 
 --generic invisible effect
 function REVEL.SpawnInvisibleEntity(pos, vel, parent, time, finish, update, start)
-    return REVEL.SpawnDecoration(pos, vel, "none", "stageapi/none.anm2", parent, time, -1, finish, update, nil, false, nil, start)
+    return REVEL.SpawnInvisibleEntityFromTable(pos, vel, {
+        Time = time,
+        Finish = finish,
+        Update = update,
+        Start = start,
+    }, parent)
 end
 
---Takes in fields with the same names as the arguments of the above function, but with the initial capitalized (for consistency with similar stuff in the mod)
---Ie Sprite Anim etc
-local ArgOrderInvEnt = {"Parent", "Time", "Finish", "Update", "Start"}
+local BlankConfig = {
+    Anim = "none",
+    Sprite = "stageapi/none.anm2",
+    RemoveOnAnimEnd = false,
+}
 
+local CachedConfigs = {}
+
+---@param pos Vector
+---@param vel Vector
+---@param tbl GenericEffectConfig
+---@param parent? Entity
 function REVEL.SpawnInvisibleEntityFromTable(pos, vel, tbl, parent)
-    local args = REVEL.map(ArgOrderInvEnt, function(value)
-        if tbl[value] ~= nil then
-            return tbl[value]
-        else
-            return -1 --nil values make table.unpack stop
+    ---@diagnostic disable-next-line: undefined-field
+    if tbl.Parent then parent = tbl.Parent end --backwards compat
+
+    if not CachedConfigs[tbl] then
+        CachedConfigs[tbl] = REVEL.CopyTable(BlankConfig)
+        for key, value in pairs(tbl) do
+            CachedConfigs[tbl][key] = value
         end
-    end)
-    if parent then args[3] = parent end
-  
-    return REVEL.SpawnInvisibleEntity(pos, vel, table.unpack(args))
+    end
+
+    return REVEL.SpawnDecorationFromTable(pos, vel, CachedConfigs[tbl], parent)
 end
 
 end

@@ -130,13 +130,20 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
     local numShaders = 10
     local noShaderWgt = 5 --chance, out of this + numShaders, for the room to have no mask shader
 
+    local CachedSeed = -1
+    local CachedShader = -1
+
     local masktest --
     local getShaderFromSeed = function()
         if masktest then return masktest end
         local s = REVEL.room:GetDecorationSeed()
-        local r = REVEL.RNG()
-        r:SetSeed(s, 0)
-        return 1 + r:RandomInt(noShaderWgt + numShaders)
+        if s ~= CachedSeed then
+            local r = REVEL.RNG()
+            r:SetSeed(s, 0)
+            CachedShader = 1 + r:RandomInt(noShaderWgt + numShaders)
+            CachedSeed = s
+        end
+        return CachedShader
     end
     REVEL.GetTombShader = getShaderFromSeed
 
@@ -145,15 +152,17 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
     local pauseCount = 0
     local wasPaused
     revel:AddCallback(ModCallbacks.MC_POST_RENDER, function()
-        pauseCount = pauseCount + 1
-        if wasPaused ~= REVEL.game:IsPaused() then
-            if REVEL.game:IsPaused() then 
-                pauseCount = 0
+        if REVEL.STAGE.Tomb:IsStage() then
+            pauseCount = pauseCount + 1
+            if wasPaused ~= REVEL.game:IsPaused() then
+                if REVEL.game:IsPaused() then 
+                    pauseCount = 0
+                end
+                wasPaused = REVEL.game:IsPaused()
             end
-            wasPaused = REVEL.game:IsPaused()
-        end
-        if pauseCount > 8 then --dont update it immediately on room change
-            currentShader = getShaderFromSeed()
+            if pauseCount > 8 then --dont update it immediately on room change
+                currentShader = getShaderFromSeed()
+            end
         end
     end)
 

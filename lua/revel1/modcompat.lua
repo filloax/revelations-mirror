@@ -113,7 +113,7 @@ end
 if MinimapAPI then
     REVEL.LoadMinimapAPICompat()
 else
-    revel:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function()
+    revel:AddPriorityCallback(ModCallbacks.MC_POST_GAME_STARTED, CallbackPriority.IMPORTANT, function()
         if MinimapAPI and not REVEL.MinimapAPICompatLoaded then
             REVEL.LoadMinimapAPICompat()
         end
@@ -280,7 +280,7 @@ local loadType = 2
 if FiendFolio then
     LoadFiendFolioCompat(loadType)
 else
-    revel:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function()
+    revel:AddPriorityCallback(ModCallbacks.MC_POST_GAME_STARTED, CallbackPriority.IMPORTANT, function()
         if FiendFolio and not (REVEL.FiendFolioCompatLoaded or REVEL.FiendFolioCompatLoaded[loadType]) then
             LoadFiendFolioCompat(loadType)
         end

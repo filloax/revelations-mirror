@@ -390,6 +390,11 @@ function REVEL.GetGridIdxInDirection(fromIndex, direction)
     return REVEL.VectorToGrid(x + vec.X, y + vec.Y, w)
 end
 
+function REVEL.GetOppositeDoorSlot(slot)
+    local adjSlot = slot % 4
+    return (adjSlot + 2) % 4 + (slot - adjSlot)
+end
+
 -- CALLBACKS
 
 StageAPI.AddCallback("Revelations", RevCallbacks.EARLY_POST_NEW_ROOM, 1, lockgridindexPostNewRoom)

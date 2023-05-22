@@ -215,7 +215,7 @@ end
 
 revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, anima_NpcUpdate, REVEL.ENT.ANIMA.id)
 
-StageAPI.AddCallback("Revelations", StageAPICallbacks.PRE_SELECT_ENTITY_LIST, 1, function(entityList, index, entityMeta)
+StageAPI.AddCallback("Revelations", StageAPICallbacks.PRE_SELECT_ENTITY_LIST, 0, function(entityList, index, entityMeta)
     if #entityList > 1 and StageAPI.CurrentlyInitializing and entityMeta then
         local hasRagFamily, hasAnima
         for ind, entData in ipairs(entityList) do

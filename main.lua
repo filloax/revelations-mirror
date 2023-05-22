@@ -5,7 +5,7 @@ _G.REVEL = {
     DEBUG = false,
     Testmode = false,
   
-    VERSION = "4.2.0",
+    VERSION = "4.2.1",
   
     MODID = "2880387531", --steam workshop id
 
@@ -132,9 +132,9 @@ end
 local MainLoadFunctions = REVEL.LoadModulesFromTable(REVEL.Modules)
 
 ---@param funcs fun()[]
-function REVEL.RunLoadFunctions(funcs)
+function REVEL.RunLoadFunctions(funcs, ...)
     for _, fn in ipairs(funcs) do
-        local success, err = pcall(fn)
+        local success, err = pcall(fn, ...)
         if not success then
             revel:RemoveAllCallbacks()
             StageAPI.UnregisterCallbacks("Revelations")

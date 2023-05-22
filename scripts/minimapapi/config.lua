@@ -45,8 +45,11 @@ MinimapAPI.Config = {
 	["HighlightFurthestRoom"] = false,
 	["HighlightStartRoom"] = false,
 	["MouseTeleport"] = false,
+	["TeleportConfirmKey"] = Keyboard.KEY_ENTER,
+	["TeleportConfirmButton"] = ButtonAction.ACTION_PAUSE,
 	["MouseTeleportUncleared"] = false,
 	["MouseTeleportDamageOnCurseRoom"] = true,
+	["MouseTeleportDisableMovement"] = true,
 
 	["ConfigPreset"] = 1,
 

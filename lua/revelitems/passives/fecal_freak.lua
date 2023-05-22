@@ -22,7 +22,7 @@ revel:AddCallback(ModCallbacks.MC_POST_TEAR_INIT, function(_, tear)
             -- to fix this + items with big sprite resolution (and so small ingame scale), without this with ffreak and like mysterious liquid or fire mind you get very small tears
             -- so basically in the first frame it set the size normal then it gets smaller, soo we set it after
             if REVEL.IsHDTearSprite(tear) then
-                data.scaleFix = e.SpriteScale * 2
+                data.scaleFix = tear.SpriteScale * 2
             end
             REVEL.sfx:Play(REVEL.SFX.FECAL_FREAK_FART, 0.9, 0, false,
                                 0.8 + math.random() * 0.2)

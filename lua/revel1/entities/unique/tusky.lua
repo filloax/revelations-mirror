@@ -382,7 +382,7 @@ revel:AddCallback(ModCallbacks.MC_POST_NPC_RENDER, function(_, npc, renderOffset
     end
 end, REVEL.ENT.TUSKY.id)
 
-StageAPI.AddCallback("Revelations", "PRE_SELECT_ENTITY_LIST", 2, function(entityList, spawnIndex, entityMeta)
+StageAPI.AddCallback("Revelations", StageAPICallbacks.PRE_SELECT_ENTITY_LIST, 0, function(entityList, spawnIndex, entityMeta)
     local tusky = nil
     for i, entityInfo in ipairs(entityList) do
         if REVEL.ENT.TUSKY:isEnt(entityInfo) then

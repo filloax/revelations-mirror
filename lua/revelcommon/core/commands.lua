@@ -558,7 +558,7 @@ local function commandsPostRender()
             end
 
             if not blacklisted then
-                local pos = Isaac.WorldToRenderPosition(e.Position)
+                local pos = Isaac.WorldToScreen(e.Position)
                 Isaac.RenderText((e.Type..";"..e.Variant..";"..e.SubType), pos.X, pos.Y, 255, 255, 255, 255)
                 -- if e.SpawnerEntity then
                 --     Isaac.RenderText((e.SpawnerType..";"..e.SpawnerVariant..";"..e.SpawnerEntity.SubType), pos.X, pos.Y+15, 255, 255, 255, 255)

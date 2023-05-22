@@ -251,7 +251,7 @@
     </entity>
 
     <!-- Brainfreeze -->
-    <entity anm2path="monsters/revel1/brainfreeze.anm2" reroll="true" baseHP="30" boss="0" champion="1" collisionDamage="1" collisionMass="30" collisionRadius="19" friction="1" id="483" name="Brainfreeze" numGridCollisionPoints="12" shadowSize="21" stageHP="0" variant="541" portrait="9" gridCollision="walls">
+    <entity anm2path="monsters/revel1/brainfreeze.anm2" reroll="true" baseHP="30" boss="0" champion="1" collisionDamage="1" collisionMass="30" collisionRadius="20" friction="1" id="483" name="Brainfreeze" numGridCollisionPoints="12" shadowSize="21" stageHP="0" variant="541" portrait="9" gridCollision="walls">
         <bestiary transform="0,0,1" anim="Idle"/>
         <gibs amount="8" blood="1" bone="1" eye="1" gut="1" large="1" />
         <preload-snd id="158" /> <!-- SOUND_WHEEZY_COUGH -->
@@ -720,7 +720,7 @@
     </entity>
 
     <!-- Locust -->
-    <entity anm2path="monsters/revel2/locust.anm2" reroll="false" baseHP="8" boss="0" champion="0" collisionDamage="1" collisionMass="3" collisionRadius="17" friction="1" id="743" name="Locust" numGridCollisionPoints="0" shadowSize="11" stageHP="0" variant="541" gridCollision="walls" portrait="37">
+    <entity anm2path="monsters/revel2/locust.anm2" reroll="false" baseHP="8" boss="0" champion="0" collisionDamage="1" collisionMass="3" collisionRadius="10" friction="1" id="743" name="Locust" numGridCollisionPoints="0" shadowSize="11" stageHP="0" variant="541" gridCollision="walls" portrait="37">
         <bestiary transform="0,0,1" anim="Fly"/>
         <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
     </entity>

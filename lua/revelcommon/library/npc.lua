@@ -28,4 +28,14 @@ function REVEL.ApplyKnockbackImmunity(npc, undoVelocityChanges)
     data.__PrevKnockbackVelocity = npc.Velocity
 end
 
+function REVEL.UpdateStateFrame(npc)
+    local data = REVEL.GetData(npc)
+    if npc.State ~= data.LastState then 
+        npc.StateFrame = 0
+        data.LastState = npc.State
+    else
+        npc.StateFrame = npc.StateFrame + 1
+    end
+end
+
 end

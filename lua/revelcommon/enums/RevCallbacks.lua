@@ -27,9 +27,13 @@ return {
     POST_INGAME_RELOAD = "REV_POST_INGAME_RELOAD", -- (isReload) 
     POST_ITEM_PICKUP = "REV_POST_ITEM_PICKUP", -- (player, playerID, itemID, isD4Effect)
     ITEM_CHECK = "REV_ITEM_CHECK", -- (item id, item table): ItemId -> boolean
+    PRE_RENDER_REFLECTIONS = "REV_PRE_RENDER_REFLECTIONS", -- ()
+    POST_RENDER_REFLECTIONS = "REV_POST_RENDER_REFLECTIONS", -- ()
+    POST_RENDER_MIRROR_OVERLAYS = "REV_POST_RENDER_MIRROR_OVERLAYS", -- ()
     PRE_RENDER_ENTITY_REFLECTION = "REV_PRE_RENDER_ENTITY_REFLECTION", -- (entity, sprite, offset): Type -> boolean
     POST_RENDER_ENTITY_REFLECTION = "REV_POST_RENDER_ENTITY_REFLECTION", -- (entity, sprite, offset, didRender): Type
-    PRE_ENTITY_ZPOS_UPDATE = "REV_PRE_ENTITY_ZPOS_UPDATE", -- (entity, airMovementData): return false to prevent update, return true to also prevent gfx update
+    POST_ENTITY_ZPOS_INIT = "REV_POST_ENTITY_ZPOS_INIT", -- (entity, airMovementData)
+    PRE_ENTITY_ZPOS_UPDATE = "REV_PRE_ENTITY_ZPOS_UPDATE", -- (entity, airMovementData): return false to prevent update
     PRE_ENTITY_ZPOS_LAND = "REV_PRE_ENTITY_ZPOS_LAND", -- (entity, airMovementData, landFromGrid): return false to prevent landing, always called even in repeat ground updates
     POST_ENTITY_ZPOS_UPDATE = "REV_POST_ENTITY_ZPOS_UPDATE", -- (entity, airMovementData, landFromGrid)
     POST_ENTITY_ZPOS_LAND = "REV_POST_ENTITY_ZPOS_LAND", -- (entity, airMovementData, landFromGrid, oldZVelocity)
@@ -42,7 +46,7 @@ return {
     POST_MACHINE_UPDATE = "REV_POST_MACHINE_UPDATE", -- (machine), data: MachineVariant [data is persistent across respawns, unlike normal :GetData()]
     POST_MACHINE_INIT = "REV_POST_MACHINE_INIT", -- (machine, data): MachineVariant [data is persistent across respawns, unlike normal :GetData()]
     POST_MACHINE_RENDER = "REV_POST_MACHINE_RENDER", -- (machine, data, renderOffset): MachineVariant [data is persistent across respawns, unlike normal :GetData()]
-    POST_MACHINE_EXPLODE = "REV_POST_MACHINE_EXPLODE", -- (machine, data): MachineVariant -> boolean [data is persistent across respawns, unlike normal :GetData()]
+    POST_MACHINE_EXPLODE = "REV_POST_MACHINE_EXPLODE", -- (machine, data): MachineVariant -> false to cancel [data is persistent across respawns, unlike normal :GetData()]
     POST_MACHINE_RESPAWN = "REV_POST_MACHINE_RESPAWN", -- (machine, newMachine, data): MachineVariant [data is persistent across respawns, unlike normal :GetData()]
     -- (boulder, ent, isGrid) -> boolean #ent is set if colliding with entity, gridentity as appropriate
     -- return true if the boulder should be destroyed (if entity set)
@@ -54,6 +58,12 @@ return {
     POST_ENTITY_TAKE_DMG = "REV_POST_ENTITY_TAKE_DMG", --(entity, damage, flag, source, invuln): Type, Variant
     POST_BASE_PEFFECT_UPDATE = "REV_POST_BASE_PEFFECT_UPDATE", --(player)
     POST_BASE_PLAYER_INIT = "REV_POST_BASE_PLAYER_INIT", --(player)
+    PRE_PLAYER_COLLISION_COLLOBJ = "REV_PRE_PLAYER_COLLISION_COLLOBJ", -- (ent, data, collObj) return false to ignore collision
+    PRE_TEAR_COLLISION_COLLOBJ = "REV_PRE_TEAR_COLLISION_COLLOBJ", -- (ent, data, collObj) return false to ignore collision
+    PRE_BOMB_COLLISION_COLLOBJ = "REV_PRE_BOMB_COLLISION_COLLOBJ", -- (ent, data, collObj) return false to ignore collision
+    PRE_PICKUP_COLLISION_COLLOBJ = "REV_PRE_PICKUP_COLLISION_COLLOBJ", -- (ent, data, collObj) return false to ignore collision
+    PRE_PROJECTILE_COLLISION_COLLOBJ = "REV_PRE_PROJECTILE_COLLISION_COLLOBJ", -- (ent, data, collObj) return false to ignore collision
+    PRE_NPC_COLLISION_COLLOBJ = "REV_PRE_NPC_COLLISION_COLLOBJ", -- (ent, data, collObj) return false to ignore collision
 
     POST_STAGEAPI_NEW_ROOM_WRAPPER = "POST_STAGEAPI_NEW_ROOM_WRAPPER", --temporary
 }

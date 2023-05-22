@@ -19,7 +19,7 @@ function REVEL.PreventGridNegativeEffects(index)
     noPoofGrids[index] = true
 end
     
-function REVEL.TintedAltBombRockChance(gridEntry, rng)
+function REVEL.TintedAltBombRockChance(gridEntry, rng) --DEPRECIATED!!
     local currentRoom = StageAPI.GetCurrentRoom()
     if not currentRoom.Metadata:Has{Index = gridEntry.Index, Name = "PreventRandomization"} then
         local altRock = StageAPI.Random(1, 100, rng)
@@ -53,9 +53,7 @@ end
 
 StageAPI.AddCallback("Revelations", "PRE_SPAWN_GRID", 1, function(gridEntry, gridInformation, entitySets, rng)
     if REVEL.STAGE.Glacier:IsStage() then
-        if gridEntry.Type == GridEntityType.GRID_ROCK then
-            return REVEL.TintedAltBombRockChance(gridEntry, rng)
-        elseif gridEntry.Type == GridEntityType.GRID_PIT and entitySets then -- Rooms with ice pits in them have actual pits below the ice pits, this is quite problematic as it shoves ice worms / enemies out of the way.
+        if gridEntry.Type == GridEntityType.GRID_PIT and entitySets then -- Rooms with ice pits in them have actual pits below the ice pits, this is quite problematic as it shoves ice worms / enemies out of the way.
             local index = tostring(gridEntry.Index)
             local currentRoom = StageAPI.GetCurrentRoom()
             if currentRoom and currentRoom.PersistentData.IcePitFrames[index] then

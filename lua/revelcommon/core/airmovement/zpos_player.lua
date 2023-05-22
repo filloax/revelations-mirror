@@ -94,7 +94,10 @@ end
 ---@param airMovementData AirMovementData
 revel:AddCallback(RevCallbacks.POST_ENTITY_ZPOS_UPDATE, function(_, entity, airMovementData)
 	local data = REVEL.GetData(entity)
-	if airMovementData.ZPosition ~= 0 or airMovementData.ZVelocity ~= 0 then
+	-- If nothing is overriding player pre update gfx
+	if (airMovementData.ZPosition ~= 0 or airMovementData.ZVelocity ~= 0)
+	and data.ZposReachedPlayerDefaultPreGfx
+	then
 		SpawnZposManager(entity)
 		REVEL.LockEntityVisibility(entity, "ZPos")
 	else
@@ -105,7 +108,16 @@ revel:AddCallback(RevCallbacks.POST_ENTITY_ZPOS_UPDATE, function(_, entity, airM
 	end
 end, EntityType.ENTITY_PLAYER)
 
-revel:AddCallback(RevCallbacks.PRE_ZPOS_UPDATE_GFX, function(_, entity, airMovementData)
+-- Double check to see if something is overriding player's gfx update
+
+revel:AddPriorityCallback(RevCallbacks.PRE_ZPOS_UPDATE_GFX, CallbackPriority.EARLY, function(_, entity, airMovementData)
+	local data = REVEL.GetData(entity)
+	data.ZposReachedPlayerDefaultPreGfx = false
+end, EntityType.ENTITY_PLAYER)
+
+revel:AddPriorityCallback(RevCallbacks.PRE_ZPOS_UPDATE_GFX, CallbackPriority.LATE, function(_, entity, airMovementData)
+	local data = REVEL.GetData(entity)
+	data.ZposReachedPlayerDefaultPreGfx = true
 	return false
 end, EntityType.ENTITY_PLAYER)
 
@@ -115,6 +127,9 @@ local function RenderJumpingPlayer(player, renderOffset)
         + Vector(0, -REVEL.ZPos.GetPosition(player)) * REVEL.SCREEN_TO_WORLD_RATIO
         + renderOffset -- - REVEL.room:GetRenderScrollOffset()
     local customJumpSprites = REVEL.GetData(player).CustomJumpSprites
+
+	local data = REVEL.GetData(player)
+	if not data.ZposReachedPlayerDefaultPreGfx then return end
 
     if customJumpSprites then
         for _, sprite in ipairs(customJumpSprites) do

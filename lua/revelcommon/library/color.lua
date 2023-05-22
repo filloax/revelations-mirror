@@ -43,7 +43,8 @@ end
 -- of storing the result in colorA, on top of returning it
 function REVEL.ColorMult(c0, c1)
     return Color(c0.R * c1.R, c0.G * c1.G, c0.B * c1.B, c0.A * c1.A,
-        c0.RO * c1.RO, c0.GO * c1.GO, c0.BO * c1.BO)
+        -- base game multiplication sums offsets
+        c0.RO + c1.RO, c0.GO + c1.GO, c0.BO + c1.BO)
 end
   
 function REVEL.ColorMultAddOffsets(c0, c1)

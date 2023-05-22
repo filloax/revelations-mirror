@@ -1,4 +1,18 @@
 -- Keep lines at max 40 characters, can use for that https://www.gillmeister-software.com/online-tools/text/add-line-breaks_change-line-length.aspx
+REVEL.AddChangelog("Vanity (4.2.2)", "May 22 2023", [[- Update MinimapAPI to 2.45 
+- Readd stinger music to Hub 2 
+- No longer handle tinted rocks as 
+StageAPI does it 
+- Fix Haugr errors 
+- Remove redundant music files 
+- Fix/improve avalanche AI 
+- Hub 2 handles pre-womb floors 
+
+Internal 
+- Added build.py to assemble some mod 
+files 
+- Remove callback return check 
+- Add StageAPI entity data]])
 REVEL.AddChangelog("Vanity (4.2.0)", "Mar 4 2023", [[- Add enemy: Sandstorm 
 - Add enemy: Juniaugr 
 - New rooms, including community ones 

@@ -125,7 +125,7 @@ local loadType = 3
 if FiendFolio then
     LoadFiendFolioCompat(loadType)
 else
-    revel:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function()
+    revel:AddPriorityCallback(ModCallbacks.MC_POST_GAME_STARTED, CallbackPriority.IMPORTANT, function()
         if FiendFolio and not (REVEL.FiendFolioCompatLoaded or REVEL.FiendFolioCompatLoaded[loadType]) then
             LoadFiendFolioCompat(loadType)
         end

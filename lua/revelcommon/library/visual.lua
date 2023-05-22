@@ -410,15 +410,20 @@ local function pulseBig_PreNpcCollision(_, npc1, npc2)
     if npc1.SubType == PULSE_ENT_SUBTYPE then return true end
 end
 
-function REVEL.BishopShieldEffect(npc, offset, scale, sfx)
-    local shield = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BISHOP_SHIELD, 0, npc.Position, Vector.Zero, npc):ToEffect()
+function REVEL.BishopShieldEffect(npc, offset, scale, parent, sfx)
+    local shield = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BISHOP_SHIELD, 0, npc.Position, Vector.Zero, parent or npc):ToEffect()
     shield.Target = npc
-    shield.SpriteOffset = Vector(0,-15)
-    shield.SpriteScale = Vector(1.1,1.1)
+    shield.SpriteOffset = offset or Vector(0,-15)
+    shield.SpriteScale = scale or Vector.One
+    if parent then
+        shield.Parent = parent
+    end
 
-    sfx = sfx or true
-    if sfx and not REVEL.sfx:IsPlaying(SoundEffect.SOUND_BISHOP_HIT) then
-        REVEL.sfx:Play(SoundEffect.SOUND_BISHOP_HIT, 0.6, 0, false, 1)
+    if sfx == nil then
+        sfx = true
+    end
+    if sfx then
+        REVEL.sfx:Play(SoundEffect.SOUND_BISHOP_HIT, 0.8)
     end
 
     return shield

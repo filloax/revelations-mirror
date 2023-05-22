@@ -61,7 +61,7 @@ local SandCastleAdjacentChecks = {
     {X = 2, Y = 0}
 }
 
-StageAPI.AddCallback("Revelations", StageAPICallbacks.PRE_SELECT_ENTITY_LIST, 1, function(entityList, index)
+StageAPI.AddCallback("Revelations", StageAPICallbacks.PRE_SELECT_ENTITY_LIST, 0, function(entityList, index)
     local changed = false
     local retEntityList = {}
     local addEntities = {}

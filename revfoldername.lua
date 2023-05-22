@@ -17,11 +17,11 @@ local function DetectFolderName()
     end
 
     --[INFO] - Lua Debug: Failed to load module: ...Binding of Isaac Rebirth/mods/revelations/foldername.lua:35: folder check
+    REVEL.DISABLE_ERROR_TRACEBACK = true
     local _, err = pcall(function() 
-        REVEL.DISABLE_ERROR_TRACEBACK = true
         error("folder check") 
-        REVEL.DISABLE_ERROR_TRACEBACK = false
     end)
+    REVEL.DISABLE_ERROR_TRACEBACK = false
 
     local fileDepth = 0
     local slashFolder_Pattern = "[\\/][^\\/]*"

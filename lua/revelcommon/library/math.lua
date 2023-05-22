@@ -24,31 +24,31 @@ end
 
 -- TODO: replace with REVEL.atan2 in other branches
 function REVEL.atan2(Y,X) --lua's is nil for some reason
-	local product = 0
+    local product = 0
 
-	if X == 0 and Y == 0 then
-		return 0
-	end
+    if X == 0 and Y == 0 then
+        return 0
+    end
 
-	if X == 0 then
-		product = math.pi / 2
-		if Y < 0 then
-			product = product * 3
-		end
-	else
-		product = math.atan(Y / X)
-		if X < 0 then
-			product = product + math.pi
-		end
-	end
-	return product
+    if X == 0 then
+        product = math.pi / 2
+        if Y < 0 then
+            product = product * 3
+        end
+    else
+        product = math.atan(Y / X)
+        if X < 0 then
+            product = product + math.pi
+        end
+    end
+    return product
 end
 
 function REVEL.dist(a,b)
     return math.abs(a-b)
 end
-  
-  
+    
+    
 --[[
 adapted from https://github.com/EmmanuelOga/columns/blob/master/utils/color.lua
 ]]
@@ -57,10 +57,10 @@ function rgbToHsv(r, g, b)
     local max, min = math.max(r, g, b), math.min(r, g, b)
     local h, s, v
     v = max
-  
+    
     local d = max - min
     if max == 0 then s = 0 else s = d / max end
-  
+    
     if max == min then
         h = 0 -- achromatic
     else
@@ -72,22 +72,22 @@ function rgbToHsv(r, g, b)
         end
         h = h / 6
     end
-  
+    
     return h, s, v
 end
-  
+    
 ---@diagnostic disable-next-line: lowercase-global
 function hsvToRgb(h, s, v)
     local r, g, b
-  
+    
     local i = math.floor(h * 6);
     local f = h * 6 - i;
     local p = v * (1 - s);
     local q = v * (1 - f * s);
     local t = v * (1 - (1 - f) * s);
-  
+    
     i = i % 6
-  
+    
     if i == 0 then r, g, b = v, t, p
     elseif i == 1 then r, g, b = q, v, p
     elseif i == 2 then r, g, b = p, v, t
@@ -95,7 +95,7 @@ function hsvToRgb(h, s, v)
     elseif i == 4 then r, g, b = t, p, v
     elseif i == 5 then r, g, b = v, p, q
     end
-  
+    
     return r, g, b
 end
 
@@ -134,14 +134,19 @@ function toBits(num)
     end
     local significantFirst = {}
     for i = 1, #t do
-      significantFirst[i] = t[#t + 1 - i]
+        significantFirst[i] = t[#t + 1 - i]
     end
     return significantFirst
 end
-  
+    
 ---@diagnostic disable-next-line: lowercase-global
 function toBitString(num)
     return table.concat(toBits(num))
 end
-  
+    
+
+function REVEL.Xor(a, b)
+    return a and b or (not a and not b)
+end
+
 end

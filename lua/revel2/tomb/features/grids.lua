@@ -62,14 +62,6 @@ StageAPI.AddCallback("Revelations", "POST_OVERRIDDEN_ALT_ROCK_BREAK", 1, functio
         end
     end
 end)
-
-StageAPI.AddCallback("Revelations", "PRE_SPAWN_GRID", 1, function(gridEntry, gridInformation, entitySets, rng)
-    if REVEL.STAGE.Tomb:IsStage() then
-        if gridEntry.Type == GridEntityType.GRID_ROCK then
-            return REVEL.TintedAltBombRockChance(gridEntry, rng)
-        end
-    end
-end)
     
 revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, eff)
     if REVEL.STAGE.Tomb:IsStage() and REVEL.includes(REVEL.TombGfxRoomTypes, StageAPI.GetCurrentRoomType()) then

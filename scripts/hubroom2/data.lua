@@ -28,7 +28,9 @@ hub2.VanillaHub2Quads = {
 	[LevelStage.STAGE2_1] = "caves",
 	[LevelStage.STAGE2_2] = "caves",
 	[LevelStage.STAGE3_1] = "depths",
-	[LevelStage.STAGE3_2] = "depths"
+	[LevelStage.STAGE3_2] = "depths",
+	[LevelStage.STAGE4_1] = "womb",
+	[LevelStage.STAGE4_2] = "womb",
 }
 
 hub2.RepHub2Quads = {
