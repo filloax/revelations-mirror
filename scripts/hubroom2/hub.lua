@@ -220,7 +220,7 @@ hub2.RepDoors = {
 local CheckedOutDoorSlots = {}
 
 local function ShouldRemoveTransitionDoor()
-	if room:GetType() == RoomType.ROOM_BOSS and StageAPI.InOverriddenStage() then
+	if game:GetRoom():GetType() == RoomType.ROOM_BOSS and StageAPI.InOverriddenStage() then
 		local currentStage = StageAPI.GetCurrentStage()
 		return currentStage and not hub2.CustomStagesContainingHub2[currentStage.Name]
 	end
