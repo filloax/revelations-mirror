@@ -34,27 +34,6 @@ revel:AddCallback(ModCallbacks.MC_FAMILIAR_INIT, function(_,  fam)
     data.TargetPos = Isaac.GetFreeNearPosition(fam.Player.Position + RandomVector() * math.random() * revel.lilfrider.maxPlayerDistance, 20)
 end, REVEL.ENT.LIL_FRIDER.variant)
 
-function REVEL.SpawnFriendlyIceBlock(pos, vel, spawner, pooter, dmg)
-    local e = REVEL.ENT.ICE_POOTER:spawn(pos, vel, spawner)
-    local sprite, data = e:GetSprite(), e:GetData()
-    e:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
-    sprite:Play("Land", true)
-    data.vel = vel
-    data.friendly = true
-    e:AddEntityFlags(EntityFlag.FLAG_FRIENDLY)
-    e.CollisionDamage = dmg
-    data.Damage = dmg
-    data.ReducedCreep = true
-
-    if not pooter then
-        data.noPooter = true
-        sprite:ReplaceSpritesheet(0, "gfx/monsters/revel1/ice_pooter_empty.png")
-        sprite:LoadGraphics()
-    end
-
-    return e
-end
-
 revel:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, function(_,  fam)
     local spr, data = fam:GetSprite(), fam:GetData()
 

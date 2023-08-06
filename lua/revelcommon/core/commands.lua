@@ -9,6 +9,8 @@ local commandsList = [[> rhelp: print this list
 in this file:
 > revprint <lua value> [<lua value>...]
   prints values with DebugLog(), can be any lua expression
+> revprint <max recurse> <lua value> [<lua value>...]
+  as above, but with <max recurse> (number) as maximum table print depth
 > test
   toggles test mode, which gives pickups, debug 3/4, and map items
 > soundtest <name or sound id>
@@ -141,6 +143,10 @@ in revelcommon/shrines/pact.lua
 > revpact <pactname>
   adds the chosen pact, check ShrineTypes.lua
   for valid names (common ones are not valid)
+
+in revelitems/familiar/cabbage_patch.lua
+> cabbagep <num> [<type>]
+  spawns <num> cabbage patch buds in the room, can specify type or leave it random
 ]]
 
 local renderEntTypes = false
@@ -175,7 +181,18 @@ local function commands_ExecuteCmd(_, cmd, params)
         Isaac.ConsoleOutput("Check log for more readable list!\n")
         Isaac.DebugString(commandsList)
     elseif cmd == "revprint" then
-        load("REVEL.DebugLog(" .. params .. ")")()
+        if tonumber(params:split()[1]) then
+            local split = params:split()
+            local maxrecurse = tonumber(split[1])
+            local maxrecursePrev = REVEL.TO_STRING_MAX_RECURSE
+            REVEL.TO_STRING_MAX_RECURSE = maxrecurse
+            table.remove(split, 1)
+            local otherParams = table.concat(split, " ")
+            load("REVEL.DebugLog(" .. otherParams .. ")")()
+            REVEL.TO_STRING_MAX_RECURSE = maxrecursePrev
+        else
+            load("REVEL.DebugLog(" .. params .. ")")()
+        end
     elseif cmd == 'debugstring' then
         REVEL.DebugToString(_G[params])
     elseif cmd == 'test' then

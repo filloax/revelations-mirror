@@ -8,7 +8,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
 ---@param tear EntityTear
 revel:AddCallback(ModCallbacks.MC_POST_TEAR_INIT, function(_, tear)
-    local player = tear.SpawnerEntity:ToPlayer()
+    local player = tear.SpawnerEntity and tear.SpawnerEntity:ToPlayer()
     if not player then return end
 
     local data, sprite = tear:GetData(), tear:GetSprite()

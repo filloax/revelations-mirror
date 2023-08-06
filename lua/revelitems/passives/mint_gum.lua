@@ -55,17 +55,14 @@ local EntityBlacklist = {
 REVEL.MintgumParentEntityLists = parentEntityLists
 
 local function getColor(shots, maxHits)
-    return Color(1, 1, 1, 1,
-                    conv255ToFloat(0, math.floor(shots * 90 / maxHits),
-                                math.floor(shots * 150 / maxHits)))
+    return Color(1, 1, 1, 1, conv255ToFloat(0, math.floor(shots * 90 / maxHits), math.floor(shots * 150 / maxHits)))
 end
 
 local function getFrictionMult(shots, maxHits)
     return REVEL.Lerp2Clamp(MIN_FRICTION, 1, shots, maxHits, 0)
 end
 
-function REVEL.GumHitEnt(e, maxHits, cooldownMult, noParents, noChildren,
-                            asBoss)
+function REVEL.GumHitEnt(e, maxHits, cooldownMult, noParents, noChildren, asBoss)
     if EntityBlacklist[e.Type] and EntityBlacklist[e.Type][e.Variant] then
         return
     end
@@ -81,8 +78,7 @@ function REVEL.GumHitEnt(e, maxHits, cooldownMult, noParents, noChildren,
     end
     if not noChildren and e.Child and parentEntityLists.FreezeChild[e.Type] and
         REVEL.includes(parentEntityLists.FreezeChild[e.Type], e.Variant) then
-        REVEL.GumHitEnt(e.Child, maxHits, cooldownMult, true, false,
-                        e:IsBoss())
+        REVEL.GumHitEnt(e.Child, maxHits, cooldownMult, true, false, e:IsBoss())
     end
 
     local spr, data = e:GetSprite(), e:GetData()
@@ -93,8 +89,10 @@ function REVEL.GumHitEnt(e, maxHits, cooldownMult, noParents, noChildren,
     cooldownMult = cooldownMult or revel.mintgum.defCooldownMult
     data.mintGumShot = data.mintGumShot or 0
 
-    if not data.MintgumFrozen and
-        (data.freezeCooldown == 0 or not data.freezeCooldown) then
+
+    if not data.MintgumFrozen 
+    and (data.freezeCooldown == 0 or not data.freezeCooldown) 
+    then
         if data.mintGumShot < maxHits then
             data.mintGumTimeOut = 40 * cooldownMult
             if asBoss or e:IsBoss() then
@@ -103,8 +101,7 @@ function REVEL.GumHitEnt(e, maxHits, cooldownMult, noParents, noChildren,
                 end
                 data.mintGumConsiderBoss = true
             end
-            e:SetColor(getColor(data.mintGumShot, maxHits),
-                        data.mintGumTimeOut, 99, true, true)
+            e:SetColor(getColor(data.mintGumShot, maxHits), data.mintGumTimeOut, 99, true, true)
         elseif data.mintGumShot == maxHits then
             REVEL.GumFreezeEnt(e, spr, data)
         end
@@ -144,8 +141,7 @@ function REVEL.GumFreezeEnt(e, spr, data)
     data.MintgumFrozen = true
 end
 
-revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG,
-                    function(_, e, dmg, flag, src, invuln)
+revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, e, dmg, flag, src, invuln)
     local data = e:GetData()
 
     if REVEL.OnePlayerHasCollectible(REVEL.ITEM.MINT_GUM.id) 

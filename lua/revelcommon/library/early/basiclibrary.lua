@@ -109,7 +109,7 @@ function REVEL.MergeTables(primary, secondary)
 end
 
 ---@diagnostic disable-next-line: lowercase-global
-function table_val_to_str(v)
+function table_val_to_str(v, recursions)
     if "string" == type(v) then
         v = string.gsub(v, "\n", "\\n")
         if string.match(string.gsub(v,"[^'\"]",""), '^"+$') then
@@ -117,7 +117,7 @@ function table_val_to_str(v)
         end
         return '"' .. string.gsub(v,'"', '\\"' ) .. '"'
     else
-        return REVEL.ToString(v)
+        return REVEL.ToString(v, recursions)
     end
 end
 
@@ -131,27 +131,37 @@ function table_key_to_str(k)
 end
 
 ---@diagnostic disable-next-line: lowercase-global
-function table_tostring(tbl)
+function table_tostring(tbl, recursions)
+    recursions = recursions or 0
     local result, done = {}, {}
     for k, v in ipairs(tbl) do
-        table.insert(result, table_val_to_str(v))
+        table.insert(result, table_val_to_str(v, recursions + 1))
         done[k] = true
     end
     for k, v in pairs(tbl) do
         if not done[k] then
             table.insert(result,
-            table_key_to_str(k) .. "=" .. table_val_to_str(v))
+            table_key_to_str(k) .. "=" .. table_val_to_str(v, recursions + 1))
         end
     end
     return "{" .. table.concat(result, ",") .. "}"
 end
 
-function string.starts(String,Start)
-    return string.sub(String,1,string.len(Start))==Start
+function string.starts(this, start)
+    return string.sub(this,1,string.len(start))==start
 end
 
-function string.ends(String,End)
-    return End=='' or string.sub(String,-string.len(End))==End
+function string.ends(this, End)
+    return End=='' or string.sub(this,-this.len(End))==End
+end
+
+---@param pattern? string
+function string.split(this, pattern)
+    local out = {}
+    for word in string.gmatch(this, pattern or "%S+") do
+        out[#out+1] = word
+    end
+    return out
 end
 
 function Bit(p)
@@ -360,7 +370,10 @@ UserDataToString = tmp
 
 end
 
-function REVEL.ToString(v)
+REVEL.TO_STRING_MAX_RECURSE = 15
+
+function REVEL.ToString(v, recursions)
+    recursions = recursions or 0
     if type(v) == "userdata" then
         local meta = getmetatable(v)
         if meta == nil then
@@ -376,8 +389,10 @@ function REVEL.ToString(v)
         -- REVEL.IsVec3 is nil during mod load
         if REVEL.IsVec3 and REVEL.IsVec3(v) then
             v = tostring(v)
+        elseif recursions <= REVEL.TO_STRING_MAX_RECURSE then
+            v = table_tostring(v, recursions)
         else
-            v = table_tostring(v) 
+            v = "..."
         end
     end
     -- approximate floats

@@ -118,6 +118,7 @@ REVEL.CharonFullBan = {
     [CollectibleType.COLLECTIBLE_20_20] = true,
     [CollectibleType.COLLECTIBLE_INNER_EYE] = true,
     [CollectibleType.COLLECTIBLE_MUTANT_SPIDER] = true,
+    [CollectibleType.COLLECTIBLE_SHARP_PLUG] = true,
 }
 
 -- Changing player type messes pocket actives up

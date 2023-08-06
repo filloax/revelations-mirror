@@ -219,9 +219,24 @@ hub2.RepDoors = {
 
 local CheckedOutDoorSlots = {}
 
+local FakeVanillaStages = {
+	StageAPI.Catacombs,
+	StageAPI.Necropolis,
+	StageAPI.Utero,
+}
+
 local function ShouldRemoveTransitionDoor()
+	local room = game:GetRoom()
+	local level = game:GetLevel()
 	if room:GetType() == RoomType.ROOM_BOSS and StageAPI.InOverriddenStage() then
 		local currentStage = StageAPI.GetCurrentStage()
+
+		for _, vanillaFakeStage in ipairs(FakeVanillaStages) do
+			if StageAPI.IsSameStage(currentStage, vanillaFakeStage) then
+				return false
+			end
+		end
+
 		return currentStage and not hub2.CustomStagesContainingHub2[currentStage.Name]
 	end
 

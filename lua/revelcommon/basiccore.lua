@@ -276,14 +276,17 @@ function REVEL.registerItem(softId, name, costume, exclusive, power, disable)
         revel:AddCallback(callback, func, self.id)
     end
 
+    ---@param func fun(player: EntityPlayer, playerID: integer, itemID: CollectibleType, isD4Effect: boolean, firstTimeObtained: boolean)
     function inst:addPickupCallback(func, priority)
-            StageAPI.AddCallback("Revelations", RevCallbacks.POST_ITEM_PICKUP, priority or 0, func, self.id)
+        StageAPI.AddCallback("Revelations", RevCallbacks.POST_ITEM_PICKUP, priority or 0, func, self.id)
     end
 
+    ---@param func fun(player: EntityPlayer)
     function inst:addCostumeCondition(func) --add a function (args: player) to make the costume not appear if it returns false, appear if returns true
         table.insert(self.costumeConditions, func)
     end
 
+    ---@param func fun(player: EntityPlayer)
     function inst:addItemRerollCondition(func) --see LOCKED ITEMS for definition of main function
         REVEL.AddItemRerollCondition(self.id, func)
     end

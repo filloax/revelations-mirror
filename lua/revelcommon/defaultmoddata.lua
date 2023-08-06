@@ -74,6 +74,7 @@ REVEL.DEFAULT_MODDATA = {
         inventory = {},
         itemCount = {},
         itemHistory = {},
+        obtainedItemsAll = {},
         trinketHistory = {},
         bellEffect = {},
         visitedDevil = false,
@@ -276,8 +277,7 @@ REVEL.DEFAULT_MODDATA = {
 }
 
 for i = 1, 3 do
-    REVEL.DEFAULT_MODDATA.run.stats[#REVEL.DEFAULT_MODDATA.run.stats + 1] = 
-        REVEL.CopyTable(REVEL.DEFAULT_MODDATA.run.stats[1])
+    REVEL.DEFAULT_MODDATA.run.stats[#REVEL.DEFAULT_MODDATA.run.stats + 1] = REVEL.CopyTable(REVEL.DEFAULT_MODDATA.run.stats[1])
 end
 
 Isaac.DebugString("Revelations: Loaded Common Default Save Data!")

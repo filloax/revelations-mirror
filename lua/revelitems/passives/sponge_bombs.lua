@@ -194,7 +194,11 @@ StageAPI.AddCallback("Revelations", RevCallbacks.BOMB_UPDATE_INIT, 1, function(e
 end)
 
 -- on pickup
-REVEL.ITEM.SPONGE:addPickupCallback(function(player) player:AddBombs(5) end)
+REVEL.ITEM.SPONGE:addPickupCallback(function (player, playerID, itemID, isD4Effect, firstTimeObtained)
+    if firstTimeObtained then
+        player:AddBombs(5)
+    end
+end)
 
 revel:AddCallback(ModCallbacks.MC_PRE_TEAR_COLLISION,
                         function(_, ent, coll, low)

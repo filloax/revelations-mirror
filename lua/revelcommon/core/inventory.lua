@@ -18,6 +18,7 @@ revel:AddCallback(RevCallbacks.POST_BASE_PLAYER_INIT, function(_, p)
             revel.data.run.itemCount[i] = 0
             revel.data.run.inventory[i] = {}
             revel.data.run.itemHistory[i] = {}
+            revel.data.run.obtainedItemsAll[i] = {}
         end
     end
 end)
@@ -30,6 +31,7 @@ function REVEL.UpdateInventory(_, force, isD4Effect)
             revel.data.run.inventory[i] = {}
             revel.data.run.itemCount[i] = 0
             revel.data.run.itemHistory[i] = {}
+            revel.data.run.obtainedItemsAll[i] = {}
         end
 
         if count ~= revel.data.run.itemCount[i] or force then -- OBTAINED/LOST A NEW ITEM
@@ -38,16 +40,15 @@ function REVEL.UpdateInventory(_, force, isD4Effect)
                 local item = REVEL.config:GetCollectible(id)
                 if item then
                     local num = player:GetCollectibleNum(id, true)
+                    local firstTimeObtained = false
 
                     -- item history
                     if num > 0 then
-                        if revel.data.run.inventory[i][sid] and
-                            revel.data.run.inventory[i][sid] <= 0 then -- remove it from the table and we'll re-add it later
-                            for index, itemID in
-                                ipairs(revel.data.run.itemHistory[i]) do
+                        -- remove it from the table and we'll re-add it later to put it at the top of the list
+                        if revel.data.run.inventory[i][sid] and revel.data.run.inventory[i][sid] <= 0 then
+                            for index, itemID in ipairs(revel.data.run.itemHistory[i]) do
                                 if id == itemID then
-                                    table.remove(
-                                        revel.data.run.itemHistory[i], index)
+                                    table.remove(revel.data.run.itemHistory[i], index)
                                     break
                                 end
                             end
@@ -57,6 +58,11 @@ function REVEL.UpdateInventory(_, force, isD4Effect)
                             -- add it at pos 1 using table insert, this will push all the other values 
                             -- up a number. most recent item picked up will be the lowest number.
                             table.insert(revel.data.run.itemHistory[i], 1, id)
+                        end
+
+                        if not revel.data.run.obtainedItemsAll[i][sid] then
+                            firstTimeObtained = true
+                            revel.data.run.obtainedItemsAll[i][sid] = true
                         end
                     end
 
@@ -71,7 +77,7 @@ function REVEL.UpdateInventory(_, force, isD4Effect)
 
                         if num > prevNum and not REVEL.CharonPickupAdding then
                             StageAPI.CallCallbacksWithParams(RevCallbacks.POST_ITEM_PICKUP, false, id, 
-                                player, i, id, isD4Effect)
+                                player, i, id, isD4Effect, firstTimeObtained)
                         end
 
                         if REVEL.REGISTERED_ITEMS[item.Name] and

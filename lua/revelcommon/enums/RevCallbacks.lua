@@ -25,7 +25,7 @@ return {
     NPC_UPDATE_INIT = "REV_NPC_UPDATE_INIT", -- (npc): Type
     -- EFFECT_UPDATE_INIT = "REV_EFFECT_UPDATE_INIT", -- (effect): Variant # disabled because it adds an update to all effects
     POST_INGAME_RELOAD = "REV_POST_INGAME_RELOAD", -- (isReload) 
-    POST_ITEM_PICKUP = "REV_POST_ITEM_PICKUP", -- (player, playerID, itemID, isD4Effect)
+    POST_ITEM_PICKUP = "REV_POST_ITEM_PICKUP", -- (player, playerID, itemID, isD4Effect, firstTimeObtained)
     ITEM_CHECK = "REV_ITEM_CHECK", -- (item id, item table): ItemId -> boolean
     PRE_RENDER_REFLECTIONS = "REV_PRE_RENDER_REFLECTIONS", -- ()
     POST_RENDER_REFLECTIONS = "REV_POST_RENDER_REFLECTIONS", -- ()

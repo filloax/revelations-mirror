@@ -5,8 +5,10 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
 -- Mirror Bombs
 
-REVEL.ITEM.MIRROR_BOMBS:addPickupCallback(function(player)
-    player:AddBombs(5)
+REVEL.ITEM.MIRROR_BOMBS:addPickupCallback(function (player, playerID, itemID, isD4Effect, firstTimeObtained)
+    if firstTimeObtained then
+        player:AddBombs(5)
+    end
 end)
 
 --[[

@@ -480,6 +480,71 @@ function REVEL.IsValidPlayer(player)
     return not (player == nil or player.Type == 0)
 end
 
+---@class Rev.PlayerMeetsRequirements.Conditional
+---@field IfAny Rev.PlayerMeetsRequirements
+---@field IfAll Rev.PlayerMeetsRequirements
+
+---@class Rev.PlayerMeetsRequirements
+---@field Items CollectibleType[]?
+---@field TearFlags integer[]?
+---@field Characters PlayerType[]?
+
+---@param player EntityPlayer
+---@param tbl Rev.PlayerMeetsRequirements |  Rev.PlayerMeetsRequirements.Conditional
+---@return boolean, boolean?
+function REVEL.PlayerMeetsRequirements(player, tbl)
+    REVEL.Assert(not not (tbl.IfAny or tbl.IfAll) ~= not not (tbl.Items or tbl.TearFlags or tbl.Characters), "Either pass a IfAny/All table or a conditions table")
+
+    if tbl.IfAny and not tbl.IfAll then
+        return REVEL.PlayerMeetsRequirements(player, tbl.IfAny)
+    elseif tbl.IfAll and not tbl.IfAny then
+        local _, hasAll = REVEL.PlayerMeetsRequirements(player, tbl.IfAll)
+        ---@diagnostic disable-next-line: return-type-mismatch
+        return hasAll, nil
+    elseif tbl.IfAny and tbl.IfAll then
+        local hasAny, _ = REVEL.PlayerMeetsRequirements(player, tbl.IfAny)
+        local _, hasAll = REVEL.PlayerMeetsRequirements(player, tbl.IfAll)
+        ---@diagnostic disable-next-line: return-type-mismatch
+        return hasAny and hasAll, nil
+    end
+
+    local hasAll = true
+    local hasAny = false
+    if tbl.Items then
+        for _, item in ipairs(tbl.Items) do
+            if player:HasCollectible(item) then
+                hasAny = true
+            else
+                hasAll = false
+            end
+        end
+    end
+
+    if tbl.TearFlags then
+        for _, tf in ipairs(tbl.TearFlags) do
+            if HasBit(player.TearFlags, tf) then
+                hasAny = true
+            else
+                hasAll = false
+            end
+        end
+    end
+
+    if tbl.Characters then
+        for _, char in ipairs(tbl.Characters) do
+            if player:GetPlayerType() == char then
+                hasAny = true
+            else
+                hasAll = false
+            end
+        end
+    end
+
+    if not hasAny and hasAll then hasAll = false end
+
+    return hasAny, hasAll
+end
+
 StageAPI.AddCallback("Revelations", RevCallbacks.POST_ENTITY_TAKE_DMG, 1, damagedThisRoomPlayerTakeDmg, 1)
 StageAPI.AddCallback("Revelations", RevCallbacks.EARLY_POST_NEW_ROOM, 1, damagedThisRoomPostNewRoom)
 revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, cameraModePlayerTakeDmg, 1)

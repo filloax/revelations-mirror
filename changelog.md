@@ -1,3 +1,16 @@
+## 4.2.2
+Cabbage patch tweaks
+- Add cauliflower: mint gum/uranus interaction, freezes enemies
+(like with Mint Gum)
+- Update gfx
+- Limit broccoli range
+
+Fixes
+- Fix Hub 2 assorted bugs
+- Fix T.Isaac + bomb items giving infinite bombs
+- Fix Raging Long Legs being immune to explosion damage
+- Ban Sharp Plug from Dante
+
 ## 4.2.1
 - Update MinimapAPI to 2.45
 - Readd stinger music to Hub 2

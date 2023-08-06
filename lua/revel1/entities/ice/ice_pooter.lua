@@ -1,5 +1,27 @@
 REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
 
+
+function REVEL.SpawnFriendlyIceBlock(pos, vel, spawner, pooter, dmg)
+    local e = REVEL.ENT.ICE_POOTER:spawn(pos, vel, spawner)
+    local sprite, data = e:GetSprite(), e:GetData()
+    e:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
+    sprite:Play("Land", true)
+    data.vel = vel
+    data.friendly = true
+    e:AddEntityFlags(EntityFlag.FLAG_FRIENDLY)
+    e.CollisionDamage = dmg
+    data.Damage = dmg
+    data.ReducedCreep = true
+
+    if not pooter then
+        data.noPooter = true
+        sprite:ReplaceSpritesheet(0, "gfx/monsters/revel1/ice_pooter_empty.png")
+        sprite:LoadGraphics()
+    end
+
+    return e
+end
+
 local function IcePooterDie(npc, spr, data)
     REVEL.sfx:NpcPlay(npc, REVEL.SFX.MINT_GUM_BREAK, 1, 0, false, 1)
     spr:Play("Break", true)

@@ -102,9 +102,9 @@ revel.itemRerollConditions = {}
 
 function REVEL.AddItemRerollCondition(item, func)
     if not revel.itemRerollConditions[item] then
-    revel.itemRerollConditions[item] = {func}
+        revel.itemRerollConditions[item] = {func}
     else
-    table.insert(revel.itemRerollConditions[item], func)
+        table.insert(revel.itemRerollConditions[item], func)
     end
 end
 

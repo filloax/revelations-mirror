@@ -61,11 +61,13 @@ REVEL.PrescriptionPillsOppositeVersion = {
     [PillEffect.PILLEFFECT_IM_EXCITED] = PillEffect.PILLEFFECT_IM_DROWSY
 }
 
-StageAPI.AddCallback("Revelations", RevCallbacks.POST_ITEM_PICKUP, 2, function(player)
+StageAPI.AddCallback("Revelations", RevCallbacks.POST_ITEM_PICKUP, 2, function(player, _, __, ___, firstTimeObtained)
     if not player:GetData().PrescriptionPills then
         player:GetData().PrescriptionPills = {}
     end
-    Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_PILL, 0, Isaac.GetFreeNearPosition(player.Position, 1), Vector.Zero, nil)
+    if firstTimeObtained then
+        Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_PILL, 0, Isaac.GetFreeNearPosition(player.Position, 1), Vector.Zero, nil)
+    end
 end, REVEL.ITEM.PRESCRIPTION.id)
 
 revel:AddCallback(ModCallbacks.MC_USE_PILL, function(_, pillEffect, player, useFlags)

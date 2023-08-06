@@ -709,7 +709,12 @@ revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, ent, amount, flag
 			if data.bal.ExplosionDamagePercentNearDeath and data.Phase == 3 then
 				explosionDamagePercent = data.bal.ExplosionDamagePercentNearDeath
 			end
-			if HasBit(flags, DamageFlag.DAMAGE_EXPLOSION) and (not source or (source and source.Type ~= EntityType.ENTITY_BOMBDROP and source.Type ~= EntityType.ENTITY_PLAYER)) then
+			if HasBit(flags, DamageFlag.DAMAGE_EXPLOSION) 
+			and (not source or (
+				source and source.Type ~= EntityType.ENTITY_BOMBDROP and source.Type ~= EntityType.ENTITY_PLAYER
+				and not REVEL.GetPlayerFromDmgSrc(source)
+			))
+			then
 				ent.HitPoints = ent.HitPoints + amount - (ent.MaxHitPoints * explosionDamagePercent)
 			end
 		end
