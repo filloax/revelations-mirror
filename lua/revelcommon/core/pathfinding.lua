@@ -2,7 +2,7 @@ local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 local SpikeState = require("lua.revelcommon.enums.SpikeState")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 ---@type table<string, PathMap>
 REVEL.PathMaps = {}
@@ -86,19 +86,19 @@ local UpdatePathMap
 ---@field RecalcCollisions boolean
 
 ---@class PathMapArgs
----@field GetTargetSets fun(map: PathMap): TargetSet[]
----@field GetTargetIndices fun(map: PathMap): integer[], boolean?
----@field GetCollisions fun(map: PathMap): table<integer, integer>
----@field GetInverseCollisions fun(map: PathMap): table<integer, boolean>?
----@field GetInverseCriticalCollisions fun(map: PathMap): table<integer, boolean>
----@field GetSideCollisions fun(map: PathMap): (table<integer, table<Direction, boolean>>?)
----@field OnPathUpdate fun(map: PathMap)
----@field NoAutoHandle boolean
----@field Width integer
----@field GetWidth fun(map: PathMap): integer
----@field UsesDividedGridsInCollision boolean
----@field PrintUpdateDebugInfo boolean
----@field CacheCollisionsBetweenGridUpdates boolean
+---@field GetTargetSets (fun(map: PathMap): TargetSet[])?
+---@field GetTargetIndices (fun(map: PathMap): integer[], boolean?)?
+---@field GetCollisions (fun(map: PathMap): table<integer, integer>)?
+---@field GetInverseCollisions (fun(map: PathMap): table<integer, boolean>?)?
+---@field GetInverseCriticalCollisions (fun(map: PathMap): table<integer, boolean>)?
+---@field GetSideCollisions (fun(map: PathMap): (table<integer, table<Direction, boolean>>?))?
+---@field OnPathUpdate fun(map: PathMap)?
+---@field NoAutoHandle boolean?
+---@field Width integer?
+---@field GetWidth (fun(map: PathMap): integer)?
+---@field UsesDividedGridsInCollision boolean?
+---@field PrintUpdateDebugInfo boolean?
+---@field CacheCollisionsBetweenGridUpdates boolean?
 
 ---@class TargetSet
 ---@field Targets integer[]

@@ -1,7 +1,7 @@
 local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
     
 local gfxInfo = {
     Portrait = "gfx/ui/stage/revelcommon/dante_portrait.png",

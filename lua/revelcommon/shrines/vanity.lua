@@ -1,7 +1,7 @@
 local StageAPICallbacks = require "lua.revelcommon.enums.StageAPICallbacks"
 local RevCallbacks      = require "lua.revelcommon.enums.RevCallbacks"
 local RevRoomType       = require "lua.revelcommon.enums.RevRoomType"
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 REVEL.Vanity = {}
 

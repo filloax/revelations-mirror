@@ -3,7 +3,7 @@
 	<Content>
 		<Spritesheets>
 			<Spritesheet Path="..\Garlic.png" Id="0"/>
-			<Spritesheet Path="..\effect_052_dust cloud.png" Id="1"/>
+			<Spritesheet Path="..\..\..\..\effects\effect_052_dust cloud.png" Id="1"/>
 		</Spritesheets>
 		<Layers>
 			<Layer Name="Veggie" Id="0" SpritesheetId="0"/>

@@ -29,7 +29,7 @@ local SubModules = {
 
 local SubLoadFunctions = REVEL.LoadModulesFromTable(SubModules)
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 REVEL.RunLoadFunctions(SubLoadFunctions)
 

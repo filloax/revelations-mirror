@@ -1,6 +1,6 @@
 local RevCallbacks = require("lua.revelcommon.enums.RevCallbacks")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 ----------------
 -- THE TAMPON -- (now COTTON STICK)
 ----------------

@@ -1,7 +1,7 @@
 local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 REVEL.WaterSplatColor = Color(0, 0.2, 0.8, 1, conv255ToFloat(0,20,70))
 REVEL.SnowSplatColor = Color(0.2, 0.45, 1, 1, 0.3, 0.5, 0.7)

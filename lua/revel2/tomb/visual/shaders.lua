@@ -1,5 +1,5 @@
 local Dimension = require "lua.revelcommon.enums.Dimension"
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
     -- Base shaders
     
     REVEL.TombShader = REVEL.CCShader("Tomb")

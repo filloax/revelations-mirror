@@ -1,7 +1,7 @@
 local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 -- Big Blowy
 local SnowParticleOffset = {[0] = Vector(-10, -5), Vector(0, 0), Vector(8, -5), Vector(0, -6)}

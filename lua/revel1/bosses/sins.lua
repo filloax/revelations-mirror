@@ -1,7 +1,7 @@
 local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 function REVEL.SpawnFallingStalactrite(pos, vel, parent)
 	local stalactrite = REVEL.ENT.STALACTRITE:spawn(pos, vel, parent)

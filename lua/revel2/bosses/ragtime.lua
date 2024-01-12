@@ -3,7 +3,7 @@ local RevCallbacks      = require "lua.revelcommon.enums.RevCallbacks"
 local KnifeVariant      = require "lua.revelcommon.enums.KnifeVariant"
 local KnifeSubtype      = require "lua.revelcommon.enums.KnifeSubtype"
 local ProjectilesMode   = require "lua.revelcommon.enums.ProjectilesMode"
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
     REVEL.Elites.Ragtime = {
         Music = REVEL.SFX.ELITE_RAGTIME.Track,

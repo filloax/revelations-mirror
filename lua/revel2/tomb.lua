@@ -30,7 +30,7 @@ local SubLoadFunctions = REVEL.LoadModulesFromTable(SubModules)
 
 -- The stage definiton is located here instead of the revel2_definitions file. Using the exact line below in the definitions file won't work; Tomb will somehow be "nil" even though the definition seems valid.
 -- This doesn't break the definition. You can use it in other lua files (i.e. "if StageSystem.GetCurrentStage() == REVEL.STAGE.Tomb.Id then") and it'll still work without issue.
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 
 REVEL.RunLoadFunctions(SubLoadFunctions)

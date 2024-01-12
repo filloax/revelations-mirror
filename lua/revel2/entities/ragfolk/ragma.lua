@@ -1,11 +1,8 @@
 local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local ShrineTypes = require "lua.revelcommon.enums.ShrineTypes"
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 -- Ragma
-
-local Anm2GlowNull0
-local Anm2GlowNull1
 
 local bal = {
     ragBounce = 6,
@@ -279,8 +276,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
     end
 
     if data.Buffed then
-        REVEL.EmitBuffedParticles(npc, Anm2GlowNull0)
-        REVEL.EmitBuffedParticles(npc, Anm2GlowNull1)
+        REVEL.EmitBuffedParticles(npc)
     end
 
     npc.Velocity = Vector.Zero
@@ -431,34 +427,5 @@ revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, e, dmg, flag, src
 
 end, REVEL.ENT.RAGMA.id)
 
-Anm2GlowNull0 = {
-    Idle = {
-        Offset = {Vector(-8, -34), Vector(-8, -34), Vector(-8, -34), Vector(-8, -34), Vector(-8, -33), Vector(-8, -33), Vector(-8, -33), Vector(-8, -33), Vector(-8, -32), Vector(-8, -32), Vector(-8, -32), Vector(-8, -32), Vector(-8, -32), Vector(-8, -32), Vector(-8, -32), Vector(-8, -32), Vector(-8, -33), Vector(-8, -33), Vector(-8, -34), Vector(-8, -35), Vector(-8, -34), Vector(-8, -34), Vector(-8, -34), Vector(-8, -34), Vector(-8, -34), Vector(-8, -34)},
-        Scale = {Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-        Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-        Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-    },
-    Spawn = {
-        Offset = {Vector(-8, -34), Vector(-8, -34), Vector(-8, -34), Vector(-8, -34), Vector(-8, -34), Vector(-8, -34), Vector(-8, -34), Vector(-8, -34), Vector(-8, -34), Vector(-8, -34), Vector(-7, -48), Vector(-7, -47), Vector(-8, -45), Vector(-8, -44), Vector(-8, -44), Vector(-8, -44), Vector(-8, -43), Vector(-8, -43), Vector(-8, -44), Vector(-8, -45), Vector(-8, -45), Vector(-7, -35), Vector(-7, -33), Vector(-7, -33), Vector(-7, -33), Vector(-7, -33), Vector(-7, -33), Vector(-7, -33), Vector(-7, -33), Vector(-7, -33), Vector(-7, -33), Vector(-7, -33), Vector(-7, -33), Vector(-7, -33), Vector(-7, -33), Vector(-7, -33), Vector(-7, -33), Vector(-7, -33), Vector(-7, -33), Vector(-7, -33), Vector(-7, -33), Vector(-7, -33), Vector(-7, -33), Vector(-7, -33), Vector(-7, -33), Vector(-7, -33), Vector(-7, -33), Vector(-7, -33), Vector(-7, -33), Vector(-7, -33), Vector(-9, -32), Vector(-8, -33), Vector(-8, -35), Vector(-8, -34), Vector(-8, -34), Vector(-8, -34)},
-        Scale = {Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-        Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-        Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true}
-    },    
-}
-
-Anm2GlowNull1 = {
-    Idle = {
-        Offset = {Vector(8, -36), Vector(8, -36), Vector(8, -36), Vector(8, -36), Vector(8, -35), Vector(8, -35), Vector(8, -35), Vector(8, -35), Vector(8, -34), Vector(8, -34), Vector(8, -34), Vector(8, -34), Vector(8, -34), Vector(8, -34), Vector(8, -34), Vector(8, -34), Vector(8, -35), Vector(8, -35), Vector(8, -36), Vector(8, -37), Vector(8, -36), Vector(8, -36), Vector(8, -36), Vector(8, -36), Vector(8, -36), Vector(8, -36)},
-        Scale = {Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-        Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-        Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-    },
-    Spawn = {
-        Offset = {Vector(8, -36), Vector(8, -36), Vector(8, -36), Vector(8, -36), Vector(8, -36), Vector(8, -36), Vector(8, -36), Vector(8, -36), Vector(8, -36), Vector(8, -36), Vector(6, -53), Vector(6, -51), Vector(7, -49), Vector(7, -48), Vector(7, -48), Vector(7, -48), Vector(7, -47), Vector(7, -47), Vector(7, -48), Vector(7, -49), Vector(7, -50), Vector(7, -37), Vector(7, -35), Vector(7, -35), Vector(7, -35), Vector(7, -35), Vector(7, -35), Vector(7, -35), Vector(7, -35), Vector(7, -35), Vector(7, -35), Vector(7, -35), Vector(7, -35), Vector(7, -35), Vector(7, -35), Vector(7, -35), Vector(7, -35), Vector(7, -35), Vector(7, -35), Vector(7, -35), Vector(7, -35), Vector(7, -35), Vector(7, -35), Vector(7, -35), Vector(7, -35), Vector(7, -35), Vector(7, -35), Vector(7, -35), Vector(7, -35), Vector(7, -35), Vector(9, -34), Vector(8, -35), Vector(8, -37), Vector(8, -36), Vector(8, -36), Vector(8, -36)},
-        Scale = {Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-        Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-        Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true}
-    },    
-}
 
 end

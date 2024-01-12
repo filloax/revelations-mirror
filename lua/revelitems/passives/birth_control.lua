@@ -2,7 +2,7 @@ local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 local RandomPickupSubtype = require("lua.revelcommon.enums.RandomPickupSubtype")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 ------------------
 -- Birth Control --
 ------------------

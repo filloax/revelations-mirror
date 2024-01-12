@@ -1,5 +1,5 @@
 local RevCallbacks = require "lua.revelcommon.enums.RevCallbacks"
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 --Find entities around pos in radius from partitions (EntityPartitions enum) except ones whose type is in blacklist table
 function REVEL.MultiFindInRadius(pos, radius, partitions, blacklist)

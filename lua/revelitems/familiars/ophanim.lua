@@ -1,8 +1,28 @@
 local RevCallbacks = require "lua.revelcommon.enums.RevCallbacks"
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 -- Ophanim
 
+local function OphanimShoot(player, ophanim, data, sprite)
+    local frame = sprite:GetFrame()
+    sprite:Play("IdleShoot", true)
+    if frame > 0 then
+        for i = 1, frame do
+            sprite:Update()
+        end
+    end
+    data.OphanimShotRecently = 6
+    data.OphanimTimesShot = 0
+
+    local startAngle = REVEL.Lerp(0, 90, frame / 11)
+
+    for i = 1, 4 do
+        local tear = Isaac.Spawn(EntityType.ENTITY_TEAR, TearVariant.BLUE, 0, player.Position, Vector.FromAngle(i * 90 + startAngle) * 10, nil):ToTear()
+        tear:GetData().OphanimTear = true
+    end
+end
+
+---@param player EntityPlayer
 revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, player)
     local data = player:GetData()
     if not REVEL.ITEM.OPHANIM:PlayerHasCollectible(player) then
@@ -53,27 +73,29 @@ revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, player)
             end
         end
 
-        if player.FireDelay <= 0 then
-            data.OphanimCanShoot = true
-        elseif data.OphanimCanShoot then
-            data.OphanimCanShoot = nil
-            data.OphanimTimesShot = data.OphanimTimesShot + 1
-            if data.OphanimTimesShot == 2 then
-                local frame = sprite:GetFrame()
-                sprite:Play("IdleShoot", true)
-                if frame > 0 then
-                    for i = 1, frame do
-                        sprite:Update()
-                    end
+        local chargedShot = player:HasWeaponType(WeaponType.WEAPON_BRIMSTONE)
+            or player:HasWeaponType(WeaponType.WEAPON_KNIFE)
+            or player:HasWeaponType(WeaponType.WEAPON_MONSTROS_LUNGS)
+            or player:HasWeaponType(WeaponType.WEAPON_LUDOVICO_TECHNIQUE) -- not really charged but treat the same for synergy
+            or player:HasWeaponType(WeaponType.WEAPON_TEARS) and player:HasCollectible(CollectibleType.COLLECTIBLE_CHOCOLATE_MILK)
+
+        if REVEL.IsShooting(player) then
+            if chargedShot then
+                local MaxDelay = 50
+                data.OphanimShootDelay = (data.OphanimShootDelay or MaxDelay) - 1
+                if data.OphanimShootDelay <= 0 then
+                    data.OphanimShootDelay = MaxDelay
+                    OphanimShoot(player, ophanim, data, sprite)
                 end
-                data.OphanimShotRecently = 6
-                data.OphanimTimesShot = 0
-
-                local startAngle = REVEL.Lerp(0, 90, frame / 11)
-
-                for i = 1, 4 do
-                    local tear = Isaac.Spawn(EntityType.ENTITY_TEAR, TearVariant.BLUE, 0, player.Position, Vector.FromAngle(i * 90 + startAngle) * 10, nil):ToTear()
-                    tear:GetData().OphanimTear = true
+            else
+                if player.FireDelay < 1 then
+                    data.OphanimCanShoot = true
+                elseif data.OphanimCanShoot then
+                    data.OphanimCanShoot = nil
+                    data.OphanimTimesShot = data.OphanimTimesShot + 1
+                    if data.OphanimTimesShot == 2 then
+                        OphanimShoot(player, ophanim, data, sprite)
+                    end
                 end
             end
         end

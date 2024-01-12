@@ -289,7 +289,12 @@ local UserDataToString = {
     Color = function(v)
         if REVEL.ShortHandColor then
             local r, g, b, a, ro, bo, go = shortenFloatsToString(v.R, v.G, v.B, v.A, v.RO, v.BO, v.GO)
-            return REVEL.ToStringMulti("C:(", r ..", "..g ..", "..b..", "..a .. ", " .. ro..", "..go..", "..bo, ")")
+            local colorizePart
+            if REPENTOGON then
+                local colorize = v:GetColorize()
+                colorizePart = colorize and "(" .. colorize.R .. ", " .. colorize.G .. ", " .. colorize.B .. ", " .. colorize.A .. ")"
+            end
+            return REVEL.ToStringMulti("C:(", r ..", "..g ..", "..b..", "..a .. ", " .. ro..", "..go..", "..bo, colorizePart, ")")
         else
             return REVEL.ToStringMulti("C:(", v.R .. ", " .. v.G .. ", " .. v.B .. ", " .. v.A .. ", " ..
                 v.RO .. ", " .. v.GO .. ", " .. v.BO, ")")
@@ -355,6 +360,13 @@ local UserDataToString = {
             .. tostring(v.TargetRoomType) .. "[" .. tostring(v.TargetRoomIndex) .. "], " 
             .. v:GetGridIndex() .. " " .. REVEL.ToString(v.Desc) .. ")"
     end,
+
+    NullFrame = function(v)
+        local scale = v:GetScale()
+        local pos = v:GetPos()
+        return "[S:(" .. roundToTwoDecimals(scale.X) .. ", " .. roundToTwoDecimals(scale.Y) .. ")"
+        .. " P:(" .. roundToTwoDecimals(pos.X) .. ", " .. roundToTwoDecimals(pos.Y) .. ")]"
+    end,
 }
 
 do
@@ -379,8 +391,9 @@ function REVEL.ToString(v, recursions)
         if meta == nil then
             v = "[userdata]"
         else
-            local tostr = UserDataToString[meta.__type]
-            v = REVEL.ToStringMulti(meta.__type, tostr and tostr(v) or '???')
+            local classtype = meta.__type or meta.__name
+            local tostr = UserDataToString[classtype]
+            v = REVEL.ToStringMulti(classtype, tostr and tostr(v) or '???')
         end
     end
     if tostring(v) == "" then v = "[empty]" end
@@ -424,12 +437,15 @@ end
 function REVEL.DebugStringMinor(...)
     if REVEL.DEBUG then
         REVEL.DebugToString("\t", ...)
+        if REVEL.DEBUG_TO_CONSOLE then
+            REVEL.DebugToConsole("[m]", ...)
+        end
     end
 end
 
 function REVEL.DebugMinorNotPaused(...)
-    if REVEL.DEBUG and not REVEL.game:IsPaused() then
-        REVEL.DebugToString(...)
+    if not REVEL.game:IsPaused() then
+        REVEL.DebugStringMinor(...)
     end
 end
 
@@ -444,6 +460,17 @@ function REVEL.DebugLog(...)
     a = a.."@"..REVEL.game:GetFrameCount()
     Isaac.DebugString(a)
     Isaac.ConsoleOutput(a.."\n")
+end
+
+function REVEL.LogError(...)
+    local a = REVEL.ToStringMulti(...)
+    a = a.."@"..REVEL.game:GetFrameCount()
+    Isaac.DebugString("[ERR] " .. a)
+    if REPENTOGON then
+        Console.PrintError(a)
+    else
+        Isaac.ConsoleOutput("[ERR] " .. a .. "\n")
+    end
 end
 
 function REVEL.getKeyFromValue(t, a)
@@ -581,6 +608,28 @@ function REVEL.filter(tbl, pred)
         ---@diagnostic disable-next-line: need-check-nil
         if pred(v, k, tbl) then
             table.insert(res, v)
+        end
+    end
+    return res
+end
+
+---Returns (integer) list with elements returned by func for each element, dropping nil results
+---@generic V, R
+---@param list V[]
+---@param func fun(val: V, key: integer, list: V[]): R
+---@return V[]
+function REVEL.mapNotNil(list, func)
+    if list == nil then
+        error("attempt to use mapNotNil on a nil table", 2)
+    elseif func == nil then
+        error("mapNotNil: func nil", 2)
+    end
+
+    local res = {}
+    for k, v in ipairs(list) do
+        local out = func(v, k, list)
+        if out ~= nil then
+            table.insert(res, out)
         end
     end
     return res
@@ -1000,6 +1049,32 @@ function REVEL.Assert(v, message, level)
     if not v then
         error(message, (level or 1) + 1)
     end
+end
+
+---Return a table that redirects any access or setting to the target table
+-- or the table returned by the targetGetter arg, to be used in cases
+-- where you know how the table will be obtained but it might not be available yet
+---@generic T : table
+---@param targetGetter fun(): T
+---@param errorOnSetFailure boolean? = true
+---@return T
+function REVEL.LazyProxy(targetGetter, errorOnSetFailure)
+    return setmetatable({}, {
+        __index = function (self, key)
+            local tbl = targetGetter()
+            if tbl then
+                return tbl[key]
+            end
+        end,
+        __newindex = function (self, key, val)
+            local tbl = targetGetter()
+            if tbl then
+                tbl[key] = val
+            elseif errorOnSetFailure ~= false then
+                error("Tried setting on table proxy when target was not ready: [" .. tostring(key) .. "] = " .. tostring(val), 2)
+            end
+        end
+    })
 end
 
 Isaac.DebugString("Revelations: Loaded Basic Library!")

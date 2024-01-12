@@ -3,7 +3,7 @@ local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 local ShrineTypes       = require("lua.revelcommon.enums.ShrineTypes")
 local RevRoomType       = require("lua.revelcommon.enums.RevRoomType")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 local FragilityIceSpawnRNG = REVEL.RNG()
 

@@ -1,4 +1,4 @@
-REVEL.LoadFunctions[#REVEL.LoadFunctions+1] = function()
+return function()
 
 -- revelations performance tracker 1.7.9b edition
 -- which can work on other mods too

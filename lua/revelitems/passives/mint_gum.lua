@@ -1,7 +1,7 @@
 local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 --------------
 -- MINT GUM --
 --------------
@@ -197,10 +197,7 @@ StageAPI.AddCallback("Revelations", RevCallbacks.PROJECTILE_UPDATE_INIT, 1, func
         odata.mintGumTimeOut > 0 then
         data.MintGumSlowed = getFrictionMult(odata.mintGumShot,
                                                 odata.mintGumMaxShots) ^ 2
-        data.MintGumColor = REVEL.ColorMultAddOffsets(projectile.Color,
-                                                        getColor(
-                                                            odata.mintGumShot,
-                                                            odata.mintGumMaxShots))
+        data.MintGumColor = REVEL.ColorMult(projectile.Color,getColor(odata.mintGumShot, odata.mintGumMaxShots))
         projectile:SetColor(data.MintGumColor, 7, 50, true, true)
 
         projectile.Velocity = projectile.Velocity * data.MintGumSlowed

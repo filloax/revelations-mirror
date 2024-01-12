@@ -4,7 +4,7 @@ local BushLagAdjGlobals = require("lua.revelitems.passives.burningbush.BushLagAd
 local LaserVariant      = require("lua.revelcommon.enums.LaserVariant")
 local BushCfg           = include("lua.revelitems.passives.burningbush.BushCfg")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 
 -- Mom's knife

@@ -1,7 +1,7 @@
 local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 local hub2 = require("scripts.hubroom2.init")
 
@@ -79,6 +79,15 @@ local function spawnRevTrapdoor(gridIndex)
 	)
 end
 
+revel:AddCallback(ModCallbacks.MC_POST_RENDER, function()
+	if REVEL.room:GetFrameCount() == 0
+	and StageAPI.GetCurrentRoomType() == hub2.ROOMTYPE_HUBCHAMBER 
+	and REVEL.room:IsFirstVisit()
+	then
+		REVEL.music:PlayJingle(REVEL.SFX.HUB_ROOM_STINGER)
+	end
+end)
+
 StageAPI.AddCallback("Revelations", RevCallbacks.POST_STAGEAPI_NEW_ROOM_WRAPPER, 1, function()
 	if isRevStage() then
 		for _, trapdoorData in ipairs(revel.data.run.level.revTrapdoors) do
@@ -89,16 +98,6 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_STAGEAPI_NEW_ROOM_WRAPPER,
 	end
 end)
 
-revel:AddCallback(ModCallbacks.MC_POST_RENDER, function()
-	if REVEL.room:GetFrameCount() == 0
-	and StageAPI.GetCurrentRoomType() == hub2.ROOMTYPE_HUBCHAMBER 
-	and REVEL.room:IsFirstVisit()
-	and REVEL.music:GetCurrentMusicID() ~= REVEL.SFX.HUB_ROOM_STINGER
-	then
-		REVEL.music:Play(REVEL.SFX.HUB_ROOM_STINGER, Options.MusicVolume)
-	end
-end)
-
 revel:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
 	if revel.data.oldHubActive == 2 and isRevStage() 
 	and StageAPI.GetCurrentRoomType() ~= hub2.ROOMTYPE_HUBCHAMBER then
@@ -106,8 +105,7 @@ revel:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
 			local grid = REVEL.room:GetGridEntity(i)
 			
 			if grid and grid.Desc.Type == GridEntityType.GRID_TRAPDOOR and grid:GetSprite():GetFilename() ~= "gfx/grid/voidtrapdoor.anm2" then
-				REVEL.room:RemoveGridEntity(i, 0, false)
-				REVEL.room:Update()
+				REVEL.room:RemoveGridEntityImmediate(i, 0, false)
 				
 				spawnRevTrapdoor(i)
 				

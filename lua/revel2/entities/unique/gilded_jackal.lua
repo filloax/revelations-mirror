@@ -3,7 +3,7 @@ local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 local ProjectilesMode   = require("lua.revelcommon.enums.ProjectilesMode")
 local LaserVariant      = require("lua.revelcommon.enums.LaserVariant")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 ---@param npc EntityNPC
 local function jackalGilded_PreNpcUpdate(_, npc)

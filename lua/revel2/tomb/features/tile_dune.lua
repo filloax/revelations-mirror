@@ -1,6 +1,6 @@
 local RevRoomType       = require("lua.revelcommon.enums.RevRoomType")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 function REVEL.LoadDuneTiles(frames)
     for strindex, frame in pairs(frames) do

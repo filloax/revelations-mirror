@@ -1,3 +1,20 @@
+## 4.3.0
+
+Revelations now supports (and recommends using) [**Repentogon**](https://repentogon.com)! The only incompatibility was an error with Hockey Puck
+on our side.
+In the future Chapter 3 will require it to function,
+for now it's only recommended to install it for better performance
+and some extra features.
+
+Additions
+- Treasure rooms in Rev floors have a custom jingle
+if Repentogon is installed, from the Afterlife OST!
+
+Fixes
+- Fix Sinami in non-debug mode
+- Fix control-locking features
+- Fix a divide-by-zero error in Hockey Puck with Repentogon
+
 ## 4.2.2
 Cabbage patch tweaks
 - Add cauliflower: mint gum/uranus interaction, freezes enemies

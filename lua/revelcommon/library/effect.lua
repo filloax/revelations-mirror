@@ -1,4 +1,4 @@
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 local DefaultTracerOffset = Vector(0, -20) -- hardcoded offset within the laser tracers
 

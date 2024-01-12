@@ -2,7 +2,7 @@ local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 local shared            = require("lua.revelcommon.dante.shared")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 local singleGridOffset = Vector(40, 0)
 revel:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, function(_, pickup)

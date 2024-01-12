@@ -69,45 +69,188 @@ REVEL.Modules = include("lua.revelcommon.loadorder")
 
 REVEL.LoadFunctions = {}
 
+---Keep a local cache of modules that still resets with luamod (unlike require)
+---@type table<string, Rev.ModuleData>
+local LoadedModules = {}
+-- Used to check for recursion
+---@type string[]
+local LoadModuleStack = {}
+
+if REVEL.DEBUG then
+    -- expose for debug
+    REVEL.LoadedModules = LoadedModules
+end
+
+---@class Rev.ModuleData : table
+---@field LoadFunction fun()? # Will be executed only once per mod load. Can be nil, as some modules do not have load functions (e.g. initialization side-effects only).
+---@field Loaded boolean # Has the load function been executed? (If no function, will just be true)
+
+local function includes(list, val)
+    for _, v in ipairs(list) do
+        if v == val then
+            return true
+        end
+    end
+    return false
+end
+
+-- Modules that contain an older no-repentogon alternative if repentogon is not loaded
+local NoRepentogonAltModules = require("lua.norpgn.no_repentogon_files")
+local NoRepentogonAltModulesSet = {}
+for i, v in ipairs(NoRepentogonAltModules) do NoRepentogonAltModulesSet[v] = true end
+
+---@return string modulePath
+---@return boolean changed
+local function AdjustPathNoRepentogon(modulePath)
+    if not REPENTOGON and NoRepentogonAltModulesSet[modulePath] then
+        return modulePath:gsub("lua.", "lua.norpgn."), true
+    end
+    return modulePath, false
+end
+
+---Load a module, placing it in the cache at LoadedModules
+---@param modulePath string
+---@return boolean success
+---@return Rev.ModuleData? moduleData
+---@return string modulePath
+local function LoadModule(modulePath)
+    if LoadedModules[modulePath] then
+        Isaac.DebugString("[WARN] Module is being loaded twice!")
+        return true, LoadedModules[modulePath], modulePath
+    end
+
+    -- Check recursive loads
+    if includes(LoadModuleStack, modulePath) then
+        local stackStr = ""
+        for _, mod in ipairs(LoadModuleStack) do stackStr = stackStr .. mod .. ", " end
+        error("Recursive load calls when loading module " .. modulePath .. ", stack is [" .. stackStr .. "]. " .. 
+            "Try moving some of the calls to REVEL.Module inside of the load functions or use REVEL.LazyProxy (see REVEL.Module luadoc)", 
+            2
+        )
+    end
+    LoadModuleStack[#LoadModuleStack+1] = modulePath
+
+    local success, ret = pcall(include, modulePath)
+    local loadFunction = nil
+
+    LoadModuleStack[#LoadModuleStack] = nil
+
+    if #REVEL.LoadFunctions > 0 then
+        loadFunction = REVEL.LoadFunctions[1]
+        Isaac.DebugString("[WARN] Module " .. modulePath .. " uses deprecated LoadFunctions method of setting load function")
+
+        -- Clear, not supposed to be used
+        REVEL.LoadFunctions = {}
+    end
+
+    if not success then
+        Isaac.DebugString("Failed to load module: " .. tostring(ret))
+        Isaac.ConsoleOutput("Failed to load module: " .. tostring(ret) .. "\n")
+        return false, nil, modulePath
+    end
+
+    if not loadFunction and type(ret) == "function" then
+        loadFunction = ret
+    end
+    if not loadFunction and type(ret) == "table" then
+        loadFunction = ret.LoadFunction
+        if type(loadFunction) ~= "function" then
+            loadFunction = nil
+            Isaac.DebugString("[ERR] Table LoadFunction for module " .. modulePath .. " is not function!")
+            return false, nil, modulePath
+        end
+    end
+
+    local moduleData
+    if type(ret) == "table" then
+        ret.Loaded = false
+        moduleData = ret
+    else
+        moduleData = {
+            Loaded = false,
+        }
+    end
+
+    -- Some modules intentionally have no load function, just do nothing there
+    if loadFunction then
+        local function wrappedLoadFunction()
+            if not moduleData.Loaded then
+                loadFunction()
+            else
+                Isaac.DebugString("[WARN] Tried to run load function twice for module " .. modulePath)
+            end
+        end
+        moduleData.LoadFunction = wrappedLoadFunction
+    else
+        moduleData.Loaded = true -- no load function to run, so already loaded
+    end
+
+    LoadedModules[modulePath] = moduleData
+    return true, moduleData, modulePath
+end
+
+---Get the table of a given module, at minimum containing
+-- its LoadFunction, but also any other field in its returned table.
+-- Will load the module if not loaded yet.
+--
+-- Note that recursive loads between modules will error, unless you either
+-- put the load calls of one of the two modules inside its load function, or
+-- use `REVEL.LazyProxy` (see basiclibrary.lua).
+---@param modulePath string
+---@return Rev.ModuleData
+function REVEL.Module(modulePath)
+    local path, pathChanged = AdjustPathNoRepentogon(modulePath)
+    modulePath = path
+
+    if not LoadedModules[modulePath] then
+        if pathChanged then
+            Isaac.DebugString("Using alt no-repentogon module for " .. modulePath)
+        end
+        LoadModule(modulePath)
+    end
+    return LoadedModules[modulePath]
+end
+
 --[[
     Generalization of the previous loading code to allow modules to load
-    more modules on their own (for entity file management and similar)
-    for better retrocompatibility, it still uses the REVEL.LoadFunctions table, 
-    but only for reading the output (returning the load function wouldn't really work
-    with pcall for the workaround when --luadebug is enabled)
-    Basically: every module adds a function to REVEL.LoadFunctions, then those are put 
-    into a local table that gets returned, and LoadFunctions is reset; it is used only internally
+    more modules on their own (for entity file management and similar).
 
-    If LoadFunctions is already non-empty at the start, it means this was called when loading another 
-    module; it saves those in a temp table, does the loading, then restores LoadFunctions to previous state
+    Every module must return either a function to load, or a table containing a LoadFunction field
+    in case it returns other things for require purposes.
+
+    For retrocompatibility, it still allows using the REVEL.LoadFunctions table like before.
 ]] 
 ---@param modules string[]
 ---@return fun()[]
 function REVEL.LoadModulesFromTable(modules)
-    local isMainLoad = #REVEL.LoadFunctions == 0
-
-    local prevLoadFunctions = REVEL.LoadFunctions
     REVEL.LoadFunctions = {}
 
     local loadFunctions = {}
     local loadCounter = 0
 
-    for i, v in ipairs(modules) do
-        local success, ret = true, nil
-        
-        if REVEL.PCALL_WORKAROUND then
-            _, ret = pcall(require, v)
-            success = string.match(tostring(ret), "attempt to index a nil value %(field 'bork'%)") --supposed to error this way at end of file for luamod command workaround
+    if REVEL.PCALL_WORKAROUND then
+        Isaac.DebugString("[WARN] PCALL_WORKAROUND not needed since Repentance")
+    end
+
+    for i, modulePath in ipairs(modules) do
+        local path, pathChanged = AdjustPathNoRepentogon(modulePath)
+        modulePath = path
+    
+        local success = false
+        if LoadedModules[modulePath] then
+            success = true
         else
-            success, ret = pcall(include, v)
+            if pathChanged then
+                Isaac.DebugString("Using alt no-repentogon module for " .. modulePath)
+            end
+            success = LoadModule(modulePath)
         end
-        
         if success then
             loadCounter = loadCounter + 1
-        else
-            Isaac.DebugString("Failed to load module: " .. tostring(ret))
-            Isaac.ConsoleOutput("Failed to load module: " .. tostring(ret) .. "\n")
-            break
+            local loadFunction = LoadedModules[modulePath].LoadFunction
+            if loadFunction then
+                loadFunctions[#loadFunctions+1] = loadFunction
+            end
         end
     end
 
@@ -119,17 +262,13 @@ function REVEL.LoadModulesFromTable(modules)
         end
         REVEL.FAILED_LOAD = true
         error("Revelations: Couldn't load everything! Version " .. REVEL.VERSION, 0)
-    elseif isMainLoad then
-        Isaac.DebugString("Revelations: Finished initial loading! Version "..REVEL.VERSION)
     end
-      
-    loadFunctions = REVEL.LoadFunctions
-    REVEL.LoadFunctions = prevLoadFunctions
 
     return loadFunctions
 end
 
 local MainLoadFunctions = REVEL.LoadModulesFromTable(REVEL.Modules)
+Isaac.DebugString("Revelations: Finished initial loading! Version " .. REVEL.VERSION)
 
 ---@param funcs fun()[]
 function REVEL.RunLoadFunctions(funcs, ...)

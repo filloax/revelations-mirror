@@ -1,5 +1,5 @@
 local RevRoomType = require "lua.revelcommon.enums.RevRoomType"
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 ------------
 --COMMANDS--
@@ -147,6 +147,10 @@ in revelcommon/shrines/pact.lua
 in revelitems/familiar/cabbage_patch.lua
 > cabbagep <num> [<type>]
   spawns <num> cabbage patch buds in the room, can specify type or leave it random
+
+in revelcommon/bosses/sinami.lua
+> resetsinami
+  reset clear status of sinami, allowing retry
 ]]
 
 local renderEntTypes = false

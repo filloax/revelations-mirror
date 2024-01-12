@@ -1,4 +1,4 @@
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
     
 --code in mirror.lua
 function REVEL.SpawnCustomShockwave(pos, vel, gfx, timeout, collision, spawnrate, minVarianceEachSpawn, maxVarianceEachSpawn, soundEachSpawn, onCollide, onUpdate, specialCollisionCheck)

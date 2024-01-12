@@ -3,7 +3,9 @@ local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 local RandomPickupSubtype = require("lua.revelcommon.enums.RandomPickupSubtype")
 local RevRoomType         = require("lua.revelcommon.enums.RevRoomType")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
+
+local INFINITE_RETRIES = false
 
 -- Snooping in the files, eh?
 -- Well then, have a suprise. Try a certain code you can see down below...
@@ -135,8 +137,8 @@ local function trySinami()
 end
 
 revel:AddCallback(ModCallbacks.MC_POST_RENDER, function()
-	local goodForStage = (REVEL.STAGE.Tomb:IsStage() and (REVEL.DEBUG or not revel.data.run.sinamiBeat.tomb)) 
-        or (REVEL.STAGE.Glacier:IsStage() and (REVEL.DEBUG or not revel.data.run.sinamiBeat.glacier))
+	local goodForStage = (REVEL.STAGE.Tomb:IsStage() and (INFINITE_RETRIES or not revel.data.run.sinamiBeat.tomb)) 
+        or (REVEL.STAGE.Glacier:IsStage() and (INFINITE_RETRIES or not revel.data.run.sinamiBeat.glacier))
 
     if goodForStage and REVEL.IsAchievementUnlocked("TOMB_CHAMPIONS") and REVEL.IsAchievementUnlocked("GLACIER_CHAMPIONS") 
     and REVEL.level:GetCurrentRoomIndex() == REVEL.level:GetStartingRoomIndex() and not REVEL.game:IsPaused() then
@@ -199,9 +201,9 @@ local function GetSinBeatNum()
     return sinBeatNum
 end
 
-StageAPI.AddCallback("Revelations", StageAPICallbacks.POST_ROOM_LOAD, 1, function(room, revisited, isExtraRoom)
+StageAPI.AddCallback("Revelations", StageAPICallbacks.POST_ROOM_LOAD, 1, function(room, firstLoad, isExtraRoom)
     Sinamis = {}
-    if isExtraRoom and room.PersistentData.IsSinami and (REVEL.DEBUG or not revisited) then
+    if isExtraRoom and room.PersistentData.IsSinami then
         local sinBeatNum = GetSinBeatNum()
 
         local offset = math.random(0, 6)
@@ -357,6 +359,14 @@ revel:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
         TimerToTransitionOut = nil
         SpawnedReward = false
         StoppedMus = false
+    end
+end)
+
+revel:AddCallback(ModCallbacks.MC_EXECUTE_CMD, function(_, cmd, params)
+    if cmd == "resetsinami" then
+        revel.data.run.sinamiBeat = {}
+        Isaac.ConsoleOutput("Reset sinami\n")
+        Isaac.DebugString("Reset sinami")
     end
 end)
 

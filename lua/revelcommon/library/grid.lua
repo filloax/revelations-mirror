@@ -3,7 +3,7 @@ local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 local SpikeState     = require("lua.revelcommon.enums.SpikeState")
 local GridBreakState = require("lua.revelcommon.enums.GridBreakState")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 
 function REVEL.VectorToGrid(x, y, width)

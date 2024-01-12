@@ -1,6 +1,6 @@
 local RevCallbacks = require "lua.revelcommon.enums.RevCallbacks"
 local StageAPICallbacks = require "lua.revelcommon.enums.StageAPICallbacks"
-REVEL.LoadFunctions[#REVEL.LoadFunctions+1] = function()
+return function()
 
 --[[
     Contents:
@@ -11,6 +11,7 @@ REVEL.LoadFunctions[#REVEL.LoadFunctions+1] = function()
 ]]
 
 local GetGroundLevel
+local UsesCallbackForOffset
 
 ---@param entity Entity
 ---@param airMovementData? AirMovementData
@@ -36,13 +37,18 @@ local function UpdateEntityVisuals(entity, airMovementData, zpos)
         offset = offset ^ airMovementData.RenderExp
     end
 
-    --offset the entity's sprite
-    --add instead of setting so other things can affect offset too
     local targetOffset = -offset * REVEL.WORLD_TO_SCREEN_RATIO
-    local lastOffset = airMovementData.LastRenderOffset or 0
-    airMovementData.LastRenderOffset = targetOffset
-    local newSpriteOffset = entity.SpriteOffset.Y + targetOffset - lastOffset
-    entity.SpriteOffset = Vector(0, newSpriteOffset)
+    if not UsesCallbackForOffset(entity) then
+        --offset the entity's sprite
+        --add instead of setting so other things can affect offset too
+        local lastOffset = airMovementData.LastRenderOffset or 0
+        airMovementData.LastRenderOffset = targetOffset
+        local newSpriteOffset = entity.SpriteOffset.Y + targetOffset - lastOffset
+        entity.SpriteOffset = Vector(0, newSpriteOffset)
+    else
+        airMovementData.RenderOffset = Vector(0, targetOffset)
+    end
+
 
     Isaac.RunCallback(RevCallbacks.POST_ZPOS_UPDATE_GFX, entity, airMovementData, zpos)
 end
@@ -308,17 +314,41 @@ local function airMovement_PostEntityUpdate(_, entity)
     end
 end
 
+---@param entity Entity
+---@param renderOffset Vector
+local function airMovement_PreEntityRender(_, entity, renderOffset)
+    local airMovementData = REVEL.ZPos.GetData(entity, true)
+
+    if airMovementData and airMovementData.RenderOffset then
+        return renderOffset + airMovementData.RenderOffset
+    end
+end
+
 local EntityUpdateCallbacks = {
     ModCallbacks.MC_POST_PEFFECT_UPDATE,
     ModCallbacks.MC_POST_TEAR_UPDATE,
     ModCallbacks.MC_FAMILIAR_UPDATE,
     ModCallbacks.MC_POST_BOMB_UPDATE,
     ModCallbacks.MC_POST_PICKUP_UPDATE,
-    -- add slots when rev callback uses new rep system
+    ModCallbacks.MC_POST_SLOT_UPDATE,
     ModCallbacks.MC_POST_LASER_UPDATE,
     ModCallbacks.MC_POST_KNIFE_UPDATE,
     ModCallbacks.MC_POST_PROJECTILE_UPDATE,
     -- npcs included above
+    -- ModCallbacks.MC_POST_EFFECT_UPDATE, --effects use table to avoid lag with using the callback generally
+}
+
+local EntityPreRenderCallbacks = {
+    ModCallbacks.MC_PRE_PLAYER_RENDER,
+    ModCallbacks.MC_PRE_TEAR_RENDER,
+    ModCallbacks.MC_PRE_FAMILIAR_RENDER,
+    ModCallbacks.MC_PRE_BOMB_RENDER,
+    ModCallbacks.MC_PRE_PICKUP_RENDER,
+    ModCallbacks.MC_PRE_SLOT_RENDER,
+    -- ModCallbacks.MC_PRE_LASER, no PRE_LASER_RENDER
+    ModCallbacks.MC_PRE_KNIFE_RENDER,
+    ModCallbacks.MC_PRE_PROJECTILE_RENDER,
+    ModCallbacks.MC_PRE_NPC_RENDER,
     -- ModCallbacks.MC_POST_EFFECT_UPDATE, --effects use table to avoid lag with using the callback generally
 }
 
@@ -336,12 +366,18 @@ local EntityInitCallbacks = {
     ModCallbacks.MC_POST_NPC_INIT,
 }
 
+function UsesCallbackForOffset(entity)
+    return entity.Type ~= EntityType.ENTITY_EFFECT and entity.Type ~= EntityType.ENTITY_LASER
+end
+
 for _, callback in ipairs(EntityUpdateCallbacks) do
     revel:AddCallback(callback, airMovement_PostEntityUpdate)
 end
-
 for _, callback in ipairs(EntityInitCallbacks) do
     revel:AddPriorityCallback(callback, CallbackPriority.LATE, airMovement_PostEntityUpdate)
+end
+for _, callback in ipairs(EntityPreRenderCallbacks) do
+    revel:AddCallback(callback, airMovement_PreEntityRender)
 end
 
 -- handle effects

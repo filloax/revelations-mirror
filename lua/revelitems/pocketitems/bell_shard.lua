@@ -1,4 +1,4 @@
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 -- Triggers an effect of heavenly bell for the floor
 

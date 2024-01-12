@@ -1,4 +1,4 @@
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 -- Frost Shooter / Medium Blowy
 local FreezeDistanceGrids = 4

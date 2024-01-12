@@ -1,5 +1,5 @@
 local ShrineTypes = require "lua.revelcommon.enums.ShrineTypes"
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 REVEL.TrapTypes.ArrowTrap = {
     OnSpawn = function(tile, data, index)

@@ -1,4 +1,4 @@
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 function REVEL.MoveRandomly(npc, variance, reangleMinTime, reangleMaxTime, speed, reduce, tarPos, checkGridCollide)
     local dir = Vector.FromAngle(REVEL.GetMoveRandomlyAngle(npc, variance, reangleMinTime, reangleMaxTime, tarPos, checkGridCollide))

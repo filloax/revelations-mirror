@@ -1,4 +1,4 @@
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 function REVEL.Lerp(first, second, percent)
     if not first or not second or not percent then

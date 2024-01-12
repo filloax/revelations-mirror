@@ -1,7 +1,5 @@
 local ShrineTypes = require "lua.revelcommon.enums.ShrineTypes"
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
-
-local Anm2GlowNull0
+return function()
 
 -- Wretcher
 revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
@@ -157,29 +155,9 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
     end
 
     if data.Buffed then
-        REVEL.EmitBuffedParticles(npc, Anm2GlowNull0)
+        REVEL.EmitBuffedParticles(npc)
     end
 end, REVEL.ENT.WRETCHER.id)
 
-Anm2GlowNull0 = {
-    HeadBuffed = {
-        Offset = {Vector(0, -16), Vector(0, -16), Vector(0, -16), Vector(0, -16), Vector(0, -17), Vector(0, -17), Vector(0, -17), Vector(0, -16), Vector(0, -14), Vector(0, -14), Vector(0, -15), Vector(0, -15), Vector(0, -15), Vector(0, -15), Vector(0, -15), Vector(0, -15), Vector(0, -16), Vector(0, -16), Vector(0, -16), Vector(0, -16), Vector(0, -17), Vector(0, -17), Vector(0, -17), Vector(0, -16), Vector(0, -14), Vector(0, -14), Vector(0, -15), Vector(0, -15), Vector(0, -15), Vector(0, -15), Vector(0, -15), Vector(0, -15)},
-        Scale = {Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-        Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-        Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-    },
-    VomitBuffed = {
-        Offset = {Vector(0, -16), Vector(0, -16), Vector(0, -17), Vector(0, -16), Vector(0, -14), Vector(0, -14), Vector(0, -14), Vector(0, -14), Vector(0, -14), Vector(0, -14), Vector(0, -14), Vector(0, -14), Vector(0, -14), Vector(0, -14), Vector(0, -14), Vector(0, -14), Vector(0, -14), Vector(0, -14), Vector(0, -14), Vector(0, -14), Vector(0, -14), Vector(1, -22), Vector(-1, -18), Vector(-3, -15), Vector(0, -19), Vector(-2, -17), Vector(0, -19), Vector(-2, -18), Vector(0, -19), Vector(-2, -18), Vector(-1, -19), Vector(-1, -19), Vector(-1, -20), Vector(-1, -19), Vector(0, -16), Vector(0, -16), Vector(0, -16), Vector(0, -16)},
-        Scale = {Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-        Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-        Visible = {true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-    },
-    StomachBurst = {
-        Offset = {Vector(0, -16), Vector(0, -14), Vector(0, -11), Vector(0, -11), Vector(0, -19), Vector(0, -17), Vector(0, -16), Vector(0, -17), Vector(0, -16), Vector(0, -16), Vector(0, -16), Vector(0, -16), Vector(0, -16), Vector(0, -16)},
-        Scale = {Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-        Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-        Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-    },    
-}
 
 end

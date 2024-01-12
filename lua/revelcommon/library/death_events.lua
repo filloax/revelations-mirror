@@ -1,12 +1,15 @@
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
+
+---@alias Rev.OnDeath.Callback fun(npc: EntityNPC): string?
+---@alias Rev.OnDeath.Render fun(npc: EntityNPC, triggeredEventThisFrame: boolean): boolean?
 
 -- Since during death state updates don't run, and keeping the dying npc in the death state is buggy,
 -- run updates in death (usually sound events in sprites) during POST_NPC_RENDER
----@param onDeath fun(npc: EntityNPC)
----@param deathRender fun(npc: EntityNPC, triggeredEventThisFrame: boolean) triggeredEventThisFrame resets every game framecount change, can be used to avoid playing an event twice due to render being at 60fps set it by returning true to the function
+---@param onDeath Rev.OnDeath.Callback
+---@param deathRender Rev.OnDeath.Render triggeredEventThisFrame resets every game framecount change, can be used to avoid playing an event twice due to render being at 60fps set it by returning true to the function
 ---@param npcId EntityType
 ---@param npcVariant integer
----@overload fun(handler: {OnDeath: fun(npc: EntityNPC), DeathRender: fun(npc: EntityNPC, triggeredEventThisFrame: boolean), Type: EntityType, Variant: integer})
+---@overload fun(handler: {OnDeath: Rev.OnDeath.Callback, DeathRender: Rev.OnDeath.Render, Type: EntityType, Variant: integer})
 function REVEL.AddDeathEventsCallback(onDeath, deathRender, npcId, npcVariant)
     if type(onDeath) == "table" then
         local tbl = onDeath

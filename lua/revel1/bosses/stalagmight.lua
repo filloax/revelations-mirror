@@ -1,4 +1,4 @@
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 REVEL.StalagmightBalance = {
     Champions = {Frost = "Default"},

@@ -1,7 +1,7 @@
 local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 revel:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
     if REVEL.STAGE.Tomb:IsStage() and math.random(1, 500) == 1 then

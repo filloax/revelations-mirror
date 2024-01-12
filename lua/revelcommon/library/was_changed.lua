@@ -1,4 +1,4 @@
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 local wasChanged = {}
 
 function REVEL.WasChanged(name, ...) --breaks with nil values

@@ -1,10 +1,7 @@
 local ShrineTypes = require "lua.revelcommon.enums.ShrineTypes"
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 -- Rag drifty
-
-local Anm2GlowNull0
-local Anm2GlowNull1
 
 revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
     if npc.Variant ~= REVEL.ENT.RAG_DRIFTY.variant and npc.Variant ~= REVEL.ENT.PSEUDO_RAG_DRIFTY.variant then
@@ -25,8 +22,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
     npc.Velocity = npc.Velocity * 0.95
 
     if data.Buffed then
-        REVEL.EmitBuffedParticles(npc, Anm2GlowNull0, 2)
-        REVEL.EmitBuffedParticles(npc, Anm2GlowNull1, 2)
+        REVEL.EmitBuffedParticles(npc)
     end
 
     if data.State == "Idle" then
@@ -181,72 +177,5 @@ revel:AddCallback(ModCallbacks.MC_POST_PROJECTILE_UPDATE, function(_, pro)
         pro.Velocity = pro.Velocity * pro:GetData().DriftyDeaccel
     end
 end)
-
-
-Anm2GlowNull0 = {
-    ShootUpStart = {
-        Offset = {Vector(9, -19), Vector(9, -19), Vector(9, -19), Vector(9, -19), Vector(9, -19), Vector(9, -19), Vector(9, -19), Vector(9, -19), Vector(9, -19), Vector(9, -19), Vector(10, -18), Vector(9, -20), Vector(8, -21), Vector(7, -22), Vector(4, -21), Vector(4, -18), Vector(4, -14), Vector(4, -14)},
-        Scale = {Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-        Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-        Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false}
-    },
-    ShootUpEnd = {
-        Offset = {Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(6, -15), Vector(8, -22), Vector(9, -20), Vector(10, -17), Vector(10, -18), Vector(9, -20), Vector(9, -20), Vector(9, -19), Vector(9, -19), Vector(9, -19)},
-        Scale = {Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-        Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-        Visible = {false, false, false, false, false, false, false, false, true, true, true, true, true, true, true, true, true, true}
-    },
-    ShootDownStart = {
-        Offset = {Vector(9, -19), Vector(9, -19), Vector(9, -19), Vector(9, -19), Vector(9, -19), Vector(9, -19), Vector(9, -19), Vector(9, -19), Vector(9, -19), Vector(9, -19), Vector(10, -18), Vector(9, -20), Vector(8, -21), Vector(8, -21), Vector(8, -21)},
-        Scale = {Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-        Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-        Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, false}
-    },
-    ShootDownEnd = {
-        Offset = {Vector(9, -19), Vector(6, -19), Vector(4, -18), Vector(2, -18), Vector(-1, -18), Vector(-4, -17), Vector(-6, -17), Vector(-8, -16), Vector(-11, -16), Vector(7, -22), Vector(8, -20), Vector(10, -17), Vector(9, -18), Vector(8, -20), Vector(8, -20), Vector(8, -20), Vector(9, -19), Vector(9, -19)},
-        Scale = {Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-        Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-        Visible = {false, false, false, false, false, false, false, false, true, true, true, true, true, true, true, true, true, true}
-    },
-    Idle2 = {
-        Offset = {Vector(9, -19)},
-        Scale = {Vector(20, 20)},
-        Alpha = {255},
-        Visible = {true}
-    },
-}
-
-Anm2GlowNull1 = {
-    ShootUpStart = {
-        Offset = {Vector(-9, -19), Vector(-9, -19), Vector(-9, -19), Vector(-9, -19), Vector(-9, -19), Vector(-9, -19), Vector(-9, -19), Vector(-9, -19), Vector(-9, -19), Vector(-9, -19), Vector(-10, -18), Vector(-9, -20), Vector(-8, -21), Vector(-7, -22), Vector(-7, -22)},
-        Scale = {Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-        Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-        Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, false}
-    },
-    ShootUpEnd = {
-        Offset = {Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(6, -15), Vector(-7, -22), Vector(-8, -20), Vector(-10, -17), Vector(-10, -18), Vector(-9, -20), Vector(-9, -20), Vector(-9, -19), Vector(-9, -19), Vector(-9, -19)},
-        Scale = {Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-        Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-        Visible = {false, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true, true, true}
-    },
-    ShootDownStart = {
-        Offset = {Vector(-9, -19), Vector(-9, -19), Vector(-9, -19), Vector(-9, -19), Vector(-9, -19), Vector(-9, -19), Vector(-9, -19), Vector(-9, -19), Vector(-9, -19), Vector(-9, -19), Vector(-10, -18), Vector(-9, -20), Vector(-8, -21), Vector(-8, -22), Vector(-7, -24), Vector(-7, -24), Vector(-7, -24), Vector(-7, -24)},
-        Scale = {Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-        Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-        Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false}
-    },
-    ShootDownEnd = {
-        Offset = {Vector(9, -19), Vector(7, -19), Vector(5, -20), Vector(4, -20), Vector(2, -20), Vector(0, -21), Vector(-2, -21), Vector(-3, -21), Vector(-5, -22), Vector(-7, -22), Vector(-8, -20), Vector(-10, -17), Vector(-9, -18), Vector(-8, -20), Vector(-8, -20), Vector(-8, -20), Vector(-9, -19), Vector(-9, -19)},
-        Scale = {Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-        Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-        Visible = {false, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true, true, true}
-    },
-    Idle2 = {
-        Offset = {Vector(-9, -19)},
-        Scale = {Vector(20, 20)},
-        Alpha = {255},
-        Visible = {true}
-    },
-}
 
 end

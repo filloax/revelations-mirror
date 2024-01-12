@@ -1,6 +1,6 @@
 local RevCallbacks = require "lua.revelcommon.enums.RevCallbacks"
 local ProjectilesMode = require "lua.revelcommon.enums.ProjectilesMode"
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 --[[
 -A tall segmented cactus that slowly moves around. The amount of 

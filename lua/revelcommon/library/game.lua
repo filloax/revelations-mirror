@@ -1,5 +1,5 @@
 local RevCallbacks = require "lua.revelcommon.enums.RevCallbacks"
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 function REVEL.NotBossOrNightmare()
     local currentMusic = REVEL.music:GetCurrentMusicID()
@@ -8,9 +8,18 @@ function REVEL.NotBossOrNightmare()
 		and currentMusic ~= Music.MUSIC_JINGLE_NIGHTMARE
 end
 
--- Was originally own system, added to stageapi later
+if REPENTOGON then
+
 function REVEL.IsPauseMenuOpen()
-    return StageAPI.IsPauseMenuOpen()
+	return REVEL.game:IsPauseMenuOpen() --added by Repentogon
+end
+
+else
+
+function REVEL.IsPauseMenuOpen()
+	return StageAPI.IsPauseMenuOpen()
+end
+
 end
 
 -- Play StageAPI boss anim to check for menu confirm but not pause
@@ -53,12 +62,6 @@ local function bossAnimNoPause_PostRender()
 				OnSkip()
 			end
 		end
-	end
-end
-
-local function bossAnimNoPause_PreUseItem()
-	if CurrentlyDoingNoPauseBossAnim then
-		return true
 	end
 end
 
@@ -216,7 +219,6 @@ end
 
 revel:AddCallback(ModCallbacks.MC_POST_RENDER, fps_postRender)
 revel:AddCallback(ModCallbacks.MC_POST_RENDER, bossAnimNoPause_PostRender)
-revel:AddCallback(ModCallbacks.MC_PRE_USE_ITEM, bossAnimNoPause_PreUseItem)
 revel:AddCallback(ModCallbacks.MC_POST_RENDER, isMapLarge_PostRender)
 revel:AddPriorityCallback(ModCallbacks.MC_POST_PLAYER_INIT, CallbackPriority.IMPORTANT, runLoaded_PostPlayerInit)
 revel:AddCallback(ModCallbacks.MC_PRE_GAME_EXIT, runLoaded_PreGameExit)

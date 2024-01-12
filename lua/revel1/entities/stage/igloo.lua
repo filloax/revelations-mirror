@@ -1,4 +1,4 @@
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 --Grimice / Igloo
 local ProjectileOffset = Vector.Zero

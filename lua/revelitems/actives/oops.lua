@@ -1,7 +1,7 @@
 local SpikeState = require "lua.revelcommon.enums.SpikeState"
 local PlayerVariant     = require("lua.revelcommon.enums.PlayerVariant")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 -----------------
 --    OOPS!    --

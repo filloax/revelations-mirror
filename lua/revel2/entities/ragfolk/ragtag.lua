@@ -1,12 +1,9 @@
 local ShrineTypes = require "lua.revelcommon.enums.ShrineTypes"
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 -------------
 -- RAG TAG --
 -------------
-
-local Anm2GlowNullVariants0
-local Anm2GlowNullVariants1
 
 local SLAP_NEW_ROOM_COOLDOWN = {Min = 80, Max = 110}
 local SLAP_COOLDOWN = {Min = 55, Max = 80}
@@ -256,121 +253,11 @@ local function ragTag_NpcUpdate(_, npc)
         end]]
 
         if data.Buffed then
-            REVEL.EmitBuffedParticles(npc, Anm2GlowNullVariants0[data.Skin])
-            REVEL.EmitBuffedParticles(npc, Anm2GlowNullVariants1[data.Skin])
+            REVEL.EmitBuffedParticles(npc)
         end
     end
 end
 revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, ragTag_NpcUpdate, REVEL.ENT.RAG_TAG.id)
 
--- Anm2 glow nulls
-Anm2GlowNullVariants0 = {
-    {
-        HeadBuffed = {
-            Offset = {Vector(-6, -28), Vector(-6, -28), Vector(-6, -28), Vector(-6, -29), Vector(-6, -29), Vector(-6, -30), Vector(-6, -30), Vector(-6, -30), Vector(-6, -30), Vector(-6, -30), Vector(-6, -30), Vector(-6, -29), Vector(-6, -29), Vector(-6, -29), Vector(-6, -29), Vector(-6, -29), Vector(-6, -28), Vector(-6, -28), Vector(-6, -28), Vector(-6, -28)},
-            Scale = {Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-            Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-            Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-        },
-        AttackBuffed = {
-            Offset = {Vector(-6, -28), Vector(-6, -28), Vector(-6, -29), Vector(-6, -30), Vector(-6, -31), Vector(-6, -31), Vector(-6, -31), Vector(-6, -31), Vector(-6, -21), Vector(-6, -21), Vector(-6, -21), Vector(-6, -21), Vector(-6, -21), Vector(-6, -21), Vector(-5, -23), Vector(-5, -24), Vector(-5, -24), Vector(-5, -25), Vector(-6, -29), Vector(-6, -29), Vector(-6, -28), Vector(-6, -28), Vector(-6, -28), Vector(-6, -28)},
-            Scale = {Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-            Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-            Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-        },
-        Flurry = {
-            Offset = {Vector(-6, -28), Vector(-6, -28), Vector(-6, -29), Vector(-6, -30), Vector(-6, -31), Vector(-6, -31), Vector(-6, -31), Vector(-6, -31), Vector(-6, -22), Vector(-6, -23), Vector(-5, -24), Vector(-5, -23), Vector(-6, -22), Vector(-6, -23), Vector(-5, -24), Vector(-6, -23), Vector(-6, -22), Vector(-6, -23), Vector(-5, -25), Vector(-5, -25), Vector(-5, -25), Vector(-5, -26), Vector(-7, -27), Vector(-7, -27), Vector(-6, -28), Vector(-6, -28), Vector(-6, -28), Vector(-6, -28)},
-            Scale = {Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-            Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-            Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-        },        
-    },
-    {
-        HeadBuffed = {
-            Offset = {Vector(-1, -24), Vector(-1, -24), Vector(-1, -24), Vector(-1, -25), Vector(-1, -25), Vector(-1, -26), Vector(-1, -26), Vector(-1, -26), Vector(-1, -26), Vector(-1, -26), Vector(-1, -26), Vector(-1, -25), Vector(-1, -25), Vector(-1, -25), Vector(-1, -25), Vector(-1, -25), Vector(-1, -24), Vector(-1, -24), Vector(-1, -24), Vector(-1, -24)},
-            Scale = {Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-            Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-            Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-        },
-        AttackBuffed = {
-            Offset = {Vector(-1, -24), Vector(-1, -24), Vector(-1, -25), Vector(-1, -26), Vector(-1, -27), Vector(-1, -27), Vector(-1, -27), Vector(-1, -27), Vector(-1, -18), Vector(-1, -18), Vector(-1, -18), Vector(-1, -18), Vector(-1, -18), Vector(-1, -18), Vector(-1, -19), Vector(-1, -20), Vector(-1, -20), Vector(-1, -21), Vector(-1, -24), Vector(-1, -24), Vector(-1, -24), Vector(-1, -24), Vector(-1, -24), Vector(-1, -24)},
-            Scale = {Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-            Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-            Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-        },
-        Flurry = {
-            Offset = {Vector(-1, -24), Vector(-1, -24), Vector(-1, -25), Vector(-1, -26), Vector(-1, -27), Vector(-1, -27), Vector(-1, -27), Vector(-1, -27), Vector(-3, -20), Vector(-2, -20), Vector(-2, -20), Vector(-2, -20), Vector(-2, -19), Vector(-2, -20), Vector(-2, -20), Vector(-2, -20), Vector(-2, -20), Vector(-2, -20), Vector(-2, -21), Vector(-2, -21), Vector(-2, -21), Vector(-2, -22), Vector(-2, -23), Vector(-1, -24), Vector(-1, -24), Vector(-1, -24), Vector(-1, -24), Vector(-1, -24)},
-            Scale = {Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-            Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-            Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-        },        
-    },
-    {
-        HeadBuffed = {
-            Offset = {Vector(-7, -30), Vector(-7, -30), Vector(-7, -30), Vector(-7, -31), Vector(-7, -31), Vector(-7, -32), Vector(-7, -32), Vector(-7, -32), Vector(-7, -32), Vector(-7, -32), Vector(-7, -32), Vector(-7, -31), Vector(-7, -31), Vector(-7, -31), Vector(-7, -31), Vector(-7, -31), Vector(-7, -30), Vector(-7, -30), Vector(-7, -30), Vector(-7, -30)},
-            Scale = {Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-            Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-            Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-        },
-        AttackBuffed = {
-            Offset = {Vector(-7, -30), Vector(-7, -30), Vector(-6, -31), Vector(-6, -33), Vector(-6, -34), Vector(-6, -34), Vector(-6, -34), Vector(-6, -34), Vector(-8, -22), Vector(-7, -23), Vector(-7, -24), Vector(-7, -24), Vector(-7, -24), Vector(-7, -24), Vector(-7, -25), Vector(-7, -26), Vector(-7, -26), Vector(-7, -27), Vector(-6, -32), Vector(-6, -32), Vector(-7, -30), Vector(-7, -30), Vector(-7, -30), Vector(-7, -30)},
-            Scale = {Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-            Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-            Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-        },
-        Flurry = {
-            Offset = {Vector(-7, -30), Vector(-7, -30), Vector(-7, -31), Vector(-7, -32), Vector(-7, -34), Vector(-7, -34), Vector(-7, -34), Vector(-7, -34), Vector(-8, -24), Vector(-7, -25), Vector(-6, -27), Vector(-7, -25), Vector(-8, -24), Vector(-7, -25), Vector(-6, -27), Vector(-7, -25), Vector(-8, -24), Vector(-7, -26), Vector(-6, -27), Vector(-6, -27), Vector(-6, -27), Vector(-6, -28), Vector(-8, -29), Vector(-7, -30), Vector(-6, -31), Vector(-7, -31), Vector(-7, -30), Vector(-7, -30)},
-            Scale = {Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-            Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-            Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-        },        
-    },
-}
-
-Anm2GlowNullVariants1 = {
-    {
-        HeadBuffed = {
-            Offset = {Vector(5, -30), Vector(5, -30), Vector(5, -30), Vector(5, -30), Vector(5, -30), Vector(5, -31), Vector(5, -31), Vector(5, -31), Vector(5, -31), Vector(5, -31), Vector(5, -31), Vector(5, -30), Vector(5, -30), Vector(5, -30), Vector(5, -30), Vector(5, -30), Vector(5, -30), Vector(5, -30), Vector(5, -30), Vector(5, -30)},
-            Scale = {Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-            Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-            Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-        },
-        AttackBuffed = {
-            Offset = {Vector(5, -30), Vector(5, -30), Vector(5, -31), Vector(5, -32), Vector(5, -33), Vector(5, -33), Vector(5, -33), Vector(5, -33), Vector(6, -21), Vector(5, -21), Vector(5, -22), Vector(5, -22), Vector(5, -22), Vector(5, -22), Vector(5, -23), Vector(5, -24), Vector(5, -24), Vector(5, -26), Vector(5, -31), Vector(5, -31), Vector(5, -29), Vector(5, -30), Vector(5, -30), Vector(5, -30)},
-            Scale = {Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-            Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-            Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-        },
-        Flurry = {
-            Offset = {Vector(5, -30), Vector(5, -30), Vector(5, -31), Vector(5, -32), Vector(5, -33), Vector(5, -33), Vector(5, -33), Vector(5, -33), Vector(5, -23), Vector(5, -24), Vector(4, -25), Vector(4, -24), Vector(5, -23), Vector(5, -24), Vector(4, -25), Vector(4, -24), Vector(5, -23), Vector(5, -24), Vector(4, -26), Vector(4, -26), Vector(4, -26), Vector(4, -27), Vector(5, -29), Vector(5, -29), Vector(5, -30), Vector(5, -30), Vector(5, -30), Vector(5, -30)},
-            Scale = {Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-            Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-            Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-        },        
-    },
-    {
-
-    },
-    {
-        HeadBuffed = {
-            Offset = {Vector(5, -33), Vector(5, -33), Vector(5, -33), Vector(5, -34), Vector(5, -34), Vector(5, -34), Vector(5, -34), Vector(5, -34), Vector(5, -34), Vector(5, -34), Vector(5, -34), Vector(5, -34), Vector(5, -34), Vector(5, -34), Vector(5, -34), Vector(5, -34), Vector(5, -33), Vector(5, -33), Vector(5, -33), Vector(5, -33)},
-            Scale = {Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-            Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-            Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-        },
-        AttackBuffed = {
-            Offset = {Vector(5, -33), Vector(5, -33), Vector(5, -34), Vector(5, -35), Vector(5, -36), Vector(5, -36), Vector(5, -36), Vector(5, -36), Vector(6, -23), Vector(6, -24), Vector(5, -25), Vector(5, -25), Vector(5, -25), Vector(5, -25), Vector(5, -26), Vector(5, -27), Vector(5, -27), Vector(5, -29), Vector(4, -35), Vector(4, -35), Vector(5, -32), Vector(5, -32), Vector(5, -33), Vector(5, -33)},
-            Scale = {Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-            Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-            Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-        },
-        Flurry = {
-            Offset = {Vector(5, -33), Vector(5, -33), Vector(5, -34), Vector(5, -35), Vector(5, -36), Vector(5, -36), Vector(5, -36), Vector(5, -36), Vector(5, -26), Vector(5, -27), Vector(4, -30), Vector(5, -28), Vector(5, -26), Vector(5, -27), Vector(4, -29), Vector(5, -28), Vector(5, -26), Vector(5, -28), Vector(4, -30), Vector(4, -30), Vector(4, -31), Vector(4, -31), Vector(5, -31), Vector(5, -32), Vector(5, -33), Vector(5, -33), Vector(5, -33), Vector(5, -33)},
-            Scale = {Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-            Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-            Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-        },        
-    },
-}
 
 end

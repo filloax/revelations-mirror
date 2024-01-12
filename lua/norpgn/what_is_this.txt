@@ -1,0 +1,14 @@
+This folder contains alternate code files for things that
+now use Repentogon and didn't before.
+Did it htis way to avoid adding a lot of REPENTOGON checks
+inside the features' code, and just replace them at load,
+to simplify the development of this.
+
+Note: when possible, library stuff uses REPENTOGON inside
+the file instead, as keeping the old and new version of the
+file in sync in case new stuff is added that is used by other
+fiels would be a pain. Current exception is color.lua as with
+Repentogon it was entirely redone.
+
+When Rev requires Repentogon (Ch. 3), this folder and associated
+functionality will be removed.

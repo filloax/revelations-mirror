@@ -1,4 +1,4 @@
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 -- TODO: replace with REVEL version in other branches too
 function REVEL.GetDirectionFromVelocity(velocity)

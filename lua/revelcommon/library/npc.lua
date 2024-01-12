@@ -1,4 +1,4 @@
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 -- do each update, ideally before doing velocity updates 
 -- (which is why this isn't a one off function that registers a callback) 

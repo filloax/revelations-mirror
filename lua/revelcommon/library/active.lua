@@ -1,6 +1,6 @@
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 local playerAnims = {
     "Pickup", "Hit", "Appear", "Death", "Sad", "Happy", "TeleportUp", "TeleportDown", "WalkDir", "HeadDir", "Trapdoor", "Jump",

@@ -3,7 +3,7 @@ local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 local RevSettings       = require("lua.revelcommon.enums.RevSettings")
 local Dimension         = require("lua.revelcommon.enums.Dimension")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
     local cloud, snow, heavy = "gfx/backdrop/revel1/glacier/cloud.anm2", "gfx/backdrop/revel1/glacier/snow.anm2", "gfx/backdrop/revel1/glacier/snow_heavy.anm2"
     REVEL.OVERLAY = {
         Glacier1 = StageAPI.Overlay(cloud, Vector(1,1)),

@@ -1,5 +1,5 @@
 local RevCallbacks = require "lua.revelcommon.enums.RevCallbacks"
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
     
 -- Revelations Restock Machine
 local function restockPreEntitySpawn(_, t, v, s, pos, vel, spawner, seed)

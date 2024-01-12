@@ -1,6 +1,6 @@
 local RevCallbacks = require("lua.revelcommon.enums.RevCallbacks")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
     local TaintedWarningSprite = REVEL.LazyLoadRoomSprite{
         ID = "TaintedWarning",

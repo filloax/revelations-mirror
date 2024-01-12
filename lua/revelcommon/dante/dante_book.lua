@@ -1,7 +1,7 @@
 local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 ---@param player EntityPlayer
 ---@param data table
@@ -185,7 +185,12 @@ revel:AddCallback(ModCallbacks.MC_POST_NPC_RENDER, function(_, npc, renderOffset
                 end
 
                 if npc.Visible then
-                    sigilSprite:Render(Isaac.WorldToScreen(npc.Position + Vector(0, npc.Size * -5)) + renderOffset - REVEL.room:GetRenderScrollOffset(), Vector.Zero, Vector.Zero)
+                    local pos = npc:GetSprite():GetNullFrame("OverlayEffect"):GetPos()
+                    if not pos then
+                        pos = Vector(0, npc.Size * -5)
+                    end
+                    local offset = Vector(0, -12)
+                    sigilSprite:Render(Isaac.WorldToScreen(npc.Position) + pos + offset + renderOffset - REVEL.room:GetRenderScrollOffset())
                 end
             end
         else

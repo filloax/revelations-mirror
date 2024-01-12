@@ -1,9 +1,7 @@
 local ShrineTypes = require "lua.revelcommon.enums.ShrineTypes"
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 -- Rag Fatty
-
-local Anm2GlowNull0
 
 revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
     if npc.Variant ~= REVEL.ENT.RAG_FATTY.variant then
@@ -52,7 +50,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
     end
 
     if data.Buffed then
-        REVEL.EmitBuffedParticles(npc, Anm2GlowNull0)
+        REVEL.EmitBuffedParticles(npc)
     end
 
     if data.State == "Idle" then
@@ -254,69 +252,5 @@ revel:AddCallback(ModCallbacks.MC_POST_PROJECTILE_UPDATE, function(_, pro)
         pro.Velocity = pro.Velocity * 0.95 + (pro:GetData().RagFattyHoming.Position - pro.Position):Resized(pro:GetData().RagFattyHomingSpeed)
     end
 end)
-
-
-Anm2GlowNull0 = {
-    WalkRight2 = {
-        Offset = {Vector(-10, -28), Vector(-10, -28), Vector(-10, -28), Vector(-10, -28), Vector(-10, -29), Vector(-9, -29), Vector(-9, -30), Vector(-9, -30), Vector(-9, -30), Vector(-9, -30), Vector(-9, -30), Vector(-9, -30), Vector(-11, -22), Vector(-11, -23), Vector(-11, -25), Vector(-11, -26), Vector(-10, -27), Vector(-10, -28), Vector(-9, -29), Vector(-9, -29), Vector(-9, -29), Vector(-9, -29), Vector(-9, -29), Vector(-9, -30), Vector(-9, -30), Vector(-9, -30), Vector(-9, -30), Vector(-9, -30), Vector(-9, -30), Vector(-9, -30), Vector(-11, -22), Vector(-11, -23), Vector(-10, -25), Vector(-10, -26), Vector(-10, -26), Vector(-10, -26)},
-        Scale = {Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30)},
-        Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-        Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-    },
-    WalkLeft2 = {
-        Offset = {Vector(-10, -28), Vector(-10, -28), Vector(-10, -28), Vector(-10, -28), Vector(-10, -29), Vector(-9, -29), Vector(-9, -30), Vector(-9, -30), Vector(-9, -30), Vector(-9, -30), Vector(-9, -30), Vector(-9, -30), Vector(-11, -22), Vector(-11, -23), Vector(-11, -25), Vector(-11, -26), Vector(-10, -27), Vector(-10, -28), Vector(-9, -29), Vector(-9, -29), Vector(-9, -29), Vector(-9, -29), Vector(-9, -29), Vector(-9, -30), Vector(-9, -30), Vector(-9, -30), Vector(-9, -30), Vector(-9, -30), Vector(-9, -30), Vector(-9, -30), Vector(-11, -22), Vector(-11, -23), Vector(-10, -25), Vector(-10, -26), Vector(-10, -26), Vector(-10, -26)},
-        Scale = {Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30)},
-        Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-        Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-    },
-    WalkVert2 = {
-        Offset = {Vector(-10, -28), Vector(-10, -28), Vector(-10, -28), Vector(-10, -28), Vector(-10, -29), Vector(-9, -29), Vector(-9, -30), Vector(-9, -30), Vector(-9, -30), Vector(-9, -30), Vector(-9, -30), Vector(-9, -30), Vector(-11, -22), Vector(-11, -23), Vector(-11, -25), Vector(-11, -26), Vector(-10, -27), Vector(-10, -28), Vector(-9, -29), Vector(-9, -29), Vector(-9, -29), Vector(-9, -29), Vector(-9, -29), Vector(-9, -30), Vector(-9, -30), Vector(-9, -30), Vector(-9, -30), Vector(-9, -30), Vector(-9, -30), Vector(-9, -30), Vector(-11, -22), Vector(-11, -23), Vector(-10, -25), Vector(-10, -26), Vector(-10, -26), Vector(-10, -26)},
-        Scale = {Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30)},
-        Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-        Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-    },
-    Inflate = {
-        Offset = {Vector(-10, -28), Vector(-10, -30), Vector(-9, -31), Vector(-10, -28), Vector(-10, -24), Vector(-10, -24), Vector(-10, -23), Vector(-9, -33), Vector(-9, -42), Vector(-8, -52), Vector(-8, -52), Vector(-8, -52), Vector(-8, -52), Vector(-8, -52), Vector(-8, -53), Vector(-8, -53), Vector(-8, -53), Vector(-8, -53), Vector(-8, -53), Vector(-8, -50), Vector(-8, -46), Vector(-7, -42), Vector(-7, -39), Vector(-7, -38), Vector(-7, -38), Vector(-7, -37), Vector(-7, -37)},
-        Scale = {Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30)},
-        Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-        Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, true, true, true, true, true}
-    },
-    Hold = {
-        Offset = {Vector(-8, -38), Vector(-8, -38), Vector(-8, -38), Vector(-8, -38), Vector(-8, -38), Vector(-8, -38), Vector(-8, -38), Vector(-8, -37), Vector(-8, -37), Vector(-8, -37), Vector(-8, -37), Vector(-8, -38), Vector(-8, -38), Vector(-8, -38), Vector(-8, -38)},
-        Scale = {Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30)},
-        Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-        Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-    },
-    Shoot = {
-        Offset = {Vector(-10, -28), Vector(-9, -32), Vector(-8, -35), Vector(-8, -35), Vector(-8, -35), Vector(-8, -35), Vector(-8, -35), Vector(-10, -30), Vector(-11, -24), Vector(-10, -26), Vector(-10, -28), Vector(-9, -30), Vector(-9, -30), Vector(-9, -29), Vector(-9, -29)},
-        Scale = {Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30)},
-        Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-        Visible = {false, false, true, true, true, true, true, true, true, true, true, true, true, true, true}
-    },
-    HeadTransition = {
-        Offset = {Vector(-10, -30), Vector(-10, -36), Vector(-10, -41), Vector(-10, -47), Vector(-10, -46), Vector(-10, -45), Vector(-9, -45), Vector(-9, -44), Vector(-9, -43), Vector(-8, -34), Vector(-7, -25), Vector(-6, -16), Vector(-11, -12), Vector(-16, -7), Vector(-13, -9), Vector(-11, -12), Vector(-8, -14), Vector(-9, -13), Vector(-10, -12), Vector(-10, -12), Vector(-11, -11), Vector(-11, -11), Vector(-10, -11), Vector(-10, -11), Vector(-10, -11), Vector(-10, -12), Vector(-10, -12), Vector(-10, -12), Vector(-10, -12), Vector(-10, -12), Vector(-10, -12), Vector(-10, -12), Vector(-10, -12), Vector(-9, -13), Vector(-8, -14), Vector(-9, -12), Vector(-10, -9), Vector(-10, -9), Vector(-10, -9), Vector(-10, -9), Vector(-10, -10), Vector(-9, -12), Vector(-9, -12), Vector(-9, -12)},
-        Scale = {Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30)},
-        Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-        Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-    },
-    HeadMove = {
-        Offset = {Vector(-9, -11), Vector(-9, -12), Vector(-9, -12), Vector(-10, -11), Vector(-10, -10), Vector(-10, -10), Vector(-10, -9), Vector(-10, -9), Vector(-10, -10), Vector(-9, -10), Vector(-9, -11)},
-        Scale = {Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30)},
-        Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-        Visible = {true, true, true, true, true, true, true, true, true, true, true}
-    },
-    HeadJump = {
-        Offset = {Vector(-9, -11), Vector(-8, -12), Vector(-8, -12), Vector(-10, -10), Vector(-12, -8), Vector(-8, -12), Vector(-5, -16), Vector(-6, -36), Vector(-6, -55), Vector(-6, -87), Vector(-8, -88), Vector(-9, -90), Vector(-8, -91), Vector(-8, -92), Vector(-8, -88), Vector(-8, -84), Vector(-8, -80), Vector(-8, -76), Vector(-8, -60), Vector(-7, -44), Vector(-5, -15), Vector(-9, -12), Vector(-13, -8), Vector(-12, -9), Vector(-12, -9), Vector(-11, -10), Vector(-11, -10), Vector(-10, -11), Vector(-9, -12), Vector(-9, -12), Vector(-8, -13), Vector(-8, -13), Vector(-7, -14), Vector(-9, -12), Vector(-11, -10), Vector(-10, -11), Vector(-10, -11), Vector(-9, -12), Vector(-9, -12), Vector(-9, -11), Vector(-9, -11), Vector(-10, -10), Vector(-10, -9), Vector(-10, -9), Vector(-10, -9), Vector(-10, -9), Vector(-10, -10), Vector(-9, -12), Vector(-9, -12), Vector(-9, -11)},
-        Scale = {Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30)},
-        Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-        Visible = {true, true, true, true, false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-    },
-    Phase2Appear = {
-        Offset = {Vector(-10, -28), Vector(-10, -27), Vector(-10, -27), Vector(-9, -26), Vector(-9, -26), Vector(-9, -25), Vector(-9, -25), Vector(-9, -24), Vector(-8, -23), Vector(-8, -23), Vector(-8, -22), Vector(-8, -22), Vector(-7, -21), Vector(-7, -20), Vector(-7, -20), Vector(-7, -19), Vector(-7, -19), Vector(-6, -18), Vector(-6, -18), Vector(-6, -17), Vector(-10, -12), Vector(-15, -7), Vector(-13, -9), Vector(-10, -12), Vector(-8, -14), Vector(-9, -13), Vector(-10, -12), Vector(-10, -12), Vector(-11, -11), Vector(-11, -11), Vector(-10, -12), Vector(-10, -12), Vector(-10, -12), Vector(-10, -12), Vector(-10, -12), Vector(-10, -12), Vector(-10, -12), Vector(-10, -12), Vector(-10, -12), Vector(-10, -12), Vector(-10, -12), Vector(-9, -13), Vector(-8, -14), Vector(-9, -12), Vector(-10, -9), Vector(-10, -9), Vector(-10, -9), Vector(-10, -9), Vector(-9, -10), Vector(-8, -12), Vector(-8, -12), Vector(-9, -11)},
-        Scale = {Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30), Vector(30, 30)},
-        Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-        Visible = {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-    },
-}
 
 end

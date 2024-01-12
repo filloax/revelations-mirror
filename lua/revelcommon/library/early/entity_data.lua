@@ -1,6 +1,6 @@
 local RevCallbacks = require "lua.revelcommon.enums.RevCallbacks"
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 -- entity data that doesn't get cleared on entity remove,
 -- but on new room after entity remove

@@ -1,4 +1,4 @@
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 function REVEL.IsOutOfRoomBy(pos, by)
     local tl, br = REVEL.room:GetTopLeftPos(), REVEL.room:GetBottomRightPos()

@@ -4,7 +4,7 @@ local ShrineTypes       = require("lua.revelcommon.enums.ShrineTypes")
 local RevRoomType       = require("lua.revelcommon.enums.RevRoomType")
 local RoomTypeExtra     = require("lua.revelcommon.enums.RoomTypeExtra")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 StageAPI.AddCallback("Revelations", StageAPICallbacks.PRE_ROOMS_LIST_USE, 1, function(newRoom)
     if REVEL.STAGE.Glacier:IsStage() then

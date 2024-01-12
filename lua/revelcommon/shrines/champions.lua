@@ -1,6 +1,6 @@
 local ShrineTypes = require "lua.revelcommon.enums.ShrineTypes"
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 local function GetShrineActiveAmount()
     local _, amount = REVEL.IsShrineEffectActive(ShrineTypes.CHAMPIONS, true)

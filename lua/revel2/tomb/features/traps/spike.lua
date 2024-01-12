@@ -3,7 +3,7 @@ local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 
 local SpikeState = require("lua.revelcommon.enums.SpikeState")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 REVEL.TrapTypes.SpikeTrap = {
     OnSpawn = function(tile, data, index)

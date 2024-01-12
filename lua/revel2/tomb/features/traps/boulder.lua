@@ -2,7 +2,7 @@ local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 local ShrineTypes       = require("lua.revelcommon.enums.ShrineTypes")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 REVEL.TrapTypes.BoulderTrap = {
     OnSpawn = function(tile, data, index)

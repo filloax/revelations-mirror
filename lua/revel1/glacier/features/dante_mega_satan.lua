@@ -3,7 +3,7 @@ local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 local RandomPickupSubtype = require("lua.revelcommon.enums.RandomPickupSubtype")
 local RevRoomType         = require("lua.revelcommon.enums.RevRoomType")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 REVEL.MirrorRoom.SetStageHasNarcLostBonus(REVEL.STAGE.Glacier)
 

@@ -1,4 +1,4 @@
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 --- Run callback once, can be used akin to a "on next <callback>"
 -- Note: will run N times on next trigger if called N times before last 

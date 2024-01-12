@@ -1,9 +1,7 @@
 local ShrineTypes = require "lua.revelcommon.enums.ShrineTypes"
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 -- Rag Bony
-
-local Anm2GlowNull0
 
 function REVEL.GenerateBonyPath(start, map, width, lastMovement, collisionMap) -- bonies prioritize moving in the same direction rather than changing
     width = width or REVEL.room:GetGridWidth()
@@ -110,7 +108,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
     end
     
     if data.Buffed then
-        REVEL.EmitBuffedParticles(npc, Anm2GlowNull0)
+        REVEL.EmitBuffedParticles(npc)
     end
 
     if data.State == "Walk" then
@@ -240,38 +238,5 @@ revel:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, function(_, ent)
         end
     end
 end, EntityType.ENTITY_PROJECTILE)
-
-Anm2GlowNull0 = {
-    WalkDown2 = {
-        Offset = {Vector(-6, -17), Vector(-6, -17), Vector(-6, -17), Vector(-6, -17), Vector(-6, -17), Vector(-6, -17), Vector(-6, -17), Vector(-6, -17), Vector(-6, -17), Vector(-6, -17), Vector(-6, -17), Vector(-6, -17), Vector(-6, -17), Vector(-6, -17), Vector(-6, -17), Vector(-6, -17), Vector(-6, -17), Vector(-6, -17), Vector(-6, -17), Vector(-6, -17), Vector(-6, -17), Vector(-6, -17)},
-        Scale = {Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25)},
-        Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-        Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-    },
-    WalkRight2 = {
-        Offset = {Vector(5, -17), Vector(5, -17), Vector(5, -17), Vector(5, -17), Vector(5, -17), Vector(5, -17), Vector(5, -17), Vector(5, -17), Vector(5, -17), Vector(5, -17), Vector(5, -17), Vector(5, -17), Vector(5, -17), Vector(5, -17), Vector(5, -17), Vector(5, -17), Vector(5, -17), Vector(5, -17), Vector(5, -17), Vector(5, -17), Vector(5, -17), Vector(5, -17)},
-        Scale = {Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25)},
-        Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-        Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-    },
-    AttackHomingStart = {
-        Offset = {Vector(-6, -18), Vector(-5, -22), Vector(-4, -25), Vector(-6, -20), Vector(-8, -15), Vector(-7, -18), Vector(-6, -21), Vector(-6, -20), Vector(-7, -19), Vector(-6, -20), Vector(-6, -20), Vector(-6, -20), Vector(-6, -20), Vector(-6, -19), Vector(-6, -18), Vector(-6, -18), Vector(-7, -17), Vector(-6, -19), Vector(-6, -20), Vector(-5, -22), Vector(-5, -20), Vector(-5, -18), Vector(-9, -11), Vector(-8, -12), Vector(-7, -13), Vector(-7, -13), Vector(-7, -13), Vector(-7, -13)},
-        Scale = {Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(28, 28), Vector(30, 30), Vector(40, 40), Vector(50, 50), Vector(42, 42), Vector(35, 35), Vector(30, 30), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25)},
-        Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-        Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-    },
-    AttackHomingLoop = {
-        Offset = {Vector(-6, -14), Vector(-6, -14), Vector(-6, -14), Vector(-6, -13), Vector(-6, -13), Vector(-6, -13), Vector(-6, -14), Vector(-6, -14), Vector(-6, -14), Vector(-6, -14), Vector(-6, -14), Vector(-6, -13), Vector(-6, -13), Vector(-6, -13), Vector(-6, -14), Vector(-6, -14), Vector(-6, -14), Vector(-6, -14)},
-        Scale = {Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25)},
-        Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-        Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-    },
-    AttackHomingStop = {
-        Offset = {Vector(-7, -13), Vector(-7, -12), Vector(-7, -12), Vector(-6, -16), Vector(-6, -19), Vector(-6, -17), Vector(-7, -15), Vector(-7, -16), Vector(-6, -17), Vector(-6, -18), Vector(-6, -18), Vector(-6, -17), Vector(-6, -17)},
-        Scale = {Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25), Vector(25, 25)},
-        Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-        Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true}
-    },
-}
 
 end

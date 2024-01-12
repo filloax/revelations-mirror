@@ -1,4 +1,4 @@
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 function REVEL.GetScreenCenterPosition()
     return Vector(Isaac.GetScreenWidth()  / 2, Isaac.GetScreenHeight() / 2)

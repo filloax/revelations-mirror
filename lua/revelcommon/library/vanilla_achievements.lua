@@ -1,4 +1,4 @@
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 -- Some workarounds for not being able to access achievement data
 -- dumb way being to just consider them unlocked if they have been

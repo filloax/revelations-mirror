@@ -1,7 +1,7 @@
 local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 -----------
 -- SARAH --
 -----------
@@ -99,7 +99,7 @@ do -- Broken Wings
     ------------------
     -- BROKEN WINGS --
     ------------------
-    local animBlacklist = {"Pickup", "Hit", "Appear", "Death", "Sad", "Happy", "TeleportUp", "TeleportDown", "Trapdoor", "Jump", "Glitch", "LiftItem", "HideItem", "UseItem", "LostDeath", "FallIn", "HoleDeath", "JumpOut", "PickupWalkDown", "PickupWalkLeft", "PickupWalkUp", "PickupWalkRight", "LightTravel"}
+    local AnimBlacklist = {"Pickup", "Hit", "Appear", "Death", "Sad", "Happy", "TeleportUp", "TeleportDown", "Trapdoor", "Jump", "Glitch", "LiftItem", "HideItem", "UseItem", "LostDeath", "FallIn", "HoleDeath", "JumpOut", "PickupWalkDown", "PickupWalkLeft", "PickupWalkUp", "PickupWalkRight", "LightTravel"}
 
     revel:AddCallback(ModCallbacks.MC_EVALUATE_CACHE , function(_, player, flag)
     	-- if the broken wings are active allow flight
@@ -114,58 +114,74 @@ do -- Broken Wings
         end
     end)
 
-    revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, player)
-        if REVEL.IsSarah(player) then
-            local data = player:GetData()
-            local wingState = revel.data.run.brokenWingsState[REVEL.GetPlayerID(player)]
-            if wingState == 0 and not player.CanFly then
-                if not data.BrokenWings or not data.BrokenWings:Exists() then
-                    data.BrokenWings = REVEL.SpawnCustomGlow(player, "WalkDownIdle", "gfx/itemeffects/revelcommon/broken_wings.anm2")
-                    data.BrokenWings:AddEntityFlags(EntityFlag.FLAG_NO_STATUS_EFFECTS | EntityFlag.FLAG_DONT_OVERWRITE | EntityFlag.FLAG_NO_TARGET)
-                else
-                    local spr, anim = data.BrokenWings:GetData().customGlowSprite, nil
+    local function ShouldRenderWingsAbove(player)
+        local headDir = player:GetHeadDirection()
+        return headDir == Direction.UP
+    end
 
-                    local headDir = player:GetHeadDirection()
+    ---@param player EntityPlayer
+    ---@param wingsSprite Sprite
+    local function UpdateBrokenWings(player, wingsSprite)
+        wingsSprite:Update()
 
-                    anim = "Walk"..(REVEL.dirToString[headDir or Direction.DOWN] or "Down")
+        local headDir = player:GetHeadDirection()
+        local anim = "Walk"..(REVEL.dirToString[headDir or Direction.DOWN] or "Down")
 
-                    local blacklist
-                    if REVEL.MultiPlayingCheck(player:GetSprite(), table.unpack(animBlacklist)) then
-                        blacklist = true
-                    end
+        local blacklist
+        if REVEL.MultiPlayingCheck(player:GetSprite(), AnimBlacklist) then
+            blacklist = true
+        end
 
-                    if REVEL.ZPos.GetPosition(player) > 0 then
-                        blacklist = true
-                    end
+        if REVEL.ZPos.GetPosition(player) > 0 then
+            blacklist = true
+        end
 
-                    if anim and not blacklist then
-                      if anim == "WalkUp" then
-                        data.BrokenWings.DepthOffset = 10
-                      else
-                        data.BrokenWings.DepthOffset = -10
-                      end
-
-                      if not (spr:IsPlaying(anim) or spr:IsPlaying(anim.."Idle")) then
-                        spr:Play(anim.."Idle", true)
-                        data.BrokenWings.Position = data.BrokenWings.Parent.Position
-                      end
-
-                      if spr:IsPlaying(anim.."Idle") and math.random(60) == 1 then
-                        spr:Play(anim)
-                      end
-                    else
-                      spr:Play("Invis", true)
-                    end
-
-                    spr.Color = data.BrokenWings.Parent:GetSprite().Color
-                    data.BrokenWings.Visible = data.BrokenWings.Parent.Visible
-                end
-            elseif data.BrokenWings then
-                if data.BrokenWings:Exists() then
-                    data.BrokenWings:Remove()
-                end
-                data.BrokenWings = nil
+        if not blacklist then
+            if not REVEL.MultiPlayingCheck(wingsSprite, anim, anim .. "Idle") then
+                wingsSprite:Play(anim .. "Idle", true)
             end
+
+            if wingsSprite:IsPlaying(anim .. "Idle") and math.random(60) == 1 then
+                wingsSprite:Play(anim)
+            end
+        else
+            wingsSprite:Play("Invis", true)
+        end
+
+        wingsSprite.Color = player:GetSprite().Color
+    end
+
+    revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, player)
+        if not REVEL.IsSarah(player) then return end
+
+        local data = player:GetData()
+        local wingState = revel.data.run.brokenWingsState[REVEL.GetPlayerID(player)]
+        if wingState == 0 and not player.CanFly then
+            if not data.BrokenWings then
+                data.BrokenWings = Sprite()
+                data.BrokenWings:Load("gfx/itemeffects/revelcommon/broken_wings.anm2", true)
+            end
+            UpdateBrokenWings(player, data.BrokenWings)
+        elseif data.BrokenWings then
+            data.BrokenWings = nil
+        end
+    end)
+
+    revel:AddPriorityCallback(ModCallbacks.MC_PRE_PLAYER_RENDER, CallbackPriority.LATE, function(_, player, renderOffset)
+        if not REVEL.IsSarah(player) then return end
+
+        local data = player:GetData()
+        if data.BrokenWings and not ShouldRenderWingsAbove(player) then
+            data.BrokenWings:Render(Isaac.WorldToScreen(player.Position) + renderOffset - REVEL.room:GetRenderScrollOffset())
+        end
+    end)
+
+    revel:AddCallback(ModCallbacks.MC_POST_PLAYER_RENDER, function(_, player, renderOffset)
+        if not REVEL.IsSarah(player) then return end
+
+        local data = player:GetData()
+        if data.BrokenWings and ShouldRenderWingsAbove(player) then
+            data.BrokenWings:Render(Isaac.WorldToScreen(player.Position) + renderOffset - REVEL.room:GetRenderScrollOffset())
         end
     end)
 end

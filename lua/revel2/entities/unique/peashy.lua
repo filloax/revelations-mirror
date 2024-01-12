@@ -1,7 +1,7 @@
 local RevRoomType = require "lua.revelcommon.enums.RevRoomType"
 local RevCallbacks = require("lua.revelcommon.enums.RevCallbacks")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 -- Peashy
 

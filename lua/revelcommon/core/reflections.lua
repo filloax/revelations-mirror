@@ -1,7 +1,7 @@
 local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
     -- Callbacks
     -- REV_PRE_RENDER_ENTITY_REFLECTION: (entity, sprite, offset) specify type optionally, return false to not render (still calls POST)

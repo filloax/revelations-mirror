@@ -7,7 +7,7 @@ local RevRoomType       = require("lua.revelcommon.enums.RevRoomType")
 
 -- TODO: fix repentance stage
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 local crateItemOffset = 10
 

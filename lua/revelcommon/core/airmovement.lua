@@ -14,7 +14,7 @@ local SubModules = {
 
 local LoadFunctions = REVEL.LoadModulesFromTable(SubModules)
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 ------------------------------
 --AIR MOVEMENT FUNCTIONALITY--
@@ -87,7 +87,8 @@ REVEL.ZPos = {
 ---@field RenderExp number -- exponential offset rendering
 ---@field LandEventMinDelay integer -- <default 5> minimum frames between land events, to prevent spam due to bounce
 ---@field PreviousState table
----@field TargetSpriteOffset number?
+---@field LastRenderOffset number?
+---@field RenderOffset Vector?
 
 -- Makes sure the airMovementData table provided has the values it needs to work.
 ---@param entity Entity

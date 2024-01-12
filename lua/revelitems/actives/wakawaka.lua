@@ -1,6 +1,6 @@
 local PlayerVariant     = require("lua.revelcommon.enums.PlayerVariant")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 ---------------
 -- WAKA WAKA --
 ---------------

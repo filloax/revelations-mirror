@@ -1,13 +1,39 @@
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 
 function REVEL.CloneColor(c)
-    return Color(c.R, c.G, c.B, c.A, c.RO, c.GO, c.BO)
+    local tint = c:GetTint()
+    local offset = c:GetOffset()
+    local newColor = Color(
+        tint.R, tint.G, tint.B, tint.A, 
+        offset.R, offset.G, offset.B
+    )
+    local colorize = c:GetColorize()
+    newColor:SetColorize(colorize.R, colorize.G, colorize.B, colorize.A)
+    return newColor
 end
 
 -- returns color with only the specified values changed, every arg you leave nil stays unchanged
-function REVEL.ChangeSingleColorVal(color, r,g,b,a,ro,go,bo)
-    return Color(r or color.R, g or color.G, b or color.B, a or color.A, ro or color.RO, go or color.GO, bo or color.BO)
+function REVEL.ChangeSingleColorVal(color, r,g,b,a,ro,go,bo, rc,gc,bc,ac)
+    local newColor = REVEL.CloneColor(color)
+    if r then newColor.R = r end
+    if g then newColor.G = g end
+    if b then newColor.B = b end
+    if a then newColor.A = a end
+    if ro then newColor.RO = ro end
+    if go then newColor.GO = go end
+    if bo then newColor.BO = bo end
+
+    if rc or gc or bc or ac then
+        local colorize = newColor:GetColorize()
+        local newColR = rc or colorize.R
+        local newColG = gc or colorize.G
+        local newColB = bc or colorize.B
+        local newColA = ac or colorize.A
+        newColor:SetColorize(newColR, newColG, newColB, newColA)
+    end
+
+    return newColor
 end
   
 -- either use as REVEL.ClampColor(color, top) to clamp between all zeros and top color, or (color, low, top) to clamp between low and top
@@ -28,35 +54,48 @@ function REVEL.ClampColor(color, low, top)
 end
 
 function REVEL.ColorEquals(a, b, precision)
+    precision = precision or 0.00001
+    local tintA, offsetA, colorizeA = a:GetTint(), a:GetOffset(), a:GetColorize()
+    local tintB, offsetB, colorizeB = b:GetTint(), b:GetOffset(), b:GetColorize()
     precision = precision or 0.0001
-    return REVEL.dist(a.R, b.R) < precision 
-        and REVEL.dist(a.G, b.G) < precision 
-        and REVEL.dist(a.B, b.B) < precision 
-        and REVEL.dist(a.A, b.A) < precision
-        and REVEL.dist(a.RO, b.RO) < precision 
-        and REVEL.dist(a.GO, b.GO) < precision
-        and REVEL.dist(a.BO, b.BO) < precision
+    return  REVEL.dist(tintA.R, tintB.R) < precision 
+        and REVEL.dist(tintA.G, tintB.G) < precision 
+        and REVEL.dist(tintA.B, tintB.B) < precision 
+        and REVEL.dist(tintA.A, tintB.A) < precision
+        and REVEL.dist(colorizeA.R, colorizeB.R) < precision 
+        and REVEL.dist(colorizeA.G, colorizeB.G) < precision 
+        and REVEL.dist(colorizeA.B, colorizeB.B) < precision 
+        and REVEL.dist(colorizeA.A, colorizeB.A) < precision
+        and REVEL.dist(offsetA.RO, offsetB.RO) < precision 
+        and REVEL.dist(offsetA.GO, offsetB.GO) < precision
+        and REVEL.dist(offsetA.BO, offsetB.BO) < precision
 end
 
 -- REVEL.ProperGoddarnColorMultiplicationBecauseTheOriginalOneEditsColorAToo
 -- In other words, at least pre-Repentance doing colorA * colorB had the sideeffect
 -- of storing the result in colorA, on top of returning it
-function REVEL.ColorMult(c0, c1)
-    return Color(c0.R * c1.R, c0.G * c1.G, c0.B * c1.B, c0.A * c1.A,
-        -- base game multiplication sums offsets
-        c0.RO + c1.RO, c0.GO + c1.GO, c0.BO + c1.BO)
-end
-  
-function REVEL.ColorMultAddOffsets(c0, c1)
-    return Color(c0.R * c1.R, c0.G * c1.G, c0.B * c1.B, c0.A * c1.A,
-        c0.RO + c1.RO, c0.GO + c1.GO, c0.BO + c1.BO)
+function REVEL.ColorMult(a, b)
+    local tintA, offsetA, colorizeA = a:GetTint(), a:GetOffset(), a:GetColorize()
+    local tintB, offsetB, colorizeB = b:GetTint(), b:GetOffset(), b:GetColorize()
+    -- base game multiplies tint, sums offsets, and averages colorize
+    local result = Color(
+        tintA.R * tintB.R, tintA.G * tintB.G, tintA.B * tintB.B, tintA.A * tintB.A,
+        offsetA.RO + offsetB.RO, offsetA.GO + offsetB.GO, offsetA.BO + offsetB.BO
+    )
+    result:SetColorize(
+        (colorizeA.R + colorizeB.R) / 2,
+        (colorizeA.G + colorizeB.G) / 2,
+        (colorizeA.B + colorizeB.B) / 2,
+        (colorizeA.A + colorizeB.A) / 2
+    )
+    return result
 end
 
 function REVEL.ChangeColorAlpha(color, newAlpha, absolute)
     if absolute then
-        return Color(color.R, color.G, color.B, newAlpha, color.RO, color.GO, color.BO)
+        return REVEL.ChangeSingleColorVal(color, nil,nil,nil, newAlpha)
     else
-        return Color(color.R, color.G, color.B, newAlpha * color.A, color.RO, color.GO, color.BO)
+        return REVEL.ChangeSingleColorVal(color, nil,nil,nil, newAlpha * color.A)
     end
 end
 
@@ -80,5 +119,10 @@ function REVEL.HSVtoColorLight(h,s,v,a,ro,bo,go)
     local rgb = REVEL.HSVToRGBMult(h, s, v)
     return Color(rgb[1], rgb[2], rgb[3], a or 1, ro or 0, bo or 0, go or 0)
 end
-  
+
+---@deprecated
+function REVEL.ColorMultAddOffsets(c0, c1)
+    return REVEL.ColorMult(c0, c1)
+end
+
 end

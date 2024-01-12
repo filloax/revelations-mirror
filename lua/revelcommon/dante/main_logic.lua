@@ -2,7 +2,7 @@ local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 local shared            = require("lua.revelcommon.dante.shared")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 function REVEL.Dante.IsMergeRoom()
     return REVEL.level:GetRoomByIdx(REVEL.level:GetCurrentRoomIndex()).ListIndex == REVEL.level:GetRoomByIdx(revel.data.run.dante.OtherRoom).ListIndex 

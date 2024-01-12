@@ -1,4 +1,4 @@
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 -- Separate from definitions primarily so that all UNLOCKABLES will already be defined
 local ch2DefaultModData = {
   run = {

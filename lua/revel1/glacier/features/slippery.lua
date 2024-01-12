@@ -1,6 +1,6 @@
 local ShrineTypes = require "lua.revelcommon.enums.ShrineTypes"
 local RevRoomType = require "lua.revelcommon.enums.RevRoomType"
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 local FullIceRoomTypes = {
     RevRoomType.ICE_BOSS,

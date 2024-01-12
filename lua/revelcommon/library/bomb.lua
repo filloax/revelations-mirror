@@ -1,4 +1,4 @@
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 local GigaBombVariants = {
     [BombVariant.BOMB_GIGA] = true,

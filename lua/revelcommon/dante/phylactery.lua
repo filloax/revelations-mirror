@@ -3,7 +3,7 @@ local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 local shared            = require("lua.revelcommon.dante.shared")
 local PlayerVariant     = require("lua.revelcommon.enums.PlayerVariant")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 local PhylacterySwitch
 local PhylacteryAddCharge

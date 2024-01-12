@@ -1,4 +1,4 @@
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 local EllipseOffset = {Vector(-15,0), Vector(0, -5), Vector(15, 0), Vector(0, 5)}
 

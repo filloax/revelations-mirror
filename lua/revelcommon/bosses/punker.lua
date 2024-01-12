@@ -1,4 +1,4 @@
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 StageAPI.AddBossToBaseFloorPool({BossID = "Punker", Weight = 1}, LevelStage.STAGE2_1, StageType.STAGETYPE_ORIGINAL)
 StageAPI.AddBossToBaseFloorPool({BossID = "Punker", Weight = 2}, LevelStage.STAGE2_1, StageType.STAGETYPE_AFTERBIRTH)

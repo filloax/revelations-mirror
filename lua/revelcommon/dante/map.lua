@@ -2,7 +2,7 @@ local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 local Dimension         = require("lua.revelcommon.enums.Dimension")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 -- Charon Map rework, uses MinimapAPI for various features, 
 -- mainly forgetting cleared rooms without messing with them

@@ -12,7 +12,7 @@ Trinket.
 chances for double items overall stay the same, you just move the roll earlier)
 ]]
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions+1] = function()
+return function()
 
 local CHANCE_LOW = 25 / 100
 local CHANCE_HIGH = 75 / 100

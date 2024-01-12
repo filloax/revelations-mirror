@@ -2,7 +2,7 @@ local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 local PlayerVariant     = require("lua.revelcommon.enums.PlayerVariant")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 ---@return Entity[]
 REVEL.GetRoomEntities = function() return REVEL.roomEntities end
@@ -79,16 +79,21 @@ REVEL.VEC_UP = Vector(0, -1)
 REVEL.VEC_LEFT = Vector(-1, 0)
 REVEL.VEC_DOWN = Vector(0, 1)
 REVEL.VEC_DEF_ROOM_SIZE = Vector(520, 280)
-REVEL.DEF_INVISIBLE = Color(1,1,1,0,conv255ToFloat(0,0,0))
-REVEL.COLOR_W = Color(1,1,1,1,conv255ToFloat(255,255,255))
-REVEL.COLOR_B = Color(0,0,0,1,conv255ToFloat(0,0,0))
-REVEL.LOWA_COLOR = Color(1,1,1,0.15,conv255ToFloat(0,0,0))
-REVEL.NO_COLOR = Color(0,0,0,0,conv255ToFloat(0,0,0))
-REVEL.CHILL_COLOR = Color(1,1,1,1,conv255ToFloat(0,90,150))
-REVEL.CHILL_COLOR_LOWA = Color(1,1,1,0.15,conv255ToFloat(0,90,150))
+REVEL.DEF_INVISIBLE = Color(1,1,1,0)
+REVEL.COLOR_W = Color(1,1,1,1, 1,1,1)
+REVEL.COLOR_B = Color(0,0,0,1)
+REVEL.LOWA_COLOR = Color(1,1,1,0.15)
+REVEL.NO_COLOR = Color(0,0,0,0)
+REVEL.CHILL_COLOR = Color(1,1,1,1, conv255ToFloat(0,90,150))
+REVEL.CHILL_COLOR_LOWA = Color(1,1,1,0.15, conv255ToFloat(0,90,150))
+if REPENTOGON then
+REVEL.HOMING_COLOR = Color.TearHoming
+REVEL.TAR_COLOR = Color.TearTar
+else
 REVEL.HOMING_COLOR = Color(0.375,0,0.5,1,conv255ToFloat(75,0,100)) --Color(0.4,0.15,0.15,1,conv255ToFloat(70,0,115))
-REVEL.SPECTRAL_COLOR = Color(1.5,2.0,2.0,0.5,conv255ToFloat(0,0,0))
 REVEL.TAR_COLOR = Color(0.15,0.15,0.15,1,conv255ToFloat(0,0,0))
+end
+REVEL.SPECTRAL_COLOR = Color(1.5,2.0,2.0,0.5,conv255ToFloat(0,0,0))
 REVEL.HURT_COLOR = Color(0.5,0.5,0.5,1.0,conv255ToFloat(200,0,0))
 REVEL.YELLOW_OUTLINE_COLOR = Color(0, 0, 0, 1,conv255ToFloat( -255 + 255, -255 + 200, -255 + 20))
 REVEL.WORLD_TO_SCREEN_RATIO = 26 / 40

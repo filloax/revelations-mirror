@@ -1,7 +1,7 @@
 local HubDoorLock = require "lua.revelcommon.enums.HubDoorLock"
 local RevRoomType = require "lua.revelcommon.enums.RevRoomType"
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
     REVEL.GlacierBalance = {
         ChillTimeToFreeze = {
             LowSpeed = 360,

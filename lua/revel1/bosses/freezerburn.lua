@@ -2,7 +2,7 @@ local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 local RevRoomType       = require("lua.revelcommon.enums.RevRoomType")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
     REVEL.FreezerBurnBalance = {
         Champions = {Headless = "Default"},
         Skin = {Default = "", Headless = "gfx/bosses/revel1/freezer_burn/freezer_burn_champion.png"},

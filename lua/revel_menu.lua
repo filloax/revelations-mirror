@@ -1,6 +1,6 @@
 local DSSInitializerFunction = include("scripts.rev_dssmenucore")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions+1] = function()
+return function()
 
 REVEL.DSS = {
     ModName = "Dead Sea Scrolls (Revelations)",

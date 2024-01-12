@@ -1,13 +1,11 @@
 local ShrineTypes = require "lua.revelcommon.enums.ShrineTypes"
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 ----------------
 -- RAG TRITE --
 ----------------
 
 REVEL.PushBlacklist[REVEL.ENT.RAG_TRITE.id] = {REVEL.ENT.RAG_TRITE.variant}
-
-local Anm2GlowNull0
 
 local jumpTime = 14
 local function ragTrite_NpcUpdate(_, npc)
@@ -23,7 +21,7 @@ local function ragTrite_NpcUpdate(_, npc)
     data.Cooldown = data.Cooldown - 1
 
     if data.Buffed then
-        REVEL.EmitBuffedParticles(npc, Anm2GlowNull0)
+        REVEL.EmitBuffedParticles(npc)
     end
 
     if (sprite:IsPlaying("Idle") or sprite:IsFinished("Idle") or sprite:IsPlaying("Idle2") or sprite:IsFinished("Idle2")) and target and data.Cooldown <= 0 then
@@ -145,34 +143,5 @@ end
 
 revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, ragTrite_NpcUpdate, REVEL.ENT.RAG_TRITE.id)
 
-
--- Anm2 glow nulls
-
-Anm2GlowNull0 = {
-    Hop2 = {
-        Offset = {Vector(0, -7), Vector(0, -6), Vector(0, -5), Vector(0, -5), Vector(0, -13), Vector(0, -18), Vector(0, -21), Vector(0, -21), Vector(0, -20), Vector(0, -20), Vector(0, -22), Vector(0, -23), Vector(0, -23), Vector(0, -23), Vector(0, -20), Vector(0, -17), Vector(0, -11), Vector(0, -10), Vector(0, -5), Vector(0, -6), Vector(0, -7), Vector(0, -6), Vector(0, -5), Vector(0, -6), Vector(0, -7), Vector(0, -7)},
-        Scale = {Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-        Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-        Visible = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-    },
-    Idle2 = {
-        Offset = {Vector(0, -7)},
-        Scale = {Vector(20, 20)},
-        Alpha = {255},
-        Visible = {true}
-    },
-    Appear2 = {
-        Offset = {Vector(0, -11), Vector(0, -11), Vector(0, -11), Vector(-1, -10), Vector(-1, -9), Vector(0, -5)},
-        Scale = {Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-        Alpha = {255, 255, 255, 255, 255, 255},
-        Visible = {true, true, true, true, true, true}
-    },
-    HopBig = {
-        Offset = {Vector(0, -7), Vector(0, -7), Vector(0, -7), Vector(0, -7), Vector(0, -7), Vector(0, -7), Vector(0, -7), Vector(0, -7), Vector(0, -7), Vector(0, -7), Vector(0, -7), Vector(0, -7), Vector(0, -7), Vector(0, -5), Vector(0, -16), Vector(0, -22), Vector(0, -26), Vector(0, -27), Vector(0, -27), Vector(0, -27), Vector(0, -32), Vector(0, -33), Vector(0, -33), Vector(0, -31), Vector(0, -30), Vector(0, -28), Vector(-1, -18), Vector(0, -11), Vector(0, -9), Vector(0, -3), Vector(0, -2), Vector(1, -1), Vector(-1, -1), Vector(1, -1), Vector(-1, -1), Vector(0, -1), Vector(-1, -1), Vector(0, -4), Vector(0, -13), Vector(0, -18), Vector(0, -21), Vector(0, -21), Vector(0, -20), Vector(0, -20), Vector(0, -21), Vector(0, -22), Vector(0, -22), Vector(0, -22), Vector(0, -20), Vector(0, -17), Vector(0, -11), Vector(0, -10), Vector(0, -5), Vector(0, -5), Vector(0, -7), Vector(0, -6), Vector(0, -5), Vector(0, -6), Vector(0, -7), Vector(0, -7)},
-        Scale = {Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20), Vector(20, 20)},
-        Alpha = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-        Visible = {true, true, true, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-    },
-}
 
 end

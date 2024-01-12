@@ -1,7 +1,7 @@
 local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 REVEL.PurpleRagSplatColor = Color(1,1,1,1,conv255ToFloat(0,0,120))
 REVEL.SandSplatColor = Color(0,0,0,1,conv255ToFloat(90,65,40))
@@ -189,68 +189,61 @@ do
 		GroundFriction = 0.95,
 		Clamped = true,
 	}
-
-	local function BuffParticlesAnimCheck(npc, emitter, anim, frame, anm2NullTable)
-		if anm2NullTable[anim] then
-			frame = math.min(frame, #anm2NullTable[anim].Visible)
-		end
-
-		if anm2NullTable[anim] and anm2NullTable[anim].Visible[frame] then
-			local off = REVEL.VectorMult(anm2NullTable[anim].Offset[frame] * 40 / 26, npc.SpriteScale)
-
-			local pos = Vec3(
-				npc.Position.X + off.X + npc.SpriteOffset.X * 40 / 26 * npc.SpriteScale.X, 
-				npc.Position.Y + npc.SpriteOffset.Y * 40 / 26 * npc.SpriteScale.Y, 
-				off.Y
-			)
-			local vel = Vec3(-npc.Velocity * 0.5 + REVEL.VEC_LEFT * 1, -3)
-			local partsPerSec = REVEL.Lerp2Clamp(15, 35, npc.Velocity:Length(), 5, 10) / (nullsNum or 1)
-			local velocityRandom = 0
-			local angleSpread = 45
-
-			emitter:EmitParticlesPerSec(
-				BuffedParticles,
-				BuffedSystem, 
-				pos, 
-				vel, 
-				partsPerSec, 
-				velocityRandom, 
-				angleSpread,
-				nil,
-				nil,
-				npc
-			)
-		end
-	end
 	
-	-- Fun thing is, the particles per second are shared between
-	-- more calls of this function from different nulls
-	-- Since data.Emitter is shared
+	local ReviveGlowNulls = {
+		"ReviveGlow0",
+		"ReviveGlow1",
+	}
+
 	---@param npc EntityNPC
-	---@param anm2NullTable table
-	function REVEL.EmitBuffedParticles(npc, anm2NullTable)
+	function REVEL.EmitBuffedParticles(npc)
 		local sprite, data = npc:GetSprite(), npc:GetData()
 
 		if not data.RagEmitter then
 			data.RagEmitter = {}
 		end
-		if not data.RagEmitter[anm2NullTable] then
-			data.RagEmitter[anm2NullTable] = REVEL.Emitter()
-		end
-		local emitter = data.RagEmitter[anm2NullTable]
 
-		BuffParticlesAnimCheck(
-			npc, emitter, 
-			sprite:GetAnimation(), 
-			sprite:GetFrame() + 1, 
-			anm2NullTable
-		)
-		BuffParticlesAnimCheck(
-			npc, emitter, 
-			sprite:GetOverlayAnimation(), 
-			sprite:GetOverlayFrame() + 1, 
-			anm2NullTable
-		)
+		local numNulls = 0
+		for _, nullName in ipairs(ReviveGlowNulls) do
+			local nullFrame = sprite:GetNullFrame(nullName)
+			if nullFrame and nullFrame:IsVisible() then
+				numNulls = numNulls + 1
+
+				if not data.RagEmitter[nullName] then
+					data.RagEmitter[nullName] = REVEL.Emitter()
+				end
+			end
+		end
+		for _, nullName in ipairs(ReviveGlowNulls) do
+			local nullFrame = sprite:GetNullFrame(nullName)
+			if nullFrame and nullFrame:IsVisible() then
+				local off = REVEL.VectorMult(nullFrame:GetPos() * 40 / 26, npc.SpriteScale)
+	
+				local pos = Vec3(
+					npc.Position.X + off.X + npc.SpriteOffset.X * 40 / 26 * npc.SpriteScale.X, 
+					npc.Position.Y + npc.SpriteOffset.Y * 40 / 26 * npc.SpriteScale.Y, 
+					off.Y
+				)
+				local vel = Vec3(-npc.Velocity * 0.5 + REVEL.VEC_LEFT * 1, -3)
+				local partsPerSec = REVEL.Lerp2Clamp(15, 35, npc.Velocity:Length(), 5, 10) / numNulls
+				local velocityRandom = 0
+				local angleSpread = 45
+
+				data.RagEmitter[nullName]:EmitParticlesPerSec(
+					BuffedParticles,
+					BuffedSystem, 
+					pos, 
+					vel, 
+					partsPerSec, 
+					velocityRandom, 
+					angleSpread,
+					nil,
+					nil,
+					npc
+				)
+			end
+		end
+
 	end
 end
 

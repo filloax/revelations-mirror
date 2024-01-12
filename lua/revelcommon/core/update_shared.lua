@@ -1,6 +1,6 @@
 local RevCallbacks = require "lua.revelcommon.enums.RevCallbacks"
 local StageAPICallbacks = require "lua.revelcommon.enums.StageAPICallbacks"
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 ---------------------------
 -- UPDATE ROOM AND LEVEL --

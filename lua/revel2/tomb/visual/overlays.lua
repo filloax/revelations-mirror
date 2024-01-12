@@ -2,7 +2,7 @@ local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 local Dimension         = require("lua.revelcommon.enums.Dimension")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 REVEL.OVERLAY.Tomb1 = StageAPI.Overlay("gfx/backdrop/revel2/tomb/dust_cloud.anm2", Vector(0.66,0.66), Vector(-10,-10))
 REVEL.OVERLAY.Tomb2 = StageAPI.Overlay("gfx/backdrop/revel2/tomb/dust_cloud.anm2", Vector(-0.66,0.66), Vector(-2,-2))

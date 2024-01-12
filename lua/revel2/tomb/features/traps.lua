@@ -5,7 +5,7 @@ local RevRoomType       = require("lua.revelcommon.enums.RevRoomType")
 
 local SpikeState = require("lua.revelcommon.enums.SpikeState")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 -----------
 -- TRAPS --

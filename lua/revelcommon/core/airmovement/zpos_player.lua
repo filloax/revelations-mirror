@@ -1,5 +1,5 @@
 local RevCallbacks = require "lua.revelcommon.enums.RevCallbacks"
-REVEL.LoadFunctions[#REVEL.LoadFunctions+1] = function()
+return function()
 
 function REVEL.SpringPlayer(player, isTutorial, changeInitialHeight)
 	if REVEL.ZPos.GetPosition(player) > 0

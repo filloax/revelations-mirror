@@ -1,6 +1,6 @@
 local PitState = require("lua.revelcommon.enums.PitState")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 local SNOW_TILE_GROUND = 1
 local SNOW_TILE_PIT = 2

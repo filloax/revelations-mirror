@@ -3,7 +3,7 @@ local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 local RevSettings       = require("lua.revelcommon.enums.RevSettings")
 local Dimension         = require("lua.revelcommon.enums.Dimension")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 -- Color shaders
 REVEL.GlacierShader = REVEL.CCShader("Glacier")

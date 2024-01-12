@@ -1,7 +1,7 @@
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 local KnifeSubtype = require "lua.revelcommon.enums.KnifeSubtype"
 local KnifeVariant = require "lua.revelcommon.enums.KnifeVariant"
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 -- Hockey Puck
 local PushSpeed = 15
@@ -21,9 +21,9 @@ revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, player)
 
     local mov = player:GetMovementVector()
     local len = mov:Length()
-    mov = mov / len
+
     if len > 0.1 then
-        data.LastMovement = mov
+        data.LastMovement = mov / len
     end
 end)
 

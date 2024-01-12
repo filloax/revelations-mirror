@@ -1,4 +1,4 @@
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
  
 local function FadeIn(ent, length)
     length = length or 4

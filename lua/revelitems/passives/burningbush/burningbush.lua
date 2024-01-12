@@ -3,7 +3,7 @@ local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 local BushLagAdjGlobals = require("lua.revelitems.passives.burningbush.BushLagAdjGlobals")
 local BushCfg           = include("lua.revelitems.passives.burningbush.BushCfg")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 --[[
 Fire a jet of fire, with a cooldown, instead of tears

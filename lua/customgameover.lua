@@ -1,4 +1,4 @@
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 -- copied from the original mod support; credit: TaigaTreant
 if CustomGameOver then

@@ -2,7 +2,7 @@ local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 local PlayerVariant     = require("lua.revelcommon.enums.PlayerVariant")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 ---@param player EntityPlayer
 ---@return integer
@@ -419,25 +419,39 @@ local ActionsToDisable = {
 }
 ActionsToDisable = REVEL.toSet(ActionsToDisable)
 
-local PlayerInputGlobalCounter = 0
+local AddedLockControlsCallback = false
 
 -- Use hook instead of ControlsEnabled to avoid interference with game mechanics/mods
+-- and persist across new room
 local function disablePlayerInput_InputAction(_, entity, inputHook, buttonAction)
-    if entity and inputHook == InputHook.IS_ACTION_PRESSED and ActionsToDisable[buttonAction] then
-        local data = entity:GetData()
+    if entity and ActionsToDisable[buttonAction] then
+        local data = REVEL.GetData(entity)
         if data.__DisablePlayerControls and data.__DisablePlayerControls.Counter > 0 then
-            return false
+            if inputHook == InputHook.GET_ACTION_VALUE then
+                return 0
+            else
+                return false
+            end
+        end
+    end
+end
+
+local function disablePlayerInput_NewRun_PostPlayerInit(_, player)
+    if REVEL.game:GetFrameCount() < 5 then
+        if AddedLockControlsCallback then
+            revel:RemoveCallback(ModCallbacks.MC_INPUT_ACTION, disablePlayerInput_InputAction)
+            AddedLockControlsCallback = false
         end
     end
 end
 
 ---Disable player controls and avoid overriding other functionalities that do
--- it, using an id to track different uses of this
--- This also keeps ControlsEnabled true on new room
+-- it, using an id to track different uses of this.
+-- This also persists on new room, unlike ControlsEnabled
 ---@param player EntityPlayer
 ---@param lockId any
 function REVEL.LockPlayerControls(player, lockId)
-    local data = player:GetData()
+    local data = REVEL.GetData(player)
     if not data.__DisablePlayerControls then
         data.__DisablePlayerControls = {
             Set = {},
@@ -448,11 +462,11 @@ function REVEL.LockPlayerControls(player, lockId)
     if not data.__DisablePlayerControls.Set[lockId] then
         data.__DisablePlayerControls.Set[lockId] = true
         data.__DisablePlayerControls.Counter = data.__DisablePlayerControls.Counter + 1
-        if PlayerInputGlobalCounter == 0 then
-            revel:AddPriorityCallback(ModCallbacks.MC_INPUT_ACTION, CallbackPriority.EARLY, disablePlayerInput_InputAction)
-        end
-        PlayerInputGlobalCounter = PlayerInputGlobalCounter + 1
-        REVEL.DebugStringMinor("Locked player controls, id:", lockId, "counter:", PlayerInputGlobalCounter)
+        REVEL.DebugStringMinor("Locked player controls, id:", lockId, "callback:", AddedLockControlsCallback)
+    end
+    if not AddedLockControlsCallback then
+        AddedLockControlsCallback = true
+        revel:AddPriorityCallback(ModCallbacks.MC_INPUT_ACTION, CallbackPriority.EARLY, disablePlayerInput_InputAction)
     end
 end
 
@@ -460,16 +474,16 @@ end
 ---@param player EntityPlayer
 ---@param lockId any
 function REVEL.UnlockPlayerControls(player, lockId)
-    local data = player:GetData()
+    local data = REVEL.GetData(player)
 
+    if AddedLockControlsCallback then
+        revel:RemoveCallback(ModCallbacks.MC_INPUT_ACTION, disablePlayerInput_InputAction)
+        AddedLockControlsCallback = false
+    end
     if data.__DisablePlayerControls and data.__DisablePlayerControls.Set[lockId] then
         data.__DisablePlayerControls.Set[lockId] = nil
         data.__DisablePlayerControls.Counter = data.__DisablePlayerControls.Counter - 1
-        PlayerInputGlobalCounter = PlayerInputGlobalCounter - 1
-        REVEL.DebugStringMinor("Unlocked player controls, id:", lockId, "counter:", PlayerInputGlobalCounter)
-        if PlayerInputGlobalCounter == 0 then
-            revel:RemoveCallback(ModCallbacks.MC_INPUT_ACTION, disablePlayerInput_InputAction)
-        end
+        REVEL.DebugStringMinor("Unlocked player controls, id:", lockId, "callback:", AddedLockControlsCallback)
     end
 end
 
@@ -547,6 +561,7 @@ end
 
 StageAPI.AddCallback("Revelations", RevCallbacks.POST_ENTITY_TAKE_DMG, 1, damagedThisRoomPlayerTakeDmg, 1)
 StageAPI.AddCallback("Revelations", RevCallbacks.EARLY_POST_NEW_ROOM, 1, damagedThisRoomPostNewRoom)
+revel:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, disablePlayerInput_NewRun_PostPlayerInit)
 revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, cameraModePlayerTakeDmg, 1)
 revel:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, cameraModeFamiliarUpdate)
 revel:AddCallback(ModCallbacks.MC_POST_EFFECT_RENDER, cameraModeStandinPostRender, REVEL.ENT.PLAYER_CAMERA_STANDIN.variant)

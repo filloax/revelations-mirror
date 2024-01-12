@@ -1,4 +1,4 @@
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 function REVEL.GetTrinketNameFromID(itemID)
     local cfgItem = REVEL.config:GetTrinket(itemID)

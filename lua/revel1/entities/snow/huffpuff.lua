@@ -1,7 +1,7 @@
 local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
 local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 -- Huffpuff
 local bal = {
@@ -19,43 +19,24 @@ local bal = {
     DistToForceShoot = 120,
 }
 
---Generated with convertnulls.py
 local AnimData = {
-    Idle_Holding = {
-        Offset = {Vector(-12, -21), Vector(-12, -21), Vector(-11, -21), Vector(-11, -22), Vector(-11, -21), Vector(-11, -21), Vector(-11, -21), Vector(-11, -20), Vector(-11, -20), Vector(-11, -20), Vector(-11, -19), Vector(-12, -19), Vector(-13, -18), Vector(-13, -18), Vector(-13, -18), Vector(-13, -20), Vector(-13, -20), Vector(-13, -20)},
-    },
-    Grab = {
-        Offset = {Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(12, -31), Vector(10, -39), Vector(7, -47), Vector(4, -53), Vector(0, -59), Vector(-1, -60), Vector(-3, -60), Vector(-4, -61), Vector(-8, -48), Vector(-13, -35), Vector(-14, -24), Vector(-16, -14), Vector(-15, -18), Vector(-14, -21), Vector(-14, -21), Vector(-13, -21), Vector(-13, -21)},
-        Scale = {Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(80, 120), Vector(88, 112), Vector(95, 105), Vector(102, 98), Vector(110, 90), Vector(103, 97), Vector(97, 103), Vector(90, 110), Vector(80, 120), Vector(70, 130), Vector(95, 105), Vector(120, 80), Vector(105, 95), Vector(90, 110), Vector(95, 105), Vector(100, 100), Vector(100, 100)}
-    },
     Grab_Holding = {
-        Offset = {Vector(-13, -21), Vector(-13, -20), Vector(-14, -19), Vector(-14, -18), Vector(-13, -19), Vector(-13, -21), Vector(-12, -22), Vector(-12, -22), Vector(-11, -21), Vector(-11, -21), Vector(-10, -22), Vector(-10, -24), Vector(-9, -25), Vector(-14, -18), Vector(-18, -11), Vector(-14, -12), Vector(-9, -12), Vector(-12, -18), Vector(-11, -19), Vector(-11, -20), Vector(-11, -22), Vector(-11, -22), Vector(-10, -23), Vector(-10, -23), Vector(-12, -21), Vector(-13, -18), Vector(-14, -16), Vector(-16, -14), Vector(-15, -15), Vector(-14, -16), Vector(-14, -18), Vector(-13, -21), Vector(-13, -21)},
-        GrabOffset = {Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(0, 0), Vector(12, -31), Vector(9, -44), Vector(6, -56), Vector(4, -58), Vector(1, -60), Vector(-1, -60), Vector(-4, -61), Vector(-6, -61), Vector(-10, -48), Vector(-13, -35), Vector(-14, -24), Vector(-16, -14), Vector(-15, -18), Vector(-14, -23), Vector(-14, -22), Vector(-13, -21), Vector(-13, -21)},
-        GrabScale = {Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(80, 120), Vector(88, 112), Vector(95, 105), Vector(105, 95), Vector(115, 85), Vector(107, 93), Vector(98, 102), Vector(90, 110), Vector(80, 120), Vector(70, 130), Vector(95, 105), Vector(120, 80), Vector(105, 95), Vector(90, 110), Vector(95, 105), Vector(100, 100), Vector(100, 100)},
         LerpStart = 20,
         LerpEnd = 27,
         LerpToStackOffset = true,
     },
     Gulp = {
-        Ent1 = {
-            Offset = {Vector(-13, -21), Vector(-14, -19), Vector(-14, -16), Vector(-15, -14), Vector(-15, -12), Vector(-15, -10), Vector(-15, -10), Vector(-15, -9), Vector(-12, -10), Vector(-9, -10), Vector(-8, -58), Vector(-7, -65), Vector(-5, -72), Vector(-4, -79), Vector(-3, -80), Vector(-2, -82), Vector(-2, -82), Vector(-1, -83), Vector(0, -82), Vector(1, -81), Vector(2, -70), Vector(2, -60), Vector(2, -51), Vector(2, -42), Vector(2, -38), Vector(2, -35), Vector(1, -31), Vector(1, -28), Vector(1, -24), Vector(1, -24)},
-            Scale = {Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(80, 120), Vector(79, 121), Vector(78, 122), Vector(77, 123), Vector(94, 106), Vector(110, 90), Vector(112, 88), Vector(113, 87), Vector(103, 98), Vector(93, 108), Vector(86, 114), Vector(80, 120), Vector(75, 125), Vector(70, 130), Vector(70, 130), Vector(69, 131), Vector(69, 131), Vector(68, 132), Vector(68, 132), Vector(68, 132)}
-        },
-        Ent2 = {
-            Offset = {Vector(-13, -21), Vector(-14, -19), Vector(-14, -16), Vector(-15, -14), Vector(-15, -12), Vector(-15, -10), Vector(-15, -10), Vector(-15, -9), Vector(-12, -10), Vector(-9, -10), Vector(-9, -59), Vector(-8, -68), Vector(-7, -78), Vector(-6, -80), Vector(-5, -82), Vector(-4, -83), Vector(-4, -85), Vector(-3, -86), Vector(-2, -87), Vector(-2, -88), Vector(-2, -90), Vector(-1, -91), Vector(0, -87), Vector(1, -83), Vector(2, -79), Vector(3, -75), Vector(3, -62), Vector(3, -50), Vector(3, -45), Vector(3, -40), Vector(3, -35), Vector(3, -30), Vector(3, -30)},
-            Scale = {Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(80, 120), Vector(78, 122), Vector(77, 123), Vector(84, 116), Vector(90, 110), Vector(95, 105), Vector(100, 100), Vector(105, 95), Vector(110, 90), Vector(115, 85), Vector(102, 98), Vector(90, 110), Vector(85, 115), Vector(80, 120), Vector(75, 125), Vector(70, 130), Vector(65, 135), Vector(60, 140), Vector(59, 141), Vector(58, 142), Vector(56, 144), Vector(55, 145), Vector(55, 145)}
-        },
-        Ent3 = {
-            Offset = {Vector(-13, -21), Vector(-14, -19), Vector(-14, -16), Vector(-15, -14), Vector(-15, -12), Vector(-15, -10), Vector(-15, -10), Vector(-15, -9), Vector(-12, -10), Vector(-9, -10), Vector(-8, -80), Vector(-7, -85), Vector(-6, -90), Vector(-6, -90), Vector(-5, -95), Vector(-5, -95), Vector(-4, -100), Vector(-4, -100), Vector(-3, -101), Vector(-3, -101), Vector(-2, -103), Vector(-2, -103), Vector(-1, -105), Vector(0, -104), Vector(0, -103), Vector(0, -103), Vector(0, -95), Vector(0, -95), Vector(0, -88), Vector(1, -77), Vector(1, -64), Vector(1, -50), Vector(1, -43), Vector(2, -37), Vector(2, -30), Vector(2, -30)},
-            Scale = {Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(100, 100), Vector(70, 130), Vector(68, 132), Vector(65, 135), Vector(65, 135), Vector(63, 138), Vector(63, 138), Vector(105, 95), Vector(108, 92), Vector(110, 90), Vector(110, 90), Vector(120, 80), Vector(120, 80), Vector(123, 77), Vector(109, 91), Vector(95, 105), Vector(95, 105), Vector(80, 120), Vector(80, 120), Vector(75, 135), Vector(60, 140), Vector(58, 142), Vector(55, 145), Vector(53, 147), Vector(52, 148), Vector(50, 150), Vector(50, 150)},
-        },
         LerpFromStackOffset = true,
         LerpStart = 10,
         LerpEnd = 15,
     }
 }
-local AnimNames = {}
-for animName, _ in pairs(AnimData) do AnimNames[#AnimNames + 1] = animName end
+
+local NullNames = {
+    HELD0 = "held0",
+    HELD1 = "held1",
+    HELD2 = "held2",
+}
 
 --enemy offsets stack with the ones below (useful in case they need different offsets for each enemy)
 local SnowballOffsets = {Vector(-2, 0), Vector(0, -8), Vector(0, -8)}
@@ -427,33 +408,32 @@ revel:AddCallback(ModCallbacks.MC_POST_NPC_RENDER, function(_, npc, renderOffset
     local anim = sprite:GetAnimation()
     local heldNum = #data.HeldEntities
 
-    if AnimData[anim] and heldNum > 0 then
-        if AnimData[anim].Offset then --grab/holding handling
-            local index = math.min(#AnimData[anim].Offset, sprite:GetFrame() + 1)
-            local baseOffset = AnimData[anim].Offset[index]
-            local offset = baseOffset + Vector.Zero --copy offset
-            local baseScale = Vector.One
-            if AnimData[anim].Scale then
-                baseScale = AnimData[anim].Scale[math.min(#AnimData[anim].Scale, sprite:GetFrame() + 1)] * 0.01
-            end
-            -- baseScale = baseScale * npc.SpriteScale
-            local spriteScaleCopy = REVEL.CloneVec(npc.SpriteScale) -- workaround while vector mult with const vectors doesn't work
-            offset = offset * spriteScaleCopy
+    local nullFrames = {}
+    nullFrames[1] = sprite:GetNullFrame(NullNames.HELD0)
+    nullFrames[2] = sprite:GetNullFrame(NullNames.HELD1)
+    nullFrames[3] = sprite:GetNullFrame(NullNames.HELD2)
+
+    if (nullFrames[1] or nullFrames[2]) and heldNum > 0 then
+        if not nullFrames[3] then --grab/holding handling
+            local spriteScaleCopy = REVEL.CloneVec(npc.SpriteScale)
+            local offset = nullFrames[1] and nullFrames[1]:GetPos() * spriteScaleCopy or Vector.Zero
+            local scale = nullFrames[1] and nullFrames[1]:GetScale() or Vector.One
 
             for i = 1, heldNum do
-                offset = offset + SnowballOffsets[i] + Vector(SnowballOffsetXWaveLen[i] * math.sin(npc.FrameCount * 0.15 + SnowballOffsetXWaveDel[i]), 0)
+                offset = offset + SnowballOffsets[i] 
+                    + Vector(SnowballOffsetXWaveLen[i] 
+                        * math.sin(npc.FrameCount * 0.15 + SnowballOffsetXWaveDel[i]), 0)
+                    
                 if data.ShouldRender[i] then
                     local thisOffset = offset
-                    local thisScale = baseScale
+                    local thisScale = scale
                     if i == data.GrabbingNum then
-                        if AnimData[anim].GrabScale then
-                            thisScale = AnimData[anim].GrabScale[math.min(#AnimData[anim].GrabScale, sprite:GetFrame() + 1)] * 0.01
-                            thisScale = thisScale * baseScale
+                        if nullFrames[2] then
+                            local grabOffset, grabScale = nullFrames[2]:GetPos(), nullFrames[2]:GetScale()
+                            thisScale = thisScale * grabScale
+                            thisOffset = grabOffset
                         end
-                        if AnimData[anim].GrabOffset then
-                            thisOffset = AnimData[anim].GrabOffset[math.min(#AnimData[anim].GrabOffset, sprite:GetFrame() + 1)]
-                        end
-                        if AnimData[anim].LerpToStackOffset then
+                        if AnimData[anim] and AnimData[anim].LerpToStackOffset then
                             thisOffset = REVEL.Lerp2Clamp(thisOffset, offset, sprite:GetFrame(), AnimData[anim].LerpStart, AnimData[anim].LerpEnd)
                         end
                     end
@@ -461,19 +441,17 @@ revel:AddCallback(ModCallbacks.MC_POST_NPC_RENDER, function(_, npc, renderOffset
                     data.HeldSprites[i]:Render(Isaac.WorldToScreen(npc.Position) + thisOffset + renderOffset - REVEL.room:GetRenderScrollOffset(), Vector.Zero, Vector.Zero)
                 end
             end
-        elseif AnimData[anim].Ent1 then --gulp handling
+        else
             local stackOffset = Vector.Zero
             for i = 1, heldNum do
                 stackOffset = stackOffset + SnowballOffsets[i]
                 if data.ShouldRender[i] then
-                    local tbl = AnimData[anim]["Ent" .. i]
-                    local index = math.min(#tbl.Offset, sprite:GetFrame() + 1)
-                    local offset = tbl.Offset[index]
-                    if AnimData[anim].LerpFromStackOffset then
+                    local offset = nullFrames[i]:GetPos()
+                    if AnimData[anim] and AnimData[anim].LerpFromStackOffset then
                         offset = offset + REVEL.Lerp2Clamp(stackOffset, Vector.Zero, sprite:GetFrame(), AnimData[anim].LerpStart, AnimData[anim].LerpEnd)
                     end
 
-                    data.HeldSprites[i].Scale = tbl.Scale[math.min(#tbl.Scale, sprite:GetFrame() + 1)] * 0.01
+                    data.HeldSprites[i].Scale = nullFrames[i]:GetScale()
                     data.HeldSprites[i]:Render(Isaac.WorldToScreen(npc.Position) + offset + renderOffset - REVEL.room:GetRenderScrollOffset(), Vector.Zero, Vector.Zero)
                 end
             end

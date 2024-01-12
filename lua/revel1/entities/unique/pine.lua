@@ -1,5 +1,5 @@
 local StageAPICallbacks = require("lua.revelcommon.enums.StageAPICallbacks")
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 -- Pine & Pinecone
 

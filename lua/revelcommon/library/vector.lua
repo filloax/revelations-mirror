@@ -1,4 +1,4 @@
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 
 --If vector's inclinations/tangents/<number that is relative to angle> are different by x percent, return true, also takes signs into consideration

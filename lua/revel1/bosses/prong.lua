@@ -3,7 +3,7 @@ local RevCallbacks      = require("lua.revelcommon.enums.RevCallbacks")
 local PitState = require("lua.revelcommon.enums.PitState")
 local RevRoomType = require("lua.revelcommon.enums.RevRoomType")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 -- wow i'm programming a boss i designed myself, this is kinda cool!
 

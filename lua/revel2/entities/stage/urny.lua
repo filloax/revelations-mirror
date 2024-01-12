@@ -1,6 +1,6 @@
 local PressurePlateState = require("lua.revelcommon.enums.PressurePlateState")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
     
 -- Urny
 

@@ -1,4 +1,4 @@
-REVEL.LoadFunctions[#REVEL.LoadFunctions+1] = function()
+return function()
 
 -- Keybinds to test out z pos
 

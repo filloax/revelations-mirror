@@ -1,6 +1,6 @@
 local GridUnbrokenState = require("lua.revelcommon.enums.GridUnbrokenState")
 
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 -- Sandbob, Sandbit, Demobip, Bloatbip
 

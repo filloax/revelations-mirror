@@ -1,5 +1,5 @@
 local RevCallbacks = require "lua.revelcommon.enums.RevCallbacks"
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 -- Since too many mods = memory issues, try to offer tools
 -- to make removing unused sprites easier.

@@ -1,4 +1,4 @@
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 local monsnow_angle = {}
 local monsnow_tear_angle = {}

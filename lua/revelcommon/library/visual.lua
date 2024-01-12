@@ -1,7 +1,7 @@
 local EffectVariantExtra = require "lua.revelcommon.enums.EffectVariantExtra"
 local EffectSubtype      = require "lua.revelcommon.enums.EffectSubtype"
 local StageAPICallbacks  = require "lua.revelcommon.enums.StageAPICallbacks"
-REVEL.LoadFunctions[#REVEL.LoadFunctions + 1] = function()
+return function()
 
 function REVEL.SpawnFireParticles(entityOrPosition, yOffset, xDistance, replaceFrameCount, spritesheet, replaceMod)
     if (replaceFrameCount or entityOrPosition.FrameCount) % (replaceMod or 4) == 0 then
