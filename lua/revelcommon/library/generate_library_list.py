@@ -35,8 +35,8 @@ def check(name : str, f : FileIO):
             ignoreNext = True
         elif ignoreNext:
             ignoreNext = False
-        elif not re.search('^\s*--.*$', line):
-            match = re.search('^\s*(?<!local\s)function\s*([\w\.\(\),\s]*)(?!--)', line)
+        elif not re.search(r'^\s*--.*$', line):
+            match = re.search(r'^\s*(?<!local\s)function\s*([\w\.\(\),\s]*)(?!--)', line)
             if match:
                 func_name = match.group(1).strip()
                 lists[name].append(func_name)

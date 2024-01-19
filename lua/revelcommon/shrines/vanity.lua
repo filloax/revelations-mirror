@@ -2322,18 +2322,30 @@ end
 
 -- Commands
 
-local function vanity_ExecuteCmd(_, command, params)
-    if command == "vanityshop" or command == "vshop" then
+REVEL.Commands.vanityshop = {
+    Execute = function (params)
         GoToVanityShop(nil, true)
-    elseif command == "addvanity" or command == "addv" then
+    end,
+    Desc = "Go to vanity shop",
+    Aliases = {"vshop"},
+    Help = "Teleport to the vanity shop for Rev pact rewards",
+    File = "vanity.lua",
+}
+REVEL.Commands.vanityshop = {
+    Execute = function (params)
         local x = tonumber(params)
         if not x then
             error("addvanity needs a number!")
         end
         REVEL.AddShrineVanity(x)
         REVEL.DebugLog(("Added %d vanity"):format(x))
-    end
-end
+    end,
+    Usage = "amount",
+    Desc = "Add vanity",
+    Aliases = {"addv"},
+    Help = "Give Rev vanity (pact currency)",
+    File = "vanity.lua",
+}
 
 -- Callbacks
 
@@ -2378,8 +2390,5 @@ StageAPI.AddCallback("Revelations", StageAPICallbacks.POST_SPAWN_CUSTOM_GRID, 1,
 StageAPI.AddCallback("Revelations", RevCallbacks.POST_ROOM_CLEAR, 1, vanityTrapdoor_RoomClear)
 StageAPI.AddCallback("Revelations", StageAPICallbacks.POST_ROOM_LOAD, 1, vanityRoom_RoomLoad)
 StageAPI.AddCallback("Revelations", StageAPICallbacks.POST_ROOM_LOAD, 1, casinoNight_RoomLoad)
-
-revel:AddCallback(ModCallbacks.MC_EXECUTE_CMD, vanity_ExecuteCmd)
-
 
 end

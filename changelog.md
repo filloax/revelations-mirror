@@ -1,3 +1,12 @@
+## 4.3.1
+
+Additions
+- [Repentogon] Rev commands now have autocomplete and help
+- Added `rboss` command to start a specific rev boss
+
+Fixes
+- Fixed another divide by 0 error with creep
+
 ## 4.3.0
 
 Revelations now supports (and recommends using) [**Repentogon**](https://repentogon.com)! The only incompatibility was an error with Hockey Puck

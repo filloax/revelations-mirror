@@ -1,5 +1,16 @@
 -- Keep lines at max 40 characters, can use for that https://www.gillmeister-software.com/online-tools/text/add-line-breaks_change-line-length.aspx
-REVEL.AddChangelog("Vanity (4.3.0)", "Jan 01 2024", [[Revelations now supports (and 
+REVEL.AddChangelog("Vanity (4.3.1)", "Jan 18 2024", [[Additions 
+
+- [Repentogon] Rev commands now have 
+autocomplete and help 
+- Added `rboss` command to start a 
+specific rev boss 
+
+Fixes 
+
+- Fixed another divide by 0 error with 
+creep]])
+REVEL.AddChangelog("Vanity (4.3.0)", "Jan 10 2024", [[Revelations now supports (and 
 recommends using) Repentogon! The only 
 incompatibility was an error with 
 Hockey Puck on our side. 

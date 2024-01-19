@@ -5,7 +5,7 @@ _G.REVEL = {
     DEBUG = false,
     Testmode = false,
   
-    VERSION = "4.2.2",
+    VERSION = "4.3.1",
   
     MODID = "2880387531", --steam workshop id
 

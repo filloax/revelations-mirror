@@ -61,22 +61,33 @@ end
 
 REVEL.PHYLACTERY_POCKET = true
 
-
-revel:AddCallback(ModCallbacks.MC_EXECUTE_CMD, function(_, cmd)
-    if cmd == "charonswitch" then
+REVEL.Commands.charonswitch = {
+    Execute = function (params)
         REVEL.Dante.InventorySwitch(REVEL.player)
-    elseif cmd == "charonmerge" then
+    end,
+    Desc = "Switch between Charon and Dante",
+    File = "dante/basic.lua",
+}
+REVEL.Commands.charonmerge = {
+    Execute = function (params)
         REVEL.Dante.Merge(REVEL.player, REVEL.game.Difficulty == Difficulty.DIFFICULTY_GREED or REVEL.game.Difficulty == Difficulty.DIFFICULTY_GREEDIER)
-    elseif cmd == "charonmode" then
+    end,
+    Desc = "Merge Charon and Dante",
+    File = "dante/basic.lua",
+}
+REVEL.Commands.charonmode = {
+    Execute = function (params)
         revel.data.charonMode = (revel.data.charonMode + 1) % 2
         if revel.data.charonMode == 0 then
             Isaac.ConsoleOutput("Changed Charon Switch Mode to firing keys (Default)")
         else
             Isaac.ConsoleOutput("Changed Charon Switch Mode to movement keys")
         end
-    end
-end)
-
+    end,
+    Desc = "Toggles charon firing switch mode",
+    Help = "Toggles charon firing switch mode between fire or movement keys",
+    File = "dante/basic.lua",
+}
 
 -- Ignore and don't manage (swap)
 REVEL.CharonBlacklist = {

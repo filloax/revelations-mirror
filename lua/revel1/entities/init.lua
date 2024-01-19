@@ -836,7 +836,6 @@ do
             else
                 iceRockParticle:Spawn(REVEL.IceRockSystem, Vec3(position,-5), Vec3(velocity,-10))
             end
-
         end
     end
 end
@@ -860,18 +859,22 @@ do
         end
     end
 
-    function REVEL.SetCreepData(npc)
+    function REVEL.SetCreepData(effect)
         for _, animSet in pairs(animSets) do
             for i, anim in ipairs(animSet) do
-                if npc:GetSprite():IsPlaying(anim) or npc:GetSprite():IsFinished(anim) then
-                    npc:GetData().Animation = "0" .. tostring(i)
+                if effect:GetSprite():IsPlaying(anim) or effect:GetSprite():IsFinished(anim) then
+                    effect:GetData().Animation = "0" .. tostring(i)
                     break
                 end
             end
         end
 
-        npc:GetData().OriginalSize = npc.Size
-        npc:GetData().RelativeSpriteScale = npc.SpriteScale / npc.Size
+        if effect.Size > 0 then
+            effect:GetData().OriginalSize = effect.Size
+            effect:GetData().RelativeSpriteScale = effect.SpriteScale / effect.Size
+        else
+            REVEL.DebugStringMinor("[WARN] Tried to use SetCreepData on 0 Size creep, will ignore it in creep handling")
+        end
     end
 
     function REVEL.SpawnCreep(variant, subtype, pos, parent, big)
@@ -883,19 +886,19 @@ do
             end
         end]]
 
-        local npc = Isaac.Spawn(EntityType.ENTITY_EFFECT, variant, subtype, pos, Vector.Zero, parent)
-        npc:Update()
+        local effect = Isaac.Spawn(EntityType.ENTITY_EFFECT, variant, subtype, pos, Vector.Zero, parent)
+        effect:Update()
 
         if big then
-            npc.SpriteScale = npc.SpriteScale / 4
+            effect.SpriteScale = effect.SpriteScale / 4
         end
 
-        REVEL.SetCreepData(npc)
+        REVEL.SetCreepData(effect)
 
         if big then
-            local sprite = npc:GetSprite()
+            local sprite = effect:GetSprite()
             local frame = sprite:GetFrame()
-            sprite:Play("BiggestBlood" .. npc:GetData().Animation, true)
+            sprite:Play("BiggestBlood" .. effect:GetData().Animation, true)
             if frame > 0 then
                 for i = 1, frame do
                     sprite:Update()
@@ -911,7 +914,7 @@ do
             player:GetData().HadHolyMantle = nil
         end]]
 
-        return npc
+        return effect
     end
 
     function REVEL.SpawnSlipperyCreep(pos, parent, big)
@@ -938,11 +941,11 @@ do
     end
 
     function REVEL.SpawnIceCreep(pos, parent, big)
-        local npc = REVEL.SpawnCreep(EffectVariant.CREEP_RED, 0, pos, parent, big)
-        UpdateIceCreepColor(npc)
-        npc:GetData().icecreep = true
-        npc.Variant = REVEL.ENT.ICE_CREEP.variant
-        return npc
+        local effect = REVEL.SpawnCreep(EffectVariant.CREEP_RED, 0, pos, parent, big)
+        UpdateIceCreepColor(effect)
+        effect:GetData().icecreep = true
+        effect.Variant = REVEL.ENT.ICE_CREEP.variant
+        return effect
     end
 
     revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, e)

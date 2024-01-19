@@ -42,8 +42,6 @@ local batteryInfluence = {}
 local barOverlays = {1, 2, 3, 4, 6, 12}
 local barBlink = {0,0,0,0}
 
-local debug8on = false
-
 -- Load sprites on a run basis, so they're not loaded if you never get any item that uses them
 
 local chargeBarEmpty = REVEL.LazyLoadRunSprite{
@@ -265,6 +263,15 @@ function REVEL.ChargeYellowBlink(player) -- do every peffect update frame
     yellowBlink[REVEL.GetPlayerID(player)] = true
 end
 
+-- debug 8 = infinite charge
+local function HasDebug8()
+    if REPENTOGON then
+        return HasBit(REVEL.game:GetDebugFlags(), DebugFlag.INFINITE_ITEM_CHARGES)
+    else
+        return false
+    end
+end
+
 revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, p)
     local data = p:GetData()
     local playerID = REVEL.GetPlayerID(p)
@@ -273,7 +280,7 @@ revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, p)
     yellowBlink[playerID] = false
 
     if barItemsMaxCharge[p:GetActiveItem()] then
-        if debug8on then
+        if HasDebug8() then
             REVEL.SetCharge(REVEL.GetMaxCharge(p, true), p, true)
         end
 
@@ -435,12 +442,6 @@ end
 
 StageAPI.AddCallback("Revelations", RevCallbacks.POST_ROOM_CLEAR, 1, REVEL.AddChargeToAll)
 StageAPI.AddCallback("Revelations", RevCallbacks.POST_GREED_CLEAR, 1, REVEL.AddChargeToAll)
-
-revel:AddCallback(ModCallbacks.MC_EXECUTE_CMD, function(_, cmd, params)
-    if cmd == 'rdebug' and params == "8" then
-        debug8on = not debug8on
-    end
-end)
 
 if Isaac.GetPlayer(0) then
     for i,p in ipairs(REVEL.players) do

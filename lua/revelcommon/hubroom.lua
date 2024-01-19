@@ -11,16 +11,20 @@ return function()
 
 local crateItemOffset = 10
 
-revel:AddCallback(ModCallbacks.MC_EXECUTE_CMD, function(_, cmd)
-    if cmd == "togglehubdoor" or cmd == "thub" then
+REVEL.Commands.togglehubdoor = {
+    Execute = function (params)
         revel.data.enableStartHub = not revel.data.enableStartHub
         if not revel.data.enableStartHub then
             Isaac.ConsoleOutput("Hub trapdoor disabled.\n")
         else
             Isaac.ConsoleOutput("Hub trapdoor enabled.\n")
         end
-    end
-end)
+    end,
+    Desc = "Toggle Legacy Hub trapdoor",
+    Help = "Toggles Legacy Hub trapdoor in starting room if legacy hub is enabled in settings",
+    File = "hubroom.lua",
+    Aliases = {"thub"},
+}
 
 StageAPI.AddCallback("Revelations", StageAPICallbacks.POST_SPAWN_CUSTOM_GRID, 1, function(customGrid)
 	local index = customGrid.GridIndex

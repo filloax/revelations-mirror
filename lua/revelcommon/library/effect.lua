@@ -89,7 +89,8 @@ function REVEL.MakeLaserTracerAngle(position, duration, angle, color, parent, sc
     return SpawnDeathsHeadTracer(position, duration, Vector.FromAngle(angle), color, parent, scale)
 end
 
----comment
+---Use in case you want the deaths head tracer to be longer, 
+-- spawns an additional one that follows the parent
 ---@param parent EntityEffect
 ---@param offset number
 ---@param scale? number | Vector

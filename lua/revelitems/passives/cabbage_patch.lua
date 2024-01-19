@@ -1086,9 +1086,12 @@ revel:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
     Volume = REVEL.Lerp2Clamp(0.3, 0.1, REVEL.ENT.CABBAGE:countInRoom(), 1, 10)
 end)
 
----@param params string
-revel:AddCallback(ModCallbacks.MC_EXECUTE_CMD, function(_, cmd, params)
-    if cmd == "cabbagep" then
+local function hasOneFinishedWord(str)
+    return str:match("^%s*%w+%s*$") ~= nil
+end  
+
+REVEL.Commands.cabbagepatch = {
+    Execute = function (params)
         local args = params:split()
         local num = 1
         if args[1] and tonumber(args[1]) then
@@ -1106,7 +1109,17 @@ revel:AddCallback(ModCallbacks.MC_EXECUTE_CMD, function(_, cmd, params)
 
         Isaac.ConsoleOutput("Spawned " .. num .. " cabbage patches\n")
         Isaac.DebugString("Spawned " .. num .. " cabbage patches")
-    end
-end)
+    end,
+    Autocomplete = function (params)
+        if hasOneFinishedWord(params) then
+            return REVEL.keys(Cabbage.types)
+        end
+    end,
+    Desc = "Spawn Cabbage Patch buds",
+    Usage = "amount [type]",
+    Help = "Spawns <amount> cabbage patch buds in the room, can specify type (will be random otherwise)",
+    File = "cabbage_patch.lua",
+    Aliases = {"cabbagep"}
+}
 
 end

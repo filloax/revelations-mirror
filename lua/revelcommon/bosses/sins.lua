@@ -362,12 +362,15 @@ revel:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
     end
 end)
 
-revel:AddCallback(ModCallbacks.MC_EXECUTE_CMD, function(_, cmd, params)
-    if cmd == "resetsinami" then
+REVEL.Commands.resetsinami = {
+    Execute = function (params)
         revel.data.run.sinamiBeat = {}
         Isaac.ConsoleOutput("Reset sinami\n")
         Isaac.DebugString("Reset sinami")
-    end
-end)
+    end,
+    Desc = "Reset Rev sinami challenge",
+    Help = "Allows to retry the Rev sinami challenge if already beat",
+    File = "revelcommon/bosses/sins.lua",
+}
 
 end

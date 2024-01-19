@@ -7,8 +7,8 @@ return function()
 -- UNLOCKS AND LOCKED ITEMS --
 ------------------------------
 
-revel:AddCallback(ModCallbacks.MC_EXECUTE_CMD, function(_, cmd, params)
-    if cmd == "revunlock" then
+REVEL.Commands.revunlock = {
+    Execute = function (params)
         params = tostring(params)
         if params == "list" or params == "print" then
             print("Listing all unlockables...")
@@ -43,7 +43,19 @@ revel:AddCallback(ModCallbacks.MC_EXECUTE_CMD, function(_, cmd, params)
         else
             print("Couldnt find valid unlockable matching \"" .. params ..  "\"")
         end
-    elseif cmd == "revlock" then
+    end,
+    Autocomplete = function (params)
+        local out = {"list", "print", "*", "all"}
+        REVEL.extend(out, table.unpack(REVEL.keys(REVEL.UNLOCKABLES)))
+        return out
+    end,
+    Desc = "Unlock Rev unlockables",
+    Usage = "unlockName | <list|print|*|all>",
+    Help = "list | print: Prints all unlockables\n* | all: Unlocks all unlockables\nunlockName: Unlocks the unlockable <unlockName>",
+    File = "unlocks.lua",
+}
+REVEL.Commands.revlock = {
+    Execute = function (params)
         params = tostring(params)
         if params == "list" or params == "print" then
             print("Listing all unlockables...")
@@ -78,8 +90,17 @@ revel:AddCallback(ModCallbacks.MC_EXECUTE_CMD, function(_, cmd, params)
         else
             print("Couldnt find valid unlockable matching \"" .. params ..  "\"")
         end
-    end
-end)
+    end,
+    Autocomplete = function (params)
+        local out = {"list", "print", "*", "all"}
+        REVEL.extend(out, table.unpack(REVEL.keys(REVEL.UNLOCKABLES)))
+        return out
+    end,
+    Desc = "Lock Rev unlockables",
+    Usage = "unlockName | <list|print|*|all>",
+    Help = "list | print: Prints all unlockables\n* | all: Locks all unlockables\nunlockName: Locks the unlockable <unlockName>",
+    File = "unlocks.lua",
+}
 
 function REVEL.IsAchievementUnlocked(name)
     return revel.data.unlockValues[name] == true

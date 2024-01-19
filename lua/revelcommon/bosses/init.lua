@@ -188,8 +188,8 @@ do
         end
     end)
 
-    revel:AddCallback(ModCallbacks.MC_EXECUTE_CMD, function(_, cmd, params)
-    	if cmd == "forcechampionstate" or cmd == "fcs" then
+    REVEL.Commands.forcechampionstate = {
+        Execute = function (params)
     		if params == "yes" or params == "true" or params == "on" then
     			forceChampionState = true
     			print("Champions will now always appear")
@@ -200,6 +200,19 @@ do
     			forceChampionState = nil
     			print("Cleared force champion state")
     		end
+        end,
+        Autocomplete = function (params)
+            return {"yes", "true", "on", "no", "false", "off"}
+        end,
+        Aliases = {"fcs"},
+        Usage = "[<yes|true|on|no|false|off>]",
+        Desc = "Force rev champion boss spawning",
+        Help = "yes|true|on: Always spawn rev bosses as champions\nno|false|off: Never spawn rev bosses as champions\n[blank]: Reset to normal behavior",
+        File = "revelcommon/bosses/init.lua",
+    }
+
+    revel:AddCallback(ModCallbacks.MC_EXECUTE_CMD, function(_, cmd, params)
+    	if cmd == "forcechampionstate" or cmd == "fcs" then
     	end
     end)
 

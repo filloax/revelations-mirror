@@ -249,8 +249,8 @@ end
 
 -- Commands
 
-local function shrinePacts_ExecuteCmd(_, cmd, params)
-    if cmd == "revpact" then
+REVEL.Commands.revpact = {
+    Execute = function (params)
         local match = REVEL.find(REVEL.Shrines, function(v)
             return string.lower(v.Name) == string.lower(params) or string.lower(v.DisplayName) == string.lower(params)
         end)
@@ -265,13 +265,26 @@ local function shrinePacts_ExecuteCmd(_, cmd, params)
             REVEL.UpdateActiveShrineSet()
             Isaac.ConsoleOutput("Added Pact of " .. tostring(match.DisplayName) .. "!\n")
         else
-            Isaac.ConsoleOutput("Invalid pact name <" .. params .. ">!\n")
+            REVEL.LogError("Invalid pact name <" .. params .. ">!\n")
         end
-    end
-end
+    end,
+    Autocomplete = function (params)
+        local names = {}
+        local displayNames = {}
+        for _, v in ipairs(REVEL.Shrines) do
+            names[#names+1] = v.Name
+            displayNames[#displayNames+1] = v.DisplayName
+        end
+
+        return REVEL.concat(displayNames, names)
+    end,
+    Usage = "pactName",
+    Desc = "Add a Rev pact",
+    Help = "Adds the chosen pact, check ShrineTypes.lua or autocomplete for valid names (common ones are invalid)",
+    File = "pact.lua",
+}
 
 revel:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, shrinePacts_PostNewLevel)
-revel:AddCallback(ModCallbacks.MC_EXECUTE_CMD, shrinePacts_ExecuteCmd)
 StageAPI.AddCallback("Revelations", StageAPICallbacks.POST_HUD_RENDER, 1, shrinePacts_PostRender)
 StageAPI.AddCallback("Revelations", RevCallbacks.POST_SAVEDATA_LOAD, 1, REVEL.UpdateActiveShrineSet)
 

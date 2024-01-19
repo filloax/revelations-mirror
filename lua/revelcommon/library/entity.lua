@@ -332,6 +332,30 @@ function REVEL.DamageFlash(entity)
     entity:SetColor(flashRed, flashDuration, 1, false, false)
 end
 
+-- The following requires Repentogon
+
+---@param entity Entity
+---@return table?
+function REVEL.GetOverlayFrame(entity)
+    return entity:GetSprite():GetNullFrame("OverlayEffect")
+end
+
+---@param entity Entity
+---@return Vector?
+function REVEL.GetOverlayPos(entity)
+    local animFrame = REVEL.GetOverlayFrame(entity)
+    return animFrame and animFrame:GetPos()
+end
+
+if not REPENTOGON then
+    local function err() 
+        error("Tried using Repentogon feature without Repentogon")
+    end
+
+    REVEL.GetOverlayFrame = err
+    REVEL.GetOverlayPos = err
+end
+
 
 -- Add at low priority
 revel:AddPriorityCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, CallbackPriority.IMPORTANT, trackDamageBuffer_Early_EntityTakeDmg)

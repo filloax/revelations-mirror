@@ -3,15 +3,14 @@
     <name>Revelations Ch. 2 [Rep]</name>
     <directory>revelations</directory>
     <id>2880387531</id>
-    <description>[img]https://i.imgur.com/ajLN6Vi.jpg[/img]
-[img]https://i.imgur.com/FqUZDzR.png[/img]
+    <description>[img]https://i.imgur.com/FqUZDzR.png[/img]
 
 
 [img]https://i.imgur.com/uxbhFSE.png[/img]
 
 This is the Repentance version of the mod, for the Afterbith+ version [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1536643474]see here[/url].
 
-This mod [i][b]REQUIRES[/b][/i] the [b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=1348031964]StageAPI[/url][/b] mod to function.
+This mod [i][b]REQUIRES[/b][/i] the [b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=1348031964]StageAPI[/url][/b] mod to function, and the [b][url=https://repentogon.com/]REPENTOGON[/url][/b] mod is [b]heavily recommended[/b] for performance, features and to avoid download failures, and will be required in Chapter 3.
 
 [b]IF YOU HAVE STRANGE ERRORS AFTER INSTALLING THE MOD, TRY DELETING THE MOD'S FOLDER AND RESTARTING THE GAME (see below)[/b]
 
@@ -63,12 +62,6 @@ Revelations is intended to be compatible with [url=https://steamcommunity.com/sh
 
 [h2]Mod compatibility[/h2]
 
-[h3]Big mods (Transparent/black sprites)[/h3]
-
-Recently, a limit of the Isaac engine was discovered when [b]too many mods are enabled at once[/b] (especially big ones), leading to sprites being replaced by black squares or becoming transparent after some gameplay. The specific limit isn't known yet, and it doesn't depend on the machine's performance. 
-
-If you get this bug, first try changing the setting &quot;Clear cache every&quot; to &quot;every room&quot; instead of &quot;every level&quot; in the Rev settings. If it doesn't help, try removing some mods and trying again. We and other modders are trying to find a solution at the moment. We still recommend playing with Fiend Folio and other mods if possible, but this limit is hard to work around.
-
 [h3]Incompatibilities[/h3]
 
 The mod is incompatible with:
@@ -89,13 +82,7 @@ TO AVOID ISSUES, RESTART ISAAC AFTER DOWNLOADING AND ENABLING THE MOD FOR THE FI
 
 [h2]Download Failures[/h2]
 
-Due to issues in the way Isaac downloads Steam Workshop mods with a large download size, a lot of users report strange errors the first time they install the mod or download a major update, which are caused by missing files.
-To fix this, try redownloading the mod by:
--Closing the game
--Deleting the mod's folder (found in [i]&lt;steamapps Isaac game folder&gt;/mods/revelations_2880387531[/i])
--Restarting the game
-If you had download issues, it should be fixed by doing this. This should fix 99% of the major bugs found after first installing the mod.
-If it doesn't work, try our download mirror instead, found [url=https://github.com/filloax/revelations-mirror/releases/latest]here[/url].
+See [url=https://steamcommunity.com/workshop/filedetails/discussion/2880387531/6208841617673899678/]this thread[/url] for information on handling download failures. Note that using Repentogon as recommended should largely avoid this sort of issue.
 
 [img]https://i.imgur.com/6XOFsfy.png[/img]
 
@@ -119,7 +106,7 @@ Talk to us on discord!
 [i]Testers, Room makers and Designers[/i] - Al, AnonymousKoala, Boogs, Bullet, Bustin, Creeps, Electoon, Grynn, Jerb, KindaLoveable, Melon, Minichibis, Pasta, Pixelo, PkPseudo, Robby Shenanigans, Sunil B
 
 [i]Special Thanks[/i] - Kilburn, The Isaac Community</description>
-    <version>1.10</version>
+    <version>1.11</version>
     <visibility>Public</visibility>
     <tag id="Lua"/>
     <tag id="Items"/>

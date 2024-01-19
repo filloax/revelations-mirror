@@ -474,19 +474,43 @@ end)
 local renderColorDebug = false
 local cdebug
 
-revel:AddCallback(ModCallbacks.MC_EXECUTE_CMD, function(_, cmd, params)
-    if cmd == "shaderdebug" or cmd == "shddebug" then
+REVEL.Commands.shaderdebug = {
+    Execute = function (params)
         if tonumber(params) then
             revel.data.shadersOn = tonumber(params)
             REVEL.DebugToString("Turned shaders to "..debugText[revel.data.shadersOn])
             REVEL.DebugToConsole("Turned shaders to "..debugText[revel.data.shadersOn])
+        else
+            REVEL.LogError("shaderdebug param must be an integer")
         end
-    elseif cmd == "reloadshaders" then --vanilla command, adding a debug for echo
-        REVEL.DebugToString("Reloaded shaders!")
-    elseif cmd == "drawshadermask" or cmd == "drawsm" then
-        drawLineStage = 0
-        shaderMaskName = params or "TestShape"
-    elseif cmd == "colordebug" or cmd == "clrdbg" then
+    end,
+    Autocomplete = function (params)
+        return REVEL.flatmap(debugText, function (val, key) return {key, val} end)
+    end,
+    Usage = "debugMode",
+    Desc = "Set shader debug mode",
+    Aliases = {"shddebug", "shddbg"},
+    Help = "Set shader debug mode. Available modes:\n" 
+        .. table.concat(REVEL.flatmap(debugText, function (val, key) return key .. ": " .. val end), "\n"),
+    File = "shaders.lua",
+}
+REVEL.Commands.drawshadermask = {
+    Execute = function (params)
+        if tonumber(params) then
+            revel.data.shadersOn = tonumber(params)
+            REVEL.DebugToString("Turned shaders to "..debugText[revel.data.shadersOn])
+            REVEL.DebugToConsole("Turned shaders to "..debugText[revel.data.shadersOn])
+        else
+            REVEL.LogError("shaderdebug param must be an integer")
+        end
+    end,
+    Desc = "Shader mask tool",
+    Aliases = {"drawsm"},
+    Help = "Used to draw tomb masks to later save (needs specific shaders enabled in xml)",
+    File = "shaders.lua",
+}
+REVEL.Commands.colordebug = {
+    Execute = function (params)
         if not renderColorDebug or not cdebug then --remove debug entity
             cdebug = REVEL.SpawnDecoration(REVEL.room:GetCenterPos(), Vector.Zero, "Idle", "gfx/effects/revel2/color_test.anm2", nil, -1000)
             cdebug.SpriteScale = Vector.One * 0.2
@@ -497,9 +521,12 @@ revel:AddCallback(ModCallbacks.MC_EXECUTE_CMD, function(_, cmd, params)
             cdebug = nil
             renderColorDebug = false
         end
-    end
-end)
-
+    end,
+    Desc = "Color correction testing",
+    Aliases = {"clrdbg"},
+    Help = "Render color palette for color correction testing",
+    File = "shaders.lua",
+}
 
 -----------------------
 -- DRAW MASK SHADERS --

@@ -136,6 +136,23 @@ local function championsExecuteCommand(_, cmd)
     end
 end
 
+REVEL.Commands.forcechampions = {
+    Execute = function (params)
+        CmdForceChampions = not CmdForceChampions
+
+        if CmdForceChampions then
+            REVEL.DebugLog("Enabled force rev enemy champions")
+        else
+            REVEL.DebugLog("Disabled force rev enemy champions")
+        end
+    end,
+    Aliases = {"fchamp"},
+    Desc = "Toggle rev champion enemy spawning",
+    Help = "Toggles forcing every rev enemy (not boss) to be a champion",
+    File = "revelcommon/shrines/champions.lua",
+}
+
+
 revel:AddCallback(ModCallbacks.MC_EXECUTE_CMD, championsExecuteCommand)
 
 end
