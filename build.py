@@ -2,19 +2,18 @@
 Generate required files (generate entity lua file, merge shaders)
 """
 import os, subprocess
+import shutil
 import sys
 import re
-import pip
+import pkg_resources
 
-def import_or_install(package):
-    try:
-        __import__(package)
+def try_install(package):
+    if package in {pkg.key for pkg in pkg_resources.working_set} is not None:
         return True
-    except ImportError:
+    else:
         inp = input(f"Missing package <{package}>, do you want to install it? [Y/n] ").strip().lower()
         if inp == '' or inp == 'y':
-            pip.main(['install', package])
-            __import__(package)
+            subprocess.check_call([sys.executable, "-m", "pip", "install", package], stdout=sys.stdout, stderr=sys.stderr)
             return True
         else:
             return False
@@ -32,19 +31,35 @@ def subprocessliveoutput(process):
 def mergeshaders():
     chmoddir()
     merge_shaders_path = os.path.abspath("./resources/shaders/merge_shaders.py")
-    if (import_or_install("lxml")):
+    if (try_install("lxml")):
         print("=== Merging shaders...")
         # easier to make subprocess than make a module for relative imports
-        p = subprocess.Popen(["python", merge_shaders_path],
+        subprocess.check_call(["python", merge_shaders_path],
             bufsize=2048, 
             shell=True,
-            stdin=subprocess.PIPE, stdout=subprocess.PIPE, 
+            # stdin=subprocess.PIPE, stdout=subprocess.PIPE, 
             close_fds=True,
         )
-        subprocessliveoutput(p)
+        # subprocessliveoutput(p)
         print("=== Merged shaders")
     else:
         print("Skip merge shaders, no lxml...")
+
+def __run(args: list):
+    print(f"> {' '.join(args)}")
+    p = subprocess.Popen(args,
+        bufsize=2048, 
+        shell=True,
+        stdin=subprocess.PIPE, stdout=subprocess.PIPE, 
+        close_fds=True,
+    )
+    p.stdin.write(b"\n\r")
+    p.stdin.flush()
+    subprocessliveoutput(p)
+    p.wait()
+    if p.returncode != 0:
+        raise Exception("Process errored!", p.returncode)
+
 
 def entities2lua(mods_folder_abs):
     if mods_folder_abs:
@@ -64,47 +79,55 @@ def entities2lua(mods_folder_abs):
     ent2lua_path = os.path.join(stageapi_path, "basementrenovator/scripts/entities2lua.py")
 
     print("=== Running entities2lua.py")
-    p = subprocess.Popen(["python", ent2lua_path,
-                "content/entities2.xml",
-            ],
-        bufsize=2048, 
-        shell=True,
-        stdin=subprocess.PIPE, stdout=subprocess.PIPE, 
-        close_fds=True,
-    )
-    p.stdin.write(b"\n\r")
-    p.stdin.flush()
-    subprocessliveoutput(p)
+    __run(["python", ent2lua_path,
+        "content/entities2.xml",
+    ])
     print()
     print("=== Ran entities2lua.py")
 
     chmoddir()
-    os.remove("lua/revelcommon/entities2.lua")
+    os.remove("scripts/revelations/common/entities2.lua")
     os.rename(
         "content/entities2.lua",
-        "lua/revelcommon/entities2.lua",
+        "scripts/revelations/common/entities2.lua",
     )
-    print("Moved entities2.lua from content to lua/revelcommon")
+    print("Moved entities2.lua from content to scripts/revelations/common")
 
 def makelibrary():
-    chmoddir()
-    make_library_doc_path = os.path.abspath("./lua/revelcommon/library/generate_library_list.py")
-    print("=== Making library doc...")
-    # easier to make subprocess than make a module for relative imports
-    p = subprocess.Popen(["python", make_library_doc_path, "-s"],
-        bufsize=2048, 
-        shell=True,
-        stdin=subprocess.PIPE, stdout=subprocess.PIPE, 
-        close_fds=True,
-    )
-    p.stdin.write(b"\n\r")
-    p.stdin.flush()
-    subprocessliveoutput(p)
-    print("=== Generated library doc")
+    with open("./scripts/tools/docs/requirements.txt", 'r') as f:
+        reqs = [line.split("#")[0].strip() for line in f.readlines() if line.strip() != '']
+    installed = all(try_install(req) for req in reqs)
+    
+    if installed:
+        chmoddir()
+        make_library_doc_path = os.path.abspath("./scripts/tools/docs/build_rev_library_docs.py")
+        print("=== Making library doc...")
+        # easier to make subprocess than make a module for relative imports
+        __run([
+            "python", make_library_doc_path,
+            "scripts/revelations/common/library",
+            "--exclude", "scripts/revelations/common/library/deprecated/*",
+            "--globals-file", "scripts/tools/docs/globals.lua",
+            "--table", "REVEL",
+        ])
+        print("=== Generated doc source, building docs...")
+
+        chmoddir()
+        os.chdir("docs")
+        
+        __run([
+            "mkdocs", "build"
+        ])
+     
+        print("=== Generated library doc")
+    else:
+        print("Skip build library, no requirements installed...")
 
 
 def main():
     chmoddir()
+    
+    print("Running with", sys.executable)
     
     steam_folder = [
         "C:/Program Files (x86)/Steam/steamapps/common/",

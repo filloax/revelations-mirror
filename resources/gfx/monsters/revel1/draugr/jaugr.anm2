@@ -3,7 +3,7 @@
 	<Content>
 		<Spritesheets>
 			<Spritesheet Path="jaugr.png" Id="0"/>
-			<Spritesheet Path="..\chill_o_wisp.png" Id="1"/>
+			<Spritesheet Path="../willowisps\chill_o_wisp.png" Id="1"/>
 		</Spritesheets>
 		<Layers>
 			<Layer Name="body" Id="0" SpritesheetId="0"/>

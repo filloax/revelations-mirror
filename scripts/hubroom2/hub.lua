@@ -126,7 +126,16 @@ local function PlayerIsLost(player)
         or player:GetPlayerType() == PlayerType.PLAYER_THELOST_B
         or player:GetPlayerType() == PlayerType.PLAYER_JACOB2_B
         or player:GetPlayerType() == PlayerType.PLAYER_THESOUL_B
+		or (Epiphany and player:GetPlayerType() == Epiphany.PlayerType.LOST)
         or player:GetEffects():HasNullEffect(NullItemID.ID_LOST_CURSE)
+end
+
+local function MausDoorDamageSource(player)
+	local ref = EntityRef(player)
+	ref.Entity = nil
+	ref.Type = 0
+	ref.Variant = 10003
+	return ref
 end
 
 local tombMausoleumDoorPayments = 0
@@ -172,7 +181,7 @@ local function mausoleumDoorUpdate(door, isInit)
 						sprite:Play("KeyOpen", true)
 						door.CollisionClass = GridCollisionClass.COLLISION_WALL_EXCEPT_PLAYER
 
-					elseif player:TakeDamage(2, DamageFlag.DAMAGE_NO_PENALTIES, EntityRef(player), 0) then
+					elseif player:TakeDamage(2, DamageFlag.DAMAGE_NO_PENALTIES, MausDoorDamageSource(player), 0) then
 						tombMausoleumDoorPayments = tombMausoleumDoorPayments + 1
 						
 						if tombMausoleumDoorPayments == 2 then

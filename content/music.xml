@@ -43,6 +43,7 @@
 	<!-- Hub Room Stinger --><track name="Revelations Hub Room Stinger" path="revelcommon/Hub_Room_Found_Stinger.ogg" loop="false" />
     <!-- Vanity Shop --><track name="Revelations Vanity Bazaar" path="revelcommon/Bazaar_Mischief.ogg" loop="true" />
     <!-- Vanity Casino --><track name="Revelations Vanity Casino" path="revelcommon/Prank_Shop_Casino_Version.ogg" loop="true" />
+	<!-- Narc Dante Jingle --><track name="Revelations Special Narc Reward" path="afterlife/Item Room 4.ogg" loop="false" />
 
 	<!-- AFTERLIFE OST -->
 	<!-- Used with permission for some vanilla track replacements in rev floors -->

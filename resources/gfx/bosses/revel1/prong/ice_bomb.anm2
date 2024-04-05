@@ -1,11 +1,11 @@
 <AnimatedActor>
-	<Info CreatedBy="Unknown" CreatedOn="02/07/2020 19:15:08" Version="10" Fps="30"/>
+	<Info CreatedBy="Unknown" CreatedOn="27/02/2024 00:29:20" Version="11" Fps="30"/>
 	<Content>
 		<Spritesheets>
-			<Spritesheet Path="..\..\..\monsters\revel1\ice_hazard_overlay_top _noshadow.png" Id="0"/>
-			<Spritesheet Path="..\..\..\monsters\revel1\ice_hazard_enemies.png" Id="1"/>
-			<Spritesheet Path="..\..\..\monsters\revel1\ice_hazard_overlay_bottom.png" Id="2"/>
-			<Spritesheet Path="..\..\effects\revel1\ice_gibs.png" Id="3"/>
+			<Spritesheet Path="..\..\..\monsters\revel1\ice_hazard\ice_hazard_overlay_top _noshadow.png" Id="0"/>
+			<Spritesheet Path="..\..\..\monsters\revel1\ice_hazard\ice_hazard_enemies.png" Id="1"/>
+			<Spritesheet Path="..\..\..\monsters\revel1\ice_hazard\ice_hazard_overlay_bottom.png" Id="2"/>
+			<Spritesheet Path="..\..\..\effects\revel1\ice_gibs.png" Id="3"/>
 		</Spritesheets>
 		<Layers>
 			<Layer Name="ice bottom" Id="0" SpritesheetId="2"/>

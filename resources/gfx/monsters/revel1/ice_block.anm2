@@ -2,8 +2,8 @@
 	<Info CreatedBy="Unknown" CreatedOn="16/09/2019 19:28:44" Version="10" Fps="45"/>
 	<Content>
 		<Spritesheets>
-			<Spritesheet Path="..\..\grid\revel1\glacier_rocks.png" Id="0"/>
-			<Spritesheet Path="..\..\grid\revel1\ice_block.png" Id="1"/>
+			<Spritesheet Path="../../../grid\revel1\glacier_rocks.png" Id="0"/>
+			<Spritesheet Path="../../../grid\revel1\ice_block.png" Id="1"/>
 		</Spritesheets>
 		<Layers>
 			<Layer Name="Body" Id="0" SpritesheetId="0"/>

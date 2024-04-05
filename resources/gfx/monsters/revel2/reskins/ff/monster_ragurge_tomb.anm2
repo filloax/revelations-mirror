@@ -4,7 +4,7 @@
 		<Spritesheets>
 			<Spritesheet Path="monster_ragurgebody_tomb.png" Id="0"/>
 			<Spritesheet Path="monster_ragurgehead_tomb.png" Id="1"/>
-			<Spritesheet Path="..\bloodcell\suck.png" Id="2"/>
+			<Spritesheet Path="../../bloodcell/suck.png" Id="2"/>
 		</Spritesheets>
 		<Layers>
 			<Layer Name="body" Id="0" SpritesheetId="0"/>

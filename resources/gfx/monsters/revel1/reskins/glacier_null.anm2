@@ -2,7 +2,7 @@
 	<Info CreatedBy="robot" CreatedOn="5/16/2019 1:14:44 AM" Version="110" Fps="30"/>
 	<Content>
 		<Spritesheets>
-			<Spritesheet Path="..\..\Rebirth\monster_252_NullBody.png" Id="0"/>
+			<Spritesheet Path="../../../Rebirth\monster_252_NullBody.png" Id="0"/>
 			<Spritesheet Path="glacier_null.png" Id="1"/>
 		</Spritesheets>
 		<Layers>

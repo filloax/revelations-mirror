@@ -1,4 +1,5 @@
-local RevCallbacks = require "lua.revelcommon.enums.RevCallbacks"
+local RevCallbacks = require "scripts.revelations.common.enums.RevCallbacks"
+
 _G.revel = RegisterMod("Revelations",1)
 
 _G.REVEL = {
@@ -22,12 +23,12 @@ if REVEL_FORCE_DEBUG then
     REVEL.DEBUG = true
 end
 
-require("lua.apioverride")
+require("scripts.revelations.libraries.sources.apioverride")
 
 ---------------------------
 -- TRACK ADDED CALLBACKS --
 ---------------------------
-local PatchMod_TrackAddedCallbacks = include("lua.revelcommon.patches.callback_track")
+local PatchMod_TrackAddedCallbacks = include("scripts.revelations.common.patches.callback_track")
 
 PatchMod_TrackAddedCallbacks(revel)
 
@@ -37,7 +38,7 @@ PatchMod_TrackAddedCallbacks(revel)
 
 -- moved to own file with new callbacks system
 
--- local PatchMod_PerformanceMetrics = include("lua.revelcommon.patches.performance_metrics")
+-- local PatchMod_PerformanceMetrics = include("scripts.revelations.common.patches.performance_metrics")
 
 -- if REVEL.DO_DEBUG_METRICS then
 --     PatchMod_PerformanceMetrics(revel)
@@ -65,7 +66,7 @@ Our solution to this is to have each file return a load function that we can cal
 
 ]]
 
-REVEL.Modules = include("lua.revelcommon.loadorder")
+REVEL.Modules = include("scripts.revelations.loadorder")
 
 REVEL.LoadFunctions = {}
 
@@ -95,7 +96,7 @@ local function includes(list, val)
 end
 
 -- Modules that contain an older no-repentogon alternative if repentogon is not loaded
-local NoRepentogonAltModules = require("lua.norpgn.no_repentogon_files")
+local NoRepentogonAltModules = require("scripts.revelations.norpgn.no_repentogon_files")
 local NoRepentogonAltModulesSet = {}
 for i, v in ipairs(NoRepentogonAltModules) do NoRepentogonAltModulesSet[v] = true end
 
@@ -103,7 +104,7 @@ for i, v in ipairs(NoRepentogonAltModules) do NoRepentogonAltModulesSet[v] = tru
 ---@return boolean changed
 local function AdjustPathNoRepentogon(modulePath)
     if not REPENTOGON and NoRepentogonAltModulesSet[modulePath] then
-        return modulePath:gsub("lua.", "lua.norpgn."), true
+        return modulePath:gsub("scripts.revelations.", "scripts.revelations.norpgn."), true
     end
     return modulePath, false
 end
@@ -154,7 +155,7 @@ local function LoadModule(modulePath)
     end
     if not loadFunction and type(ret) == "table" then
         loadFunction = ret.LoadFunction
-        if type(loadFunction) ~= "function" then
+        if loadFunction and type(loadFunction) ~= "function" then
             loadFunction = nil
             Isaac.DebugString("[ERR] Table LoadFunction for module " .. modulePath .. " is not function!")
             return false, nil, modulePath
