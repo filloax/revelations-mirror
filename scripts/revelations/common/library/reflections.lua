@@ -19,10 +19,10 @@ local TransparentMirrorBackdrop = {
 
 local reflectionPositionOffset = Vector(0, -32)
 
-local roomHasReflections = false
+local RoomHasReflections = false
 
 function REVEL.AddReflections(alpha, renderMirrorFloor, renderMirrorOverlays)
-    if not roomHasReflections then
+    if not RoomHasReflections then
         local refMan = StageAPI.SpawnFloorEffect(REVEL.room:GetTopLeftPos() + reflectionPositionOffset, nil, nil, nil, nil, REVEL.ENT.REF_MAN.variant)
         refMan.RenderZOffset = 0
         REVEL.GetData(refMan).alphaMult = alpha
@@ -33,14 +33,14 @@ function REVEL.AddReflections(alpha, renderMirrorFloor, renderMirrorOverlays)
         mirrorFloorSprite:Load("gfx/backdrop/revel1/mirror/MirrorAlpha_FloorBackdrop.anm2", true)
         mirrorFloorSprite:Play(StageAPI.ShapeToName[REVEL.room:GetRoomShape()], true)
 
-        roomHasReflections = true
+        RoomHasReflections = true
     else
         REVEL.DebugLog("Warn: tried adding reflections twice")
     end
 end
 
 function REVEL.HasReflectionsInRoom()
-    return roomHasReflections
+    return RoomHasReflections
 end
 
 local justCalled = false
@@ -190,9 +190,10 @@ end
     end
 ]]
 
-local mirrorDeadSprite = REVEL.LazyLoadRoomSprite{
+local MirrorRoomDead = false
+local MirrorDeadSprite = REVEL.LazyLoadRoomSprite{
     ID = "mirrorDeadSprite",
-    Anm2 = "gfx/backdrop/Floor.anm2",
+    Anm2 = "gfx/backdrop/revelcommon/Floor.anm2",
     OnCreate = function(sprite)
         sprite:ReplaceSpritesheet(0, "gfx/backdrop/revel1/mirror/1x1_mirrordeadoverlay.png")
         sprite:Play("Default", true)
@@ -200,30 +201,38 @@ local mirrorDeadSprite = REVEL.LazyLoadRoomSprite{
     end,
 }
 
-local mirrorCrackedSprite = REVEL.LazyLoadRoomSprite{
-    ID = "mirrorDeadSprite",
+local MirrorRoomCracked = false
+local MirrorCrackedSprite = REVEL.LazyLoadRoomSprite{
+    ID = "mirrorCrackedSprite",
     Anm2 = "gfx/backdrop/revel1/mirror/mirror_crackoverlay.anm2",
     Animation = "Break",
 }
 
-function REVEL.GetMirrorDeadSprite()
-    return mirrorDeadSprite
+function REVEL.SetMirrorDeadOverlay(fade)
+    MirrorRoomDead = true
+    local anim = fade and "FadeIn" or "Default"
+    MirrorDeadSprite:Play(anim, true)
 end
 
-function REVEL.GetMirrorCrackedSprite()
-    return mirrorCrackedSprite
+function REVEL.SetMirrorCrackedSprite(anim)
+    if anim then
+        MirrorCrackedSprite:Play("Break", true)
+    else
+        MirrorCrackedSprite:SetFrame("Break", 90)
+    end
+    MirrorRoomCracked = true
 end
 
-local horizontalShineSizeX = 280
-local horizontalShineSizeY = 288
-local verticalShineSizeX = 443
-local verticalShineSizeY = 286
-local horizontalShineX = 0
-local verticalShineY = 0
+local HorizontalShineSizeX = 280
+local HorizontalShineSizeY = 288
+local VerticalShineSizeX = 443
+local VerticalShineSizeY = 286
+local HorizontalShineX = 0
+local VerticalShineY = 0
 
-local horizontalShineSprite = REVEL.LazyLoadRoomSprite{
+local HorizontalShineSprite = REVEL.LazyLoadRoomSprite{
     ID = "mirrorHorizontalShineSprite",
-    Anm2 = "gfx/backdrop/Floor.anm2",
+    Anm2 = "gfx/backdrop/revelcommon/Floor.anm2",
     OnCreate = function(sprite)
         sprite:ReplaceSpritesheet(0, "gfx/backdrop/revel1/mirror/mirror_horizontalshine.png")
         sprite:Play("Default", true)
@@ -231,9 +240,9 @@ local horizontalShineSprite = REVEL.LazyLoadRoomSprite{
     end
 }
 
-local verticalShineSprite = REVEL.LazyLoadRoomSprite{
+local VerticalShineSprite = REVEL.LazyLoadRoomSprite{
     ID = "mirrorVerticalShineSprite",
-    Anm2 = "gfx/backdrop/Floor.anm2",
+    Anm2 = "gfx/backdrop/revelcommon/Floor.anm2",
     OnCreate = function(sprite)
         sprite:ReplaceSpritesheet(0, "gfx/backdrop/revel1/mirror/mirror_verticalshine.png")
         sprite:Play("Default", true)
@@ -241,9 +250,7 @@ local verticalShineSprite = REVEL.LazyLoadRoomSprite{
     end
 }
 
-REVEL.MirrorRoomCracked = false
-REVEL.MirrorRoomDead = false
-local oddMirrorFrame = false
+local OddMirrorFrame = false
 
 local NoShineScaleShapes = {RoomShape.ROOMSHAPE_1x1, RoomShape.ROOMSHAPE_IH, RoomShape.ROOMSHAPE_IV}
 
@@ -255,36 +262,36 @@ local function reflectionsManagerPostEffectRender(_, eff)
             local tl, br = REVEL.GetRoomCorners()
             local roomSizeX = br.X - tl.X
             local roomSizeY = br.Y - tl.Y
-            local horizontalShineMax = roomSizeX + horizontalShineSizeX
-            local horizontalShineMin = -horizontalShineSizeX
-            local verticalShineMax = roomSizeY + verticalShineSizeY
-            local verticalShineMin = -verticalShineSizeY
+            local horizontalShineMax = roomSizeX + HorizontalShineSizeX
+            local horizontalShineMin = -HorizontalShineSizeX
+            local verticalShineMax = roomSizeY + VerticalShineSizeY
+            local verticalShineMin = -VerticalShineSizeY
 
             if not REVEL.includes(NoShineScaleShapes, REVEL.room:GetRoomShape()) then
-                horizontalShineSprite.Scale = Vector(1, roomSizeY / horizontalShineSizeY)
-                verticalShineSprite.Scale = Vector(roomSizeX / verticalShineSizeX, 1)
+                HorizontalShineSprite.Scale = Vector(1, roomSizeY / HorizontalShineSizeY)
+                VerticalShineSprite.Scale = Vector(roomSizeX / VerticalShineSizeX, 1)
             else
-                horizontalShineSprite.Scale = Vector.One
-                verticalShineSprite.Scale = Vector.One
+                HorizontalShineSprite.Scale = Vector.One
+                VerticalShineSprite.Scale = Vector.One
             end
 
             if not REVEL.game:IsPaused() then
-                horizontalShineX = horizontalShineX + 1
-                verticalShineY = verticalShineY + 1
-                if horizontalShineX > horizontalShineMax then
-                    horizontalShineX = horizontalShineMin
+                HorizontalShineX = HorizontalShineX + 1
+                VerticalShineY = VerticalShineY + 1
+                if HorizontalShineX > horizontalShineMax then
+                    HorizontalShineX = horizontalShineMin
                 end
 
-                if verticalShineY > verticalShineMax then
-                    verticalShineY = verticalShineMin
+                if VerticalShineY > verticalShineMax then
+                    VerticalShineY = verticalShineMin
                 end
 
-                horizontalShineSprite.Offset = Vector(horizontalShineX, 0)
-                verticalShineSprite.Offset = Vector(0, verticalShineY)
+                HorizontalShineSprite.Offset = Vector(HorizontalShineX, 0)
+                VerticalShineSprite.Offset = Vector(0, VerticalShineY)
             end
 
-            horizontalShineSprite:Render(floorRenderPosition, Vector.Zero, Vector.Zero)
-            verticalShineSprite:Render(floorRenderPosition, Vector.Zero, Vector.Zero)
+            HorizontalShineSprite:Render(floorRenderPosition, Vector.Zero, Vector.Zero)
+            VerticalShineSprite:Render(floorRenderPosition, Vector.Zero, Vector.Zero)
         end
 
         StageAPI.CallCallbacks(RevCallbacks.PRE_RENDER_REFLECTIONS, false)
@@ -311,23 +318,23 @@ local function reflectionsManagerPostEffectRender(_, eff)
             mirrorFloorSprite:Render(floorRenderPosition, Vector.Zero, Vector.Zero)
         end
 
-        oddMirrorFrame = not oddMirrorFrame
+        OddMirrorFrame = not OddMirrorFrame
 
         if data.RenderMirrorOverlays then
-            if REVEL.MirrorRoomCracked then
-                if oddMirrorFrame then
-                    mirrorCrackedSprite:Update()
+            if MirrorRoomCracked then
+                if OddMirrorFrame then
+                    MirrorCrackedSprite:Update()
                 end
 
-                mirrorCrackedSprite:Render(floorRenderPosition, Vector.Zero, Vector.Zero)
+                MirrorCrackedSprite:Render(floorRenderPosition, Vector.Zero, Vector.Zero)
             end
 
-            if REVEL.MirrorRoomDead then
-                if oddMirrorFrame then
-                    mirrorDeadSprite:Update()
+            if MirrorRoomDead then
+                if OddMirrorFrame then
+                    MirrorDeadSprite:Update()
                 end
 
-                mirrorDeadSprite:Render(floorRenderPosition, Vector.Zero, Vector.Zero)
+                MirrorDeadSprite:Render(floorRenderPosition, Vector.Zero, Vector.Zero)
             end
         end
 
@@ -347,7 +354,9 @@ local function reflectionsManagerPostEffectRender(_, eff)
 end
 
 local function reflectionsPostNewRoom()
-    roomHasReflections = false
+    RoomHasReflections = false
+    MirrorRoomDead = false
+    MirrorRoomCracked = false
 end
 
 revel:AddCallback(ModCallbacks.MC_POST_EFFECT_RENDER, reflectionsManagerPostEffectRender, REVEL.ENT.REF_MAN.variant)

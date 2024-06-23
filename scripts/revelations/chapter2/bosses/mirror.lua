@@ -67,7 +67,7 @@ do -- Mirror Room
     function REVEL.TombLoadMirrorRoom()
         StageAPI.SetBossEncountered("Narcissus 2")
         StageAPI.ChangeBackdrop(TombMirrorBackdrop)
-        REVEL.AddReflections(1, true, false)
+        REVEL.AddReflections(1, true, true)
         if not revel.data.run.NarcissusTombDefeated then
             local narc = Isaac.Spawn(REVEL.ENT.NARCISSUS_2.id, REVEL.ENT.NARCISSUS_2.variant, 0, REVEL.player.Position, Vector.Zero, nil)
             REVEL.room:SetClear(false)
@@ -81,6 +81,8 @@ do -- Mirror Room
                     REVEL.StopMusicTrack(REVEL.MUSIC.MIRROR_BOSS_JINGLE)
                 end)
             end
+        else
+            REVEL.SetMirrorDeadOverlay()
         end
     end
 
@@ -2622,6 +2624,8 @@ do -- Narcissus 2
                 REVEL.MirrorRoom.SpawnNextMirror(npc)
             end
 
+            REVEL.SetMirrorDeadOverlay(true)
+
   			if not REVEL.IsAchievementUnlocked("MIRROR_BOMBS") then
   				REVEL.UnlockAchievement("MIRROR_BOMBS")
   			end
@@ -2641,7 +2645,7 @@ do -- Narcissus 2
 
             if currentRoom.PersistentData.TheLostMirrorBoss then
                 REVEL.FlamingTombs.SpawnDoor(true)
-                REVEL.music:PlayJingle(REVEL.MUSIC.SPECIAL_NARC_REWARD_JINGLE)
+                REVEL.PlayJingleForRoom(REVEL.MUSIC.SPECIAL_NARC_REWARD_JINGLE)
             end
         end
     end, REVEL.ENT.NARCISSUS_2.id)

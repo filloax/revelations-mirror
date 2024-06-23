@@ -5,6 +5,8 @@ REVEL.DEFAULT_MODDATA = {
         level = {
             room = {},
 
+            roomData = {},
+
             hub2Statues = {},
             revTrapdoors = {},
             MirrorDoorSpawned = false,
@@ -30,11 +32,6 @@ REVEL.DEFAULT_MODDATA = {
 
             dante = {
                 StartingRoomIndex = -1,
-                OtherRoomDisplayData = {},
-                RoomClearData = {
-                    Current = {},
-                    Other = {},
-                },
                 RoomClearAwards = {},
                 RepFailsafe = false
             },
@@ -45,7 +42,7 @@ REVEL.DEFAULT_MODDATA = {
             eliteRoomIndex = -1, -- -1 = none, -2 = first seen, otherwise is grid index of elite room
     
             notablePickupsInRoom = {
-                -- [tostring(listIndex)] = N
+                -- [listIndex] = N
             },
             notablePickupsTakenFromRoom = {},
     
@@ -55,11 +52,15 @@ REVEL.DEFAULT_MODDATA = {
             statwheelData = {},
             
             customPillsInRoom = {
-                -- [tostring(listIndex)] = {{BaseColor = N, CustomColor = x, GridIndex = idx, Hash = y}, ...}
+                -- [listIndex] = {{BaseColor = N, CustomColor = x, GridIndex = idx, Hash = y}, ...}
             },    
 
             clearFromStartRooms = {
-                -- [tostring(listIndex)] = 0/1
+                -- [listIndex] = 0/1
+            },
+
+            minimapData = {
+                -- [id] = data [minimap.lua]
             },
 
             revelShopSpawned = false,
@@ -72,10 +73,16 @@ REVEL.DEFAULT_MODDATA = {
 
         unlockedTrinkets = {},
         unlockedCards = {},
-        inventory = {},
+        ---@type table<integer, table<integer, integer>>
+        inventory = {
+            -- [playerId] = {[itemId] = itemNum}
+        },
         itemCount = {},
         itemHistory = {},
-        obtainedItemsAll = {},
+         ---@type table<integer, table<integer, true>>
+         obtainedItemsAll = {
+            -- [playerId] = {[itemId] = true}
+        },
         trinketHistory = {},
         bellEffect = {},
         visitedDevil = false,
@@ -87,19 +94,19 @@ REVEL.DEFAULT_MODDATA = {
         hyperDiceChance = 0,
         hyperDiceCorrupted = false,
         bcSynergyes = {
-            [tostring(CollectibleType.COLLECTIBLE_LITTLE_GISH)] = 0,
-            [tostring(CollectibleType.COLLECTIBLE_GHOST_BABY)] = 0,
-            [tostring(CollectibleType.COLLECTIBLE_LITTLE_STEVEN)] = 0,
-            [tostring(CollectibleType.COLLECTIBLE_MULTIDIMENSIONAL_BABY)] = 0,
-            [tostring(CollectibleType.COLLECTIBLE_INTRUDER)] = 0,
-            [tostring(CollectibleType.COLLECTIBLE_SUCCUBUS)] = 0,
-            [tostring(CollectibleType.COLLECTIBLE_HOLY_WATER)] = 0,
-            [tostring(CollectibleType.COLLECTIBLE_FRUITY_PLUM)] = 0,
-            [tostring(CollectibleType.COLLECTIBLE_STAR_OF_BETHLEHEM)] = 0,
-            [tostring(CollectibleType.COLLECTIBLE_HALLOWED_GROUND)] = 0,
-            [tostring(REVEL.ITEM.ENVYS_ENMITY.id)] = 0,
-            [tostring(REVEL.ITEM.BANDAGE_BABY.id)] = 0,
-            [tostring(REVEL.ITEM.WILLO.id)] = 0,
+            [CollectibleType.COLLECTIBLE_LITTLE_GISH] = 0,
+            [CollectibleType.COLLECTIBLE_GHOST_BABY] = 0,
+            [CollectibleType.COLLECTIBLE_LITTLE_STEVEN] = 0,
+            [CollectibleType.COLLECTIBLE_MULTIDIMENSIONAL_BABY] = 0,
+            [CollectibleType.COLLECTIBLE_INTRUDER] = 0,
+            [CollectibleType.COLLECTIBLE_SUCCUBUS] = 0,
+            [CollectibleType.COLLECTIBLE_HOLY_WATER] = 0,
+            [CollectibleType.COLLECTIBLE_FRUITY_PLUM] = 0,
+            [CollectibleType.COLLECTIBLE_STAR_OF_BETHLEHEM] = 0,
+            [CollectibleType.COLLECTIBLE_HALLOWED_GROUND] = 0,
+            [REVEL.ITEM.ENVYS_ENMITY.id] = 0,
+            [REVEL.ITEM.BANDAGE_BABY.id] = 0,
+            [REVEL.ITEM.WILLO.id] = 0,
         },
         penance = {
             {sh = 0, bh = 0, gh = 0},
@@ -135,7 +142,7 @@ REVEL.DEFAULT_MODDATA = {
         
         playerCustomPills = {
             { 
-                -- [tostring(slotID)] = {BaseColor = N, CustomColor = x} 
+                -- [slotID] = {BaseColor = N, CustomColor = x} 
             },
             {},
             {},

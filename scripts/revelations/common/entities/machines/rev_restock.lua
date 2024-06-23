@@ -70,7 +70,7 @@ end
 
 local function RestockMachineUpdate(machine, data)
     local sprite = machine:GetSprite()
-    local restockVars = revel.data.run.level.localRestockVars[tostring(machine.InitSeed)]
+    local restockVars = revel.data.run.level.localRestockVars[machine.InitSeed]
 
     if not data.PostInit then
         machine:AddEntityFlags(EntityFlag.FLAG_NO_KNOCKBACK)
@@ -146,7 +146,7 @@ local function RestockMachineUpdate(machine, data)
         RestockMachineRestock()
     end
 
-    revel.data.run.level.localRestockVars[tostring(machine.InitSeed)] = restockVars
+    revel.data.run.level.localRestockVars[machine.InitSeed] = restockVars
 end
 
 local function RestockMachinePostExplosion(machine, data)

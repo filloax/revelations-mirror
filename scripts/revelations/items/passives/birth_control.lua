@@ -424,7 +424,6 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_ITEM_PICKUP, 1, function(p
         local shouldEvalCache
 
         for id, num in pairs(revel.data.run.inventory[pind]) do
-            id = tonumber(id)
             if id then
                 local item = REVEL.config:GetCollectible(id)
 
@@ -458,8 +457,8 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_ITEM_PICKUP, 1, function(p
                         end
                     end
 
-                    if tonumber(revel.data.run.bcSynergyes[tostring(id)]) then
-                        revel.data.run.bcSynergyes[tostring(id)] = revel.data.run.bcSynergyes[tostring(id)] + 1
+                    if tonumber(revel.data.run.bcSynergyes[id]) then
+                        revel.data.run.bcSynergyes[id] = revel.data.run.bcSynergyes[id] + 1
                     end
 
                     if BirthControl.FamToItem[id] then
@@ -651,23 +650,19 @@ revel:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function(_, player, flag)
     -- Isaac.DebugString("2")
     if REVEL.ITEM.BCONTROL:PlayerHasCollectible(player) then
         if flag == CacheFlag.CACHE_TEARCOLOR then
-            if revel.data.run.bcSynergyes[tostring(
-                CollectibleType.COLLECTIBLE_GHOST_BABY)] > 0 then
+            if revel.data.run.bcSynergyes[CollectibleType.COLLECTIBLE_GHOST_BABY] > 0 then
                 player.TearColor = player.TearColor * REVEL.SPECTRAL_COLOR
             end
 
-            if revel.data.run.bcSynergyes[tostring(
-                CollectibleType.COLLECTIBLE_LITTLE_STEVEN)] > 0 then
+            if revel.data.run.bcSynergyes[CollectibleType.COLLECTIBLE_LITTLE_STEVEN] > 0 then
                 player.TearColor = player.TearColor * REVEL.HOMING_COLOR
             end
 
-            if revel.data.run.bcSynergyes[tostring(
-                CollectibleType.COLLECTIBLE_LITTLE_GISH)] > 0 then
+            if revel.data.run.bcSynergyes[CollectibleType.COLLECTIBLE_LITTLE_GISH] > 0 then
                 player.TearColor = player.TearColor * REVEL.TAR_COLOR
             end
 
-            if revel.data.run.bcSynergyes[tostring(
-                CollectibleType.COLLECTIBLE_INTRUDER)] > 0 then
+            if revel.data.run.bcSynergyes[CollectibleType.COLLECTIBLE_INTRUDER] > 0 then
                 player.TearColor = player.TearColor * REVEL.SPECTRAL_COLOR
             end
 
@@ -675,23 +670,19 @@ revel:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function(_, player, flag)
                 player.TearColor = player.TearColor * REVEL.HOMING_COLOR
             end
         elseif flag == CacheFlag.CACHE_TEARFLAG then
-            if revel.data.run.bcSynergyes[tostring(
-                CollectibleType.COLLECTIBLE_GHOST_BABY)] > 0 then
+            if revel.data.run.bcSynergyes[CollectibleType.COLLECTIBLE_GHOST_BABY] > 0 then
                 player.TearFlags = player.TearFlags | TearFlags.TEAR_SPECTRAL
             end
 
-            if revel.data.run.bcSynergyes[tostring(
-                CollectibleType.COLLECTIBLE_LITTLE_STEVEN)] > 0 then
+            if revel.data.run.bcSynergyes[CollectibleType.COLLECTIBLE_LITTLE_STEVEN] > 0 then
                 player.TearFlags = player.TearFlags | TearFlags.TEAR_HOMING
             end
 
-            if revel.data.run.bcSynergyes[tostring(
-                CollectibleType.COLLECTIBLE_LITTLE_GISH)] > 0 then
+            if revel.data.run.bcSynergyes[CollectibleType.COLLECTIBLE_LITTLE_GISH] > 0 then
                 player.TearFlags = player.TearFlags | TearFlags.TEAR_GISH
             end
 
-            if revel.data.run.bcSynergyes[tostring(
-                CollectibleType.COLLECTIBLE_INTRUDER)] > 0 then
+            if revel.data.run.bcSynergyes[CollectibleType.COLLECTIBLE_INTRUDER] > 0 then
                 player.TearFlags = player.TearFlags | TearFlags.TEAR_SLOW
             end
 
@@ -709,28 +700,28 @@ revel:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, function(_, player, flag)
                 player.MaxFireDelay = math.ceil(player.MaxFireDelay * 1.75)
             end
 
-            if revel.data.run.bcSynergyes[tostring(CollectibleType.COLLECTIBLE_STAR_OF_BETHLEHEM)] > 0 then
+            if revel.data.run.bcSynergyes[CollectibleType.COLLECTIBLE_STAR_OF_BETHLEHEM] > 0 then
                 if REVEL.room:GetType() == RoomType.ROOM_BOSS then
                     player.MaxFireDelay = math.ceil(player.MaxFireDelay * 0.5)
                 end
             end
         elseif flag == CacheFlag.CACHE_DAMAGE then
-            if revel.data.run.bcSynergyes[tostring(REVEL.ITEM.ENVYS_ENMITY.id)] > 0 then
-                local data = REVEL.GetData(player)
+            if revel.data.run.bcSynergyes[REVEL.ITEM.ENVYS_ENMITY.id] > 0 then
+                local data = player:GetData()
                 data.bcEnvyEnmnitySplits = data.bcEnvyEnmnitySplits or 0
                 if data.bcEnvyEnmnitySplits > 0 then
                     local damageToAdd = 1
                     for i = 1, data.bcEnvyEnmnitySplits do
                         damageToAdd = damageToAdd * 2
                     end
-                    damageToAdd = (damageToAdd * revel.data.run.bcSynergyes[tostring(REVEL.ITEM.ENVYS_ENMITY.id)]) 
-                        - revel.data.run.bcSynergyes[tostring(REVEL.ITEM.ENVYS_ENMITY.id)]
+                    damageToAdd = (damageToAdd * revel.data.run.bcSynergyes[REVEL.ITEM.ENVYS_ENMITY.id]) 
+                        - revel.data.run.bcSynergyes[REVEL.ITEM.ENVYS_ENMITY.id]
                     damageToAdd = damageToAdd * 0.2
                     player.Damage = player.Damage + damageToAdd
                 end
             end
 
-            if revel.data.run.bcSynergyes[tostring(CollectibleType.COLLECTIBLE_STAR_OF_BETHLEHEM)] > 0 then
+            if revel.data.run.bcSynergyes[CollectibleType.COLLECTIBLE_STAR_OF_BETHLEHEM] > 0 then
                 if REVEL.room:GetType() == RoomType.ROOM_BOSS then
                     player.Damage = player.Damage * 2
                 end
@@ -747,7 +738,7 @@ revel:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function(_)
     if REVEL.room:IsFirstVisit() then
         for _, player in ipairs(REVEL.players) do
             if REVEL.ITEM.BCONTROL:PlayerHasCollectible(player) then
-                if revel.data.run.bcSynergyes[tostring(CollectibleType.COLLECTIBLE_HALLOWED_GROUND)] > 0 then
+                if revel.data.run.bcSynergyes[CollectibleType.COLLECTIBLE_HALLOWED_GROUND] > 0 then
                     local index, grid
                     for i=1, 3 do
                         index = REVEL.room:GetRandomTileIndex(i*math.random(10,100))
@@ -769,8 +760,8 @@ end)
 StageAPI.AddCallback("Revelations", RevCallbacks.POST_ENTITY_TAKE_DMG, 1, function(ent, amount, flags, source, countdown)
     local player = ent:ToPlayer()
     if REVEL.ITEM.BCONTROL:PlayerHasCollectible(player) then
-        if revel.data.run.bcSynergyes[tostring(REVEL.ITEM.ENVYS_ENMITY.id)] > 0 then
-            local data = REVEL.GetData(player)
+        if revel.data.run.bcSynergyes[REVEL.ITEM.ENVYS_ENMITY.id] > 0 then
+            local data = player:GetData()
             data.bcEnvyEnmnitySplits = data.bcEnvyEnmnitySplits or 0
             data.bcEnvyEnmnitySplits = data.bcEnvyEnmnitySplits + 1
             data.bcEnvyEnmnitySplits = math.min(data.bcEnvyEnmnitySplits, 3)
@@ -779,7 +770,7 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_ENTITY_TAKE_DMG, 1, functi
         end
 
         --[[if REVEL.FiendFolioCompatLoaded then
-            if revel.data.run.bcSynergyes[tostring(FiendFolio.ITEM.COLLECTIBLE.ROBOBABY3)] > 0 then
+            if revel.data.run.bcSynergyes[FiendFolio.ITEM.COLLECTIBLE.ROBOBABY3] > 0 then
                 for i = 45, 360, 45 do
                     local laser = EntityLaser.ShootAngle(2, player.Position, i, 3, Vector(0, -20), player)
                     laser.CollisionDamage = 3.5
@@ -793,14 +784,14 @@ end, EntityType.ENTITY_PLAYER)
 StageAPI.AddCallback("Revelations", RevCallbacks.EARLY_POST_NEW_ROOM, 1, function()
     for _, player in ipairs(REVEL.players) do
         if REVEL.ITEM.BCONTROL:PlayerHasCollectible(player) then
-            if revel.data.run.bcSynergyes[tostring(REVEL.ITEM.ENVYS_ENMITY.id)] > 0 then
-                local data = REVEL.GetData(player)
+            if revel.data.run.bcSynergyes[REVEL.ITEM.ENVYS_ENMITY.id] > 0 then
+                local data = player:GetData()
                 data.bcEnvyEnmnitySplits = 0
                 player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
                 player:EvaluateItems()
             end
 
-            if revel.data.run.bcSynergyes[tostring(CollectibleType.COLLECTIBLE_STAR_OF_BETHLEHEM)] > 0 then
+            if revel.data.run.bcSynergyes[CollectibleType.COLLECTIBLE_STAR_OF_BETHLEHEM] > 0 then
                 player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
                 player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY)
                 player:EvaluateItems()
@@ -812,7 +803,7 @@ end)
 StageAPI.AddCallback("Revelations", RevCallbacks.ON_TEAR, 2,
                         function(tear, data, sprite, player)
     if player and REVEL.ITEM.BCONTROL:PlayerHasCollectible(player) then
-        local bandageBabyNum = revel.data.run.bcSynergyes[tostring(REVEL.ITEM.BANDAGE_BABY.id)]
+        local bandageBabyNum = revel.data.run.bcSynergyes[REVEL.ITEM.BANDAGE_BABY.id]
         if bandageBabyNum > 0 then
             local data = REVEL.GetData(player)
 
@@ -855,14 +846,14 @@ StageAPI.AddCallback("Revelations", RevCallbacks.ON_TEAR, 2,
             end
         end
 
-        -- if revel.data.run.bcSynergyes[tostring(REVEL.ITEM.WILLO.id)] > 0 then
+        -- if revel.data.run.bcSynergyes[REVEL.ITEM.WILLO.id] > 0 then
         --     if math.random(1,10) <= math.max(1,math.min(5,(player.Luck/2))) then
         --         tear:AddTearFlags(TearFlags.TEAR_HOMING)
         --         tear:GetSprite().Color = player.TearColor * REVEL.HOMING_COLOR
         --     end
         -- end
 
-        if revel.data.run.bcSynergyes[tostring(CollectibleType.COLLECTIBLE_FRUITY_PLUM)] > 0 then
+        if revel.data.run.bcSynergyes[CollectibleType.COLLECTIBLE_FRUITY_PLUM] > 0 then
             tear.Scale = tear.Scale * math.random(8,12)/10
             tear.Velocity = tear.Velocity:Rotated(math.random(-10,10))
         end
@@ -874,7 +865,7 @@ revel:AddCallback(ModCallbacks.MC_PRE_TEAR_COLLISION, function(_, tear, collider
         local player = tear.SpawnerEntity:ToPlayer()
         if player then
             if REVEL.ITEM.BCONTROL:PlayerHasCollectible(player) then
-                if revel.data.run.bcSynergyes[tostring(CollectibleType.COLLECTIBLE_HOLY_WATER)] > 0 then
+                if revel.data.run.bcSynergyes[CollectibleType.COLLECTIBLE_HOLY_WATER] > 0 then
                     if math.random(1,10) == 1 then
                         if (Isaac.CountEntities(player, 1000,EffectVariant.PLAYER_CREEP_HOLYWATER, -1) or 0) < 1 then
                             REVEL.sfx:Play(SoundEffect.SOUND_GLASS_BREAK)

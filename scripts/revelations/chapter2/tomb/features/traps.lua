@@ -112,13 +112,11 @@ StageAPI.AddCallback("Revelations", "POST_ROOM_INIT", 1, function(newRoom, fromS
                     trap.Rotation = (trap.Angle - 90) % 360 --how much to rotate some traps' sprites
                 end
 
-                local strindex = tostring(trap.Index)
-
                 if REVEL.TrapTypes[trap.Trap] and REVEL.TrapTypes[trap.Trap].OnSelect then
                     REVEL.TrapTypes[trap.Trap].OnSelect(trap, trap.Index)
                 end
 
-                spawnTraps[strindex] = trap
+                spawnTraps[trap.Index] = trap
             end
 
             newRoom.PersistentData.Traps = spawnTraps
@@ -132,15 +130,15 @@ StageAPI.AddCallback("Revelations", "POST_ROOM_INIT", 1, function(newRoom, fromS
     and not REVEL.isEmpty(newRoom.PersistentData.Traps) 
     and REVEL.IsShrineEffectActive(ShrineTypes.PARANOIA) then
         local fakeTraps = REVEL.AddParanoiaTiles(newRoom, newRoom.PersistentData.Traps)
-        for strindex, trapData in pairs(fakeTraps) do
-            newRoom.PersistentData.Traps[strindex] = trapData
+        for index, trapData in pairs(fakeTraps) do
+            newRoom.PersistentData.Traps[index] = trapData
         end
     end
 
     if newRoom.PersistentData.Traps then
         local trapsOverlapping = {}
         local hasSpikeTrap
-        for strindex, trap in pairs(newRoom.PersistentData.Traps) do
+        for index, trap in pairs(newRoom.PersistentData.Traps) do
             if trap.Trap == "SpikeTrap" or trap.Trap == "SpikeTrapOffset" then
                 hasSpikeTrap = true
             end
@@ -289,7 +287,7 @@ function REVEL.SelectTrapsRandomly(newRoom)
         for i = 1, numToSpawn do
             local trap = validTraps[i]
             if trap then
-                traps[tostring(trap.Index)] = trap.TrapData
+                traps[trap.Index] = trap.TrapData
             else
                 Isaac.DebugString("Spawning trap failed, index " .. tostring(i))
             end
@@ -348,7 +346,7 @@ function REVEL.AddParanoiaTiles(newRoom, existentTraps)
                 Angle = 0,
                 Cooldown = 0
             }
-            fakeTraps[tostring(trapData.Index)] = trapData
+            fakeTraps[trapData.Index] = trapData
         end
     end
 
@@ -371,8 +369,8 @@ StageAPI.AddCallback("Revelations", StageAPICallbacks.POST_ROOM_LOAD, 1, functio
     end
 
     if newRoom.PersistentData.Traps then
-        for strindex, trap in pairs(newRoom.PersistentData.Traps) do
-            REVEL.SpawnTrapTile(tonumber(strindex), trap)
+        for index, trap in pairs(newRoom.PersistentData.Traps) do
+            REVEL.SpawnTrapTile(index, trap)
         end
     end
 
@@ -573,8 +571,8 @@ revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, eff)
         end
 
         local currentRoom = StageAPI.GetCurrentRoom()
-        if currentRoom and currentRoom.PersistentData and currentRoom.PersistentData.Traps and currentRoom.PersistentData.Traps[tostring(data.TrapData.Index)] then
-            currentRoom.PersistentData.Traps[tostring(data.TrapData.Index)].Cooldown = data.TrapTriggerCooldown
+        if currentRoom and currentRoom.PersistentData and currentRoom.PersistentData.Traps and currentRoom.PersistentData.Traps[data.TrapData.Index] then
+            currentRoom.PersistentData.Traps[data.TrapData.Index].Cooldown = data.TrapTriggerCooldown
         end
     end
 end, StageAPI.E.FloorEffect.V)

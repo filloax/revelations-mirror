@@ -12,8 +12,6 @@ return function()
 --Anim is the animation that will be played
 function REVEL.SpawnCustomGlow(player, anim, sprite, time, fadeOut)
     player = player or REVEL.player
-    anim = anim or "default"
-    sprite = sprite or "gfx/itemeffects/revelcommon/dynamo_effect.anm2"
 
     local eff = REVEL.ENT.GLOW_EFFECT:spawn(player.Position, player.Velocity, player):ToEffect()
     local data = REVEL.GetData(eff)

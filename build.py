@@ -122,7 +122,20 @@ def makelibrary():
         print("=== Generated library doc")
     else:
         print("Skip build library, no requirements installed...")
-
+        
+def create_release():
+    chmoddir()
+    create_release_path = os.path.abspath("./scripts/tools/create_release.py")
+    print("=== Creating workshop release files...")
+    # easier to make subprocess than make a module for relative imports
+    subprocess.check_call(["python", create_release_path],
+        bufsize=2048, 
+        shell=True,
+        # stdin=subprocess.PIPE, stdout=subprocess.PIPE, 
+        close_fds=True,
+    )
+    # subprocessliveoutput(p)
+    print("=== Created workshop release files")
 
 def main():
     chmoddir()
@@ -150,6 +163,8 @@ def main():
     mergeshaders()
     entities2lua(mods_folder_abs)
     makelibrary()
+    
+    create_release()
     
 if __name__ == "__main__":
     main()

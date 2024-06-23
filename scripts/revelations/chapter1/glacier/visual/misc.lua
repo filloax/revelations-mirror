@@ -3,34 +3,6 @@ local RevCallbacks      = require("scripts.revelations.common.enums.RevCallbacks
 
 return function()
 
-function REVEL.SpawnFootprint(player, anm2)
-    if player:IsFlying() or not player.Visible then return end
-    if REVEL.GetData(player).OnDuneTile then return end
-
-    local data = REVEL.GetData(player)
-    if data.LastFootprintPosition and data.LastFootprintPosition:DistanceSquared(player.Position) < 8 ^ 2 then
-        return
-    end
-
-    local offset
-    if math.abs(player.Velocity.Y) >= math.abs(player.Velocity.X) then
-        offset = Vector(2, 0)
-    else
-        offset = Vector(0, 2)
-    end
-
-    if data.FootprintAlternate then
-        offset = -offset
-    end
-
-    data.FootprintAlternate = not data.FootprintAlternate
-    data.LastFootprintPosition = player.Position
-
-    local eff = StageAPI.SpawnFloorEffect(player.Position + offset, Vector.Zero, nil, anm2, true)
-    REVEL.GetData(eff).Footprint = true
-    eff:GetSprite():Play("idle", true)
-end
-
 local FootprintsEnabled = true
 
 ---Resets on new room
@@ -145,6 +117,7 @@ REVEL.BluePoopImmunity = {
 revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, eff)
 	if not REVEL.GetData(eff).GlacierReskinCheck then
 		if REVEL.STAGE.Glacier:IsStage() and not REVEL.GetData(eff).NoGibOverride
+        and REVEL.includes(REVEL.GlacierGfxRoomTypes, StageAPI.GetCurrentRoomType())
 		and not REVEL.BluePoopImmunity[eff.SpawnerType] then
 			eff:GetSprite():ReplaceSpritesheet(0, "gfx/effects/revel1/glacier_poop_gibs.png")
 			eff:GetSprite():LoadGraphics()
@@ -156,6 +129,7 @@ end, EffectVariant.POOP_PARTICLE)
 revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, eff)
 	if not REVEL.GetData(eff).GlacierReskinCheck then
 		if REVEL.STAGE.Glacier:IsStage() and not REVEL.GetData(eff).NoGibOverride
+        and REVEL.includes(REVEL.GlacierGfxRoomTypes, StageAPI.GetCurrentRoomType())
 		and not REVEL.BluePoopImmunity[eff.SpawnerType] then
 			eff:GetSprite():ReplaceSpritesheet(0, "gfx/effects/revel1/glacier_poop_poof.png")
 			eff:GetSprite():LoadGraphics()
@@ -166,15 +140,17 @@ end, EffectVariant.POOP_EXPLOSION)
 
 --glacier bony projectiles
 revel:AddCallback(ModCallbacks.MC_POST_PROJECTILE_INIT, function(_, pro)
-    if REVEL.STAGE.Glacier:IsStage() then
-        if pro.Variant == ProjectileVariant.PROJECTILE_BONE and pro.SpawnerType == EntityType.ENTITY_BONY and pro.SpawnerVariant == 0 then
-            local data = REVEL.GetData(pro)
-            data.IsGlacierBone = true
-            local sprite = pro:GetSprite()
-            sprite:ReplaceSpritesheet(0, "gfx/monsters/revel1/reskins/glacier_bony_projectile.png")
-            sprite:LoadGraphics()
-            pro:Update()
-        end
+    if
+        REVEL.STAGE.Glacier:IsStage() 
+        and pro.Variant == ProjectileVariant.PROJECTILE_BONE 
+        and pro.SpawnerType == EntityType.ENTITY_BONY and pro.SpawnerVariant == 0
+    then
+        local data = REVEL.GetData(pro)
+        data.IsGlacierBone = true
+        local sprite = pro:GetSprite()
+        sprite:ReplaceSpritesheet(0, "gfx/monsters/revel1/reskins/glacier_bony_projectile.png")
+        sprite:LoadGraphics()
+        pro:Update()
     end
 end)
 

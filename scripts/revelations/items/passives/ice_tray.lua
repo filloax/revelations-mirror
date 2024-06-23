@@ -342,7 +342,7 @@ revel:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, function(_, e)
         creep:Update()
         creep:SetTimeout(140)
     end
-end, 1000)
+end, EntityType.ENTITY_EFFECT)
 
 StageAPI.AddCallback("Revelations", RevCallbacks.PRE_TEARIMPACTS_SOUND, 1, function(t, data, spr) 
     return not data.icetray 

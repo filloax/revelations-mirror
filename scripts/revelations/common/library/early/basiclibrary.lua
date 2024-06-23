@@ -1,4 +1,4 @@
--- Different loading as these definitions need to already be there when the mod starts loading
+-- Different loading as these definitions need to already be there when the mod starts loading, as they are used at load-time
 
 local GetFolderName = require("revfoldername")
 
@@ -476,6 +476,19 @@ function REVEL.LogError(...)
         Console.PrintError(a)
     else
         Isaac.ConsoleOutput("[ERR] " .. a .. "\n")
+    end
+end
+
+function REVEL.LogWarn(...)
+    local a = REVEL.ToStringMulti(...)
+    a = a.."@"..REVEL.game:GetFrameCount()
+    Isaac.DebugString("[WARN] " .. a)
+    if REVEL.DEBUG then
+        if REPENTOGON then
+            Console.PrintWarning(a)
+        else
+            Isaac.ConsoleOutput("[WARN] " .. a .. "\n")
+        end
     end
 end
 
@@ -1097,6 +1110,85 @@ function REVEL.PrefixAll(tbl, prefix)
     return REVEL.map(tbl, function (val)
         return prefix .. val
     end)
+end
+
+---Returns an immutable version of the table, where assignment operations won't work.
+-- Changes to the original table and to the table's contents (if they are mutable objects)
+-- will reflect on immutable copies, but plain Lua tables contained in the table are recursively converted
+-- into immutable copies.
+--
+-- Works by using metatables to return an empty table that doesn't accept assignments
+-- and redirects to the source table for indexing.
+---@param tbl table
+---@return table
+function REVEL.ImmutableTable(tbl)
+    ---@type table<any, table>
+    local tblCache = {}
+    return setmetatable({}, {
+        __newindex = function (t, k, v)
+            REVEL.LogError("Trying to modify immutable table!")
+        end,
+        __index = function (t, k)
+            local val = tbl[k]
+            if type(val) == "table" then
+                return REVEL.ComputeIfAbsent(tblCache, k, function ()
+                    return REVEL.ImmutableTable(val)
+                end)
+            else
+                return val
+            end
+        end,
+        __pairs = function (t)
+            return pairs(tbl)
+        end,
+    })
+end
+
+
+local function parse_version(v)
+    local major, minor, patch = v:match("(%d+)%.(%d+)%.?(%d*)")
+    return tonumber(major) or 0, tonumber(minor) or 0, tonumber(patch) or 0
+end
+
+---Returns true if version string v1 is equal
+-- or greater than version string v2.
+-- Accepts semver with extra text or simple versions
+-- (like 1.5).
+-- 
+-- For example, "0.1.0", "1.2", and "2.3.2-test" are valid versions.
+---@param v1 any
+---@param v2 any
+---@return boolean
+function REVEL.VersionGreaterThan(v1, v2)
+    local v1_major, v1_minor, v1_patch = parse_version(v1)
+    local v2_major, v2_minor, v2_patch = parse_version(v2)
+
+    if v1_major > v2_major then
+        return true
+    elseif v1_major < v2_major then
+        return false
+    end
+
+    if v1_minor > v2_minor then
+        return true
+    elseif v1_minor < v2_minor then
+        return false
+    end
+
+    if v1_patch > v2_patch then
+        return true
+    elseif v1_patch < v2_patch then
+        return false
+    end
+
+    return true
+end
+
+---Checks if StageAPI is at least version `ver`
+---@param ver string
+function REVEL.HasStageApiVersion(ver)
+    local stageapiVer = StageAPI.LoadedMods["StageAPI"].Version
+    return REVEL.VersionGreaterThan(ver, stageapiVer)
 end
 
 Isaac.DebugString("Revelations: Loaded Basic Library!")

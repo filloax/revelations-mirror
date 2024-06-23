@@ -5,12 +5,6 @@ return function()
 -- ITEM PICKUP EVENT AND INVENTORY --
 -------------------------------------
 
--- Autocomplete stuff, false so it doesn't actually run
-if false then
-    ---@type table<integer, table<string, integer>> playerId: {string item id: amount}
-    revel.data.run.inventory = {}
-end
-
 revel:AddCallback(RevCallbacks.POST_BASE_PLAYER_INIT, function(_, p)
     -- no way to directly get playerID
     for i, v in ipairs(REVEL.players) do
@@ -36,7 +30,6 @@ function REVEL.UpdateInventory(_, force, isD4Effect)
 
         if count ~= revel.data.run.itemCount[i] or force then -- OBTAINED/LOST A NEW ITEM
             for id = 1, REVEL.collectiblesSize do
-                local sid = tostring(id)
                 local item = REVEL.config:GetCollectible(id)
                 if item then
                     local num = player:GetCollectibleNum(id, true)
@@ -45,7 +38,7 @@ function REVEL.UpdateInventory(_, force, isD4Effect)
                     -- item history
                     if num > 0 then
                         -- remove it from the table and we'll re-add it later to put it at the top of the list
-                        if revel.data.run.inventory[i][sid] and revel.data.run.inventory[i][sid] <= 0 then
+                        if revel.data.run.inventory[i][id] and revel.data.run.inventory[i][id] <= 0 then
                             for index, itemID in ipairs(revel.data.run.itemHistory[i]) do
                                 if id == itemID then
                                     table.remove(revel.data.run.itemHistory[i], index)
@@ -60,20 +53,20 @@ function REVEL.UpdateInventory(_, force, isD4Effect)
                             table.insert(revel.data.run.itemHistory[i], 1, id)
                         end
 
-                        if not revel.data.run.obtainedItemsAll[i][sid] then
+                        if not revel.data.run.obtainedItemsAll[i][id] then
                             firstTimeObtained = true
-                            revel.data.run.obtainedItemsAll[i][sid] = true
+                            revel.data.run.obtainedItemsAll[i][id] = true
                         end
                     end
 
                     -- inventory
-                    if num > 0 or revel.data.run.inventory[i][sid] then -- only update table if the player has or had the item
-                        if not revel.data.run.inventory[i][sid] then
-                            revel.data.run.inventory[i][sid] = 0
+                    if num > 0 or revel.data.run.inventory[i][id] then -- only update table if the player has or had the item
+                        if not revel.data.run.inventory[i][id] then
+                            revel.data.run.inventory[i][id] = 0
                         end
 
-                        local prevNum = revel.data.run.inventory[i][sid]
-                        revel.data.run.inventory[i][sid] = num
+                        local prevNum = revel.data.run.inventory[i][id]
+                        revel.data.run.inventory[i][id] = num
 
                         if num > prevNum and not REVEL.CharonPickupAdding then
                             StageAPI.CallCallbacksWithParams(RevCallbacks.POST_ITEM_PICKUP, false, id, 

@@ -130,12 +130,11 @@ end
 
 ---Plays jingle and stops it when entering the next room
 ---@param musicId Music
----@param volume? number
 function REVEL.PlayJingleForRoom(musicId, volume)
     if REPENTOGON then
         REVEL.music:PlayJingle(musicId)
     else
-        REVEL.music:Play(musicId, volume or Options.MusicVolume)
+        REVEL.music:Play(musicId, Options.MusicVolume)
         REVEL.CallbackOnce(ModCallbacks.MC_POST_NEW_ROOM, function()
             REVEL.StopMusicTrack(musicId)
         end)

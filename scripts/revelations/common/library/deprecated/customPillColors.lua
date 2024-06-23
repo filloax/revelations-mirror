@@ -47,7 +47,7 @@ return function()
         local data = pill:GetData()
 
         if data.CustomPill then
-            local listIndex = tostring(StageAPI.GetCurrentRoomID())
+            local listIndex = StageAPI.GetCurrentRoomID()
             if not revel.data.run.level.customPillsInRoom[listIndex] then
                 revel.data.run.level.customPillsInRoom[listIndex] = {}
             end
@@ -74,7 +74,7 @@ return function()
         local data = pill:GetData()
 
         if data.CustomPill then
-            local listIndex = tostring(StageAPI.GetCurrentRoomID())
+            local listIndex = StageAPI.GetCurrentRoomID()
             if not revel.data.run.level.customPillsInRoom[listIndex] then
                 return
             end
@@ -337,7 +337,7 @@ return function()
     end
 
     local function custompillsNewRoom()
-        local listIndex = tostring(StageAPI.GetCurrentRoomID())
+        local listIndex = StageAPI.GetCurrentRoomID()
 
         if revel.data.run.level.customPillsInRoom[listIndex] then
             local pills = Isaac.FindByType(5, PickupVariant.PICKUP_PILL)

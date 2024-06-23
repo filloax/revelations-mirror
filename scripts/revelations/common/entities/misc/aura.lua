@@ -109,7 +109,7 @@ revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, eff)
             end
         end
     end
-end)
+end, REVEL.ENT.DECORATION.variant)
 
 revel:AddCallback(ModCallbacks.MC_POST_EFFECT_RENDER, function(_, eff, renderOffset)
     local data = REVEL.GetData(eff)

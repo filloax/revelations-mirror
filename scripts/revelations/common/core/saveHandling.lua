@@ -34,6 +34,7 @@ function REVEL.LoadModData(force, continuedRun)
             local dataStr = Isaac.LoadModData(revel)
             local t2 = Isaac.GetTime()
             data = json.decode(dataStr)
+            data = StageAPI.SaveTableUnmarshal(data)
             local t3 = Isaac.GetTime()
             readTime = t2 - t1
             decodeTime = t3 - t2
@@ -123,6 +124,27 @@ function REVEL.ResetSaveData()
     REVEL.SaveModData()
 end
 
+---Room data that persists during the level. 
+---List index can be any StageAPI room ID, 
+---defaults to current room.
+---@param listIndex? any
+---@return table
+---@overload fun(roomDescriptor: RoomDescriptor): table
+function REVEL.GetRoomData(listIndex)
+    if not listIndex then
+        listIndex = StageAPI.GetCurrentRoomID()
+    elseif type(listIndex) == "userdata" and listIndex.ListIndex then
+        listIndex = listIndex.ListIndex
+    end
+
+    local key = tostring(listIndex)
+    if not revel.data.run.level.roomData[key] then
+        revel.data.run.level.roomData[key] = {}
+    end
+
+    return revel.data.run.level.roomData[key]
+end
+
 setmetatable(revel,
 {
 	__index = function(t, k)
@@ -160,9 +182,10 @@ function REVEL.SaveModData(menuExit)
 	
 	data.hub2 = hub2.GetSaveData()
     
-    CheckSavingData(data)
+    -- CheckSavingData(data) -- not needed, stageapi converts string ids anyways
 
     local t1 = Isaac.GetTime()
+    data = StageAPI.SaveTableMarshal(data)
     local dataStr = json.encode(data)
     local t2 = Isaac.GetTime()
     Isaac.SaveModData(revel, dataStr)

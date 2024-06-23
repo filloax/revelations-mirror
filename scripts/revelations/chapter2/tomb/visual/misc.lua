@@ -20,22 +20,10 @@ revel:AddCallback(RevCallbacks.POST_BASE_PEFFECT_UPDATE, function(_, player)
         local currentRoomType = StageAPI.GetCurrentRoomType()
         if REVEL.includes(REVEL.TombSandGfxRoomTypes, currentRoomType) then
             REVEL.DuneTileProcessing(player)
-            REVEL.SpawnFootprint(player, "gfx/effects/revel2/sand_footprint.anm2")
+            REVEL.SpawnFootprint(player, "gfx/effects/revel2/sand_footprint.anm2", true)
         end
     end
 end)
-
-revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, eff)
-    if REVEL.GetData(eff).Footprint then
-        if eff.FrameCount > 30 then
-            eff.Color = Color.Lerp(Color(1, 1, 1, 1,conv255ToFloat( 0, 0, 0)), Color(1, 1, 1, 0,conv255ToFloat( 0, 0, 0)), (eff.FrameCount - 30) / 30)
-        end
-
-        if eff.FrameCount > 60 then
-            eff:Remove()
-        end
-    end
-end, StageAPI.E.FloorEffect.V)
 
 revel:AddCallback(RevCallbacks.POST_ENTITY_ZPOS_LAND, function(_, entity, airMovementData, fromPit, oldZVelocity)
     if REVEL.STAGE.Tomb:IsStage() then

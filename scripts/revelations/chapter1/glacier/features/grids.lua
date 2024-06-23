@@ -54,7 +54,7 @@ end
 StageAPI.AddCallback("Revelations", "PRE_SPAWN_GRID", 1, function(gridEntry, gridInformation, entitySets, rng)
     if REVEL.STAGE.Glacier:IsStage() then
         if gridEntry.Type == GridEntityType.GRID_PIT and entitySets then -- Rooms with ice pits in them have actual pits below the ice pits, this is quite problematic as it shoves ice worms / enemies out of the way.
-            local index = tostring(gridEntry.Index)
+            local index = gridEntry.Index
             local currentRoom = StageAPI.GetCurrentRoom()
             if currentRoom and currentRoom.PersistentData.IcePitFrames[index] then
                 return false

@@ -867,7 +867,7 @@ revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, eff)
 			eff:Remove()
 		end
 	end
-end, 8)
+end, EffectVariant.LADDER)
 
 --[[local function IsFreeGrid(pos)
 	local grid = REVEL.room:GetGridEntity(REVEL.room:GetGridIndex(pos))

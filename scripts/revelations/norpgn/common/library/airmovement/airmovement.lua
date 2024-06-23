@@ -3,13 +3,13 @@ local StageAPICallbacks = require("scripts.revelations.common.enums.StageAPICall
 local RevCallbacks      = require("scripts.revelations.common.enums.RevCallbacks")
 
 local SubModules = {
-    "scripts.revelations.common.core.airmovement.zpos_basics",
-    "scripts.revelations.common.core.airmovement.zpos_utils",
-    "scripts.revelations.common.core.airmovement.zpos_logic",
-    "scripts.revelations.common.core.airmovement.zpos_player",
+    "scripts.revelations.common.library.airmovement.zpos_basics",
+    "scripts.revelations.common.library.airmovement.zpos_utils",
+    "scripts.revelations.common.library.airmovement.zpos_logic",
+    "scripts.revelations.common.library.airmovement.zpos_player",
 
 	-- Enable when testing stuff, includes keybinds to jump, launch ents, etc
-    -- "scripts.revelations.common.core.airmovement.zpos_test",
+    -- "scripts.revelations.common.library.airmovement.zpos_test",
 }
 
 local LoadFunctions = REVEL.LoadModulesFromTable(SubModules)

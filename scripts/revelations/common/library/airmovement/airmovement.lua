@@ -9,7 +9,7 @@ local SubModules = {
     "scripts.revelations.common.library.airmovement.zpos_player",
 
 	-- Enable when testing stuff, includes keybinds to jump, launch ents, etc
-    -- "scripts.revelations.common.core.airmovement.zpos_test",
+    -- "scripts.revelations.common.library.airmovement.zpos_test",
 }
 
 local LoadFunctions = REVEL.LoadModulesFromTable(SubModules)

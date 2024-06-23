@@ -97,8 +97,6 @@ revel:AddCallback(ModCallbacks.MC_USE_ITEM,
 end, REVEL.ITEM.CHUM.id)
 
 revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, e)
-    if e.Variant ~= REVEL.ENT.CHUM.variant then return end
-
     local spr, data = e:GetSprite(), REVEL.GetData(e)
 
     if spr:IsEventTriggered("Shoot") then
@@ -142,7 +140,7 @@ revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, e)
         spr:IsFinished("Spawn" .. data.ctype) then
         spr:Play("Idle" .. data.ctype, true)
     end
-end)
+end, REVEL.ENT.CHUM.variant)
 
 StageAPI.AddCallback("Revelations", RevCallbacks.EARLY_POST_NEW_ROOM, 1,
                     function() Chum.chums = {} end)

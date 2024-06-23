@@ -8,8 +8,12 @@ return function()
 
 -- Early to be used in player id stuff
 
----@type table<integer, {ClearOnRoom: boolean, Data: table}>
+---@type table<integer, {ClearingSoon: boolean, Data: table}>
 local EntityData = {}
+
+if REVEL.DEBUG then
+    REVEL.EntityData = EntityData
+end
 
 ---@param entity Entity
 ---@return table data
@@ -18,14 +22,14 @@ function REVEL.GetData(entity)
 
     local baseData = entity:GetData()
     local hash = GetPtrHash(entity)
-    
+
     if not EntityData[hash] then
         -- data exists, was reloaded
         if baseData.__RevEntityData then
             EntityData[hash] = baseData.__RevEntityData
         else
             local dataEntry = {
-                ClearOnRoom = false,
+                ClearingSoon = false,
                 Data = {}
             }
             EntityData[hash] = dataEntry
@@ -37,27 +41,22 @@ function REVEL.GetData(entity)
 end
 
 local function edata_PostEntityRemove(_, entity)
-    local baseData = entity:GetData()
     local hash = GetPtrHash(entity)
 
     if EntityData[hash] then
-        EntityData[hash].ClearOnRoom = true
+        EntityData[hash].ClearingSoon = true
+        -- REVEL.DebugLog("Marked data", hash, "for removal, data is:", REVEL.PrettyPrint(EntityData[hash]), debug.traceback())
+
+        REVEL.DelayFunction(function()
+            -- double check to avoid sync shenanigans
+            if EntityData[hash] and EntityData[hash].ClearingSoon then
+                EntityData[hash] = nil
+                -- REVEL.DebugLog("Removed data", hash)
+            end
+        end, 1)
     end
 end
 
-local function edata_PostNewRoom()
-    local toRemove = {}
-    for hash, dataEntry in pairs(EntityData) do
-        if dataEntry.ClearOnRoom then
-            toRemove[#toRemove+1] = hash
-        end
-    end
-    for _, hash in ipairs(toRemove) do
-        EntityData[hash] = nil
-    end
-end
-
-revel:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, edata_PostEntityRemove)
-revel:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, edata_PostNewRoom)
+revel:AddPriorityCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, CallbackPriority.LATE, edata_PostEntityRemove)
 
 end

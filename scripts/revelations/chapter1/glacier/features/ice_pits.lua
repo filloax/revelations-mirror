@@ -8,8 +8,7 @@ return function()
 local FragilityIceSpawnRNG = REVEL.RNG()
 
 function REVEL.LoadIcePits(frames, fragileFrames)
-    for strindex, frame in pairs(frames) do
-        local index = tonumber(strindex)
+    for index, frame in pairs(frames) do
         for i = 1, 2 do
             local e = Isaac.Spawn(StageAPI.E.GenericEffect.T, StageAPI.E.GenericEffect.V, 0, REVEL.room:GetGridPosition(index) + Vector(2, 3), Vector.Zero, nil)
             local spr = e:GetSprite()
@@ -87,17 +86,19 @@ function REVEL.GenerateRandomFragileIce(room, iceIndices)
         }
 
         local hasAdj = REVEL.some(adj, function(ind)
-            return room.PersistentData.FragileIce and room.PersistentData.FragileIce[tostring(ind)]
+            return room.PersistentData.FragileIce and room.PersistentData.FragileIce[ind]
         end)
 
         if not hasAdj and StageAPI.Random(1, fragileIceChance, FragilityIceSpawnRNG) <= 2 then
             fragileIceChance = fragileIceChance + 3
             room.PersistentData.FragileIce = room.PersistentData.FragileIce or {}
-            room.PersistentData.FragileIce[tostring(i)] = 1
+            room.PersistentData.FragileIce[i] = 1
         end
     end
 end
-    
+
+local ShouldConvertFrames = not REVEL.HasStageApiVersion("2.30")
+
 local function icepitsPostRoomInit(newRoom)
     if REVEL.STAGE.Glacier:IsStage() then
         if newRoom.Layout.Name and string.sub(string.lower(newRoom.Layout.Name), 1, 5) == "chill" then
@@ -110,7 +111,7 @@ local function icepitsPostRoomInit(newRoom)
 
         for index, _ in pairs(fragileIceIndices) do
             newRoom.PersistentData.FragileIce = newRoom.PersistentData.FragileIce or {}
-            newRoom.PersistentData.FragileIce[tostring(index)] = 0
+            newRoom.PersistentData.FragileIce[index] = 0
             if not iceIndices[index] then
                 iceIndices[index] = true
             end
@@ -157,9 +158,17 @@ local function icepitsPostRoomInit(newRoom)
             end
         end
 
-        --TODO
+        local icePitFrames = StageAPI.GetPitFramesFromIndices(iceIndices, newRoom.Layout.Width, newRoom.Layout.Height, true, true)
 
-        newRoom.PersistentData.IcePitFrames = StageAPI.GetPitFramesFromIndices(iceIndices, newRoom.Layout.Width, newRoom.Layout.Height, true)
+        if ShouldConvertFrames then
+            newRoom.PersistentData.IcePitFrames = {}
+            for k, v in pairs(icePitFrames) do
+                newRoom.PersistentData.IcePitFrames[tonumber(k)] = v
+            end
+        else
+            newRoom.PersistentData.IcePitFrames = icePitFrames
+        end
+
 
         if not newRoom.PersistentData.SnowPitFrames then
             newRoom.PersistentData.SnowPitFrames = {}

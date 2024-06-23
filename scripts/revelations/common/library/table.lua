@@ -52,6 +52,9 @@ function REVEL.TableToStringEnter(tbl)
     return "{" .. table.concat(result, ",\n") .. "}"
 end
 
+---@param tbl table
+---@param newline? boolean
+---@return string
 function REVEL.ShallowTableToString(tbl, newline)
     local result, done = {}, {}
 
@@ -80,11 +83,15 @@ if REVEL.DEBUG then
     end
 end
 
-function REVEL.PrettyPrint(tbl, luaSyntax, level, noValSpacing)
+function REVEL.PrettyPrint(tbl, luaSyntax, maxDepth, level, noValSpacing)
     level = level or 0
-    local spacing = string.rep("  ", level)
+    local spacing = string.rep("  ", level + 1)
 
     if type(tbl) ~= "table" then
+        if maxDepth and level >= maxDepth then
+            return "{...}"
+        end
+
         local out = ""
         if type(tbl) == "string" then
             out = out .. '"'
@@ -102,14 +109,14 @@ function REVEL.PrettyPrint(tbl, luaSyntax, level, noValSpacing)
 
     local listItems, keyItems, done = {}, {}, {}
     for k, v in ipairs(tbl) do
-        table.insert(listItems, REVEL.PrettyPrint(v, luaSyntax, level + 1, true))
+        table.insert(listItems, REVEL.PrettyPrint(v, luaSyntax, maxDepth, level + 1, true))
         done[k] = true
     end
 
     for k, v in pairs(tbl) do
         if not done[k] then
             table.insert(keyItems,
-            spacing .. table_key_to_str(k) .. " = " .. REVEL.PrettyPrint(v, luaSyntax, level + 1, true))
+            spacing .. table_key_to_str(k) .. " = " .. REVEL.PrettyPrint(v, luaSyntax, maxDepth, level + 1, true))
         end
     end
 
@@ -120,8 +127,8 @@ function REVEL.PrettyPrint(tbl, luaSyntax, level, noValSpacing)
             return "[" .. table.concat(listItems, ", ") .. "]"
         end
     else
-        local spacingSub = string.rep("  ", level + 1)
-        local spacingPre = string.rep("  ", math.max(level - 1, 0))
+        local spacingSub = string.rep("  ", level + 2)
+        local spacingPre = string.rep("  ", math.max(level, 0))
         if #listItems == 0 then
             return "{\n" .. table.concat(keyItems, ",\n") .. "\n" .. spacingPre .. "}"
         else
@@ -338,6 +345,19 @@ function REVEL.TableDiff(tbl1, tbl2)
         Removed = removed,
         Changed = changed,
     }
+end
+
+---Returns tbl[k] if present, or runs producer and assigns its
+-- result to tbl[k] before returning it otherwise.
+---@generic K, V
+---@param tbl table<K, V>
+---@param k K
+---@param producer fun(): V
+function REVEL.ComputeIfAbsent(tbl, k, producer)
+    if not tbl[k] then
+        tbl[k] = producer()
+    end
+    return tbl[k]
 end
 
 ---@deprecated

@@ -482,7 +482,7 @@ function REVEL.Dante.Callbacks.Partner_PostUpdate(player, data, setIncubusDirect
                 data.IncubusDirection = setIncubusDirection
                 data.JustSwitched = true
             else
-                data.AimBonus = data.AimBonus + 1
+                data.AimBonus = (data.AimBonus or 0) + 1
             end
 
             if data.IncubusDirection == Direction.NO_DIRECTION then

@@ -150,9 +150,8 @@ local function iceWorm_NpcUpdate(_, npc)
         icePitFrames = currentRoom.PersistentData.IcePitFrames
         local snowedTiles = currentRoom.PersistentData.SnowedTiles or {}
         if icePitFrames then
-            for strindex, _ in pairs(icePitFrames) do
-                local ind = tonumber(strindex)
-                if REVEL.IsGridIndexUnlocked(ind) and not REVEL.IsBigBlowyTrack(ind, true) and not snowedTiles[strindex] then
+            for ind, _ in pairs(icePitFrames) do
+                if REVEL.IsGridIndexUnlocked(ind) and not REVEL.IsBigBlowyTrack(ind, true) and not snowedTiles[ind] then
                     icePits[#icePits + 1] = ind
                 end
 

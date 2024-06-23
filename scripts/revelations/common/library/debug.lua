@@ -4,7 +4,7 @@ return function()
 function REVEL.DumpItemNameList()
     local a = ""
     for k,v in pairs(revel.data.run.inventory) do
-        local item = REVEL.config:GetCollectible(tonumber(k))
+        local item = REVEL.config:GetCollectible(k)
         a = a..", "..item.Name
     end
     

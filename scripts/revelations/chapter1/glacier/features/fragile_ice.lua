@@ -86,13 +86,12 @@ end
 function REVEL.FragileiceRoomLoad(newRoom, revisited)
     if newRoom.PersistentData.FragileIce then
         local remove = {}
-        for strindex, isRandom in pairs(newRoom.PersistentData.FragileIce) do
-            local index = tonumber(strindex)
+        for index, isRandom in pairs(newRoom.PersistentData.FragileIce) do
             if REVEL.room:IsFirstVisit() then
                 if isRandom == 0 or REVEL.room:GetGridCollision(index) == GridCollisionClass.COLLISION_NONE then --avoid random-spawning on braziers and the like
                     REVEL.GRIDENT.FRAGILE_ICE:Spawn(index, true, false)
                 else
-                    remove[strindex] = true
+                    remove[index] = true
                 end
             else --check if it was still a pit when changing room
                 local grid = REVEL.room:GetGridEntity(index)
@@ -101,8 +100,8 @@ function REVEL.FragileiceRoomLoad(newRoom, revisited)
                 end
             end
         end
-        for strindex, _ in pairs(remove) do
-            newRoom.PersistentData.FragileIce[strindex] = nil
+        for index, _ in pairs(remove) do
+            newRoom.PersistentData.FragileIce[index] = nil
         end
     end
 end
@@ -276,7 +275,7 @@ local function fragileicePostUpdate()
 
             local currentRoom = StageAPI.GetCurrentRoom()
             if currentRoom.PersistentData.SnowedTiles
-            and currentRoom.PersistentData.SnowedTiles[tostring(v.Index)] then
+            and currentRoom.PersistentData.SnowedTiles[v.Index] then
                 table.remove(ReformingIcePits, i)
                 continue = true    
             end

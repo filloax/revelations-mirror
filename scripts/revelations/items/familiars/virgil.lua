@@ -579,41 +579,39 @@ revel:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, function(_, ent)
 end, REVEL.ENT.VIRGIL.variant)
 
 revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, ent)
-    if ent.Variant == REVEL.ENT.VIRGIL_W.variant then
-        local spr, data = ent:GetSprite(), REVEL.GetData(ent)
+    local spr, data = ent:GetSprite(), REVEL.GetData(ent)
 
-        if not IsAnimOn(spr, "Happy") then
-            for i, v in ipairs(REVEL.players) do
-                if v.Position:Distance(ent.Position) < v.Size + ent.Size then
-                    REVEL.sfx:Play(SoundEffect.SOUND_THUMBSUP)
-                    spr:Play("Happy", true)
-                    data.p = v
-                end
+    if not IsAnimOn(spr, "Happy") then
+        for i, v in ipairs(REVEL.players) do
+            if v.Position:Distance(ent.Position) < v.Size + ent.Size then
+                REVEL.sfx:Play(SoundEffect.SOUND_THUMBSUP)
+                spr:Play("Happy", true)
+                data.p = v
             end
-        elseif spr:IsFinished("Happy") then
-            --      if not data.spawned then
-            revel.data.run.tempVirgilThisFloor = false
-            revel.data.run.virgilTemp[REVEL.GetPlayerID(data.p)] = 1
-
-            --        local fam = REVEL.ENT.VIRGIL:spawn(ent.Position, ent.Velocity, data.p)
-            --        REVEL.GetData(fam).startPos = ent.Position
-
-            data.p:AddCacheFlags(CacheFlag.CACHE_FAMILIARS)
-            data.p:EvaluateItems()
-
-            --        data.spawned = true
-            --      else
-
-            --        local virgils = Isaac.FindByType(3, REVEL.ENT.VIRGIL.variant, -1, true)
-            --        for i,v in ipairs(virgils) do
-            --          v.Position = ent.Position
-            --          ent:AddEntityFlags(EntityFlag.FLAG_RENDER_FLOOR)
-            ent:Remove()
-            --        end
-            --      end
         end
+    elseif spr:IsFinished("Happy") then
+        --      if not data.spawned then
+        revel.data.run.tempVirgilThisFloor = false
+        revel.data.run.virgilTemp[REVEL.GetPlayerID(data.p)] = 1
+
+        --        local fam = REVEL.ENT.VIRGIL:spawn(ent.Position, ent.Velocity, data.p)
+        --        REVEL.GetData(fam).startPos = ent.Position
+
+        data.p:AddCacheFlags(CacheFlag.CACHE_FAMILIARS)
+        data.p:EvaluateItems()
+
+        --        data.spawned = true
+        --      else
+
+        --        local virgils = Isaac.FindByType(3, REVEL.ENT.VIRGIL.variant, -1, true)
+        --        for i,v in ipairs(virgils) do
+        --          v.Position = ent.Position
+        --          ent:AddEntityFlags(EntityFlag.FLAG_RENDER_FLOOR)
+        ent:Remove()
+        --        end
+        --      end
     end
-end)
+end, REVEL.ENT.VIRGIL_W.variant)
 
 function Virgil.chooseState(ent, spr, data)
     -- if there are bombs and targetable (tinted/ladder) rocks, drag bombs to rocks

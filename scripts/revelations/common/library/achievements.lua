@@ -185,11 +185,11 @@ end
 ----------------------------------
 
 function REVEL.IsTrinketUnlocked(trinketId)
-    return not not revel.data.run.unlockedTrinkets[tostring(trinketId)]
+    return not not revel.data.run.unlockedTrinkets[trinketId]
 end
 
 function REVEL.IsCardUnlocked(cardId)
-    return not not revel.data.run.unlockedCards[tostring(cardId)]
+    return not not revel.data.run.unlockedCards[cardId]
 end
 
 function REVEL.GetMaxTrinketId()
@@ -216,7 +216,7 @@ function REVEL.GetAllUnlockedTrinkets()
     -- there are very few trinkets that can be encountered multiple times, so to combat this it will loop more than otherwise needed
     for i=0, maxTrinketId*2 do
         REVEL.TrinketHistorySkipTrinket = true
-        revel.data.run.unlockedTrinkets[tostring(itempool:GetTrinket())] = true
+        revel.data.run.unlockedTrinkets[itempool:GetTrinket()] = true
     end
     
     itempool:ResetTrinkets()
@@ -248,7 +248,7 @@ function REVEL.GetAllUnlockedCards()
     -- not failure proof as it's possible to not have a card show up with itempool:GetCard(), but good enough for it's purpose
     for i=0, maxCardId*5 do
         local cardId = itempool:GetCard(seeds:GetNextSeed(), true, true, false)
-        revel.data.run.unlockedCards[tostring(cardId)] = true
+        revel.data.run.unlockedCards[cardId] = true
     end
 end
 

@@ -75,7 +75,6 @@ StageAPI.AddCallback("Revelations", RevCallbacks.POST_STAGEAPI_NEW_ROOM_WRAPPER,
 			end
 
             REVEL.Dante.Callbacks.Partner_PostNewRoom(player)
-            REVEL.Dante.Callbacks.Map_PostNewRoom()
 		end
     end
 end)
@@ -264,8 +263,6 @@ revel:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
                 sprite:Play("Appear", true)
             end
         end
-
-        REVEL.Dante.Callbacks.Map_PostUpdate(player)
     elseif REVEL.GetData(player).WasDanteCharon then
         REVEL.GetData(player).WasDanteCharon = nil
         if not revel.data.run.dante.IsCombined then

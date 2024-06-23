@@ -76,13 +76,13 @@ function REVEL.IndicesShareGroup(stageapiRoom, index1, index2, specificGroup)
 end
 
 function REVEL.WasRoomClearFromStart()
-    local id = tostring(StageAPI.GetCurrentRoomID())
+    local id = StageAPI.GetCurrentRoomID()
     return revel.data.run.level.clearFromStartRooms[id] == 1
 end
 
 local function wasRoomClearPostNewRoom()
     if REVEL.room:IsFirstVisit() then
-        local id = tostring(StageAPI.GetCurrentRoomID())
+        local id = StageAPI.GetCurrentRoomID()
         revel.data.run.level.clearFromStartRooms[id] = REVEL.room:IsClear() and 1 or 0
     end
 end

@@ -118,12 +118,14 @@ do -- Broken Wings
         if REVEL.IsSarah(player) then
             local data = REVEL.GetData(player)
             local wingState = revel.data.run.brokenWingsState[REVEL.GetPlayerID(player)]
+            local brokenWings = data.BrokenWings and data.BrokenWings.Ref
             if wingState == 0 and not player.CanFly then
-                if not data.BrokenWings or not data.BrokenWings:Exists() then
-                    data.BrokenWings = REVEL.SpawnCustomGlow(player, "WalkDownIdle", "gfx/itemeffects/revelcommon/broken_wings.anm2")
-                    data.BrokenWings:AddEntityFlags(EntityFlag.FLAG_NO_STATUS_EFFECTS | EntityFlag.FLAG_DONT_OVERWRITE | EntityFlag.FLAG_NO_TARGET)
+                if not brokenWings or not brokenWings:Exists() then
+                    brokenWings = REVEL.SpawnCustomGlow(player, "WalkDownIdle", "gfx/itemeffects/revelcommon/broken_wings.anm2")
+                    brokenWings:AddEntityFlags(EntityFlag.FLAG_NO_STATUS_EFFECTS | EntityFlag.FLAG_DONT_OVERWRITE | EntityFlag.FLAG_NO_TARGET)
+                    data.BrokenWings = EntityPtr(brokenWings)
                 else
-                    local spr, anim = REVEL.GetData(data.BrokenWings).customGlowSprite, nil
+                    local spr, anim = REVEL.GetData(brokenWings).customGlowSprite, nil
 
                     local headDir = player:GetHeadDirection()
 
@@ -140,14 +142,14 @@ do -- Broken Wings
 
                     if anim and not blacklist then
                       if anim == "WalkUp" then
-                        data.BrokenWings.DepthOffset = 10
+                        brokenWings.DepthOffset = 10
                       else
-                        data.BrokenWings.DepthOffset = -10
+                        brokenWings.DepthOffset = -10
                       end
 
                       if not (spr:IsPlaying(anim) or spr:IsPlaying(anim.."Idle")) then
                         spr:Play(anim.."Idle", true)
-                        data.BrokenWings.Position = data.BrokenWings.Parent.Position
+                        brokenWings.Position = brokenWings.Parent.Position
                       end
 
                       if spr:IsPlaying(anim.."Idle") and math.random(60) == 1 then
@@ -157,12 +159,12 @@ do -- Broken Wings
                       spr:Play("Invis", true)
                     end
 
-                    spr.Color = data.BrokenWings.Parent:GetSprite().Color
-                    data.BrokenWings.Visible = data.BrokenWings.Parent.Visible
+                    spr.Color = brokenWings.Parent:GetSprite().Color
+                    brokenWings.Visible = brokenWings.Parent.Visible
                 end
-            elseif data.BrokenWings then
-                if data.BrokenWings:Exists() then
-                    data.BrokenWings:Remove()
+            elseif brokenWings then
+                if brokenWings:Exists() then
+                    brokenWings:Remove()
                 end
                 data.BrokenWings = nil
             end

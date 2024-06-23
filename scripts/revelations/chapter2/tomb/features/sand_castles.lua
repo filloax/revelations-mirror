@@ -105,7 +105,7 @@ function REVEL.GetSandCastleFrames(sandCastleIndices, existingFrames, width, hei
 
         adjIndices[#adjIndices + 1] = existingFrame
 
-        sandCastleFrames[tostring(index)] = REVEL.GetSandCastleFrame(
+        sandCastleFrames[index] = REVEL.GetSandCastleFrame(
             table.unpack(adjIndices)
         )
     end
@@ -157,7 +157,7 @@ StageAPI.AddCallback("Revelations", StageAPICallbacks.POST_SPAWN_CUSTOM_GRID, 1,
 	if not persistData.Frame then
         local currentRoom = StageAPI.GetCurrentRoom()
         if currentRoom and currentRoom.PersistentData.SandCastleFrames then
-            persistData.Frame = currentRoom.PersistentData.SandCastleFrames[tostring(grindex)]
+            persistData.Frame = currentRoom.PersistentData.SandCastleFrames[grindex]
         else
             persistData.Frame = 21
         end
@@ -193,8 +193,8 @@ function REVEL.UpdateSandCastleFrames()
 
     local sandCastleFrames = REVEL.GetSandCastleFrames(sandCastleIndices, existingFrames, REVEL.room:GetGridWidth(), REVEL.room:GetGridHeight())
     StageAPI.GetCurrentRoom().PersistentData.SandCastleFrames = sandCastleFrames
-    for strindex, frame in pairs(sandCastleFrames) do
-        local grid = REVEL.room:GetGridEntity(tonumber(strindex))
+    for index, frame in pairs(sandCastleFrames) do
+        local grid = REVEL.room:GetGridEntity(index)
         if grid and not REVEL.IsGridBroken(grid) then
             local sprite = grid:GetSprite()
             if REVEL.GetPoopDamagePct(grid) > 0 then
@@ -203,7 +203,7 @@ function REVEL.UpdateSandCastleFrames()
                 sprite:SetFrame("Default", frame)
             end
 
-            local persistData = StageAPI.GetCustomGrid(tonumber(strindex), REVEL.GRIDENT.SAND_CASTLE.Name)
+            local persistData = StageAPI.GetCustomGrid(index, REVEL.GRIDENT.SAND_CASTLE.Name)
             if persistData then
                 persistData.Frame = frame
             end

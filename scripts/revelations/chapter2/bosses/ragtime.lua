@@ -2633,7 +2633,11 @@ return function()
 
         local data = REVEL.GetData(entity)
 
-        REVEL.sfx:Stop(data.bal.Sounds.Spin.Sound)
+        if data.bal then
+            REVEL.sfx:Stop(data.bal.Sounds.Spin.Sound)
+        else
+            REVEL.sfx:Stop(SoundEffect.SOUND_ULTRA_GREED_SPINNING)
+        end
 
         -- Lights out ran out, spawn effect to finish running it to finish the darken effect, etc
         if data.LightsOutTimer then

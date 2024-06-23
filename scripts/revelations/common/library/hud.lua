@@ -211,7 +211,7 @@ end
 local FadeAboveHud = false
 local Fade = REVEL.LazyLoadLevelSprite{
     ID = "lib_Fade",
-    Anm2 = "gfx/backdrop/Black.anm2",
+    Anm2 = "gfx/backdrop/revelcommon/Black.anm2",
 }
 local DoingScreenFade = false
 

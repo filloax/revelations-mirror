@@ -189,7 +189,7 @@ revel:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
             end
         end
 
-        local roomID = tostring(StageAPI.GetCurrentRoomID())
+        local roomID = StageAPI.GetCurrentRoomID()
         local items = REVEL.GetRoomNotablePickups()
         local shouldExist = #items - revel.data.run.level.notablePickupsTakenFromRoom[roomID]
         for i, item in ipairs(items) do

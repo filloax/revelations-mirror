@@ -356,20 +356,19 @@ end
 
 function REVEL.Dante.StoreItems(player, remove, whitelist)
     local items = {}
-    for sid, num in pairs(revel.data.run.inventory[REVEL.GetPlayerID(player)]) do
-        local id = tonumber(sid)
+    for id, num in pairs(revel.data.run.inventory[REVEL.GetPlayerID(player)]) do
         if REVEL.Dante.IsInventoryManagedItem(id) then
             -- "This does not work for modded actives, so actives are handled entirely separately"
             -- this was here when using GetCollectibleNum, still true? needs checking
             if num > 0 then
                 local numRemove = num
-                if whitelist and whitelist[sid] then
+                if whitelist and whitelist[id] then
                     numRemove = numRemove - 1
-                    -- REVEL.DebugLog("Not storing", sid, "do remove:", not not remove)
+                    -- REVEL.DebugLog("Not storing", id, "do remove:", not not remove)
                 end
                 
                 if numRemove > 0 then
-                    items[sid] = numRemove
+                    items[id] = numRemove
 
                     if remove then
                         for i = 1, numRemove do
@@ -385,9 +384,9 @@ function REVEL.Dante.StoreItems(player, remove, whitelist)
 end
 
 function REVEL.Dante.RemoveSpecificItems(player, items)
-    for sid, count in pairs(items) do
+    for id, count in pairs(items) do
         for i = 1, count do
-            player:RemoveCollectible(tonumber(sid), true)
+            player:RemoveCollectible(id, true)
         end
     end
 end
@@ -402,9 +401,9 @@ local justAddedCharonItems
 function REVEL.Dante.LoadItems(player, items, addSchoolbag, addCombinedItems, noRemoveCharonItems)
     justAddedCharonItems = true
     REVEL.CharonPickupAdding = true
-    for sid, count in pairs(items) do
+    for id, count in pairs(items) do
         for i = 1, count do
-            AddSingleCollectible(player, tonumber(sid))
+            AddSingleCollectible(player, id)
         end
     end
 
@@ -718,7 +717,7 @@ function REVEL.Dante.Merge(player, isGreed)
         REVEL.Dante.SetPhylactery(player, REVEL.ITEM.PHYLACTERY_MERGED.id)
     end
 
-    REVEL.Dante.MergeMap()
+    REVEL.Dante.MergeMap(revel.data.run.dante.IsDante)
 
     if not revel.data.run.dante.FirstMerge then
 		REVEL.DelayFunction(Isaac.Spawn, 1, {
@@ -804,10 +803,10 @@ function REVEL.Dante.Reset(player, noSetRoom, isGreed)
 
         -- Add shared items back to charon, since they don't get 
         -- added to the inventory
-        for sid, owner in pairs(prevBirthrightWhitelist) do
+        for id, owner in pairs(prevBirthrightWhitelist) do
             if owner == 2 then
-                local num = (revel.data.run.dante.OtherInventory.items[sid] or 0) + 1
-                revel.data.run.dante.OtherInventory.items[sid] = num
+                local num = (revel.data.run.dante.OtherInventory.items[id] or 0) + 1
+                revel.data.run.dante.OtherInventory.items[id] = num
             end
         end
 
@@ -818,11 +817,11 @@ function REVEL.Dante.Reset(player, noSetRoom, isGreed)
         )
         revel.data.run.dante.BirthrightWhitelist = birthrightWhitelist
 
-        for sid, owner in pairs(prevBirthrightWhitelist) do
+        for id, owner in pairs(prevBirthrightWhitelist) do
             if owner == 2 then
-                revel.data.run.dante.OtherInventory.items[sid] = revel.data.run.dante.OtherInventory.items[sid] - 1
-                if revel.data.run.dante.OtherInventory.items[sid] == 0 then
-                    revel.data.run.dante.OtherInventory.items[sid] = nil
+                revel.data.run.dante.OtherInventory.items[id] = revel.data.run.dante.OtherInventory.items[id] - 1
+                if revel.data.run.dante.OtherInventory.items[id] == 0 then
+                    revel.data.run.dante.OtherInventory.items[id] = nil
                 end
             end
         end
@@ -1034,9 +1033,9 @@ function REVEL.Dante.AddCollectibleToOtherPlayer(player, isInQueue, item, pos)
 
     player:AddGoldenHearts(goldenHearts)
 
-    local sid = tostring(item.ID)
-    revel.data.run.dante.OtherInventory.items[sid] = revel.data.run.dante.OtherInventory.items[sid] or 0
-    revel.data.run.dante.OtherInventory.items[sid] = revel.data.run.dante.OtherInventory.items[sid] + newNum - startNum
+    local id = item.ID
+    revel.data.run.dante.OtherInventory.items[id] = revel.data.run.dante.OtherInventory.items[id] or 0
+    revel.data.run.dante.OtherInventory.items[id] = revel.data.run.dante.OtherInventory.items[id] + newNum - startNum
 
     local phylactery = Isaac.FindByType(REVEL.ENT.PHYLACTERY.id, REVEL.ENT.PHYLACTERY.variant, -1, false, false)[1]
     if phylactery then

@@ -891,14 +891,14 @@ end
 
 StageAPI.AddCallback("Revelations", RevCallbacks.EARLY_POST_NEW_ROOM, 1, function()
     if REVEL.room:IsFirstVisit() then
-        local roomID = tostring(StageAPI.GetCurrentRoomID())
+        local roomID = StageAPI.GetCurrentRoomID()
         revel.data.run.level.notablePickupsInRoom[roomID] = #REVEL.GetRoomNotablePickups()
         revel.data.run.level.notablePickupsTakenFromRoom[roomID] = 0
     end
 end)
 
 revel:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
-    local roomID = tostring(StageAPI.GetCurrentRoomID())
+    local roomID = StageAPI.GetCurrentRoomID()
     if revel.data.run.level.notablePickupsInRoom[roomID] then
         local numItems = #REVEL.GetRoomNotablePickups()
         if numItems > revel.data.run.level.notablePickupsInRoom[roomID] then

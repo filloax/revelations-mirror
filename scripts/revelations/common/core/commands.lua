@@ -892,7 +892,7 @@ end)
 
 local greenScreen = REVEL.LazyLoadRoomSprite{
     ID = "GreenScreen",
-    Anm2 = "gfx/backdrop/Black.anm2",
+    Anm2 = "gfx/backdrop/revelcommon/Black.anm2",
     Animation = "Default",
     Color = Color(1,1,1,1,conv255ToFloat(0, 255, 0)),
 }

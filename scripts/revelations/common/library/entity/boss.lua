@@ -116,7 +116,7 @@ do
 
         for stage, champAchievement in pairs(champAchievements) do
             if noChampions > 0 and REVEL.STAGE[stage]:IsStage() 
-            and revel.data.run.madeAMistake[tostring(REVEL.GetStageChapter(REVEL.STAGE[stage]))] then
+            and revel.data.run.madeAMistake[REVEL.GetStageChapter(REVEL.STAGE[stage])] then
                 return false
             end
 

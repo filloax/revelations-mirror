@@ -37,6 +37,7 @@ local SubModules = {
     'scripts.revelations.common.library.items.customchargebars',
     'scripts.revelations.common.library.items.inventory',
 
+    'scripts.revelations.common.library.minimap',
     'scripts.revelations.common.library.reflections',
     'scripts.revelations.common.library.shaders',
     'scripts.revelations.common.library.utils',

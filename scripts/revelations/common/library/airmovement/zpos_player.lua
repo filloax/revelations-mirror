@@ -187,7 +187,7 @@ revel:AddCallback(RevCallbacks.POST_ENTITY_ZPOS_LAND, function(_, entity, airMov
 			airMovementData.ZVelocity = 0
 			airMovementData.ZPosition = REVEL.ZPos.GetGroundLevel(entity)
 			if not canFly then
-				REVEL.ZPos.StartPlayerPitfall(player:ToPlayer(), landFromGrid)
+				REVEL.ZPos.StartPlayerPitfall(entity:ToPlayer(), landFromGrid)
 				REVEL.DebugStringMinor("Player fell in pit at", landFromGrid:GetGridIndex())
 			end
 			return false

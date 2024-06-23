@@ -12,9 +12,9 @@ function REVEL.Glacier.IsIceIndex(index)
     return currentRoom 
     and (
         REVEL.includes(FullIceRoomTypes, currentRoom:GetType()) 
-        or (currentRoom.PersistentData.IcePitFrames and currentRoom.PersistentData.IcePitFrames[tostring(index)])
+        or (currentRoom.PersistentData.IcePitFrames and currentRoom.PersistentData.IcePitFrames[index])
     ) 
-    and not (currentRoom.PersistentData.SnowedTiles and currentRoom.PersistentData.SnowedTiles[tostring(index)])
+    and not (currentRoom.PersistentData.SnowedTiles and currentRoom.PersistentData.SnowedTiles[index])
 end
 
 function REVEL.Glacier.CheckIce(ent, currentRoom, ignoreCreep)

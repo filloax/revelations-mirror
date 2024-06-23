@@ -84,7 +84,7 @@ revel:AddCallback(ModCallbacks.MC_POST_RENDER, function()
 	and StageAPI.GetCurrentRoomType() == hub2.ROOMTYPE_HUBCHAMBER 
 	and REVEL.room:IsFirstVisit()
 	then
-		REVEL.music:PlayJingle(REVEL.MUSIC.HUB_ROOM_STINGER)
+		REVEL.PlayJingleForRoom(REVEL.MUSIC.HUB_ROOM_STINGER)
 	end
 end)
 

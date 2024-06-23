@@ -757,6 +757,7 @@ revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, eff)
         end
 
         if sprite:IsPlaying("Taunt") and sprite:GetFrame() == 21 then
+            ---@type EntityNPC
             local shoot = Isaac.Spawn(EntityType.ENTITY_MONSTRO, 0, 0, eff.Position, Vector.Zero, eff):ToNPC()
             shoot:FireBossProjectiles(16, data.Target.Position, 0, ProjectileParams())
             REVEL.sfx:NpcPlay(shoot, SoundEffect.SOUND_BOSS_SPIT_BLOB_BARF, 1, 0, false, 1)
@@ -1201,11 +1202,11 @@ revel:AddCallback(ModCallbacks.MC_POST_NPC_RENDER , function(_, npc, offset)
         end
     end
 
-    if sprite:IsFinished("Die") then
-        if data.Phase2 then
-            npc:Remove()
-        end
-    end
+    -- if sprite:IsFinished("Die") then
+    --     if data.Phase2 then
+    --         npc:Remove()
+    --     end
+    -- end
 
     Narc.OddFrame = not Narc.OddFrame and not REVEL.game:IsPaused()
     if Narc.OddFrame then
@@ -1240,8 +1241,7 @@ revel:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, function(_, npc)
         REVEL.UnlockAchievement("MIRROR_BOMBS")
     end
 
-    REVEL.MirrorRoomDead = true
-    REVEL.GetMirrorDeadSprite():Play("FadeIn", true)
+    REVEL.SetMirrorDeadOverlay(true)
 
     REVEL.PlayJingleForRoom(REVEL.MUSIC.MIRROR_BOSS_OUTRO)
     REVEL.music:Queue(Music.MUSIC_BOSS_OVER)
@@ -1380,13 +1380,13 @@ revel:AddCallback(ModCallbacks.MC_POST_BOMB_UPDATE , function(_, bomb)
 end)
 
 revel:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, function(_, ent)
-    if ent.Type == EntityType.ENTITY_PROJECTILE and REVEL.GetData(ent).NarcBobsHead then
+    if REVEL.GetData(ent).NarcBobsHead then
         REVEL.game:BombExplosionEffects(ent.Position, 20, TearFlags.TEAR_POISON, Color(0.02, 0.5, 0.02, 1,conv255ToFloat( 0, 84, 0)), ent, 1, true, true)
         local gas = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.SMOKE_CLOUD, 0, ent.Position, Vector.Zero, ent):ToEffect()
         gas.Timeout = 200
         Narc.SpawnMirrorCrack(ent)
     end
-end)
+end, EntityType.ENTITY_PROJECTILE)
 
 revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, narc1_NpcUpdate, REVEL.ENT.NARCISSUS.id)
 revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, narc1_Narc_EntTakeDmg, REVEL.ENT.NARCISSUS.id)
@@ -1403,9 +1403,6 @@ do
 
     StageAPI.AddCallback("Revelations", StageAPICallbacks.POST_ROOM_LOAD, 1, function(newRoom, isFirstLoad)
         if StageAPI.GetCurrentRoomType() == RevRoomType.MIRROR then
-            REVEL.MirrorRoomCracked = nil
-            REVEL.MirrorRoomDead = nil
-
             if REVEL.STAGE.Tomb:IsStage() then
                 REVEL.TombLoadMirrorRoom()
             elseif REVEL.STAGE.Glacier:IsStage() then
@@ -1414,11 +1411,8 @@ do
                 REVEL.AddReflections(1, true, true)
 
                 if revel.data.run.NarcissusGlacierDefeated then
-                    REVEL.GetMirrorDeadSprite():Play("Default", true)
-                    REVEL.MirrorRoomDead =  true
-
-                    REVEL.GetMirrorCrackedSprite():SetFrame("Break", 90)
-                    REVEL.MirrorRoomCracked = true
+                    REVEL.SetMirrorDeadOverlay()
+                    REVEL.SetMirrorCrackedSprite()
                 elseif revel.data.seenNarcissusGlacier then
                     REVEL.DebugStringMinor("Playing narc 1 VS screen")
                     local narcBoss = REVEL.find(REVEL.Bosses.ChapterOne, 
@@ -1482,15 +1476,23 @@ do
         end
     end)
 
+    local SpawnedThisRoom = false
+
     StageAPI.AddCallback("Revelations", RevCallbacks.EARLY_POST_NEW_ROOM, 1, function()
         didVSScreen = false
+        SpawnedThisRoom = false
     end)
 
     local function mirrorRoomPostUpdate()
         local room = REVEL.room
         local level = REVEL.game:GetLevel()
 
-        if not revel.data.run.NarcissusGlacierDefeated and REVEL.STAGE.Glacier:IsStage() and StageAPI.GetCurrentRoomType() == RevRoomType.MIRROR then
+        if 
+            not SpawnedThisRoom
+            and not revel.data.run.NarcissusGlacierDefeated
+            and REVEL.STAGE.Glacier:IsStage() 
+            and StageAPI.GetCurrentRoomType() == RevRoomType.MIRROR
+        then
             --If music trigger is passed
             local timeSinceMusicStart = Isaac.GetTime() - MusicPlayStartTime
 
@@ -1500,7 +1502,8 @@ do
 
             if StartedMusicInRoom == StageAPI.GetCurrentRoomID() and room:GetFrameCount() > 5
             and spawnTimePassed
-            and Isaac.CountEntities(nil, REVEL.ENT.NARCISSUS.id, REVEL.ENT.NARCISSUS.variant, -1) == 0 then
+            and REVEL.ENT.NARCISSUS:countInRoom() == 0 then
+                SpawnedThisRoom = true
                 local off = Vector(-15, 35)
                 local narcissus = Isaac.Spawn(REVEL.ENT.NARCISSUS.id, REVEL.ENT.NARCISSUS.variant, 0, room:GetCenterPos() + off, Vector.Zero, nil)
                 REVEL.room:SetClear(false)
@@ -1515,9 +1518,7 @@ do
                     narcissus.Position = REVEL.room:GetCenterPos() + Narc.SpawnOffset
                 end
 
-                REVEL.MirrorRoomCracked = true
-
-                REVEL.GetMirrorCrackedSprite():Play("Break", true)
+                REVEL.SetMirrorCrackedSprite(true)
                 REVEL.game:ShakeScreen(30)
                 if Options.MusicVolume > 0 then
                     REVEL.sfx:Play(REVEL.SFX.GLASS_BREAK, 0.33)

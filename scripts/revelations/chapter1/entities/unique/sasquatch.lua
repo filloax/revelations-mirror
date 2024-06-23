@@ -263,7 +263,7 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
             if not grabbingIce 
             and not data.SnowDelay 
             ---@diagnostic disable-next-line: need-check-nil
-            and not (currentRoom and currentRoom.PersistentData.IcePitFrames[tostring(REVEL.room:GetGridIndex(npc.Position))])
+            and not (currentRoom and currentRoom.PersistentData.IcePitFrames[REVEL.room:GetGridIndex(npc.Position)])
             and REVEL.room:CheckLine(npc.Position, player.Position, LineCheckMode.PROJECTILE, 0, false, false) then
                 data.SnowDelay = SnowballDelay.Min + math.random(SnowballDelay.Max - SnowballDelay.Min)
                 data.State = "Snowball"

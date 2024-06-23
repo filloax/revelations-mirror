@@ -6,7 +6,7 @@ _G.REVEL = {
     DEBUG = false,
     Testmode = false,
   
-    VERSION = "4.3.1",
+    VERSION = "4.3.3",
   
     MODID = "2880387531", --steam workshop id
 
@@ -132,6 +132,11 @@ local function LoadModule(modulePath)
     LoadModuleStack[#LoadModuleStack+1] = modulePath
 
     local success, ret = pcall(include, modulePath)
+
+    if type(ret) == "string" and ret:find("no file") then
+        success = false
+    end
+
     local loadFunction = nil
 
     LoadModuleStack[#LoadModuleStack] = nil
@@ -251,6 +256,7 @@ function REVEL.LoadModulesFromTable(modules)
             local loadFunction = LoadedModules[modulePath].LoadFunction
             if loadFunction then
                 loadFunctions[#loadFunctions+1] = loadFunction
+                -- Isaac.DebugString("[REVEL] Added loadFunc for module " .. tostring(modulePath))
             end
         end
     end

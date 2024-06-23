@@ -1349,7 +1349,7 @@
     </entity>
 
     <!-- Ice Block -->
-    <entity id="614" variant="542" name="Ice Block" baseHP="20" stageHP="0" boss="0" champion="0" collisionDamage="1" collisionMass="70" collisionRadius="15" friction="1" numGridCollisionPoints="12" shadowSize="15" anm2path="monsters/revel1/ice_block.anm2" tags="noreroll">
+    <entity id="614" variant="542" name="Ice Block" baseHP="20" stageHP="0" boss="0" champion="0" collisionDamage="1" collisionMass="70" collisionRadius="15" friction="1" numGridCollisionPoints="12" shadowSize="15" anm2path="grid/revel1/ice_block.anm2" tags="noreroll">
         <gibs amount="0" blood="1" bone="1" eye="1" gut="2" large="1" />
     </entity>
 
@@ -1371,13 +1371,13 @@
     </entity>
 
     <!-- Shy Fly -->
-    <entity anm2path="monsters/revel1/shy_fly/shy_fly.anm2" id="25" variant="541" name="Shy Fly" reroll="true" baseHP="10" boss="0" champion="1" collisionDamage="1" collisionMass="7" collisionRadius="13" friction="1" numGridCollisionPoints="12" shadowSize="20" stageHP="0" portrait="62" gridCollision="walls" bestiary="true" bestiaryTransform="0,0,1" bestiaryAnim="Fly">
+    <entity anm2path="monsters/revel1/shy_fly/shy_fly.anm2" id="25" variant="541" name="Shy Fly" reroll="true" baseHP="10" boss="0" champion="1" collisionDamage="1" collisionMass="7" collisionRadius="13" friction="1" numGridCollisionPoints="12" shadowSize="20" stageHP="0" portrait="62" gridCollision="walls" bestiary="true" bestiaryTransform="0,0,1" bestiaryAnim="Fly" tags="fly">
         <bestiary transform="0,0,1" anim="Fly"/>
         <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
     </entity>
 
     <!-- Cryo Fly -->
-    <entity id="214" variant="541" name="Cryo Fly" anm2path="monsters/revel1/cryo_fly/cryo_fly.anm2" reroll="true" baseHP="10" stageHP="0" boss="0" champion="0" collisionDamage="1" collisionMass="6" collisionRadius="13" friction="1" numGridCollisionPoints="8" shadowSize="14" portrait="17" gridCollision="walls">
+    <entity id="214" variant="541" name="Cryo Fly" anm2path="monsters/revel1/cryo_fly/cryo_fly.anm2" reroll="true" baseHP="10" stageHP="0" boss="0" champion="0" collisionDamage="1" collisionMass="6" collisionRadius="13" friction="1" numGridCollisionPoints="8" shadowSize="14" portrait="17" gridCollision="walls" tags="fly">
         <bestiary transform="0,0,1" anim="Idle"/>
         <gibs amount="0" blood="1" bone="0" eye="0" gut="0" large="0" />
     </entity>

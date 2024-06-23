@@ -26,10 +26,9 @@ function REVEL.Dante.GenerateBirthrightWhitelist(player, charonInventory)
         local inventory = revel.data.run.inventory[REVEL.GetPlayerID(player)]
         local inventoryList = {}
 
-        for sid, num in pairs(inventory) do
-            local id = tonumber(sid)
+        for id, num in pairs(inventory) do
             if REVEL.Dante.IsInventoryManagedItem(id) and not REVEL.CharonFullBan[id] then
-                local ownerIsCharon = charonInventory[sid] ~= nil and charonInventory[sid] ~= 0
+                local ownerIsCharon = charonInventory[id] ~= nil and charonInventory[id] ~= 0
                 inventoryList[#inventoryList+1] = {id = id, owner = ownerIsCharon and 2 or 1}
             end
         end
@@ -44,7 +43,7 @@ function REVEL.Dante.GenerateBirthrightWhitelist(player, charonInventory)
                 inventoryList, 
                 StageAPI.Random(1, #inventoryList, birthrightRng)
             )
-            whitelist[tostring(entry.id)] = entry.owner
+            whitelist[entry.id] = entry.owner
             i = i + 1
         end
 

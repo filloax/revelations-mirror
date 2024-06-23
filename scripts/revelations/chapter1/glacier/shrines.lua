@@ -159,7 +159,7 @@ REVEL.AddShrine("Glacier", {
             for i = 1, 8 do
                 adjacent[i] = icePits[adjacent[i]]
             end
-            pitFrames[tostring(index)] = StageAPI.GetPitFrame(table.unpack(adjacent))
+            pitFrames[index] = StageAPI.GetPitFrame(table.unpack(adjacent))
         end
 
         local currentRoom = StageAPI.GetCurrentRoom()

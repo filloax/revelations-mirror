@@ -73,7 +73,7 @@ end
 ---@return RevRerolls.Data
 local function GetData(entity, handler)
     local saveTable = revel.data.run.level.rerollsData
-    local roomId = tostring(StageAPI.GetCurrentRoomID())
+    local roomId = StageAPI.GetCurrentRoomID()
     -- Use InitSeed if no persist id specified, works when in same room
     local entityId = handler.GetPersistId and handler.GetPersistId(entity) or tostring(entity.InitSeed)
 

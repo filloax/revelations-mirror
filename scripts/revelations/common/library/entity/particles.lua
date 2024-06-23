@@ -253,6 +253,12 @@ do
         return out
     end
 
+    ---@param system ParticleSystem
+    ---@param pos Vec3
+    ---@param vel Vec3
+    ---@param parent? Entity
+    ---@param entityRenderer? Entity
+    ---@return Entity|unknown
     function REVEL.ParticleType:Spawn(system, pos, vel, parent, entityRenderer)
         REVEL.Assert(system, "Tried spawning particle without system", 2)
 
@@ -823,6 +829,16 @@ do
         return vel
     end
 
+    ---@param type ParticleType
+    ---@param system ParticleSystem
+    ---@param pos Vector | Vec3
+    ---@param vel Vector | Vec3
+    ---@param amount? integer
+    ---@param velRand? number
+    ---@param velSpread? number
+    ---@param parent? Entity
+    ---@param zoffset? number
+    ---@param entityRenderer? Entity
     function REVEL.Emitter:EmitParticlesNum(type, system, pos, vel, amount, velRand, velSpread, parent, zoffset, entityRenderer)
         if not pos.Z then
             pos = Vec3(pos, 0)

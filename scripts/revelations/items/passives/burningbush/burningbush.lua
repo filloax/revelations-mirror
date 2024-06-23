@@ -792,7 +792,7 @@ revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, eff)
             eff.Velocity = eff.Velocity * 0.6
         end
     end
-end)
+end, EffectVariant.HOT_BOMB_FIRE)
 
 local function isCollidingGrid(fire, grid)
     return grid and (

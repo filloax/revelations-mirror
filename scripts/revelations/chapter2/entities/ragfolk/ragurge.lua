@@ -16,7 +16,8 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
     local target = npc:GetPlayerTarget()
 
     data.redsTotal = data.redsTotal or 0
-    data.redsTotal = math.max(data.redsTotal,#data.reds)
+    local numReds = data.reds and #data.reds or 0
+    data.redsTotal = math.max(data.redsTotal,numReds)
 
     if data.Buffed and not data.BuffedInit then
         sprite:ReplaceSpritesheet(0, "gfx/monsters/revel2/reskins/ff/monster_ragurgebody_tomb_buffed.png")

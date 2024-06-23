@@ -54,11 +54,11 @@ end
 -- unlocked trinkets/cards maps --
 
 function hub2.IsTrinketUnlocked(trinketId)
-    return not not hub2.data.run.unlockedTrinkets[tostring(trinketId)]
+    return not not hub2.data.run.unlockedTrinkets[trinketId]
 end
 
 function hub2.IsCardUnlocked(cardId)
-    return not not hub2.data.run.unlockedCards[tostring(cardId)]
+    return not not hub2.data.run.unlockedCards[cardId]
 end
 
 function hub2.GetMaxTrinketId()
@@ -85,7 +85,7 @@ function hub2.GetAllUnlockedTrinkets()
     -- there are very few trinkets that can be encountered multiple times, so to combat this it will loop more than otherwise needed
     for i=0, maxTrinketId*2 do
 		hub2.TrinketHistorySkipTrinket = true
-        hub2.data.run.unlockedTrinkets[tostring(itempool:GetTrinket())] = true
+        hub2.data.run.unlockedTrinkets[itempool:GetTrinket()] = true
     end
     
     itempool:ResetTrinkets()
@@ -117,7 +117,7 @@ function hub2.GetAllUnlockedCards()
     -- not failure proof as it's possible to not have a card show up with itempool:GetCard(), but good enough for it's purpose
     for i=0, maxCardId*5 do
         local cardId = itempool:GetCard(seeds:GetNextSeed(), true, true, false)
-        hub2.data.run.unlockedCards[tostring(cardId)] = true
+        hub2.data.run.unlockedCards[cardId] = true
     end
 end
 
@@ -130,7 +130,7 @@ end)
 
 -- trinket history --
 
-hub2:AddCallback(ModCallbacks.MC_GET_TRINKET, function(trinketType, rng)
+hub2:AddCallback(ModCallbacks.MC_GET_TRINKET, function(_, trinketType, rng)
     if not hub2.TrinketHistorySkipTrinket then
         hub2.data.run.trinketHistory[trinketType] = true
     else

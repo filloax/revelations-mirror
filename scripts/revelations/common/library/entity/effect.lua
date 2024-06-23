@@ -792,6 +792,59 @@ end
 
 --#endregion
 
+--#region footprints
+
+function REVEL.SpawnFootprint(player, anm2, fade)
+    if player:IsFlying() or not player.Visible then return end
+    if REVEL.GetData(player).OnDuneTile then return end
+
+    local data = REVEL.GetData(player)
+    if data.LastFootprintPosition and data.LastFootprintPosition:DistanceSquared(player.Position) < 8 ^ 2 then
+        return
+    end
+
+    local offset
+    if math.abs(player.Velocity.Y) >= math.abs(player.Velocity.X) then
+        offset = Vector(2, 0)
+    else
+        offset = Vector(0, 2)
+    end
+
+    if data.FootprintAlternate then
+        offset = -offset
+    end
+
+    data.FootprintAlternate = not data.FootprintAlternate
+    data.LastFootprintPosition = player.Position
+
+    local eff = StageAPI.SpawnFloorEffect(player.Position + offset, Vector.Zero, nil, anm2, true)
+    REVEL.GetData(eff).Footprint = true
+    REVEL.GetData(eff).FootprintFade = not not fade
+    eff:GetSprite():Play("idle", true)
+    if not fade then
+        eff:AddEntityFlags(EntityFlag.FLAG_RENDER_FLOOR)
+    end
+end
+
+local function footprint_PostEffectUpdate(_, eff)
+    local data = REVEL.GetData(eff)
+    if data.Footprint and data.FootprintFade then
+        if eff.FrameCount > 30 then
+            eff.Color = Color.Lerp(
+                Color(1, 1, 1, 1), 
+                Color(1, 1, 1, 0), 
+                (eff.FrameCount - 30) / 30
+            )
+        end
+
+        if eff.FrameCount > 60 then
+            eff:Remove()
+        end
+    end
+end
+
+--#endregion
+
 revel:AddCallback(ModCallbacks.MC_POST_UPDATE, dashTrailPostUpdate)
 revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, shockwavePostEffectUpdate, REVEL.ENT.CUSTOM_SHOCKWAVE.variant)
 
@@ -807,5 +860,6 @@ revel:AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, pulseSmall_PreEntitySpawn)
 revel:AddCallback(ModCallbacks.MC_PRE_NPC_COLLISION, pulseSmall_PreNpcCollision, EntityType.ENTITY_PORTAL)
 
 revel:AddCallback(ModCallbacks.MC_POST_UPDATE, lights_PostUpdate)
+revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, footprint_PostEffectUpdate, StageAPI.E.FloorEffect.V)
 
 end

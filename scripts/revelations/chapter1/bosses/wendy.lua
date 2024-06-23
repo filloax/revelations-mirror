@@ -233,7 +233,7 @@ StageAPI.AddCallback("Revelations", RevCallbacks.NPC_UPDATE_INIT, 1, function(np
 				local stalagmite = Isaac.Spawn(REVEL.ENT.WENDY_STALAGMITE.id, REVEL.ENT.WENDY_STALAGMITE.variant, 0, pos, Vector.Zero, npc)
 				stalagmite.EntityCollisionClass = EntityCollisionClass.ENTCOLL_NONE
 				stalagmite.Visible = false
-				REVEL.GetData(stalagmite).Wendy = npc
+				REVEL.GetData(stalagmite).Wendy = EntityPtr(npc)
 				stalagmite:GetSprite().PlaybackSpeed = 0
 				stalagmite:GetSprite():Play("Emerge", true)
 				stalagmite:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
@@ -268,7 +268,7 @@ function REVEL.AssignSnowpilesToWendy(wendy)
 	data.Snowpiles = Isaac.FindByType(REVEL.ENT.WENDY_SNOWPILE.id, REVEL.ENT.WENDY_SNOWPILE.variant, 0, false, false)
 	for i, snowpile in ipairs(data.Snowpiles) do
 		local snowpile_data = REVEL.GetData(snowpile)
-		snowpile_data.Wendy = wendy
+		snowpile_data.Wendy = EntityPtr(wendy)
 		snowpile_data.bal = data.bal
 		snowpile_data.ShouldWaitForInit = nil
 		snowpile.MaxHitPoints = data.bal.SnowpileMaxHP
@@ -277,7 +277,6 @@ function REVEL.AssignSnowpilesToWendy(wendy)
 		if data.IsChampion then
 			local snowpile_type = (i - 1) % #ChocolateSnowpileVariants + 1
 			snowpile_data[ChocolateSnowpileVariants[snowpile_type]] = true
-			REVEL.DebugLog("TEST Snowpile", i, snowpile_type, ChocolateSnowpileVariants[snowpile_type])
 			if snowpile_data.StrawberryIceCream then
 				snowpile:GetSprite():ReplaceSpritesheet(0, data.bal.SnowpileStrawberrySprite)
 				snowpile:GetSprite():LoadGraphics()
@@ -343,7 +342,7 @@ local function WendyUpdate(npc)
 		if snowpile:IsDead() and not REVEL.GetData(snowpile).Dying or not snowpile:Exists() then
 			local new_snowpile = Isaac.Spawn(REVEL.ENT.WENDY_SNOWPILE.id, REVEL.ENT.WENDY_SNOWPILE.variant, 0, snowpile.Position, Vector.Zero, nil)
 			local snowpile_data = REVEL.GetData(new_snowpile)
-			snowpile_data.Wendy = npc
+			snowpile_data.Wendy = EntityPtr(npc)
 			snowpile_data.bal = data.bal
 			new_snowpile.MaxHitPoints = snowpile_data.bal.SnowpileMaxHP
 			new_snowpile.HitPoints = snowpile_data.bal.SnowpileMaxHP
@@ -447,7 +446,7 @@ local function WendyUpdate(npc)
 			local footprintPos = npc.Position+npc.Velocity:Resized(data.bal.DistanceFeetToCenterBody):Rotated(data.WendyCurrentFoot*180+90)
 			local grid = REVEL.room:GetGridEntity(REVEL.room:GetGridIndex(footprintPos))
 			if not grid or grid.Desc.Type == GridEntityType.GRID_DECORATION or REVEL.IsGridBroken(grid) then
-				local footprint = Isaac.Spawn(EntityType.ENTITY_EFFECT, 8, 0, footprintPos, Vector.Zero, npc)
+				local footprint = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.LADDER, 0, footprintPos, Vector.Zero, npc)
 				REVEL.GetData(footprint).IsWendyFootprint = true
 				REVEL.GetData(footprint).FootprintFramesUntilFadeOut = data.bal.FootprintFramesUntilFadeOut
 				footprint:GetSprite():Load("gfx/bosses/revel1/wendy/Wendy_footprint.anm2", true)
@@ -1089,7 +1088,12 @@ local function WendyUpdate(npc)
 						
 						local vec_to_target = npc:GetPlayerTarget().Position - npc.Position
 						if snowballtype == "White" or snowballtype == "Strawberry" or snowballtype == "Piss" or snowballtype == "Chocolate" then
-							local proj = Isaac.Spawn(EntityType.ENTITY_PROJECTILE, data.bal.SnowballVariant, 0, npc.Position, vec_to_target:Rotated(math.random(-data.bal.ChampionWhirlwindShotAngleOffset,data.bal.ChampionWhirlwindShotAngleOffset)):Resized(data.bal.SnowballVelocity()), data.Wendy):ToProjectile()
+							---@type EntityProjectile
+							local proj = Isaac.Spawn(
+								EntityType.ENTITY_PROJECTILE, data.bal.SnowballVariant, 0, 
+								npc.Position, vec_to_target:Rotated(math.random(-data.bal.ChampionWhirlwindShotAngleOffset,data.bal.ChampionWhirlwindShotAngleOffset)):Resized(data.bal.SnowballVelocity()), 
+								npc
+							):ToProjectile()
 							proj.Height = (math.random()*-data.bal.SnowballsInSnowpileMaxHeight)-10
 							proj.FallingSpeed = proj.Height * -2 / vec_to_target:Length()
 							proj.FallingAccel = 0
@@ -1127,7 +1131,8 @@ local function WendyUpdate(npc)
 							ent:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
 						end
 					else
-						local proj = Isaac.Spawn(EntityType.ENTITY_PROJECTILE, data.bal.SnowballVariant, 0, npc.Position, Vector(math.random()-0.5,math.random()-0.5):Resized(data.bal.SnowballVelocity()), data.Wendy):ToProjectile()
+						---@type EntityProjectile
+						local proj = Isaac.Spawn(EntityType.ENTITY_PROJECTILE, data.bal.SnowballVariant, 0, npc.Position, Vector(math.random()-0.5,math.random()-0.5):Resized(data.bal.SnowballVelocity()), npc):ToProjectile()
 						proj.Height = (math.random()*-data.bal.SnowballsInSnowpileMaxHeight)-10
 						REVEL.GetData(proj).isFrostyProjectile = true
 						REVEL.GetData(proj).IsSnowball = true
@@ -1313,7 +1318,8 @@ local function SnowpileUpdate(npc)
 		return
 	end
 
-	if not data.Wendy then
+	local wendy = data.Wendy and data.Wendy.Ref
+	if not wendy then
 		local wendys = Isaac.FindByType(REVEL.ENT.WENDY.id, REVEL.ENT.WENDY.variant, -1, false, false)
 		if wendys[1] then
 			local success = not REVEL.AssignSnowpilesToWendy(wendys[1])
@@ -1324,10 +1330,13 @@ local function SnowpileUpdate(npc)
 		end
 	end
 	
+	wendy = data.Wendy and data.Wendy.Ref
+	local wendyData = wendy and REVEL.GetData(wendy)
+
 	-- because the player destroyed the wrong snowpile, wendy will shoot a dangerous snowball attack towards the player and she'll go back to snow stalking
-	if not REVEL.GetData(data.Wendy).IsChampion and sprite:IsPlaying("WendyHideMad") and sprite:IsEventTriggered("Shoot") then
+	if not wendyData.IsChampion and sprite:IsPlaying("WendyHideMad") and sprite:IsEventTriggered("Shoot") then
 		for i=1, data.bal.NumSnowballsWendySnowpileAttack() do
-			local proj = Isaac.Spawn(EntityType.ENTITY_PROJECTILE, data.bal.SnowballVariant, 0, npc.Position, (REVEL.player.Position-npc.Position):Resized(data.bal.SnowballsWendySnowpileAttackVelocity()):Rotated(math.random(-data.bal.SnowballsWendySnowpileAttackAngleOffset,data.bal.SnowballsWendySnowpileAttackAngleOffset)), data.Wendy):ToProjectile()
+			local proj = Isaac.Spawn(EntityType.ENTITY_PROJECTILE, data.bal.SnowballVariant, 0, npc.Position, (REVEL.player.Position-npc.Position):Resized(data.bal.SnowballsWendySnowpileAttackVelocity()):Rotated(math.random(-data.bal.SnowballsWendySnowpileAttackAngleOffset,data.bal.SnowballsWendySnowpileAttackAngleOffset)), wendy):ToProjectile()
 			proj.FallingSpeed = math.random()*-25
 			proj.FallingAccel = 1
 			proj:GetSprite():ReplaceSpritesheet(0, data.bal.SnowballSpritesheet)
@@ -1337,15 +1346,15 @@ local function SnowpileUpdate(npc)
 		end
 		REVEL.sfx:Play(SoundEffect.SOUND_BOSS_LITE_SLOPPY_ROAR, 1, 0, false, 1)
 		REVEL.sfx:Play(SoundEffect.SOUND_BOSS2INTRO_ERRORBUZZ, 0.8, 0, false, 1)
-		REVEL.GetData(data.Wendy).State = "Snow Stalking"
-		REVEL.GetData(data.Wendy).TimerBetweenStates = 0
-		data.Wendy.EntityCollisionClass = EntityCollisionClass.ENTCOLL_PLAYEROBJECTS
-		data.Wendy.Position = npc.Position
-		data.Wendy.Velocity = Vector.Zero
+		wendyData.State = "Snow Stalking"
+		wendyData.TimerBetweenStates = 0
+		wendy.EntityCollisionClass = EntityCollisionClass.ENTCOLL_PLAYEROBJECTS
+		wendy.Position = npc.Position
+		wendy.Velocity = Vector.Zero
 	end
 	
 	-- snowpiles will slowly regenerate back to their former state
-	local regentime = REVEL.GetData(data.Wendy).IceCreamShowerRegenTime or data.bal.SnowpileRegenTime
+	local regentime = wendyData.IceCreamShowerRegenTime or data.bal.SnowpileRegenTime
 	if data.RegenTimer == regentime and sprite:IsFinished("Idle2") then
 		sprite:Play("Regen1", true)
 		data.RegenTimer = 0
@@ -1369,12 +1378,12 @@ local function SnowpileUpdate(npc)
 		npc.EntityCollisionClass = EntityCollisionClass.ENTCOLL_ALL
 	elseif sprite:IsFinished("RegenFinal") or sprite:IsFinished("RegenFast") then
 		sprite:SetFrame("Idle", 0)
-		REVEL.GetData(data.Wendy).IceCreamShowerRegenTime = nil
+		wendyData.IceCreamShowerRegenTime = nil
 		npc:GetSprite().PlaybackSpeed = 1
 	elseif sprite:IsFinished("Shake") then
 		sprite:Play("WendyHideIdle", true)
 	elseif sprite:IsFinished("Destroy") then
-		if REVEL.room:GetGridIndex(npc.Position) == 37 and (data.Wendy:IsDead() or not data.Wendy:Exists()) then
+		if REVEL.room:GetGridIndex(npc.Position) == 37 and (wendy:IsDead() or not wendy:Exists()) then
 			npc:Remove()
 			return
 		end
@@ -1382,7 +1391,7 @@ local function SnowpileUpdate(npc)
 		sprite:SetFrame("Idle2", 0)
 	end
 	
-	if data.Wendy:IsDead() or not data.Wendy:Exists() then
+	if wendy:IsDead() or not wendy:Exists() then
 		data.RegenTimer = -1
 		if not sprite:IsPlaying("Destroy") and not sprite:IsFinished("Idle2") then
 			sprite:Play("Destroy", true)
@@ -1453,46 +1462,54 @@ end, REVEL.ENT.WENDY.id)
 
 local function SnowpileDeath(snowpile)
 	local data = REVEL.GetData(snowpile)
+	data.Dying = true
 	snowpile.HitPoints = 0
 	snowpile:GetSprite():Play("Destroy", true)
 	data.RegenTimer = 0
 	snowpile.EntityCollisionClass = EntityCollisionClass.ENTCOLL_NONE
 	REVEL.sfx:Play(SoundEffect.SOUND_BLACK_POOF, 1, 0, false, 1.8)
-	if REVEL.GetData(data.Wendy).State == "Hiding In Snowpile" then
-		if snowpile.Index == REVEL.GetData(data.Wendy).CurrentSnowpile.Index then
-			REVEL.GetData(data.Wendy).State = "Stunned"
-			REVEL.GetData(data.Wendy).TimerBetweenStates = 0
-			data.Wendy:GetSprite():Play("Stun", true)
-			REVEL.PlaySound(snowpile, data.bal.Sounds.StunStart)
-			data.Wendy:GetSprite().FlipX = (data.Wendy:ToNPC():GetPlayerTarget().Position.X - data.Wendy.Position.X) > 0
-			data.Wendy.Visible = true
-			data.Wendy.EntityCollisionClass = EntityCollisionClass.ENTCOLL_PLAYEROBJECTS
-			data.Wendy.Position = snowpile.Position
-			data.Wendy.Velocity = Vector.Zero
-		elseif not REVEL.GetData(data.Wendy).IsChampion then
-			REVEL.GetData(data.Wendy).CurrentSnowpile:GetSprite():Play("WendyHideMad", true)
-		end
-	end
-	
-	if REVEL.GetData(data.Wendy).IsChampion then
-		if not data.StopSnowballSpawning then
-			local snowball
-			if data.StrawberryIceCream then
-				snowball = REVEL.ENT.STRAWBERRY_SNOWBALL
-			elseif data.PissIceCream then
-				snowball = REVEL.ENT.YELLOW_SNOWBALL
-			elseif data.WhiteIceCream then
-				snowball = REVEL.ENT.SNOWBALL
+
+	local wendy = data.Wendy and data.Wendy.Ref
+	local wendyData = wendy and REVEL.GetData(wendy)
+
+	if wendyData then
+		if wendyData.State == "Hiding In Snowpile" then
+			if snowpile.Index == wendyData.CurrentSnowpile.Index then
+				wendyData.State = "Stunned"
+				wendyData.TimerBetweenStates = 0
+				wendy:GetSprite():Play("Stun", true)
+				REVEL.PlaySound(snowpile, data.bal.Sounds.StunStart)
+				wendy:GetSprite().FlipX = (wendy:ToNPC():GetPlayerTarget().Position.X - wendy.Position.X) > 0
+				wendy.Visible = true
+				wendy.EntityCollisionClass = EntityCollisionClass.ENTCOLL_PLAYEROBJECTS
+				wendy.Position = snowpile.Position
+				wendy.Velocity = Vector.Zero
+			elseif not wendyData.IsChampion then
+				wendyData.CurrentSnowpile:GetSprite():Play("WendyHideMad", true)
 			end
-			for i=1, data.bal.ChampionNumDipsInSnowpile() do
-				local snowball = Isaac.Spawn(snowball.id, snowball.variant, 0, snowpile.Position + Vector.FromAngle(math.random(0,359))*math.random(15,25), Vector.Zero, snowpile)
-			end
-		else
-			data.StopSnowballSpawning = false
 		end
+		
+		if wendyData.IsChampion then
+			if not data.StopSnowballSpawning then
+				local snowball
+				if data.StrawberryIceCream then
+					snowball = REVEL.ENT.STRAWBERRY_SNOWBALL
+				elseif data.PissIceCream then
+					snowball = REVEL.ENT.YELLOW_SNOWBALL
+				elseif data.WhiteIceCream then
+					snowball = REVEL.ENT.SNOWBALL
+				end
+				for i=1, data.bal.ChampionNumDipsInSnowpile() do
+					local snowball = Isaac.Spawn(snowball.id, snowball.variant, 0, snowpile.Position + Vector.FromAngle(math.random(0,359))*math.random(15,25), Vector.Zero, snowpile)
+				end
+			else
+				data.StopSnowballSpawning = false
+			end
+		end
+	else
+		REVEL.LogError("Wendy snowpile has no boss ref on death!")
 	end
 	snowpile:RemoveStatusEffects()
-	data.Dying = true
 	snowpile.State = NpcState.STATE_UNIQUE_DEATH
 end
 
@@ -1501,13 +1518,21 @@ revel:AddCallback(ModCallbacks.MC_POST_NPC_RENDER, function(_, npc)
 
 	local data = REVEL.GetData(npc)
 	if npc.Variant == REVEL.ENT.WENDY_SNOWPILE.variant then
-		if data.Wendy and not data.Dying and npc:HasMortalDamage() then
+		local wendy = data.Wendy and data.Wendy.Ref
+		local wendyData = wendy and REVEL.GetData(wendy)
+		
+		if wendy and not data.Dying and npc:HasMortalDamage() then
 			SnowpileDeath(npc)
 		end
 		
 		local sprite = npc:GetSprite()
-		if data.Dying and sprite:IsFinished("Destroy") then
-			local new_snowpile = Isaac.Spawn(REVEL.ENT.WENDY_SNOWPILE.id, REVEL.ENT.WENDY_SNOWPILE.variant, 0, npc.Position, Vector.Zero, nil)
+		if data.Dying and not data.TriggeredDestroy and sprite:IsFinished("Destroy") then
+			data.TriggeredDestroy = true
+			local new_snowpile = Isaac.Spawn(
+				REVEL.ENT.WENDY_SNOWPILE.id, 
+				REVEL.ENT.WENDY_SNOWPILE.variant, 
+				0, npc.Position, Vector.Zero, nil
+			)
 			local snowpile_data = REVEL.GetData(new_snowpile)
 			for k,v in pairs(data) do
 				snowpile_data[k] = v
@@ -1517,7 +1542,7 @@ revel:AddCallback(ModCallbacks.MC_POST_NPC_RENDER, function(_, npc)
 			new_snowpile.HitPoints = snowpile_data.bal.SnowpileMaxHP
 			new_snowpile:GetSprite().FlipX = sprite.FlipX
 			new_snowpile.EntityCollisionClass = EntityCollisionClass.ENTCOLL_NONE
-			if REVEL.GetData(data.Wendy).IsChampion then
+			if wendyData.IsChampion then
 				if data.StrawberryIceCream then
 					snowpile_data.StrawberryIceCream = true
 					new_snowpile:GetSprite():ReplaceSpritesheet(0, snowpile_data.bal.SnowpileStrawberrySprite)
@@ -1530,13 +1555,14 @@ revel:AddCallback(ModCallbacks.MC_POST_NPC_RENDER, function(_, npc)
 					snowpile_data.WhiteIceCream = true
 				end
 			end
-			for i,snowpile in ipairs(REVEL.GetData(data.Wendy).Snowpiles) do
+			for i,snowpile in ipairs(wendyData.Snowpiles) do
 				if snowpile.Index == npc.Index then
-					REVEL.GetData(data.Wendy).Snowpiles[i] = new_snowpile
+					wendyData.Snowpiles[i] = new_snowpile
 					break
 				end
 			end
 			new_snowpile:GetSprite():SetFrame("Idle2", 0)
+			new_snowpile:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
 			npc:Remove()
 			return
 		end
@@ -1604,7 +1630,10 @@ revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, e, dmg, flag, src
 		if REVEL.WendyStormOverlayActive or e.EntityCollisionClass == EntityCollisionClass.ENTCOLL_NONE then -- snowpiles are invincible whenever the storm is active or when they're destroyed
 			return false
 		end
-		if not data.DmgIsSnowstormMultDmg and REVEL.GetData(data.Wendy).State == "Hiding In Snowpile" and data.bal.PostSnowstormSnowpileDmgMult ~= 1 then -- snowpiles are 5 times as vulnerable whenever the snowstorm is finished
+		local wendy = data.Wendy and data.Wendy.Ref
+		local wendyData = wendy and REVEL.GetData(wendy)
+
+		if not data.DmgIsSnowstormMultDmg and wendyData and wendyData.State == "Hiding In Snowpile" and data.bal.PostSnowstormSnowpileDmgMult ~= 1 then -- snowpiles are 5 times as vulnerable whenever the snowstorm is finished
 			data.DmgIsSnowstormMultDmg = true
 			e:TakeDamage(dmg*(data.bal.PostSnowstormSnowpileDmgMult-1), flag, src, invuln)
 			data.DmgIsSnowstormMultDmg = false
@@ -1656,7 +1685,7 @@ revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, eff) -- wendy 
 			eff:Remove()
 		end
 	end
-end)
+end, EffectVariant.LADDER)
 
 revel:AddCallback(ModCallbacks.MC_POST_RENDER, function() -- snowstorm overlay
 	if REVEL.WendyStormOverlayActive

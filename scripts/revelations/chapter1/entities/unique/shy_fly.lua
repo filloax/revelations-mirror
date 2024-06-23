@@ -1,6 +1,8 @@
 return function()
 
 --Shy Fly
+-- alt of boom fly
+
 local radius = 60
 
 local RemoveShyFlyProjectiles

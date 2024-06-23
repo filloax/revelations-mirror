@@ -546,7 +546,7 @@ revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, e)
 			REVEL.ShootAura(e, REVEL.getClosestInTable(REVEL.players, e), data.Spawner)
 		end
 	end
-end)
+end, REVEL.ENT.DECORATION.variant)
 
 end
 

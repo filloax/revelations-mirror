@@ -1892,11 +1892,11 @@ revel:AddCallback(ModCallbacks.MC_NPC_UPDATE, function(_, npc)
 	local previousVelocity = REVEL.CloneVec(npc.Velocity)
 	local previousPosition = REVEL.CloneVec(npc.Position)
 
-	PrintFunctionInfo(d.CurrentAction, ("Current action %s"):format(d.IsWilliwawClone and "(clone)" or "       "))
+	-- PrintFunctionInfo(d.CurrentAction, ("Current action %s"):format(d.IsWilliwawClone and "(clone)" or "       "))
 
 	local repeatAction = d.CurrentAction(npc, sprite, d) == false
 
-	REVEL.DebugStringMinor("Action done")
+	-- REVEL.DebugStringMinor("Action done")
 
 	--[[
 	-- if position didn't change, forcefully hold it to avoid knockback item bugs

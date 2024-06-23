@@ -377,8 +377,9 @@ end)
 
 ---@param entity Entity
 revel:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function(_, entity, dmg, flag, source, invuln)
-    if source.Entity and source.Entity.Type == 2 
-    and REVEL.GetData(REVEL.GetEntFromRef(source)).DanteInkTear
+    local sourceEnt = REVEL.GetEntFromRef(source)
+    if sourceEnt and sourceEnt.Type == 2
+    and REVEL.GetData(sourceEnt).DanteInkTear
     and entity:IsVulnerableEnemy()
     and not entity:HasEntityFlags(EntityFlag.FLAG_NO_STATUS_EFFECTS)
     and not entity:HasEntityFlags(EntityFlag.FLAG_SLOW)

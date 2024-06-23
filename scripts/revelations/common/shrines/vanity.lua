@@ -506,12 +506,12 @@ local function rewardShop_Init(_, effect)
         effect.SubType = CreateNewRewardSubtype(ChooseRewardRandom)
     end
 
-    local listIndex = tostring(StageAPI.GetCurrentRoomID())
+    local listIndex = StageAPI.GetCurrentRoomID()
     if not revel.data.run.level.shrineRewardRooms[listIndex] then
         revel.data.run.level.shrineRewardRooms[listIndex] = {}
     end
     local roomPersistData = revel.data.run.level.shrineRewardRooms[listIndex]
-    local idx = tostring(REVEL.room:GetGridIndex(effect.Position))
+    local idx = REVEL.room:GetGridIndex(effect.Position)
     if not roomPersistData[idx] then
         roomPersistData[idx] = effect.SubType
     end
@@ -789,9 +789,9 @@ local function rewardShop_PostUpdate(_, effect)
         doSpawn = true
         REVEL.AddShrineVanity(-data.Price)
 
-        local listIndex = tostring(StageAPI.GetCurrentRoomID())
+        local listIndex = StageAPI.GetCurrentRoomID()
         local roomPersistData = revel.data.run.level.shrineRewardRooms[listIndex]
-        local idx = tostring(REVEL.room:GetGridIndex(effect.Position))
+        local idx = REVEL.room:GetGridIndex(effect.Position)
         roomPersistData[idx] = nil
 
         data.SpawnCapsuleDecoration = not not data.CapsuleSprite
@@ -1155,11 +1155,11 @@ local function SetupShop(firstVisit)
         end
 
         REVEL.DebugStringMinor("Setup vanity shop")
-    else       
-        local listIndex = tostring(StageAPI.GetCurrentRoomID())
+    else
+        local listIndex = StageAPI.GetCurrentRoomID()
         if revel.data.run.level.shrineRewardRooms[listIndex] then
             for idx, subtype in pairs(revel.data.run.level.shrineRewardRooms[listIndex]) do
-                local pos = REVEL.room:GetGridPosition(tonumber(idx))
+                local pos = REVEL.room:GetGridPosition(idx)
                 Isaac.Spawn(REVEL.ENT.PACT_SHOP.id, REVEL.ENT.PACT_SHOP.variant, subtype, pos, Vector.Zero, nil)
                 -- REVEL.DebugStringMinor("Respawning vanity shop subtype", subtype, "idx", idx)
             end
@@ -2352,7 +2352,7 @@ REVEL.Commands.vanityshop = {
     Help = "Teleport to the vanity shop for Rev pact rewards",
     File = "vanity.lua",
 }
-REVEL.Commands.addv = {
+REVEL.Commands.addvanity = {
     Execute = function (params)
         local x = tonumber(params)
         if not x then

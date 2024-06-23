@@ -1,4 +1,37 @@
 -- Keep lines at max 40 characters, can use for that https://www.gillmeister-software.com/online-tools/text/add-line-breaks_change-line-length.aspx
+REVEL.AddChangelog("Vanity (4.3.3)", "June 23 2024", [[Compatibility 
+- Epiphany compatibility for pocket 
+item (IDs overlapped before) 
+
+Internal 
+- Various performance improvements 
+around effect updates 
+- Save data uses stageaAPI's save 
+handling for formatting (hub included) 
+- Workshop releases are now auto-
+prepared with a script to remove 
+unneeded files 
+
+Fixes 
+- Fix the "Bad random range 1,0" error 
+in many Rev rooms, caused by room 
+entries having weight set to 0 
+- Fix Dante+Charon semivisited room 
+icons appearing for rooms visited by 
+the other character 
+- Fix Rev breaking without Repentogon (
+until ch3 no Repentogon is still 
+supported) 
+- (Likely) fixed assorted Revelations 
+data errors, such as vanity shop items 
+sometimes not appearing 
+- Fix Narcissus 1 death freeze 
+- Fix Wendy snowpile death freeze 
+- Fix glacier special room poop gibs 
+color 
+- Fix assorted minor errors in dante, 
+ragurge, ragtime, player landing 
+- Fix Sasquatch ice blocks]])
 REVEL.AddChangelog("Vanity (4.3.2)", "April 05 2024", [[Tweaks
 - [Repentogon] Sarah: directly change
 devil chance (affects Found HUD)

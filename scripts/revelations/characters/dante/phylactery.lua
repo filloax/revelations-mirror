@@ -41,7 +41,7 @@ function REVEL.Dante.SetPhylactery(player, item)
         end
     end
 
-    REVEL.DebugToString("Called in:", REVEL.TryGetTraceback(true, true))
+    -- REVEL.DebugToString("Called in:", REVEL.TryGetTraceback(true, true))
     if REVEL.PHYLACTERY_POCKET then
         player:SetPocketActiveItem(item, ActiveSlot.SLOT_POCKET, false)
         player:DischargeActiveItem(ActiveSlot.SLOT_POCKET)
@@ -372,7 +372,7 @@ StageAPI.AddCallback("Revelations", RevCallbacks.EARLY_POST_NEW_ROOM, 15, functi
 
         REVEL.Dante.InventorySwitch(player)
         player:DischargeActiveItem(REVEL.Dante.GetPhylacteryActiveSlot())
-        REVEL.Dante.SwitchMap()
+        REVEL.Dante.SwitchMap(REVEL.Dante.IsDante(player))
 
         if PhylacteryTransferringPosition then
             for _, player in ipairs(REVEL.players) do

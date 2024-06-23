@@ -3,8 +3,7 @@ local RevRoomType       = require("scripts.revelations.common.enums.RevRoomType"
 return function()
 
 function REVEL.LoadDuneTiles(frames)
-    for strindex, frame in pairs(frames) do
-        local index = tonumber(strindex)
+    for index, frame in pairs(frames) do
         for i = 1, 2 do
             local e = Isaac.Spawn(StageAPI.E.GenericEffect.T, StageAPI.E.GenericEffect.V, 0, REVEL.room:GetGridPosition(index) + Vector(2, 3), Vector.Zero, nil)
             local spr = e:GetSprite()
@@ -17,11 +16,8 @@ function REVEL.LoadDuneTiles(frames)
                 spr:Play("highlights", true)
                 spr.PlaybackSpeed = math.random() + 0.5
             end
-            REVEL.GetData(e).DuneTile = true
-
-            local currentRoom = StageAPI.GetCurrentRoom()
-
-            local roomType = REVEL.room:GetType()
+            e:GetData().DuneTile = true
+            
             if REVEL.includes(REVEL.TombSandGfxRoomTypes , StageAPI.GetCurrentRoomType()) then
                 spr:ReplaceSpritesheet(0, "gfx/grid/revel2/tile_dune.png")
             end
@@ -32,11 +28,21 @@ function REVEL.LoadDuneTiles(frames)
     end
 end
 
+local ShouldConvertFrames = not REVEL.HasStageApiVersion("2.30")
+
 local function dunetilesPostRoomInit(newRoom)
     if REVEL.STAGE.Tomb:IsStage() then
         local tileIndices = newRoom.Metadata:Search{Name = "Dune Tile", IndexBooleanTable = true}
 
-        newRoom.PersistentData.DuneTileFrames = StageAPI.GetPitFramesFromIndices(tileIndices, newRoom.Layout.Width, newRoom.Layout.Height, true)
+        local duneTileFrames = StageAPI.GetPitFramesFromIndices(tileIndices, newRoom.Layout.Width, newRoom.Layout.Height, true, true)
+        if ShouldConvertFrames then
+            newRoom.PersistentData.DuneTileFrames = {}
+            for k, v in pairs(duneTileFrames) do
+                newRoom.PersistentData.DuneTileFrames[tonumber(k)] = v
+            end
+        else
+            newRoom.PersistentData.DuneTileFrames = duneTileFrames
+        end
     end
 end
 
@@ -46,7 +52,7 @@ function REVEL.CheckDuneTile(ent, pos)
     local currentRoom = StageAPI.GetCurrentRoom()
     pos = pos or ent.Position
     local index = REVEL.room:GetGridIndex(pos)
-    if currentRoom and (currentRoom.PersistentData.DuneTileFrames and currentRoom.PersistentData.DuneTileFrames[tostring(index)]) then
+    if currentRoom and (currentRoom.PersistentData.DuneTileFrames and currentRoom.PersistentData.DuneTileFrames[index]) then
         return true
     end
     return false

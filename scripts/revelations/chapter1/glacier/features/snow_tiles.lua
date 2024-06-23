@@ -9,31 +9,22 @@ function REVEL.Glacier.SnowTile(index)
     local grid = REVEL.room:GetGridEntity(index)
     if grid and grid.Desc.Type == GridEntityType.GRID_WALL then return end
 
-    local numIndex, strIndex
-
-    if type(index) ~= "string" then 
-        numIndex = math.floor(index)
-        strIndex = tostring(numIndex)
-    else
-        strIndex = index
-        numIndex = math.floor(tonumber(index))
-    end
 
     local currentRoom = StageAPI.GetCurrentRoom()
     if currentRoom then
         if not currentRoom.PersistentData.SnowedTiles then currentRoom.PersistentData.SnowedTiles = {} end
 
-        local fragileIce = StageAPI.GetCustomGrid(numIndex, REVEL.GRIDENT.FRAGILE_ICE.Name)
+        local fragileIce = StageAPI.GetCustomGrid(index, REVEL.GRIDENT.FRAGILE_ICE.Name)
         if fragileIce then
             fragileIce:Remove(false)
         end
         if currentRoom.PersistentData.FragileIce then
-            currentRoom.PersistentData.FragileIce[strIndex] = nil
+            currentRoom.PersistentData.FragileIce[index] = nil
         end
 
         local iceWorms = REVEL.ENT.ICE_WORM:getInRoom()
         for _, e in ipairs(iceWorms) do
-            if tostring(REVEL.room:GetGridIndex(e.Position)) == numIndex then
+            if tostring(REVEL.room:GetGridIndex(e.Position)) == index then
                 e:Kill()
             end
         end
@@ -46,11 +37,11 @@ function REVEL.Glacier.SnowTile(index)
             grid:ToPit():MakeBridge(grid)
         end
 
-        if not currentRoom.PersistentData.SnowedTiles[strIndex] then
-            currentRoom.PersistentData.SnowedTiles[strIndex] = val
+        if not currentRoom.PersistentData.SnowedTiles[index] then
+            currentRoom.PersistentData.SnowedTiles[index] = val
             return true
         else --just update type, not a new snow tile though
-            currentRoom.PersistentData.SnowedTiles[strIndex] = val
+            currentRoom.PersistentData.SnowedTiles[index] = val
         end
     end
 
@@ -60,30 +51,20 @@ end
 function REVEL.Glacier.RemoveSnowTile(index)
     local currentRoom = StageAPI.GetCurrentRoom()
     if currentRoom.PersistentData.SnowedTiles then
-        local strIndex
-        local numIndex
-
-        if type(index) == "string" then 
-            strIndex = index
-            numIndex = math.floor(tonumber(strIndex))
-        else
-            numIndex = math.floor(index)
-            strIndex = tostring(index)
-        end
         -- REVEL.DebugLog("RemoveSnowTile", index, strIndex, currentRoom.PersistentData.SnowedTiles[strIndex])
 
-        if currentRoom.PersistentData.SnowedTiles[strIndex] then 
-            if currentRoom.PersistentData.SnowedTiles[strIndex] == SNOW_TILE_PIT then
-                local grid = REVEL.room:GetGridEntity(numIndex)
+        if currentRoom.PersistentData.SnowedTiles[index] then 
+            if currentRoom.PersistentData.SnowedTiles[index] == SNOW_TILE_PIT then
+                local grid = REVEL.room:GetGridEntity(index)
                     
                 if grid and grid.Desc.Type == GridEntityType.GRID_PIT and grid.State == PitState.PIT_BRIDGE then
                     grid.State = PitState.PIT_NORMAL
                     grid.CollisionClass = GridCollisionClass.COLLISION_PIT
-                    StageAPI.BridgedPits[numIndex] = nil
+                    StageAPI.BridgedPits[index] = nil
                 end
             end
 
-            currentRoom.PersistentData.SnowedTiles[strIndex] = nil
+            currentRoom.PersistentData.SnowedTiles[index] = nil
             return true
         end
     end
@@ -228,8 +209,7 @@ end
 function REVEL.LoadSnowedTiles(snowedTiles)
     if not snowedTiles then return end
 
-    for strindex, type in pairs(snowedTiles) do
-        local index = tonumber(strindex)
+    for index, type in pairs(snowedTiles) do
         if type == 1 then --was ice pit
             SpawnIceSnowTileEffectGround(index)
             --e:AddEntityFlags(EntityFlag.FLAG_RENDER_FLOOR)
@@ -248,8 +228,7 @@ local function snowTile_PostEffectRender(_, effect, renderOffset)
     if currentRoom and currentRoom.PersistentData.SnowedTiles then
         local snowTileSprite = REVEL.LevelSprite(SnowTileSpriteParams)
         local offset = -REVEL.game.ScreenShakeOffset
-        for strindex, _ in pairs(currentRoom.PersistentData.SnowedTiles) do
-            local index = tonumber(strindex)
+        for index, _ in pairs(currentRoom.PersistentData.SnowedTiles) do
             local pos = REVEL.room:GetGridPosition(index)
             local screenPos = Isaac.WorldToScreen(pos) 
             snowTileSprite:Render(screenPos + offset)

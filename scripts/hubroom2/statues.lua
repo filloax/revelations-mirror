@@ -45,7 +45,7 @@ StageAPI.AddCallback("Hub2.0", "POST_SPAWN_CUSTOM_GRID", 1, function(customGrid)
 	local persistData = customGrid.PersistentData
 	
 	-- check if statue already exists and sync to that
-	for _,statueData in ipairs(hub2.data.run.level.hub2Statues) do
+	for _, statueData in ipairs(hub2.data.run.level.hub2Statues) do
 		if statueData.Index == spawnIndex then
 			persistData.StatueId = statueData.StatueId
 			persistData.IsStatueBroken = statueData.IsBroken

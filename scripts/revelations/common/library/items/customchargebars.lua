@@ -237,18 +237,17 @@ function REVEL.SetCharge(a, p, blink, itemId)
     if p:IsSubPlayer() then
         p = REVEL.players[REVEL.GetPlayerID(p)]
     end
-    local data = REVEL.GetData(p)
-    local stringItemId = tostring(itemId)
+    local data = p:GetData()
 
     local maxCharge = REVEL.GetMaxCharge(p, false, itemId)
 
     local playerID = REVEL.GetPlayerID(p)
-    local prevCharge = revel.data.run.customActiveCharge[playerID][stringItemId] or maxCharge
+    local prevCharge = revel.data.run.customActiveCharge[playerID][itemId] or maxCharge
 
     if not a then return end
-    revel.data.run.customActiveCharge[playerID][stringItemId] = math.max(0, math.min( maxCharge, a ) )
+    revel.data.run.customActiveCharge[playerID][itemId] = math.max(0, math.min( maxCharge, a ) )
 
-    if revel.data.run.customActiveCharge[playerID][stringItemId] == 0 then
+    if revel.data.run.customActiveCharge[playerID][itemId] == 0 then
         local c = 0
 
         if batteryInfluence[itemId] then
@@ -258,12 +257,12 @@ function REVEL.SetCharge(a, p, blink, itemId)
             c = c * batteryInfluence[itemId]
         end
 
-        revel.data.run.customActiveCharge[playerID][stringItemId] = math.min(c, REVEL.GetMaxCharge(p, true, itemId) - 1)
+        revel.data.run.customActiveCharge[playerID][itemId] = math.min(c, REVEL.GetMaxCharge(p, true, itemId) - 1)
     end
 
-    if (blink == true or blink == nil) and revel.data.run.customActiveCharge[playerID][stringItemId] > prevCharge then
+    if (blink == true or blink == nil) and revel.data.run.customActiveCharge[playerID][itemId] > prevCharge then
         REVEL.ChargeBlink(p)
-        if prevCharge < REVEL.GetMaxCharge(p, true, itemId) and revel.data.run.customActiveCharge[playerID][stringItemId] >= REVEL.GetMaxCharge(p, true, itemId) then
+        if prevCharge < REVEL.GetMaxCharge(p, true, itemId) and revel.data.run.customActiveCharge[playerID][itemId] >= REVEL.GetMaxCharge(p, true, itemId) then
             SFXManager():Play(SoundEffect.SOUND_ITEMRECHARGE, 0.8, 0, false, 1)
         else
             SFXManager():Play(SoundEffect.SOUND_BEEP, 0.8, 0, false, 1)
@@ -297,7 +296,7 @@ function REVEL.GetCharge(p, itemId)
         error("GetCharge: playerID not set yet!", 2)
     end
 
-    return chargeTbl[tostring(itemId)]
+    return chargeTbl[itemId]
 end
 
 function REVEL.GetMaxCharge(p, base, itemId)

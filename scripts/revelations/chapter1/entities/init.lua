@@ -949,7 +949,7 @@ do
     end
 
     revel:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, function(_, e)
-        if e.Variant == REVEL.ENT.ICE_CREEP.variant and REVEL.GetData(e).icecreep then
+        if REVEL.GetData(e).icecreep then
             if e.Timeout <= 0 then
                 local data = REVEL.GetData(e)
                 data.StartColor = data.StartColor or e.Color
@@ -965,7 +965,7 @@ do
                 UpdateIceCreepColor(e)
             end
         end
-    end)
+    end, REVEL.ENT.ICE_CREEP.variant)
 
     function REVEL.UpdateCreepSize(creep, size, changeAnim)
         local data, sprite = REVEL.GetData(creep), creep:GetSprite()

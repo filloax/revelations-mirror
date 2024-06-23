@@ -2641,7 +2641,7 @@ do -- Narcissus 2
 
             if currentRoom.PersistentData.TheLostMirrorBoss then
                 REVEL.FlamingTombs.SpawnDoor(true)
-                REVEL.music:PlayJingle(REVEL.MUSIC.SPECIAL_NARC_REWARD_JINGLE)
+                REVEL.PlayJingleForRoom(REVEL.MUSIC.SPECIAL_NARC_REWARD_JINGLE)
             end
         end
     end, REVEL.ENT.NARCISSUS_2.id)

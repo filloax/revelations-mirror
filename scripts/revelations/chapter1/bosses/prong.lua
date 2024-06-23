@@ -978,9 +978,8 @@ local function BreakAllSnowBridges()
     end
     local currentRoom = StageAPI.GetCurrentRoom()
     if currentRoom and currentRoom.PersistentData.SnowedTiles then
-        for strIndex, _ in pairs(currentRoom.PersistentData.SnowedTiles) do
-            local index = tonumber(strIndex)
-            if REVEL.Glacier.RemoveSnowTile(strIndex) then
+        for index, _ in pairs(currentRoom.PersistentData.SnowedTiles) do
+            if REVEL.Glacier.RemoveSnowTile(index) then
                 SpawnBrokenSnowParticles(REVEL.room:GetGridPosition(index))
             end
         end

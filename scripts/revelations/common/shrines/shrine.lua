@@ -185,7 +185,7 @@ local function TriggerMistake()
 
     REVEL.AddShrineVanity(REVEL.ShrineBalance.MistakeExtra)
 
-    revel.data.run.madeAMistake[tostring(REVEL.GetStageChapter())] = true
+    revel.data.run.madeAMistake[REVEL.GetStageChapter()] = true
 
     -- StageAPI.PlayTextStreak("You've made a mistake", nil, nil, nil, "gfx/ui/effect_cursepaper.png", Vector(124, 14), REVEL.CurseFont, nil, KColor(0, 0, 0, 1))
     REVEL.game:GetHUD():ShowItemText("You've made a mistake", "+ " .. randomShrineData.DisplayName)
@@ -531,7 +531,7 @@ local lastPlayerPosUpdateRoomID
 local setShrineRoomNext = false
 
 local function AddShrineRoomIcon(mroom)
-    if not REVEL.includes(mroom.PermanentIcons, "Shrine Room") then
+    if mroom and not REVEL.includes(mroom.PermanentIcons, "Shrine Room") then
         table.insert(mroom.PermanentIcons, "Shrine Room")
     end
 end

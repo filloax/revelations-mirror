@@ -143,7 +143,7 @@ revel:AddCallback(ModCallbacks.MC_POST_PLAYER_RENDER, function(_, player)
         data.dynFChargeFrame = nil
         setDynamoPhase(player, data, 7)
         SFXManager():Play(REVEL.SFX.ELECTRICAL_EXPLOSION, 1, 0, false, 1)
-        REVEL.SpawnCustomGlow(player) --no args needed, the dynamo configuration is the default one (spawn discharge sprite)
+        REVEL.SpawnCustomGlow(player, "default", "gfx/itemeffects/revelcommon/dynamo_effect.anm2")
         data.Dynamo.Charge = -40
 
         if Options.ChargeBars then

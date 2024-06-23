@@ -1,6 +1,7 @@
 local MinimapAPI = require("scripts.minimapapi")
 local cache = require("scripts.minimapapi.cache")
 local constants = require("scripts.minimapapi.constants")
+local Callbacks = require("scripts.minimapapi.callbacks")
 local CALLBACK_PRIORITY = constants.CALLBACK_PRIORITY
 require("scripts.minimapapi.apioverride")
 
@@ -537,13 +538,21 @@ function MinimapAPI:GetCurrentRoomGridIDs()
 end
 
 function MinimapAPI:RunPlayerPosCallbacks()
+	local currentRoom = MinimapAPI:GetCurrentRoom()
+	local returnVal = Isaac.RunCallback(Callbacks.PLAYER_POS_CHANGED, currentRoom, playerMapPos)
+	if returnVal then
+		playerMapPos = returnVal
+		return returnVal
+	end
+
+	-- still run old callbacks for backwards compatibility
 	for _, v in ipairs(callbacks_playerpos) do
 		local s, ret
 		-- backwards compatibility mode, pass mod reference
 		if v.modReference then
-			s, ret = pcall(v.call, v.modReference, MinimapAPI:GetCurrentRoom(), playerMapPos)
+			s, ret = pcall(v.call, v.modReference, currentRoom, playerMapPos)
 		else
-			s, ret = pcall(v.call, MinimapAPI:GetCurrentRoom(), playerMapPos)
+			s, ret = pcall(v.call, currentRoom, playerMapPos)
 		end
 		if s then
 			if ret then
@@ -557,6 +566,12 @@ function MinimapAPI:RunPlayerPosCallbacks()
 end
 
 function MinimapAPI:RunDisplayFlagsCallbacks(room, df)
+	local returnVal = Isaac.RunCallback(Callbacks.GET_DISPLAY_FLAGS, room, df)
+	if returnVal then
+		return returnVal
+	end
+
+	-- still run old callbacks for backwards compatibility
 	for _, v in ipairs(callbacks_displayflags) do
 		local s, ret
 		-- backwards compatibility mode, pass mod reference
@@ -578,6 +593,13 @@ function MinimapAPI:RunDisplayFlagsCallbacks(room, df)
 end
 
 function MinimapAPI:RunDimensionCallbacks()
+	local returnVal = Isaac.RunCallback(Callbacks.GET_DIMENSION, MinimapAPI.CurrentDimension)
+	if returnVal then
+		MinimapAPI.CurrentDimension = returnVal
+		return returnVal
+	end
+
+	-- still run old callbacks for backwards compatibility
 	for _, v in ipairs(callbacks_dimension) do
 		local s, ret
 		-- backwards compatibility mode, pass mod reference
@@ -1287,11 +1309,13 @@ function MinimapAPI:IsModTable(modtable)
 end
 
 -- Callbacks
+-- it's recommended to use the vanilla callback system, old functions are kept as follows for backwards compatibility
 -- try to handle both using a mod table as key
 -- for backwards compatibility, and using a string
 
 -- Use of a string as key or something else that doesn't change between
 -- mod reloads is recommended
+---@deprecated Use vanilla callbacks as defined in callbacks.lua
 function MinimapAPI:AddPlayerPositionCallback(modkey, func)
 	local modtable
 
@@ -1309,6 +1333,7 @@ end
 
 -- Use of a string as key or something else that doesn't change between
 -- mod reloads is recommended
+---@deprecated Use vanilla callbacks as defined in callbacks.lua
 function MinimapAPI:AddDisplayFlagsCallback(modkey, func)
 	local modtable
 
@@ -1326,6 +1351,7 @@ end
 
 -- Use of a string as key or something else that doesn't change between
 -- mod reloads is recommended
+---@deprecated Use vanilla callbacks as defined in callbacks.lua
 function MinimapAPI:AddDimensionCallback(modkey, func)
 	local modtable
 
@@ -1341,6 +1367,7 @@ function MinimapAPI:AddDimensionCallback(modkey, func)
 	}
 end
 
+---@deprecated Use vanilla callbacks as defined in callbacks.lua
 function MinimapAPI:RemoveAllCallbacks(modkey)
 	MinimapAPI:RemovePlayerPositionCallbacks(modkey)
 	MinimapAPI:RemoveDisplayFlagsCallbacks(modkey)
@@ -1364,19 +1391,22 @@ local function RemoveFromCallbackTable(tbl, modkey)
 	end
 end
 
+---@deprecated Use vanilla callbacks as defined in callbacks.lua
 function MinimapAPI:RemovePlayerPositionCallbacks(modkey)
 	RemoveFromCallbackTable(callbacks_playerpos, modkey)
 end
 
----@deprecated
+---@deprecated Use vanilla callbacks as defined in callbacks.lua
 function MinimapAPI:RemovePlayerPositionCallback(modkey)
 	MinimapAPI:RemovePlayerPositionCallbacks(modkey)
 end
 
+---@deprecated Use vanilla callbacks as defined in callbacks.lua
 function MinimapAPI:RemoveDisplayFlagsCallbacks(modkey)
 	RemoveFromCallbackTable(callbacks_displayflags, modkey)
 end
 
+---@deprecated Use vanilla callbacks as defined in callbacks.lua
 function MinimapAPI:RemoveDimensionCallbacks(modkey)
 	RemoveFromCallbackTable(callbacks_dimension, modkey)
 end
@@ -1693,30 +1723,23 @@ function MinimapAPI:FirstMapDisplayMode()
 	end
 end
 
-MinimapAPI:AddCallbackFunc(ModCallbacks.MC_POST_UPDATE, CALLBACK_PRIORITY, function() -- this is the most accurate I believe it can be
+MinimapAPI:AddCallbackFunc(ModCallbacks.MC_INPUT_ACTION, CALLBACK_PRIORITY, function(_, entity, _, buttonAction)
 
-	local mapheld = false
-	for i=0, Game():GetNumPlayers()-1 do
-		local player = Isaac.GetPlayer(i)
-		if Input.IsActionPressed(ButtonAction.ACTION_MAP, player.ControllerIndex) then -- without repentogon, desyncs can still happen i believe due to input being polled at different times than vanilla, which can't be fixed
-			mapheld = true
-			break
+	if entity and buttonAction == ButtonAction.ACTION_MAP then
+		local player = entity:ToPlayer()
+		if player then
+			if Input.IsActionPressed(ButtonAction.ACTION_MAP, player.ControllerIndex) then
+				mapheldframes = mapheldframes + 1
+			elseif mapheldframes > 0 then
+				if mapheldframes <= 8 or (MinimapAPI:GetConfig("DisplayMode") == 3 and mapheldframes == 9) then -- this is dumb but for some reason it works
+					MinimapAPI:NextMapDisplayMode()
+				end
+
+				mapheldframes = 0
+			end
 		end
 	end
-	if mapheld then
-		if REPENTOGON then
-			mapheldframes = Minimap.GetHoldTime() -- from testing this fixes all desyncs by properly syncing them if they are mismatched
-		else
-			mapheldframes = mapheldframes + 1
-		end
-	elseif mapheldframes > 0 then
-		if mapheldframes < 9 then
-			MinimapAPI:NextMapDisplayMode()
-		end
-
-		mapheldframes = 0
-	end
-end)
+end, InputHook.IS_ACTION_PRESSED)
 
 local defaultColor = Color(1, 1, 1, 1, 0, 0, 0)
 local function updateMinimapIcon(spr, t)
@@ -2115,7 +2138,6 @@ function MinimapAPI:renderRoomShadows(useCutOff)
 	local screen_size = MinimapAPI:GetScreenTopRight()
 	local offsetVec = Vector( screen_size.X - MinimapAPI:GetConfig("MapFrameWidth") - MinimapAPI:GetConfig("PositionX") + outlinePixelSize.X, screen_size.Y + MinimapAPI:GetConfig("PositionY") - outlinePixelSize.Y/2 - 2)
 
-
 	local sprite = not MinimapAPI:IsLarge() and MinimapAPI.SpriteMinimapSmall or MinimapAPI.SpriteMinimapLarge
 	sprite.Color = defaultOutlineColor
 	sprite:SetFrame("RoomOutline", 1)
@@ -2183,7 +2205,7 @@ local function renderCallbackFunction(_)
 	end
 
 	--Hide during StageAPI reimplemented stage transition
-	if MinimapAPI.UsingStageAPIPostHUDRender and StageAPI.TransitionAnimationData.State == 2 then
+	if MinimapAPI.UsingPostHUDRender and StageAPI.TransitionAnimationData.State == 2 then
 		return
 	end
 

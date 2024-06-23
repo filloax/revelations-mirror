@@ -17,10 +17,7 @@ function REVEL.SetCommonMusicForStage(stage)
     stage:SetMusic(REVEL.MUSIC.SECRET, RoomType.ROOM_SUPERSECRET)
     -- Set in sin file via callback
 
-    -- TEMP: remove if when PR merged
-    if stage.SetMinibossMusic then
-        stage:SetMinibossMusic(Music.MUSIC_BOSS, REVEL.MUSIC.BOSS_CALM)
-    end
+    stage:SetMinibossMusic(Music.MUSIC_BOSS, REVEL.MUSIC.BOSS_CALM)
 end
 
 -- Treasure

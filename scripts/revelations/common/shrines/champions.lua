@@ -31,7 +31,7 @@ end
 
 -- Has chance even without shrine
 function REVEL.GetRevBossChampionChance()
-    if revel.data.run.madeAMistake[tostring(REVEL.GetStageChapter())] then
+    if revel.data.run.madeAMistake[REVEL.GetStageChapter()] then
         return 1
     end
 

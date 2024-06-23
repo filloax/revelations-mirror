@@ -64,8 +64,8 @@ local States = {
 }
 
 local function SaveSaveData(machine, data)
-    local roomID = tostring(StageAPI.GetCurrentRoomID())
-    local entityID = tostring(REVEL.room:GetGridIndex(machine.Position))
+    local roomID = StageAPI.GetCurrentRoomID()
+    local entityID = REVEL.room:GetGridIndex(machine.Position)
 
     if not revel.data.run.level.statwheelData[roomID] then
         revel.data.run.level.statwheelData[roomID] = {}
@@ -79,8 +79,8 @@ local function SaveSaveData(machine, data)
 end
 
 local function LoadSaveData(machine)
-    local roomID = tostring(StageAPI.GetCurrentRoomID())
-    local entityID = tostring(REVEL.room:GetGridIndex(machine.Position))
+    local roomID = StageAPI.GetCurrentRoomID()
+    local entityID = REVEL.room:GetGridIndex(machine.Position)
 
     local saveData = revel.data.run.level.statwheelData[roomID] and
         revel.data.run.level.statwheelData[roomID][entityID]

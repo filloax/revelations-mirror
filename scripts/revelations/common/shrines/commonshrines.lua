@@ -105,8 +105,7 @@ for k, v in pairs(PunishmentCharCollectibleBlacklist) do
     PunishmentCharCollectibleBlacklist[k] = REVEL.toSet(v)
 end
 
-local function FilterPunishmentItems(player, sid)
-    local id = tonumber(sid)
+local function FilterPunishmentItems(player, id)
     return not PunishmentCollectibleBlacklist[id]
         and player:HasCollectible(id,true) -- avoid some inventory bugs
         and player:GetActiveItem(ActiveSlot.SLOT_POCKET) ~= id
@@ -136,8 +135,8 @@ REVEL.AddCommonShrine {
         return REVEL.some(REVEL.players, function(player)
             local inventory = revel.data.run.inventory[REVEL.GetPlayerID(player)]
             local itemCount = revel.data.run.itemCount[REVEL.GetPlayerID(player)]
-            for sid, num in pairs(inventory) do
-                if not FilterPunishmentItems(player, sid) then
+            for id, num in pairs(inventory) do
+                if not FilterPunishmentItems(player, id) then
                     itemCount = itemCount - num
                 end
             end
@@ -150,8 +149,8 @@ REVEL.AddCommonShrine {
         local closestPlayerWithItems = REVEL.getClosestInTable(REVEL.filter(REVEL.players, function(player)
                 local inventory = revel.data.run.inventory[REVEL.GetPlayerID(player)]
                 local itemCount = revel.data.run.itemCount[REVEL.GetPlayerID(player)]
-                for sid, num in pairs(inventory) do
-                    if not FilterPunishmentItems(player, sid) then
+                for id, num in pairs(inventory) do
+                    if not FilterPunishmentItems(player, id) then
                         itemCount = itemCount - num
                     end
                 end
@@ -169,11 +168,11 @@ REVEL.AddCommonShrine {
         local player = REVEL.GetData(npc).TriggerPlayer
         local inventory = revel.data.run.inventory[REVEL.GetPlayerID(player)]
 
-        local itemID = tonumber(REVEL.randomFrom(
-                REVEL.filter(REVEL.keys(inventory), function(sid)
-                    return FilterPunishmentItems(player, sid)
+        local itemID = REVEL.randomFrom(
+                REVEL.filter(REVEL.keys(inventory), function(id)
+                    return FilterPunishmentItems(player, id)
                 end)
-            ))
+            )
 
         player:RemoveCollectible(itemID)
 

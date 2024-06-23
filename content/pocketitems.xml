@@ -1,9 +1,9 @@
 <pocketitems>
 	<!--                                      Cards                                   -->
-	<!--Lottery Ticket--><card name="Lottery Ticket" hud="55_LotteryTicket" description="I feel lucky" pickup="512" />
+	<!--Lottery Ticket--><card name="Lottery Ticket" hud="55_LotteryTicket" description="I feel lucky" pickup="778" />
 	
 	<!--                                  Runes / Other                              -->
-	<!--Bell Shard--><card type="object" name="Bell Shard" hud="BellShard" description="One last melody" pickup="513"/>
+	<!--Bell Shard--><card type="object" name="Bell Shard" hud="BellShard" description="One last melody" pickup="779"/>
 
 	<!--                                      PillEffects                                   -->
 </pocketitems>

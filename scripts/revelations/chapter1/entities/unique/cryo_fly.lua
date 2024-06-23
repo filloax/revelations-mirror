@@ -1,8 +1,13 @@
 return function()
 
 --Cryo Fly
+-- alt of lvl 2 fly
+
 local radius = 90
 local icePlusDistance = 1
+
+-- GetPitFramesFromIndices no stringify added after 2.29
+local ShouldConvertFrames = not REVEL.HasStageApiVersion("2.30")
 
 --Needs LoadIcePits() called after to work
 local function IceGrid(room, index, grid, changedFrames)
@@ -14,11 +19,20 @@ local function IceGrid(room, index, grid, changedFrames)
         local width = REVEL.room:GetGridWidth()
         local height = REVEL.room:GetGridHeight()
         local newPitFrames = {}
-        for strindex, frame in pairs(room.PersistentData.IcePitFrames) do
-            newPitFrames[tonumber(strindex)] = frame
+        for index, frame in pairs(room.PersistentData.IcePitFrames) do
+            newPitFrames[index] = frame
         end
         newPitFrames[index] = true
-        room.PersistentData.IcePitFrames = StageAPI.GetPitFramesFromIndices(newPitFrames, width, height, true)
+        local icePitFrames = StageAPI.GetPitFramesFromIndices(newPitFrames, width, height, true, true)
+
+        if ShouldConvertFrames then
+            room.PersistentData.IcePitFrames = {}
+            for k, v in pairs(icePitFrames) do
+                room.PersistentData.IcePitFrames[tonumber(k)] = v
+            end
+        else
+            room.PersistentData.IcePitFrames = icePitFrames
+        end
 
         local r = math.random(0, 2)
         for i = 1, r do
@@ -35,7 +49,7 @@ local function IceGrid(room, index, grid, changedFrames)
                         index - 1, index, index + 1,
                         index + width - 1, index + width, index + width + 1}
         for _, index in pairs(adjIndices) do
-            changedFrames[index] = room.PersistentData.IcePitFrames[tostring(index)]
+            changedFrames[index] = room.PersistentData.IcePitFrames[index]
         end
 
         local genEffects = Isaac.FindByType(StageAPI.E.GenericEffect.T, StageAPI.E.GenericEffect.V, -1, false, false)
